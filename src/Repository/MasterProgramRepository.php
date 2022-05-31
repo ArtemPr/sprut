@@ -42,9 +42,10 @@ class MasterProgramRepository extends ServiceEntityRepository
         }
     }
 
-    public function getApiList(int $page = 0, int|null $max_result = 0): array
+    public function getApiList(int $page = 0, int|null $max_result = 0, string|null $param = null): array
     {
         $entityManager = $this->getEntityManager();
+
         $max_result = (!empty($max_result) && $max_result > 1)
             ?
             $max_result

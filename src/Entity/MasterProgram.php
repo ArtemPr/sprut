@@ -2,12 +2,19 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\MasterProgramRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: MasterProgramRepository::class)]
+#[ApiResource(
+    collectionOperations: ['get'],
+    itemOperations: ['get'],
+    attributes: ['security' => "is_granted('ROLE_API_USER')", 'pagination_items_per_page' => 100],
+    paginationEnabled: true
+)]
 class MasterProgram
 {
     #[ORM\Id]
@@ -26,7 +33,7 @@ class MasterProgram
     #[ORM\Column(type: 'integer')]
     private $length_week;
 
-    #[ORM\Column(type: 'integer')]
+    #[ORM\ManyToOne(targetEntity: ProgramType::class, inversedBy: 'program')]
     private $program_type;
 
     #[ORM\Column(type: 'integer', nullable: true)]
@@ -110,17 +117,23 @@ class MasterProgram
         return $this;
     }
 
-    public function getProgramType(): ?int
+    /**
+     * @return mixed
+     */
+    public function getProgramType()
     {
         return $this->program_type;
     }
 
-    public function setProgramType(int $program_type): self
+    /**
+     * @param mixed $program_type
+     */
+    public function setProgramType($program_type): void
     {
         $this->program_type = $program_type;
-
-        return $this;
     }
+
+
 
     public function getLengthWeekShort(): ?int
     {
