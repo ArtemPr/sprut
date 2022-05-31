@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\MasterProgram;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -16,6 +17,8 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class MasterProgramRepository extends ServiceEntityRepository
 {
+    const ON_PAGE = 20;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, MasterProgram::class);
@@ -39,28 +42,33 @@ class MasterProgramRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return MasterProgram[] Returns an array of MasterProgram objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('m')
-//            ->andWhere('m.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('m.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function getList(int $page = 0, int|null $max_result = 0): array
+    {
+        $entityManager = $this->getEntityManager();
+        $max_result = (!empty($max_result) && $max_result > 1)
+            ?
+            $max_result
+            :
+            self::ON_PAGE;
 
-//    public function findOneBySomeField($value): ?MasterProgram
-//    {
-//        return $this->createQueryBuilder('m')
-//            ->andWhere('m.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        $query_item = $entityManager->createQuery(
+            'SELECT pr
+                FROM App\Entity\MasterProgram pr'
+        )->setMaxResults($max_result)->setFirstResult($page * $max_result);
+
+        return $query_item->getResult(Query::HYDRATE_ARRAY) ?? [];
+    }
+
+    public function getProgramInfo(): array
+    {
+        $entityManager = $this->getEntityManager();
+        $query_item = $entityManager->createQuery(
+            'SELECT COUNT(pr) AS count_program
+                FROM App\Entity\MasterProgram pr'
+        );
+
+        $out =  $query_item->getResult(Query::HYDRATE_ARRAY) ?? [];
+
+        return $out[0] ?? [];
+    }
 }
