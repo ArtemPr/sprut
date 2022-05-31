@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\MasterProgram;
+use App\Entity\TrainingCenters;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,7 +16,7 @@ class ApiController extends AbstractController
     #[Route('/program_info', name: 'api_get_program_info', methods: ['GET'])]
     public function getProgramInfo(ManagerRegistry $doctrine)
     {
-        $result =$doctrine->getRepository(MasterProgram::class)->getProgramInfo();
+        $result = $doctrine->getRepository(MasterProgram::class)->getApiProgramInfo();
 
         return $this->render('api/index.html.twig', [
             'out' => $this->convertJson($result ?? ['error' => 'no results'])
@@ -26,19 +27,17 @@ class ApiController extends AbstractController
     public function getProgramsList(ManagerRegistry $doctrine): Response
     {
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
-        // Номер страницы
+
         $page = (int)($request->get('page') ?? 1);
-        if($page > 0) {
+        if ($page > 0) {
             $page = $page - 1;
         } else {
             return $this->render('api/index.html.twig', ['out' => $this->convertJson(['error' => 'no results'])]);
         }
-
-        // Кол-во выводимых програм
         $max_result = $request->get('max_result') ?? null;
 
 
-        $result =$doctrine->getRepository(MasterProgram::class)->getList((int)$page, $max_result);
+        $result = $doctrine->getRepository(MasterProgram::class)->getApiList((int)$page, $max_result);
 
         foreach ($result as $val) {
             $out[] = [
@@ -60,9 +59,9 @@ class ApiController extends AbstractController
     #[Route('/program/{id}', name: 'api_get_program', methods: ['GET'])]
     public function getProgram(ManagerRegistry $doctrine, int $id): Response
     {
-        $val = $doctrine->getRepository(MasterProgram::class)->findBy(['id'=>$id]);
+        $val = $doctrine->getRepository(MasterProgram::class)->findBy(['id' => $id]);
 
-        if(!empty($val[0])) {
+        if (!empty($val[0])) {
             $val = $val[0];
             $out[] = [
                 'program_id' => $val->getId() ?? false,
@@ -79,29 +78,22 @@ class ApiController extends AbstractController
         ]);
     }
 
+    #[Route('/training_centre_short', name: 'api_get_training_centre_short', methods: ['GET'])]
+    public function getTrainingCentre(ManagerRegistry $doctrine): Response
+    {
+        $result = $doctrine->getRepository(TrainingCenters::class)->findAll();
 
+        foreach ($result as $val) {
+            $out[] = [
+                'centre_id' => $val->getId(),
+                'centre_name' => \mb_convert_encoding($val->getName(), 'utf8'),
+            ];
+        }
 
-
-
-//    #[Route('/api/training_centre', name: 'app_api_training_centre')]
-//    public function getTrainingCentre(ManagerRegistry $doctrine): Response
-//    {
-//        $out = [];
-//
-//        $result =$doctrine->getRepository(TrainingCenters::class)->findAll();
-//
-//        foreach ($result as $val) {
-//            $out[] = [
-//                'centre_id' => $val->getId(),
-//                'centre_name' => \mb_convert_encoding($val->getName(), 'utf8'),
-//            ];
-//        }
-//
-//        return $this->render('api/index.html.twig', [
-//            'out' => $this->convertJson($out)
-//        ]);
-//    }
-
+        return $this->render('api/index.html.twig', [
+            'out' => $this->convertJson($out ?? ['error' => 'no results'])
+        ]);
+    }
 
     private function convertJson(array $arr = [])
     {

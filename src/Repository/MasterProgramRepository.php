@@ -42,7 +42,7 @@ class MasterProgramRepository extends ServiceEntityRepository
         }
     }
 
-    public function getList(int $page = 0, int|null $max_result = 0): array
+    public function getApiList(int $page = 0, int|null $max_result = 0): array
     {
         $entityManager = $this->getEntityManager();
         $max_result = (!empty($max_result) && $max_result > 1)
@@ -59,7 +59,7 @@ class MasterProgramRepository extends ServiceEntityRepository
         return $query_item->getResult(Query::HYDRATE_ARRAY) ?? [];
     }
 
-    public function getProgramInfo(): array
+    public function getApiProgramInfo(): array
     {
         $entityManager = $this->getEntityManager();
         $query_item = $entityManager->createQuery(
