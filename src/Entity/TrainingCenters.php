@@ -1,11 +1,14 @@
 <?php
+/*
+ * Created AptPr <prudishew@yandex.ru> 2022.
+ */
+
+declare(strict_types=1);
 
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\TrainingCentersRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TrainingCentersRepository::class)]
@@ -24,9 +27,6 @@ class TrainingCenters
     #[ORM\Column(type: 'string', length: 255)]
     private $name;
 
-    #[ORM\ManyToMany(targetEntity: MasterProgram::class, mappedBy: 'training_center')]
-    private $masterPrograms;
-
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $phone;
 
@@ -42,11 +42,8 @@ class TrainingCenters
     #[ORM\Column(type: 'string', length: 20, nullable: true)]
     private $external_upload_sdo_id;
 
-
-    public function __construct()
-    {
-        $this->masterPrograms = new ArrayCollection();
-    }
+    #[ORM\ManyToOne(targetEntity: TrainingCentersRequisites::class, inversedBy: 'training_centre')]
+    private $trainingCentersRequisites;
 
     public function getId(): ?int
     {
@@ -66,36 +63,12 @@ class TrainingCenters
         return $this->name;
     }
 
+    /**
+     * @return $this
+     */
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, MasterProgram>
-     */
-    public function getMasterPrograms(): Collection
-    {
-        return $this->masterPrograms;
-    }
-
-    public function addMasterProgram(MasterProgram $masterProgram): self
-    {
-        if (!$this->masterPrograms->contains($masterProgram)) {
-            $this->masterPrograms[] = $masterProgram;
-            $masterProgram->addTrainingCenter($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMasterProgram(MasterProgram $masterProgram): self
-    {
-        if ($this->masterPrograms->removeElement($masterProgram)) {
-            $masterProgram->removeTrainingCenter($this);
-        }
 
         return $this;
     }
@@ -105,6 +78,9 @@ class TrainingCenters
         return $this->phone;
     }
 
+    /**
+     * @return $this
+     */
     public function setPhone(?string $phone): self
     {
         $this->phone = $phone;
@@ -117,6 +93,9 @@ class TrainingCenters
         return $this->email;
     }
 
+    /**
+     * @return $this
+     */
     public function setEmail(?string $email): self
     {
         $this->email = $email;
@@ -129,6 +108,9 @@ class TrainingCenters
         return $this->url;
     }
 
+    /**
+     * @return $this
+     */
     public function setUrl(?string $url): self
     {
         $this->url = $url;
@@ -152,15 +134,29 @@ class TrainingCenters
         $this->external_upload_bakalavrmagistr_id = $external_upload_bakalavrmagistr_id;
     }
 
-
     public function getExternalUploadSdoId(): ?string
     {
         return $this->external_upload_sdo_id;
     }
 
+    /**
+     * @return $this
+     */
     public function setExternalUploadSdoId(?string $external_upload_sdo_id): self
     {
         $this->external_upload_sdo_id = $external_upload_sdo_id;
+
+        return $this;
+    }
+
+    public function getTrainingCentersRequisites(): ?TrainingCentersRequisites
+    {
+        return $this->trainingCentersRequisites;
+    }
+
+    public function setTrainingCentersRequisites(?TrainingCentersRequisites $trainingCentersRequisites): self
+    {
+        $this->trainingCentersRequisites = $trainingCentersRequisites;
 
         return $this;
     }

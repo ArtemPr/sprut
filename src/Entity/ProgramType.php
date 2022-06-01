@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -33,6 +35,9 @@ class ProgramType
         return $this->name_type;
     }
 
+    /**
+     * @return $this
+     */
     public function setNameType(string $name_type): self
     {
         $this->name_type = $name_type;

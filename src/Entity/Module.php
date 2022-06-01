@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -33,6 +35,9 @@ class Module
         return $this->name;
     }
 
+    /**
+     * @return $this
+     */
     public function setName(string $name): self
     {
         $this->name = $name;

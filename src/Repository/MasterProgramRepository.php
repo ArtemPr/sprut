@@ -17,7 +17,7 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class MasterProgramRepository extends ServiceEntityRepository
 {
-    const ON_PAGE = 20;
+    public const ON_PAGE = 20;
 
     public function __construct(ManagerRegistry $registry)
     {
@@ -68,7 +68,7 @@ class MasterProgramRepository extends ServiceEntityRepository
                 FROM App\Entity\MasterProgram pr'
         );
 
-        $out =  $query_item->getResult(Query::HYDRATE_ARRAY) ?? [];
+        $out = $query_item->getResult(Query::HYDRATE_ARRAY) ?? [];
 
         return $out[0] ?? [];
     }

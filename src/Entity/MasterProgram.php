@@ -1,11 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\MasterProgramRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: MasterProgramRepository::class)]
@@ -24,9 +24,6 @@ class MasterProgram
     #[ORM\Column(type: 'text')]
     private $name;
 
-    #[ORM\ManyToMany(targetEntity: TrainingCenters::class, inversedBy: 'masterPrograms')]
-    private $training_center;
-
     #[ORM\Column(type: 'integer')]
     private $length_hour;
 
@@ -38,11 +35,6 @@ class MasterProgram
 
     #[ORM\Column(type: 'integer', nullable: true)]
     private $length_week_short;
-
-    public function __construct()
-    {
-        $this->training_center = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -62,33 +54,12 @@ class MasterProgram
         return $this->name;
     }
 
+    /**
+     * @return $this
+     */
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, TrainingCenters>
-     */
-    public function getTrainingCenter(): Collection
-    {
-        return $this->training_center;
-    }
-
-    public function addTrainingCenter(TrainingCenters $trainingCenter): self
-    {
-        if (!$this->training_center->contains($trainingCenter)) {
-            $this->training_center[] = $trainingCenter;
-        }
-
-        return $this;
-    }
-
-    public function removeTrainingCenter(TrainingCenters $trainingCenter): self
-    {
-        $this->training_center->removeElement($trainingCenter);
 
         return $this;
     }
@@ -98,6 +69,9 @@ class MasterProgram
         return $this->length_hour;
     }
 
+    /**
+     * @return $this
+     */
     public function setLengthHour(int $length_hour): self
     {
         $this->length_hour = $length_hour;
@@ -110,6 +84,9 @@ class MasterProgram
         return $this->length_week;
     }
 
+    /**
+     * @return $this
+     */
     public function setLengthWeek(int $length_week): self
     {
         $this->length_week = $length_week;
@@ -133,13 +110,14 @@ class MasterProgram
         $this->program_type = $program_type;
     }
 
-
-
     public function getLengthWeekShort(): ?int
     {
         return $this->length_week_short;
     }
 
+    /**
+     * @return $this
+     */
     public function setLengthWeekShort(?int $length_week_short): self
     {
         $this->length_week_short = $length_week_short;

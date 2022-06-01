@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -55,6 +57,9 @@ class Literature
         return $this->name;
     }
 
+    /**
+     * @return $this
+     */
     public function setName(string $name): self
     {
         $this->name = $name;
@@ -67,6 +72,9 @@ class Literature
         return $this->type;
     }
 
+    /**
+     * @return $this
+     */
     public function setType(int $type): self
     {
         $this->type = $type;
@@ -79,6 +87,9 @@ class Literature
         return $this->authors;
     }
 
+    /**
+     * @return $this
+     */
     public function setAuthors(?string $authors): self
     {
         $this->authors = $authors;
@@ -91,6 +102,9 @@ class Literature
         return $this->year;
     }
 
+    /**
+     * @return $this
+     */
     public function setYear(?int $year): self
     {
         $this->year = $year;
@@ -103,6 +117,9 @@ class Literature
         return $this->description;
     }
 
+    /**
+     * @return $this
+     */
     public function setDescription(?string $description): self
     {
         $this->description = $description;
@@ -115,6 +132,9 @@ class Literature
         return $this->link;
     }
 
+    /**
+     * @return $this
+     */
     public function setLink(?string $link): self
     {
         $this->link = $link;

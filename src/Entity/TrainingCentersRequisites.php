@@ -1,4 +1,9 @@
 <?php
+/*
+ * Created AptPr <prudishew@yandex.ru> 2022.
+ */
+
+declare(strict_types=1);
 
 namespace App\Entity;
 
@@ -21,9 +26,6 @@ class TrainingCentersRequisites
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\ManyToOne(inversedBy: 'training_centre_requisites', targetEntity: TrainingCenters::class)]
-    private $training_centre;
-
     #[ORM\Column(type: 'string', length: 255)]
     private $director;
 
@@ -45,8 +47,12 @@ class TrainingCentersRequisites
     #[ORM\Column(type: 'text', nullable: true)]
     private $address;
 
+    #[ORM\OneToMany(mappedBy: 'trainingCentersRequisites', targetEntity: TrainingCenters::class)]
+    private $training_centre;
+
     public function __construct()
     {
+        $this->training_centre = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -62,49 +68,14 @@ class TrainingCentersRequisites
         $this->id = $id;
     }
 
-    /**
-     * @return Collection<int, TrainingCenters>
-     */
-    public function getTrainingCentre()
-    {
-        return $this->training_centre;
-    }
-
-    /**
-     * @param ArrayCollection $training_centre
-     */
-    public function setTrainingCentre($training_centre): void
-    {
-        $this->training_centre = $training_centre;
-    }
-
-    public function addTrainingCentre(TrainingCenters $trainingCentre): self
-    {
-        if (!$this->training_centre->contains($trainingCentre)) {
-            $this->training_centre[] = $trainingCentre;
-            $trainingCentre->setTrainingCentersRequisites($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTrainingCentre(TrainingCenters $trainingCentre): self
-    {
-        if ($this->training_centre->removeElement($trainingCentre)) {
-            // set the owning side to null (unless already changed)
-            if ($trainingCentre->getTrainingCentersRequisites() === $this) {
-                $trainingCentre->setTrainingCentersRequisites(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getDirector(): ?string
     {
         return $this->director;
     }
 
+    /**
+     * @return $this
+     */
     public function setDirector(string $director): self
     {
         $this->director = $director;
@@ -117,6 +88,9 @@ class TrainingCentersRequisites
         return $this->director_position;
     }
 
+    /**
+     * @return $this
+     */
     public function setDirectorPosition(string $director_position): self
     {
         $this->director_position = $director_position;
@@ -129,6 +103,9 @@ class TrainingCentersRequisites
         return $this->from_date;
     }
 
+    /**
+     * @return $this
+     */
     public function setFromDate(?\DateTimeInterface $from_date): self
     {
         $this->from_date = $from_date;
@@ -141,6 +118,9 @@ class TrainingCentersRequisites
         return $this->short_name;
     }
 
+    /**
+     * @return $this
+     */
     public function setShortName(?string $short_name): self
     {
         $this->short_name = $short_name;
@@ -153,6 +133,9 @@ class TrainingCentersRequisites
         return $this->full_name;
     }
 
+    /**
+     * @return $this
+     */
     public function setFullName(?string $full_name): self
     {
         $this->full_name = $full_name;
@@ -165,6 +148,9 @@ class TrainingCentersRequisites
         return $this->city;
     }
 
+    /**
+     * @return $this
+     */
     public function setCity(?string $city): self
     {
         $this->city = $city;
@@ -177,9 +163,48 @@ class TrainingCentersRequisites
         return $this->address;
     }
 
+    /**
+     * @return $this
+     */
     public function setAddress(?string $address): self
     {
         $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, TrainingCenters>
+     */
+    public function getTrainingCentre(): Collection
+    {
+        return $this->training_centre;
+    }
+
+    /**
+     * @return $this
+     */
+    public function addTrainingCentre(TrainingCenters $trainingCentre): self
+    {
+        if (!$this->training_centre->contains($trainingCentre)) {
+            $this->training_centre[] = $trainingCentre;
+            $trainingCentre->setTrainingCentersRequisites($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function removeTrainingCentre(TrainingCenters $trainingCentre): self
+    {
+        if ($this->training_centre->removeElement($trainingCentre)) {
+            // set the owning side to null (unless already changed)
+            if ($trainingCentre->getTrainingCentersRequisites() === $this) {
+                $trainingCentre->setTrainingCentersRequisites(null);
+            }
+        }
 
         return $this;
     }
