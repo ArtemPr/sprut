@@ -14,12 +14,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TrainingCentersRequisitesRepository::class)]
-#[ApiResource(
-    collectionOperations: ['get'],
-    itemOperations: ['get'],
-    attributes: ['security' => "is_granted('ROLE_API_USER')", 'pagination_items_per_page' => 100],
-    paginationEnabled: true
-)]
 class TrainingCentersRequisites
 {
     #[ORM\Id]
@@ -47,13 +41,8 @@ class TrainingCentersRequisites
     #[ORM\Column(type: 'text', nullable: true)]
     private $address;
 
-    #[ORM\OneToMany(mappedBy: 'trainingCentersRequisites', targetEntity: TrainingCenters::class)]
+    #[ORM\ManyToOne(targetEntity: TrainingCenters::class, inversedBy: 'trainingCentersRequisites')]
     private $training_centre;
-
-    public function __construct()
-    {
-        $this->training_centre = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -173,39 +162,13 @@ class TrainingCentersRequisites
         return $this;
     }
 
-    /**
-     * @return Collection<int, TrainingCenters>
-     */
-    public function getTrainingCentre(): Collection
+    public function getTrainingCentre(): ?TrainingCenters
     {
         return $this->training_centre;
     }
 
-    /**
-     * @return $this
-     */
-    public function addTrainingCentre(TrainingCenters $trainingCentre): self
+    public function setTrainingCentre(?TrainingCenters $training_centre)
     {
-        if (!$this->training_centre->contains($trainingCentre)) {
-            $this->training_centre[] = $trainingCentre;
-            $trainingCentre->setTrainingCentersRequisites($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return $this
-     */
-    public function removeTrainingCentre(TrainingCenters $trainingCentre): self
-    {
-        if ($this->training_centre->removeElement($trainingCentre)) {
-            // set the owning side to null (unless already changed)
-            if ($trainingCentre->getTrainingCentersRequisites() === $this) {
-                $trainingCentre->setTrainingCentersRequisites(null);
-            }
-        }
-
-        return $this;
+        $this->training_centre = $training_centre;
     }
 }

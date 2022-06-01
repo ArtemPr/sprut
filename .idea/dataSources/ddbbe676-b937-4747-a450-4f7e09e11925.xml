@@ -1440,7 +1440,7 @@ true posixrules
 13131||10|C|G
 13131||-9223372036854775808|U|G
 13131||10|U|G</Grants>
-      <IntrospectionStateNumber>70123</IntrospectionStateNumber>
+      <IntrospectionStateNumber>70220</IntrospectionStateNumber>
       <ObjectId>23647</ObjectId>
       <Relations>sequence|table|23665|23667|1
 </Relations>
@@ -4672,7 +4672,7 @@ true posixrules
     <schema id="252" parent="6" name="public">
       <Comment>standard public schema</Comment>
       <Current>1</Current>
-      <IntrospectionStateNumber>70123</IntrospectionStateNumber>
+      <IntrospectionStateNumber>70220</IntrospectionStateNumber>
       <ObjectId>2200</ObjectId>
       <StateNumber>275</StateNumber>
       <OwnerName>postgres</OwnerName>
@@ -4705,127 +4705,115 @@ true posixrules
       <StateNumber>32777</StateNumber>
       <OwnerName>sprut</OwnerName>
     </sequence>
-    <sequence id="257" parent="252" name="training_centers_requisites_id_seq">
-      <DataType>bigint|0s</DataType>
-      <ObjectId>23944</ObjectId>
-      <StateNumber>70077</StateNumber>
-      <OwnerName>sprut</OwnerName>
-    </sequence>
-    <sequence id="258" parent="252" name="training_plan_id_seq">
+    <sequence id="257" parent="252" name="training_plan_id_seq">
       <DataType>bigint|0s</DataType>
       <ObjectId>23741</ObjectId>
       <StateNumber>40984</StateNumber>
       <OwnerName>sprut</OwnerName>
     </sequence>
-    <sequence id="259" parent="252" name="user_id_seq">
+    <sequence id="258" parent="252" name="user_id_seq">
       <DataType>bigint|0s</DataType>
       <ObjectId>23859</ObjectId>
       <StateNumber>66564</StateNumber>
       <OwnerName>sprut</OwnerName>
     </sequence>
-    <sequence id="260" parent="252" name="messenger_messages_id_seq">
+    <sequence id="259" parent="252" name="messenger_messages_id_seq">
       <DataType>bigint|0s</DataType>
       <ObjectId>23665</ObjectId>
       <StateNumber>32770</StateNumber>
       <OwnerName>sprut</OwnerName>
     </sequence>
-    <table id="261" parent="252" name="disciplines">
+    <table id="260" parent="252" name="disciplines">
       <ObjectId>23743</ObjectId>
       <StateNumber>40984</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>sprut</OwnerName>
     </table>
-    <table id="262" parent="252" name="doctrine_migration_versions">
+    <table id="261" parent="252" name="doctrine_migration_versions">
       <ObjectId>23649</ObjectId>
       <StateNumber>32769</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>sprut</OwnerName>
     </table>
-    <table id="263" parent="252" name="literature">
+    <table id="262" parent="252" name="literature">
       <ObjectId>23760</ObjectId>
       <StateNumber>45423</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>sprut</OwnerName>
     </table>
-    <table id="264" parent="252" name="literature_category">
+    <table id="263" parent="252" name="literature_category">
       <ObjectId>23767</ObjectId>
       <StateNumber>40989</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>sprut</OwnerName>
     </table>
-    <table id="265" parent="252" name="master_program">
+    <table id="264" parent="252" name="master_program">
       <ObjectId>23657</ObjectId>
       <StateNumber>66633</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>sprut</OwnerName>
     </table>
-    <table id="266" parent="252" name="master_program_training_centers">
-      <ObjectId>23689</ObjectId>
-      <StateNumber>32774</StateNumber>
-      <AccessMethodId>2</AccessMethodId>
-      <OwnerName>sprut</OwnerName>
-    </table>
-    <table id="267" parent="252" name="messenger_messages">
+    <table id="265" parent="252" name="messenger_messages">
       <ObjectId>23667</ObjectId>
       <StateNumber>32770</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>sprut</OwnerName>
     </table>
-    <table id="268" parent="252" name="module">
+    <table id="266" parent="252" name="module">
       <ObjectId>23748</ObjectId>
       <StateNumber>40984</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>sprut</OwnerName>
     </table>
-    <table id="269" parent="252" name="program_type">
+    <table id="267" parent="252" name="program_type">
       <ObjectId>23708</ObjectId>
       <StateNumber>66633</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>sprut</OwnerName>
     </table>
-    <table id="270" parent="252" name="training_centers">
+    <table id="268" parent="252" name="training_centers">
       <ObjectId>23684</ObjectId>
-      <StateNumber>70077</StateNumber>
+      <StateNumber>70211</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>sprut</OwnerName>
     </table>
-    <table id="271" parent="252" name="training_centers_requisites">
+    <table id="269" parent="252" name="training_centers_requisites">
       <ObjectId>23946</ObjectId>
-      <StateNumber>70077</StateNumber>
+      <StateNumber>70219</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>sprut</OwnerName>
     </table>
-    <table id="272" parent="252" name="training_plan">
+    <table id="270" parent="252" name="training_plan">
       <ObjectId>23753</ObjectId>
       <StateNumber>40984</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>sprut</OwnerName>
     </table>
-    <table id="273" parent="252" name="user">
+    <table id="271" parent="252" name="user">
       <ObjectId>23861</ObjectId>
       <StateNumber>66564</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>sprut</OwnerName>
     </table>
-    <argument id="274" parent="253">
+    <argument id="272" parent="253">
       <ArgumentDirection>R</ArgumentDirection>
       <DataType>trigger|0s</DataType>
     </argument>
-    <column id="275" parent="261" name="id">
+    <column id="273" parent="260" name="id">
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>40984</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="276" parent="261" name="name">
+    <column id="274" parent="260" name="name">
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>40984</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <index id="277" parent="261" name="disciplines_pkey">
+    <index id="275" parent="260" name="disciplines_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>23746</ObjectId>
@@ -4834,7 +4822,7 @@ true posixrules
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="278" parent="261" name="disciplines_pkey">
+    <key id="276" parent="260" name="disciplines_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>23747</ObjectId>
@@ -4842,27 +4830,27 @@ true posixrules
       <StateNumber>40984</StateNumber>
       <UnderlyingIndexId>23746</UnderlyingIndexId>
     </key>
-    <column id="279" parent="262" name="version">
+    <column id="277" parent="261" name="version">
       <DataType>varchar(191)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>32769</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="280" parent="262" name="executed_at">
+    <column id="278" parent="261" name="executed_at">
       <DataType>timestamp(0)|0s</DataType>
       <DefaultExpression>NULL::timestamp without time zone</DefaultExpression>
       <Position>2</Position>
       <StateNumber>32769</StateNumber>
       <TypeId>1114</TypeId>
     </column>
-    <column id="281" parent="262" name="execution_time">
+    <column id="279" parent="261" name="execution_time">
       <DataType>integer|0s</DataType>
       <Position>3</Position>
       <StateNumber>32769</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <index id="282" parent="262" name="doctrine_migration_versions_pkey">
+    <index id="280" parent="261" name="doctrine_migration_versions_pkey">
       <ColNames>version</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>23653</ObjectId>
@@ -4874,7 +4862,7 @@ true posixrules
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <key id="283" parent="262" name="doctrine_migration_versions_pkey">
+    <key id="281" parent="261" name="doctrine_migration_versions_pkey">
       <ColNames>version</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>23654</ObjectId>
@@ -4882,52 +4870,52 @@ true posixrules
       <StateNumber>32769</StateNumber>
       <UnderlyingIndexId>23653</UnderlyingIndexId>
     </key>
-    <column id="284" parent="263" name="id">
+    <column id="282" parent="262" name="id">
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>40986</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="285" parent="263" name="name">
+    <column id="283" parent="262" name="name">
       <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>45423</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <column id="286" parent="263" name="type">
+    <column id="284" parent="262" name="type">
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StateNumber>45423</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="287" parent="263" name="authors">
+    <column id="285" parent="262" name="authors">
       <DataType>text|0s</DataType>
       <Position>4</Position>
       <StateNumber>45423</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <column id="288" parent="263" name="year">
+    <column id="286" parent="262" name="year">
       <DataType>integer|0s</DataType>
       <Position>5</Position>
       <StateNumber>45423</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="289" parent="263" name="description">
+    <column id="287" parent="262" name="description">
       <DataType>text|0s</DataType>
       <Position>6</Position>
       <StateNumber>45423</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <column id="290" parent="263" name="link">
+    <column id="288" parent="262" name="link">
       <DataType>text|0s</DataType>
       <Position>7</Position>
       <StateNumber>45423</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <index id="291" parent="263" name="literature_pkey">
+    <index id="289" parent="262" name="literature_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>23763</ObjectId>
@@ -4936,7 +4924,7 @@ true posixrules
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="292" parent="263" name="literature_pkey">
+    <key id="290" parent="262" name="literature_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>23764</ObjectId>
@@ -4944,21 +4932,21 @@ true posixrules
       <StateNumber>40986</StateNumber>
       <UnderlyingIndexId>23763</UnderlyingIndexId>
     </key>
-    <column id="293" parent="264" name="id">
+    <column id="291" parent="263" name="id">
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>40989</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="294" parent="264" name="name">
+    <column id="292" parent="263" name="name">
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>40989</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <index id="295" parent="264" name="literature_category_pkey">
+    <index id="293" parent="263" name="literature_category_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>23770</ObjectId>
@@ -4967,7 +4955,7 @@ true posixrules
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="296" parent="264" name="literature_category_pkey">
+    <key id="294" parent="263" name="literature_category_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>23771</ObjectId>
@@ -4975,47 +4963,47 @@ true posixrules
       <StateNumber>40989</StateNumber>
       <UnderlyingIndexId>23770</UnderlyingIndexId>
     </key>
-    <column id="297" parent="265" name="id">
+    <column id="295" parent="264" name="id">
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>32770</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="298" parent="265" name="name">
+    <column id="296" parent="264" name="name">
       <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>32770</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <column id="299" parent="265" name="length_hour">
+    <column id="297" parent="264" name="length_hour">
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StateNumber>32776</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="300" parent="265" name="length_week">
+    <column id="298" parent="264" name="length_week">
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
       <Position>4</Position>
       <StateNumber>32776</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="301" parent="265" name="length_week_short">
+    <column id="299" parent="264" name="length_week_short">
       <DataType>integer|0s</DataType>
       <Position>6</Position>
       <StateNumber>35708</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="302" parent="265" name="program_type_id">
+    <column id="300" parent="264" name="program_type_id">
       <DataType>integer|0s</DataType>
       <Position>7</Position>
       <StateNumber>66633</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <foreign-key id="303" parent="265" name="fk_4eca9aec4ea67447">
+    <foreign-key id="301" parent="264" name="fk_4eca9aec4ea67447">
       <ColNames>program_type_id</ColNames>
       <ObjectId>23885</ObjectId>
       <RefColNames>id</RefColNames>
@@ -5026,7 +5014,7 @@ true posixrules
       <RefTableName>program_type</RefTableName>
       <RefTableKind>table</RefTableKind>
     </foreign-key>
-    <index id="304" parent="265" name="master_program_pkey">
+    <index id="302" parent="264" name="master_program_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>23663</ObjectId>
@@ -5035,13 +5023,13 @@ true posixrules
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="305" parent="265" name="idx_4eca9aec4ea67447">
+    <index id="303" parent="264" name="idx_4eca9aec4ea67447">
       <ColNames>program_type_id</ColNames>
       <ObjectId>23890</ObjectId>
       <StateNumber>66633</StateNumber>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="306" parent="265" name="master_program_pkey">
+    <key id="304" parent="264" name="master_program_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>23664</ObjectId>
@@ -5049,76 +5037,7 @@ true posixrules
       <StateNumber>32770</StateNumber>
       <UnderlyingIndexId>23663</UnderlyingIndexId>
     </key>
-    <column id="307" parent="266" name="master_program_id">
-      <DataType>integer|0s</DataType>
-      <NotNull>1</NotNull>
-      <Position>1</Position>
-      <StateNumber>32774</StateNumber>
-      <TypeId>23</TypeId>
-    </column>
-    <column id="308" parent="266" name="training_centers_id">
-      <DataType>integer|0s</DataType>
-      <NotNull>1</NotNull>
-      <Position>2</Position>
-      <StateNumber>32774</StateNumber>
-      <TypeId>23</TypeId>
-    </column>
-    <foreign-key id="309" parent="266" name="fk_28fbf7db36a6a584">
-      <ColNames>master_program_id</ColNames>
-      <ObjectId>23696</ObjectId>
-      <OnDelete>cascade</OnDelete>
-      <RefColNames>id</RefColNames>
-      <RefColPositions>1</RefColPositions>
-      <RefKeyName>master_program_pkey</RefKeyName>
-      <StateNumber>32774</StateNumber>
-      <RefTableId>23657</RefTableId>
-      <RefTableName>master_program</RefTableName>
-      <RefTableKind>table</RefTableKind>
-    </foreign-key>
-    <foreign-key id="310" parent="266" name="fk_28fbf7db93f7d12f">
-      <ColNames>training_centers_id</ColNames>
-      <ObjectId>23701</ObjectId>
-      <OnDelete>cascade</OnDelete>
-      <RefColNames>id</RefColNames>
-      <RefColPositions>1</RefColPositions>
-      <RefKeyName>training_centers_pkey</RefKeyName>
-      <StateNumber>32774</StateNumber>
-      <RefTableId>23684</RefTableId>
-      <RefTableName>training_centers</RefTableName>
-      <RefTableKind>table</RefTableKind>
-    </foreign-key>
-    <index id="311" parent="266" name="master_program_training_centers_pkey">
-      <ColNames>master_program_id
-training_centers_id</ColNames>
-      <NameSurrogate>1</NameSurrogate>
-      <ObjectId>23692</ObjectId>
-      <Primary>1</Primary>
-      <StateNumber>32774</StateNumber>
-      <Unique>1</Unique>
-      <AccessMethodId>403</AccessMethodId>
-    </index>
-    <index id="312" parent="266" name="idx_28fbf7db36a6a584">
-      <ColNames>master_program_id</ColNames>
-      <ObjectId>23694</ObjectId>
-      <StateNumber>32774</StateNumber>
-      <AccessMethodId>403</AccessMethodId>
-    </index>
-    <index id="313" parent="266" name="idx_28fbf7db93f7d12f">
-      <ColNames>training_centers_id</ColNames>
-      <ObjectId>23695</ObjectId>
-      <StateNumber>32774</StateNumber>
-      <AccessMethodId>403</AccessMethodId>
-    </index>
-    <key id="314" parent="266" name="master_program_training_centers_pkey">
-      <ColNames>master_program_id
-training_centers_id</ColNames>
-      <NameSurrogate>1</NameSurrogate>
-      <ObjectId>23693</ObjectId>
-      <Primary>1</Primary>
-      <StateNumber>32774</StateNumber>
-      <UnderlyingIndexId>23692</UnderlyingIndexId>
-    </key>
-    <column id="315" parent="267" name="id">
+    <column id="305" parent="265" name="id">
       <DataType>bigint|0s</DataType>
       <DefaultExpression>nextval(&apos;messenger_messages_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
@@ -5126,49 +5045,49 @@ training_centers_id</ColNames>
       <StateNumber>32770</StateNumber>
       <TypeId>20</TypeId>
     </column>
-    <column id="316" parent="267" name="body">
+    <column id="306" parent="265" name="body">
       <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>32770</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <column id="317" parent="267" name="headers">
+    <column id="307" parent="265" name="headers">
       <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StateNumber>32770</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <column id="318" parent="267" name="queue_name">
+    <column id="308" parent="265" name="queue_name">
       <DataType>varchar(190)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>4</Position>
       <StateNumber>32770</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="319" parent="267" name="created_at">
+    <column id="309" parent="265" name="created_at">
       <DataType>timestamp(0)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>5</Position>
       <StateNumber>32770</StateNumber>
       <TypeId>1114</TypeId>
     </column>
-    <column id="320" parent="267" name="available_at">
+    <column id="310" parent="265" name="available_at">
       <DataType>timestamp(0)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>6</Position>
       <StateNumber>32770</StateNumber>
       <TypeId>1114</TypeId>
     </column>
-    <column id="321" parent="267" name="delivered_at">
+    <column id="311" parent="265" name="delivered_at">
       <DataType>timestamp(0)|0s</DataType>
       <DefaultExpression>NULL::timestamp without time zone</DefaultExpression>
       <Position>7</Position>
       <StateNumber>32770</StateNumber>
       <TypeId>1114</TypeId>
     </column>
-    <index id="322" parent="267" name="messenger_messages_pkey">
+    <index id="312" parent="265" name="messenger_messages_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>23675</ObjectId>
@@ -5177,7 +5096,7 @@ training_centers_id</ColNames>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="323" parent="267" name="idx_75ea56e0fb7336f0">
+    <index id="313" parent="265" name="idx_75ea56e0fb7336f0">
       <ColNames>queue_name</ColNames>
       <ObjectId>23677</ObjectId>
       <StateNumber>32770</StateNumber>
@@ -5186,19 +5105,19 @@ training_centers_id</ColNames>
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <index id="324" parent="267" name="idx_75ea56e0e3bd61ce">
+    <index id="314" parent="265" name="idx_75ea56e0e3bd61ce">
       <ColNames>available_at</ColNames>
       <ObjectId>23678</ObjectId>
       <StateNumber>32770</StateNumber>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="325" parent="267" name="idx_75ea56e016ba31db">
+    <index id="315" parent="265" name="idx_75ea56e016ba31db">
       <ColNames>delivered_at</ColNames>
       <ObjectId>23679</ObjectId>
       <StateNumber>32770</StateNumber>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="326" parent="267" name="messenger_messages_pkey">
+    <key id="316" parent="265" name="messenger_messages_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>23676</ObjectId>
@@ -5206,28 +5125,28 @@ training_centers_id</ColNames>
       <StateNumber>32770</StateNumber>
       <UnderlyingIndexId>23675</UnderlyingIndexId>
     </key>
-    <trigger id="327" parent="267" name="notify_trigger">
+    <trigger id="317" parent="265" name="notify_trigger">
       <Events>IU</Events>
       <ObjectId>23681</ObjectId>
       <StateNumber>32770</StateNumber>
       <Turn>after-row</Turn>
       <CallRoutineId>23680</CallRoutineId>
     </trigger>
-    <column id="328" parent="268" name="id">
+    <column id="318" parent="266" name="id">
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>40984</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="329" parent="268" name="name">
+    <column id="319" parent="266" name="name">
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>40984</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <index id="330" parent="268" name="module_pkey">
+    <index id="320" parent="266" name="module_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>23751</ObjectId>
@@ -5236,7 +5155,7 @@ training_centers_id</ColNames>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="331" parent="268" name="module_pkey">
+    <key id="321" parent="266" name="module_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>23752</ObjectId>
@@ -5244,21 +5163,21 @@ training_centers_id</ColNames>
       <StateNumber>40984</StateNumber>
       <UnderlyingIndexId>23751</UnderlyingIndexId>
     </key>
-    <column id="332" parent="269" name="id">
+    <column id="322" parent="267" name="id">
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>32777</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="333" parent="269" name="name_type">
+    <column id="323" parent="267" name="name_type">
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>32777</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <index id="334" parent="269" name="program_type_pkey">
+    <index id="324" parent="267" name="program_type_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>23711</ObjectId>
@@ -5267,7 +5186,7 @@ training_centers_id</ColNames>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="335" parent="269" name="program_type_pkey">
+    <key id="325" parent="267" name="program_type_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>23712</ObjectId>
@@ -5275,73 +5194,56 @@ training_centers_id</ColNames>
       <StateNumber>32777</StateNumber>
       <UnderlyingIndexId>23711</UnderlyingIndexId>
     </key>
-    <column id="336" parent="270" name="id">
+    <column id="326" parent="268" name="id">
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>32772</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="337" parent="270" name="name">
+    <column id="327" parent="268" name="name">
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>32772</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="338" parent="270" name="phone">
+    <column id="328" parent="268" name="phone">
       <DataType>varchar(255)|0s</DataType>
       <DefaultExpression>NULL::character varying</DefaultExpression>
       <Position>3</Position>
       <StateNumber>70055</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="339" parent="270" name="email">
+    <column id="329" parent="268" name="email">
       <DataType>varchar(255)|0s</DataType>
       <DefaultExpression>NULL::character varying</DefaultExpression>
       <Position>4</Position>
       <StateNumber>70055</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="340" parent="270" name="url">
+    <column id="330" parent="268" name="url">
       <DataType>varchar(255)|0s</DataType>
       <DefaultExpression>NULL::character varying</DefaultExpression>
       <Position>5</Position>
       <StateNumber>70055</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="341" parent="270" name="external_upload_bakalavrmagistr_id">
+    <column id="331" parent="268" name="external_upload_bakalavrmagistr_id">
       <DataType>varchar(255)|0s</DataType>
       <DefaultExpression>NULL::character varying</DefaultExpression>
       <Position>6</Position>
       <StateNumber>70055</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="342" parent="270" name="external_upload_sdo_id">
+    <column id="332" parent="268" name="external_upload_sdo_id">
       <DataType>varchar(20)|0s</DataType>
       <DefaultExpression>NULL::character varying</DefaultExpression>
       <Position>7</Position>
       <StateNumber>70056</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="343" parent="270" name="training_centers_requisites_id">
-      <DataType>integer|0s</DataType>
-      <Position>8</Position>
-      <StateNumber>70077</StateNumber>
-      <TypeId>23</TypeId>
-    </column>
-    <foreign-key id="344" parent="270" name="fk_fa734b3f97d5a932">
-      <ColNames>training_centers_requisites_id</ColNames>
-      <ObjectId>23955</ObjectId>
-      <RefColNames>id</RefColNames>
-      <RefColPositions>1</RefColPositions>
-      <RefKeyName>training_centers_requisites_pkey</RefKeyName>
-      <StateNumber>70077</StateNumber>
-      <RefTableId>23946</RefTableId>
-      <RefTableName>training_centers_requisites</RefTableName>
-      <RefTableKind>table</RefTableKind>
-    </foreign-key>
-    <index id="345" parent="270" name="training_centers_pkey">
+    <index id="333" parent="268" name="training_centers_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>23687</ObjectId>
@@ -5350,13 +5252,7 @@ training_centers_id</ColNames>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="346" parent="270" name="idx_fa734b3f97d5a932">
-      <ColNames>training_centers_requisites_id</ColNames>
-      <ObjectId>23960</ObjectId>
-      <StateNumber>70077</StateNumber>
-      <AccessMethodId>403</AccessMethodId>
-    </index>
-    <key id="347" parent="270" name="training_centers_pkey">
+    <key id="334" parent="268" name="training_centers_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>23688</ObjectId>
@@ -5364,59 +5260,76 @@ training_centers_id</ColNames>
       <StateNumber>32772</StateNumber>
       <UnderlyingIndexId>23687</UnderlyingIndexId>
     </key>
-    <column id="348" parent="271" name="id">
+    <column id="335" parent="269" name="id">
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>70077</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="349" parent="271" name="director">
+    <column id="336" parent="269" name="director">
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>70077</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="350" parent="271" name="director_position">
+    <column id="337" parent="269" name="director_position">
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StateNumber>70077</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="351" parent="271" name="from_date">
+    <column id="338" parent="269" name="from_date">
       <DataType>date|0s</DataType>
       <Position>4</Position>
       <StateNumber>70077</StateNumber>
       <TypeId>1082</TypeId>
     </column>
-    <column id="352" parent="271" name="short_name">
+    <column id="339" parent="269" name="short_name">
       <DataType>text|0s</DataType>
       <Position>5</Position>
       <StateNumber>70077</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <column id="353" parent="271" name="full_name">
+    <column id="340" parent="269" name="full_name">
       <DataType>text|0s</DataType>
       <Position>6</Position>
       <StateNumber>70077</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <column id="354" parent="271" name="city">
+    <column id="341" parent="269" name="city">
       <DataType>varchar(255)|0s</DataType>
       <DefaultExpression>NULL::character varying</DefaultExpression>
       <Position>7</Position>
       <StateNumber>70077</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="355" parent="271" name="address">
+    <column id="342" parent="269" name="address">
       <DataType>text|0s</DataType>
       <Position>8</Position>
       <StateNumber>70077</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <index id="356" parent="271" name="training_centers_requisites_pkey">
+    <column id="343" parent="269" name="training_centre_id">
+      <DataType>integer|0s</DataType>
+      <Position>11</Position>
+      <StateNumber>70219</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <foreign-key id="344" parent="269" name="fk_95b7d03128b0b437">
+      <ColNames>training_centre_id</ColNames>
+      <ObjectId>24030</ObjectId>
+      <RefColNames>id</RefColNames>
+      <RefColPositions>1</RefColPositions>
+      <RefKeyName>training_centers_pkey</RefKeyName>
+      <StateNumber>70219</StateNumber>
+      <RefTableId>23684</RefTableId>
+      <RefTableName>training_centers</RefTableName>
+      <RefTableKind>table</RefTableKind>
+    </foreign-key>
+    <index id="345" parent="269" name="training_centers_requisites_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>23953</ObjectId>
@@ -5425,7 +5338,13 @@ training_centers_id</ColNames>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="357" parent="271" name="training_centers_requisites_pkey">
+    <index id="346" parent="269" name="idx_95b7d03128b0b437">
+      <ColNames>training_centre_id</ColNames>
+      <ObjectId>24035</ObjectId>
+      <StateNumber>70219</StateNumber>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <key id="347" parent="269" name="training_centers_requisites_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>23954</ObjectId>
@@ -5433,14 +5352,14 @@ training_centers_id</ColNames>
       <StateNumber>70077</StateNumber>
       <UnderlyingIndexId>23953</UnderlyingIndexId>
     </key>
-    <column id="358" parent="272" name="id">
+    <column id="348" parent="270" name="id">
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>40984</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <index id="359" parent="272" name="training_plan_pkey">
+    <index id="349" parent="270" name="training_plan_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>23756</ObjectId>
@@ -5449,7 +5368,7 @@ training_centers_id</ColNames>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="360" parent="272" name="training_plan_pkey">
+    <key id="350" parent="270" name="training_plan_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>23757</ObjectId>
@@ -5457,35 +5376,35 @@ training_centers_id</ColNames>
       <StateNumber>40984</StateNumber>
       <UnderlyingIndexId>23756</UnderlyingIndexId>
     </key>
-    <column id="361" parent="273" name="id">
+    <column id="351" parent="271" name="id">
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>66564</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="362" parent="273" name="email">
+    <column id="352" parent="271" name="email">
       <DataType>varchar(180)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>66564</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="363" parent="273" name="roles">
+    <column id="353" parent="271" name="roles">
       <DataType>json|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StateNumber>66564</StateNumber>
       <TypeId>114</TypeId>
     </column>
-    <column id="364" parent="273" name="password">
+    <column id="354" parent="271" name="password">
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>4</Position>
       <StateNumber>66564</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <index id="365" parent="273" name="user_pkey">
+    <index id="355" parent="271" name="user_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>23867</ObjectId>
@@ -5494,7 +5413,7 @@ training_centers_id</ColNames>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="366" parent="273" name="uniq_8d93d649e7927c74">
+    <index id="356" parent="271" name="uniq_8d93d649e7927c74">
       <ColNames>email</ColNames>
       <ObjectId>23869</ObjectId>
       <StateNumber>66564</StateNumber>
@@ -5504,7 +5423,7 @@ training_centers_id</ColNames>
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <key id="367" parent="273" name="user_pkey">
+    <key id="357" parent="271" name="user_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>23868</ObjectId>

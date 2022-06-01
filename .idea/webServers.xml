@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="3974096f-ec57-4583-9743-688dc5d3095a" name="SPRUT">
+        <fileTransfer rootFolder="/var/www/sprut/data/www/sprut.niidpo.ru" accessType="SFTP" host="185.46.9.252" port="22" sshConfigId="a300ab99-d2c7-49e5-9888-6ac043ef68bb" sshConfig="sprut@185.46.9.252:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

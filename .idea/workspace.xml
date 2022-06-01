@@ -2,8 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4cb45298-3600-4dae-af1c-82217ff00d38" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/run.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ddbbe676-b937-4747-a450-4f7e09e11925.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ddbbe676-b937-4747-a450-4f7e09e11925.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ddbbe676-b937-4747-a450-4f7e09e11925/storage_v2/_src_/database/sprut.FDOJBg/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ddbbe676-b937-4747-a450-4f7e09e11925/storage_v2/_src_/database/sprut.FDOJBg/schema/public.abK9xQ.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/api_platform.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/routes.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/routes.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/routes/api_platform.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/TeleportController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/TeleportController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/Disciplines.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Disciplines.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/Literature.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Literature.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/LiteratureCategory.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/LiteratureCategory.php" afterDir="false" />
@@ -13,7 +23,7 @@
       <change beforePath="$PROJECT_DIR$/src/Entity/TrainingCenters.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/TrainingCenters.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/TrainingCentersRequisites.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/TrainingCentersRequisites.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/TrainingPlan.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/TrainingPlan.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +57,7 @@
     "WebServerToolWindowPanel.toolwindow.show.size": "false",
     "last_opened_file_path": "/Users/artemprudishew/Проекты/sprut/public",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "copyright.profiles",
+    "settings.editor.selected.configurable": "web.server",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -70,6 +80,28 @@
       <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
+  <component name="RunManager">
+    <configuration name="run.sh" type="ShConfigurationType" temporary="true">
+      <option name="SCRIPT_TEXT" value="" />
+      <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
+      <option name="SCRIPT_PATH" value="$PROJECT_DIR$/run.sh" />
+      <option name="SCRIPT_OPTIONS" value="" />
+      <option name="INDEPENDENT_SCRIPT_WORKING_DIRECTORY" value="true" />
+      <option name="SCRIPT_WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="INDEPENDENT_INTERPRETER_PATH" value="true" />
+      <option name="INTERPRETER_PATH" value="/bin/zsh" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="EXECUTE_IN_TERMINAL" value="true" />
+      <option name="EXECUTE_SCRIPT_FILE" value="true" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Shell Script.run.sh" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -78,7 +110,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1653892010213</updated>
-      <workItem from="1653892011293" duration="49792000" />
+      <workItem from="1653892011293" duration="57659000" />
     </task>
     <servers />
   </component>

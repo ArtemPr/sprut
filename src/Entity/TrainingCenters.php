@@ -9,15 +9,11 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\TrainingCentersRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TrainingCentersRepository::class)]
-#[ApiResource(
-    collectionOperations: ['get'],
-    itemOperations: ['get'],
-    attributes: ['security' => "is_granted('ROLE_API_USER')", 'pagination_items_per_page' => 100],
-    paginationEnabled: true
-)]
 class TrainingCenters
 {
     #[ORM\Id]
@@ -42,8 +38,13 @@ class TrainingCenters
     #[ORM\Column(type: 'string', length: 20, nullable: true)]
     private $external_upload_sdo_id;
 
-    #[ORM\ManyToOne(targetEntity: TrainingCentersRequisites::class, inversedBy: 'training_centre')]
+    #[ORM\OneToMany(mappedBy: 'training_centre', targetEntity: TrainingCentersRequisites::class)]
     private $trainingCentersRequisites;
+
+    public function __construct()
+    {
+        $this->trainingCentersRequisites = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -149,14 +150,32 @@ class TrainingCenters
         return $this;
     }
 
-    public function getTrainingCentersRequisites(): ?TrainingCentersRequisites
+    /**
+     * @return Collection<int, TrainingCentersRequisites>
+     */
+    public function getTrainingCentersRequisites(): Collection
     {
         return $this->trainingCentersRequisites;
     }
 
-    public function setTrainingCentersRequisites(?TrainingCentersRequisites $trainingCentersRequisites): self
+    public function addTrainingCentersRequisite(TrainingCentersRequisites $trainingCentersRequisite): self
     {
-        $this->trainingCentersRequisites = $trainingCentersRequisites;
+        if (!$this->trainingCentersRequisites->contains($trainingCentersRequisite)) {
+            $this->trainingCentersRequisites[] = $trainingCentersRequisite;
+            $trainingCentersRequisite->setTrainingCentre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTrainingCentersRequisite(TrainingCentersRequisites $trainingCentersRequisite): self
+    {
+        if ($this->trainingCentersRequisites->removeElement($trainingCentersRequisite)) {
+            // set the owning side to null (unless already changed)
+            if ($trainingCentersRequisite->getTrainingCentre() === $this) {
+                $trainingCentersRequisite->setTrainingCentre(null);
+            }
+        }
 
         return $this;
     }

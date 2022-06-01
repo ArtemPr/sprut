@@ -15,6 +15,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TeleportController extends AbstractController
 {
+    /**
+     * @param ManagerRegistry $doctrine
+     * @return Response
+     * Продукты
+     */
     #[Route('/teleport/product', name: 'app_teleport')]
     public function index(ManagerRegistry $doctrine): Response
     {
@@ -68,6 +73,11 @@ class TeleportController extends AbstractController
         ]);
     }
 
+    /**
+     * @param ManagerRegistry $doctrine
+     * @return Response
+     * Категории литературы
+     */
     #[Route('/teleport/books_sections', name: 'app_books_sections')]
     public function getLiteratureCategory(ManagerRegistry $doctrine): Response
     {
@@ -93,6 +103,11 @@ class TeleportController extends AbstractController
         ]);
     }
 
+    /**
+     * @param ManagerRegistry $doctrine
+     * @return Response
+     * Литература
+     */
     #[Route('/teleport/books', name: 'app_books')]
     public function addLiterature(ManagerRegistry $doctrine): Response
     {
@@ -120,26 +135,34 @@ class TeleportController extends AbstractController
         ]);
     }
 
+    /**
+     * @param ManagerRegistry $doctrine
+     * @return Response
+     * Учебные центры
+     */
     #[Route('/teleport/training_centre', name: 'app_tr')]
     public function addTrainingCentre(ManagerRegistry $doctrine): Response
     {
-        $out = 0;
         $data_item = file_get_contents('http://metodistam.niidpo.ru/run_transport.php?t=training_centers');
         $data_item = json_decode($data_item);
 
         $entityManager = $doctrine->getManager();
 
         foreach ($data_item as $val) {
-            $literature = new TrainingCenters();
-            $literature->setName(html_entity_decode($val->name));
-            $literature->setId($val->training_center_id);
-            $literature->setPhone($val->phone);
-            $literature->setEmail($val->email);
-            $literature->setUrl($val->url);
-            $literature->setExternalUploadBakalavrmagistrId((string) $val->external_upload_bakalavrmagistr_id);
-            $literature->setExternalUploadSdoId((string) $val->external_upload_sdo_id);
+
+            $data = $entityManager->getRepository(TrainingCenters::class)->find($val->training_center_id);
+            if (!empty($data)) {
+                $data = new TrainingCenters();
+                $data->setId($val->training_center_id);
+            }
+            $data->setName(html_entity_decode($val->name));
+            $data->setPhone($val->phone);
+            $data->setEmail($val->email);
+            $data->setUrl($val->url);
+            $data->setExternalUploadBakalavrmagistrId((string) $val->external_upload_bakalavrmagistr_id);
+            $data->setExternalUploadSdoId((string) $val->external_upload_sdo_id);
             $entityManager->flush();
-            $entityManager->persist($literature);
+            $entityManager->persist($data);
         }
 
         return $this->render('teleport/index.html.twig', [
@@ -147,10 +170,15 @@ class TeleportController extends AbstractController
         ]);
     }
 
+    /**
+     * @param ManagerRegistry $doctrine
+     * @return Response
+     * @throws \Exception
+     * Реквизиты учебных центров
+     */
     #[Route('/teleport/training_centre_rq', name: 'app_tr_rq')]
     public function getTrainingCentreRq(ManagerRegistry $doctrine): Response
     {
-        $out = 0;
         $data_item = file_get_contents('http://metodistam.niidpo.ru/run_transport.php?t=training_center_organizations');
         $data_item = json_decode($data_item);
 
@@ -159,23 +187,29 @@ class TeleportController extends AbstractController
         foreach ($data_item as $val) {
             $tc = $entityManager->getRepository(TrainingCenters::class)->find($val->training_center_id);
 
-            $literature = new TrainingCentersRequisites();
-            $literature->setId($val->training_center_organization_id);
-            $literature->setTrainingCentre($tc);
-            $literature->setDirector($val->director);
-            $literature->setCity($val->city);
-            $literature->setShortName(html_entity_decode($val->short_name));
-            $literature->setAddress(html_entity_decode($val->address));
-            $literature->setDirectorPosition($val->director_position);
-            $literature->setFullName(html_entity_decode($val->full_name));
-            $literature->setFromDate(new \DateTime(date('r', strtotime($val->from_date))));
+            $data = $entityManager->getRepository(TrainingCentersRequisites::class)->find($val->training_center_organization_id);
+
+            if (empty($data)) {
+                $data = new TrainingCentersRequisites();
+                $data->setId($val->training_center_organization_id);
+            }
+
+            $data->setTrainingCentre($tc);
+            $data->setDirector($val->director);
+            $data->setCity($val->city);
+            $data->setShortName(html_entity_decode($val->short_name));
+            $data->setAddress(html_entity_decode($val->address));
+            $data->setDirectorPosition($val->director_position);
+            $data->setFullName(html_entity_decode($val->full_name));
+            $data->setFromDate(new \DateTime(date('r', strtotime($val->from_date))));
 
             $entityManager->flush();
-            $entityManager->persist($literature);
+            $entityManager->persist($data);
         }
 
         return $this->render('teleport/index.html.twig', [
             'out' => 'Imported',
         ]);
     }
+
 }

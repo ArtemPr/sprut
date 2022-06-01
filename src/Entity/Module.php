@@ -9,12 +9,6 @@ use App\Repository\ModuleRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ModuleRepository::class)]
-#[ApiResource(
-    collectionOperations: ['get'],
-    itemOperations: ['get'],
-    attributes: ['security' => "is_granted('ROLE_API_USER')", 'pagination_items_per_page' => 100],
-    paginationEnabled: true
-)]
 class Module
 {
     #[ORM\Id]
