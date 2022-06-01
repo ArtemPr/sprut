@@ -17,8 +17,9 @@ class TeleportController extends AbstractController
 {
     /**
      * @param ManagerRegistry $doctrine
+     *
      * @return Response
-     * Продукты
+     *                  Продукты
      */
     #[Route('/teleport/product', name: 'app_teleport')]
     public function index(ManagerRegistry $doctrine): Response
@@ -75,8 +76,9 @@ class TeleportController extends AbstractController
 
     /**
      * @param ManagerRegistry $doctrine
+     *
      * @return Response
-     * Категории литературы
+     *                  Категории литературы
      */
     #[Route('/teleport/books_sections', name: 'app_books_sections')]
     public function getLiteratureCategory(ManagerRegistry $doctrine): Response
@@ -105,8 +107,9 @@ class TeleportController extends AbstractController
 
     /**
      * @param ManagerRegistry $doctrine
+     *
      * @return Response
-     * Литература
+     *                  Литература
      */
     #[Route('/teleport/books', name: 'app_books')]
     public function addLiterature(ManagerRegistry $doctrine): Response
@@ -137,8 +140,9 @@ class TeleportController extends AbstractController
 
     /**
      * @param ManagerRegistry $doctrine
+     *
      * @return Response
-     * Учебные центры
+     *                  Учебные центры
      */
     #[Route('/teleport/training_centre', name: 'app_tr')]
     public function addTrainingCentre(ManagerRegistry $doctrine): Response
@@ -149,7 +153,6 @@ class TeleportController extends AbstractController
         $entityManager = $doctrine->getManager();
 
         foreach ($data_item as $val) {
-
             $data = $entityManager->getRepository(TrainingCenters::class)->find($val->training_center_id);
             if (!empty($data)) {
                 $data = new TrainingCenters();
@@ -172,9 +175,11 @@ class TeleportController extends AbstractController
 
     /**
      * @param ManagerRegistry $doctrine
+     *
      * @return Response
+     *
      * @throws \Exception
-     * Реквизиты учебных центров
+     *                    Реквизиты учебных центров
      */
     #[Route('/teleport/training_centre_rq', name: 'app_tr_rq')]
     public function getTrainingCentreRq(ManagerRegistry $doctrine): Response
@@ -211,5 +216,4 @@ class TeleportController extends AbstractController
             'out' => 'Imported',
         ]);
     }
-
 }
