@@ -1,0 +1,22 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 249 60" width="249" height="60">
+	<title>Новый проект</title>
+	<defs>
+		<image  width="300" height="60" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAA8AQMAAADmEhUZAAAAAXNSR0IB2cksfwAAAANQTFRF////p8QbyAAAABlJREFUeJztwTEBAAAAwqD1T+1vBqAAAHgDCSQAAatB0UYAAAAASUVORK5CYII="/>
+	</defs>
+	<style>
+		tspan { white-space:pre } 
+		.t0 { font-size: 170px;fill: #666666;font-weight: 700;font-family: "DejaVuSansCondensed-Bold", "DejaVu Sans" } 
+		.t1 { font-size: 52px;fill: #808080;font-weight: 400;font-family: "DejaVuSans", "DejaVu Sans" } 
+	</style>
+	<use id="Слой 1" href="#img1" x="-51" y="0"/>
+	<text id="СПРУТ 1.0" style="transform: matrix(.267,0,0,.277,2.856,40.59)" >
+		<tspan x="0" y="0" class="t0">С</tspan><tspan  y="0" class="t0">П</tspan><tspan  y="0" class="t0">Р</tspan><tspan  y="0" class="t0">У</tspan><tspan  y="0" class="t0">Т</tspan><tspan  y="0" class="t0"> </tspan><tspan  y="0" class="t0">1</tspan><tspan  y="0" class="t0">.</tspan><tspan  y="0" class="t0">0</tspan><tspan  y="0" class="t0">
+</tspan>
+	</text>
+	<text id="платформа создания контента" style="transform: matrix(.212,0,0,.212,6.004,53.33)" >
+		<tspan x="0" y="0" class="t1">п</tspan><tspan  y="0" class="t1">л</tspan><tspan  y="0" class="t1">а</tspan><tspan  y="0" class="t1">т</tspan><tspan  y="0" class="t1">ф</tspan><tspan  y="0" class="t1">о</tspan><tspan  y="0" class="t1">р</tspan><tspan  y="0" class="t1">м</tspan><tspan  y="0" class="t1">а</tspan><tspan  y="0" class="t1"> </tspan><tspan  y="0" class="t1">с</tspan><tspan  y="0" class="t1">о</tspan><tspan  y="0" class="t1">з</tspan><tspan  y="0" class="t1">д</tspan><tspan  y="0" class="t1">а</tspan><tspan  y="0" class="t1">н</tspan><tspan  y="0" class="t1">и</tspan><tspan  y="0" class="t1">я</tspan><tspan  y="0" class="t1"> </tspan><tspan  y="0" class="t1">к</tspan><tspan  y="0" class="t1">о</tspan><tspan  y="0" class="t1">н</tspan><tspan  y="0" class="t1">т</tspan><tspan  y="0" class="t1">е</tspan><tspan  y="0" class="t1">н</tspan><tspan  y="0" class="t1">т</tspan><tspan  y="0" class="t1">а
+</tspan>
+	</text>
+	<text id="" style="transform: matrix(1,0,0,1,564,223)" >
+	</text>
+</svg>

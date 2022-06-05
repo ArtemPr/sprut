@@ -1,10 +1,10 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -18,8 +18,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 180, unique: true)]
-    private $email;
+    #[ORM\Column(type: 'string', length: 180, nullable: true)]
+    private $username;
 
     #[ORM\Column(type: 'json')]
     private $roles = [];
@@ -27,12 +27,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string')]
     private $password;
 
+    #[ORM\Column(type: 'string', length: 100, nullable: true)]
+    private $email;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $name;
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getEmail(): ?string
+    public function getUsername(): ?string
     {
         return $this->email;
     }
@@ -40,9 +46,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @return $this
      */
-    public function setEmail(string $email): self
+    public function setUsername(string $username): self
     {
-        $this->email = $email;
+        $this->email = $username;
+        $this->username = $username;
 
         return $this;
     }
@@ -54,7 +61,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->email;
+        return (string) $this->username;
     }
 
     /**
@@ -104,5 +111,46 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
+    }
+
+    public function __get(string $param): string
+    {
+        return '';
+    }
+
+    public function __set(string $param, $value)
+    {
+        if (!empty($param) && 'passwordNew' == $param && !empty($value)) {
+            $this->password = password_hash($value, PASSWORD_DEFAULT);
+        }
     }
 }

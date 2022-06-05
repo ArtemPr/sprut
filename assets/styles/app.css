@@ -1,3 +1,12 @@
 body {
-    background-color: lightgray;
+    background-color: #FFFFFF;
+}
+
+a {
+  color: #333333;
+}
+
+h1 {
+  font-weight: normal;
+  fonnt-size: 20px;
 }

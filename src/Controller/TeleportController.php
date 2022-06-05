@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Discipline;
+use App\Entity\FederalStandart;
 use App\Entity\Literature;
 use App\Entity\LiteratureCategory;
 use App\Entity\MasterProgram;
@@ -62,11 +64,9 @@ class TeleportController extends AbstractController
             $program->setLengthWeek($val->weeks_total);
             $program->setProgramType($type);
             $program->setLengthWeekShort($val->weeks_short_total ?? 0);
-            $entityManager->flush();
 
-            if (empty($program)) {
-                $entityManager->persist($program);
-            }
+            $entityManager->persist($program);
+            $entityManager->flush();
         }
 
         return $this->render('teleport/index.html.twig', [
@@ -95,8 +95,9 @@ class TeleportController extends AbstractController
                 $literature = new LiteratureCategory();
                 $literature->setName($val->name);
                 $literature->setId($val->books_section_id);
-                $entityManager->flush();
+
                 $entityManager->persist($literature);
+                $entityManager->flush();
             }
         }
 
@@ -129,8 +130,9 @@ class TeleportController extends AbstractController
             $literature->setDescription($val->description);
             $literature->setYear($val->year);
             $literature->setLink($val->url);
-            $entityManager->flush();
+
             $entityManager->persist($literature);
+            $entityManager->flush();
         }
 
         return $this->render('teleport/index.html.twig', [
@@ -164,8 +166,9 @@ class TeleportController extends AbstractController
             $data->setUrl($val->url);
             $data->setExternalUploadBakalavrmagistrId((string) $val->external_upload_bakalavrmagistr_id);
             $data->setExternalUploadSdoId((string) $val->external_upload_sdo_id);
-            $entityManager->flush();
+
             $entityManager->persist($data);
+            $entityManager->flush();
         }
 
         return $this->render('teleport/index.html.twig', [
@@ -208,12 +211,164 @@ class TeleportController extends AbstractController
             $data->setFullName(html_entity_decode($val->full_name));
             $data->setFromDate(new \DateTime(date('r', strtotime($val->from_date))));
 
-            $entityManager->flush();
             $entityManager->persist($data);
+            $entityManager->flush();
         }
 
         return $this->render('teleport/index.html.twig', [
             'out' => 'Imported',
         ]);
+    }
+
+
+    #[Route('/teleport/discipline', name: 'app_discipline_rq')]
+    public function getDiscipline(ManagerRegistry $doctrine): Response
+    {
+        $on_page = 2000;
+
+        $data_item = file_get_contents('http://metodistam.niidpo.ru/run_transport.php?t=discipline');
+        $data_item = json_decode($data_item);
+
+        $entityManager = $doctrine->getManager();
+
+        if (!empty($_GET['page'])) {
+            $page = $_GET['page'];
+            if (!is_numeric($page) || $page < 0) {
+                $page = 1;
+            }
+            $start = ($page * $on_page) - 1;
+            $end = $start + $on_page;
+        } else {
+            $start = 0;
+            $end = count($data_item);
+        }
+
+        foreach ($data_item as $key => $val) {
+
+            if ($key < $start || $key > $end) {
+                continue;
+            }
+
+            $data = $entityManager->getRepository(Discipline::class)->find($val->discipline_id);
+
+            if (empty($data)) {
+                $data = new Discipline();
+                $data->setId($val->discipline_id);
+            }
+
+            $data->setName($val->name)
+                ->setType($val->type)
+                ->setComment($val->comment)
+                ->setDocxOldDocFileName($val->docx_testing_file_name)
+                ->setDocxTestingFileName($val->docx_old_doc_file_name)
+                ->setPractice($val->practice)
+                ->setPracticumFlag($val->practicum_flag)
+                ->setPurpose($val->purpose)
+                ->setStatus($val->status);
+
+            $entityManager->persist($data);
+            $entityManager->flush();
+        }
+
+        if(ceil((int)$data_item / (int)$on_page) >= ((int)$page + 1)) {
+            return $this->redirect('https://127.0.0.1:8000/teleport/discipline?page=' . ($page + 1));
+        } else {
+            return $this->render('teleport/index.html.twig', [
+                'out' => 'Imported',
+            ]);
+        }
+    }
+
+
+    #[Route('/teleport/federal_standart', name: 'app_federal_standart')]
+    public function getFederalStandart(ManagerRegistry $doctrine): Response
+    {
+        $on_page = 2000;
+        $data_item = file_get_contents('http://metodistam.niidpo.ru/run_transport.php?t=fed_standards');
+        $data_item = json_decode($data_item);
+        $entityManager = $doctrine->getManager();
+        if (!empty($_GET['page'])) {
+            $page = $_GET['page'];
+            if (!is_numeric($page) || $page < 0) {
+                $page = 1;
+            }
+            $start = ($page * $on_page) - 1;
+            $end = $start + $on_page;
+        } else {
+            $page = 1;
+            $start = 0;
+            $end = count($data_item);
+        }
+
+        foreach ($data_item as $key => $val) {
+            if ($key < $start || $key > $end) {
+                continue;
+            }
+            $data = $entityManager->getRepository(FederalStandart::class)->find($val->fed_standard_id);
+            if (empty($data)) {
+                $data = new FederalStandart();
+                $data->setId($val->fed_standard_id);
+            }
+            $data->setName($val->name)
+                ->setShortName($val->short_name)
+                ->setActive((boolean)$val->archive_flag);
+
+            $entityManager->persist($data);
+            $entityManager->flush();
+
+        }
+        if (ceil((int)$data_item / (int)$on_page) >= ((int)$page + 1)) {
+            return $this->redirect('https://127.0.0.1:8000/teleport/federal_standart?page=' . ($page + 1));
+        } else {
+            return $this->render('teleport/index.html.twig', [
+                'out' => 'Imported',
+            ]);
+        }
+    }
+
+    #[Route('/teleport/fed_standard_competences', name: 'app_fed_standard_competences')]
+    public function getFederalStandartCompetencies(ManagerRegistry $doctrine): Response
+    {
+        $on_page = 2000;
+        $data_item = file_get_contents('http://metodistam.niidpo.ru/run_transport.php?t=fed_standards');
+        $data_item = json_decode($data_item);
+        $entityManager = $doctrine->getManager();
+        if (!empty($_GET['page'])) {
+            $page = $_GET['page'];
+            if (!is_numeric($page) || $page < 0) {
+                $page = 1;
+            }
+            $start = ($page * $on_page) - 1;
+            $end = $start + $on_page;
+        } else {
+            $page = 1;
+            $start = 0;
+            $end = count($data_item);
+        }
+
+        foreach ($data_item as $key => $val) {
+            if ($key < $start || $key > $end) {
+                continue;
+            }
+            $data = $entityManager->getRepository(FederalStandart::class)->find($val->fed_standard_id);
+            if (empty($data)) {
+                $data = new FederalStandart();
+                $data->setId($val->fed_standard_id);
+            }
+            $data->setName($val->name)
+                ->setShortName($val->short_name)
+                ->setActive((boolean)$val->archive_flag);
+
+            $entityManager->persist($data);
+            $entityManager->flush();
+
+        }
+        if (ceil((int)$data_item / (int)$on_page) >= ((int)$page + 1)) {
+            return $this->redirect('https://127.0.0.1:8000/teleport/federal_standart?page=' . ($page + 1));
+        } else {
+            return $this->render('teleport/index.html.twig', [
+                'out' => 'Imported',
+            ]);
+        }
     }
 }
