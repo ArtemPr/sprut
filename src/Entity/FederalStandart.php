@@ -21,7 +21,7 @@ class FederalStandart
     #[ORM\Column(type: 'boolean', nullable: true)]
     private $active;
 
-    #[ORM\ManyToOne(targetEntity: FederalStandartCompetencies::class, inversedBy: 'federal_standart')]
+    #[ORM\OneToMany(targetEntity: FederalStandartCompetencies::class, mappedBy: 'federal_standart')]
     private $federalStandartCompetencies;
 
     public function getId(): ?int

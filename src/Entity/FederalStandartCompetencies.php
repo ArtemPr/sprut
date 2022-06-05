@@ -11,18 +11,20 @@ use Doctrine\ORM\Mapping as ORM;
 class FederalStandartCompetencies
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\OneToMany(mappedBy: 'federalStandartCompetencies', targetEntity: FederalStandart::class)]
+    #[ORM\ManyToOne(inversedBy: 'federalStandartCompetencies', targetEntity: FederalStandart::class)]
     private $federal_standart;
 
-    #[ORM\Column(type: 'integer', nullable: true)]
+    #[ORM\Column(type: 'string', nullable: true, length: 100)]
     private $code;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'text', nullable: true)]
     private $name;
+
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private $number;
 
     public function __construct()
     {
@@ -32,6 +34,22 @@ class FederalStandartCompetencies
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id): void
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @param ArrayCollection $federal_standart
+     */
+    public function setFederalStandart($federal_standart): void
+    {
+        $this->federal_standart = $federal_standart;
     }
 
     /**
@@ -64,12 +82,12 @@ class FederalStandartCompetencies
         return $this;
     }
 
-    public function getCode(): ?int
+    public function getCode(): ?string
     {
         return $this->code;
     }
 
-    public function setCode(int $code): self
+    public function setCode(string $code): self
     {
         $this->code = $code;
 
@@ -87,4 +105,21 @@ class FederalStandartCompetencies
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getNumber()
+    {
+        return $this->number;
+    }
+
+    /**
+     * @param mixed $number
+     */
+    public function setNumber($number): void
+    {
+        $this->number = $number;
+    }
+
 }

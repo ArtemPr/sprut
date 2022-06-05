@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Discipline;
 use App\Entity\FederalStandart;
+use App\Entity\FederalStandartCompetencies;
 use App\Entity\Literature;
 use App\Entity\LiteratureCategory;
 use App\Entity\MasterProgram;
@@ -329,9 +330,10 @@ class TeleportController extends AbstractController
     #[Route('/teleport/fed_standard_competences', name: 'app_fed_standard_competences')]
     public function getFederalStandartCompetencies(ManagerRegistry $doctrine): Response
     {
-        $on_page = 2000;
-        $data_item = file_get_contents('http://metodistam.niidpo.ru/run_transport.php?t=fed_standards');
+        $on_page = 3000;
+        $data_item = file_get_contents('http://metodistam.niidpo.ru/run_transport.php?t=fed_standard_competences');
         $data_item = json_decode($data_item);
+
         $entityManager = $doctrine->getManager();
         if (!empty($_GET['page'])) {
             $page = $_GET['page'];
@@ -346,25 +348,30 @@ class TeleportController extends AbstractController
             $end = count($data_item);
         }
 
+
         foreach ($data_item as $key => $val) {
             if ($key < $start || $key > $end) {
                 continue;
             }
-            $data = $entityManager->getRepository(FederalStandart::class)->find($val->fed_standard_id);
+            $data = $entityManager->getRepository(FederalStandartCompetencies::class)->find($val->fed_standard_competence_id);
             if (empty($data)) {
-                $data = new FederalStandart();
-                $data->setId($val->fed_standard_id);
+                $data = new FederalStandartCompetencies();
+                $data->setId($val->fed_standard_competence_id);
             }
-            $data->setName($val->name)
-                ->setShortName($val->short_name)
-                ->setActive((boolean)$val->archive_flag);
+
+            $f_s = $entityManager->getRepository(FederalStandart::class)->find($val->fed_standard_id);
+
+            $data->setName($val->name);
+            $data->setCode($val->code);
+            $data->setNumber((int)$val->number);
+            $data->setFederalStandart($f_s);
 
             $entityManager->persist($data);
             $entityManager->flush();
 
         }
         if (ceil((int)$data_item / (int)$on_page) >= ((int)$page + 1)) {
-            return $this->redirect('https://127.0.0.1:8000/teleport/federal_standart?page=' . ($page + 1));
+            return $this->redirect('https://127.0.0.1:8000/teleport/fed_standard_competences?page=' . ($page + 1));
         } else {
             return $this->render('teleport/index.html.twig', [
                 'out' => 'Imported',
