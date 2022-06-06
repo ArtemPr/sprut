@@ -33,6 +33,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $name;
 
+    #[ORM\Column(type: 'string', length: 32, nullable: true)]
+    private $apiHash;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -137,6 +140,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getApiHash()
+    {
+        return $this->apiHash;
+    }
+
+    /**
+     * @param mixed $apiHash
+     */
+    public function setApiHash($apiHash): void
+    {
+        $this->apiHash = $apiHash;
+    }
+
     public function __toString()
     {
         return $this->name;
@@ -151,6 +170,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!empty($param) && 'passwordNew' == $param && !empty($value)) {
             $this->password = password_hash($value, PASSWORD_DEFAULT);
+            $this->setApiHash(md5($this->getName() . $this->getEmail() . $value));
         }
     }
 }

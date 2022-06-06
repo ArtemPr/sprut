@@ -1,27 +1,34 @@
 <?php
+/*
+ * Created AptPr <prudishew@yandex.ru> 2022.
+ */
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Repository\MasterProgramRepository;
-use App\Repository\TrainingCentersRepository;
+use App\Service\ApiService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
 #[Route('/api', name: 'api')]
-class ApiController extends AbstractController
+class ApiProgramController  extends AbstractController
 {
+    use ApiService;
+
     public function __construct(
         private MasterProgramRepository $master_programm,
-        private TrainingCentersRepository $trainingCenters
+        private ManagerRegistry $doctrine
     )
     {
     }
 
     #[Route('/program_info', name: 'api_get_program_info', methods: ['GET'])]
-    public function getProgramInfo(ManagerRegistry $doctrine)
+    public function getProgramInfo()
     {
         $result = $this->master_programm->getApiProgramInfo();
 
@@ -31,7 +38,7 @@ class ApiController extends AbstractController
     }
 
     #[Route('/program', name: 'api_get_programs_list', methods: ['GET'])]
-    public function getProgramsList(ManagerRegistry $doctrine): Response
+    public function getProgramsList(): Response
     {
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
 
@@ -46,6 +53,7 @@ class ApiController extends AbstractController
         $param = $request->get('param') ?? null;
 
         $result = $this->master_programm->getApiList((int)$page, $max_result, $param);
+
 
         foreach ($result as $val) {
             $out[] = [
@@ -86,29 +94,4 @@ class ApiController extends AbstractController
         ]);
     }
 
-    #[Route('/training_centre_short', name: 'api_get_training_centre_short', methods: ['GET'])]
-    public function getTrainingCentre(ManagerRegistry $doctrine): Response
-    {
-        $result = $this->trainingCenters->findAll();
-
-        foreach ($result as $val) {
-            $out[] = [
-                'centre_id' => $val->getId(),
-                'centre_name' => \mb_convert_encoding($val->getName(), 'utf8'),
-            ];
-        }
-
-        return $this->render('api/index.html.twig', [
-            'out' => $this->convertJson($out ?? ['error' => 'no results'])
-        ]);
-    }
-
-    private function convertJson(array $arr = [])
-    {
-        try {
-            return \json_encode($arr, JSON_UNESCAPED_UNICODE);
-        } catch (\Exception $e) {
-            echo $e->getMessage();
-        }
-    }
 }

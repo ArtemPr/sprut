@@ -53,6 +53,7 @@ class UserCrudController extends AbstractCrudController
                 $this->setRoles()
             );
 
+        yield TextField::new('api_hash', 'API ключ')->setDisabled();
 
         yield FormField::addTab('Привилегии');
     }

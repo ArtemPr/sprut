@@ -53,8 +53,9 @@ class MasterProgramRepository extends ServiceEntityRepository
             self::ON_PAGE;
 
         $query_item = $entityManager->createQuery(
-            'SELECT pr
-                FROM App\Entity\MasterProgram pr'
+            'SELECT pr, pt
+                FROM App\Entity\MasterProgram pr
+                INNER JOIN pr.program_type pt'
         )->setMaxResults($max_result)->setFirstResult($page * $max_result);
 
         return $query_item->getResult(Query::HYDRATE_ARRAY) ?? [];
