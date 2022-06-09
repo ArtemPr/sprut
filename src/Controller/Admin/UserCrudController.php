@@ -10,8 +10,10 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TelephoneField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class UserCrudController extends AbstractCrudController
@@ -32,7 +34,7 @@ class UserCrudController extends AbstractCrudController
             ->setPageTitle('index', 'Список администраторов')
             ->setPageTitle('edit', 'Редактирование администратора')
             ->setPageTitle('new', 'Создать администратора')
-            ->setDefaultSort(['name' => 'DESC'])
+            /*->setDefaultSort(['name' => 'DESC'])*/
             ->setPaginatorPageSize(30)
             ->showEntityActionsInlined();
     }
@@ -40,8 +42,17 @@ class UserCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         yield FormField::addTab('Основное');
-        yield TextField::new('name', 'Имя администратора');
-        yield TextField::new('username', 'E-mail администратора');
+        yield BooleanField::new('activity', 'Активность');
+
+        yield TextField::new('surname', 'Фамилия');
+        yield TextField::new('username', 'Имя');
+        yield TextField::new('patronymic', 'Отчество');
+
+        yield TextField::new('city', 'Город')->hideOnIndex();
+        yield TelephoneField::new('phone', 'Телефон')->hideOnIndex();
+        yield TextField::new('skype', 'Skype')->hideOnIndex();
+
+        yield TextField::new('email', 'E-mail администратора');
         yield TextField::new('passwordNew', 'Новый пароль')
             ->hideOnIndex()
             ->setHelp('Для смены пароля либо оставьте пустым');
@@ -53,14 +64,19 @@ class UserCrudController extends AbstractCrudController
                 $this->setRoles()
             );
 
-        yield TextField::new('api_hash', 'API ключ')->setDisabled();
-
-        yield FormField::addTab('Привилегии');
+        yield TextField::new('api_hash', 'API ключ')->setDisabled()->hideOnIndex();
     }
 
     public function configureActions(Actions $actions): Actions
     {
-        return $actions
+        return $actions->set(Crud::PAGE_INDEX, Action::DELETE)
+            ->setPermission('delete', 'ROLE_SUPERADMIN')
+            ->update(Crud::PAGE_INDEX, Action::DELETE, function (Action $action) {
+                return $action->setIcon('fa fa-trash')->setLabel(' ');
+            })
+            ->update(Crud::PAGE_INDEX, Action::EDIT, function (Action $action) {
+                return $action->setIcon('fa fa-pencil-square-o')->setLabel(' ');
+            })
             ->update(Crud::PAGE_INDEX, Action::NEW, function (Action $action) {
                 return $action->setIcon('fa fa-plus')->setLabel('Создать нового пользователя');
             })

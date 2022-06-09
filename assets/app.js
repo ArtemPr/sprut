@@ -5,7 +5,10 @@ import './source/css/tabler-payments.min.css';
 import './source/css/tabler-vendors.min.css';
 import './source/css/demo.min.css';
 
+import './source/css/user.css';
+
 // start the Stimulus application
 import './bootstrap';
 import './source/js/tabler.min'
 import './source/js/demo.min'
+import './source/js/user'

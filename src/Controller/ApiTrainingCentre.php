@@ -24,7 +24,7 @@ class ApiTrainingCentre extends AbstractController
     {
     }
 
-    #[Route('/training_centre_short', name: 'api_get_training_centre_short', methods: ['GET'])]
+    #[Route('/training_centre', name: 'api_get_training_centre_short', methods: ['GET'])]
     public function getTrainingCentre(ManagerRegistry $doctrine): Response
     {
         if ($this->getAuth() === false) {

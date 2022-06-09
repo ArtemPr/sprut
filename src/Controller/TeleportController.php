@@ -8,6 +8,9 @@ use App\Entity\FederalStandartCompetencies;
 use App\Entity\Literature;
 use App\Entity\LiteratureCategory;
 use App\Entity\MasterProgram;
+use App\Entity\ProfStandarts;
+use App\Entity\ProfStandartsActivities;
+use App\Entity\ProfStandartsCompetences;
 use App\Entity\ProgramType;
 use App\Entity\TrainingCenters;
 use App\Entity\TrainingCentersRequisites;
@@ -372,6 +375,160 @@ class TeleportController extends AbstractController
         }
         if (ceil((int)$data_item / (int)$on_page) >= ((int)$page + 1)) {
             return $this->redirect('https://127.0.0.1:8000/teleport/fed_standard_competences?page=' . ($page + 1));
+        } else {
+            return $this->render('teleport/index.html.twig', [
+                'out' => 'Imported',
+            ]);
+        }
+    }
+
+
+    #[Route('/teleport/prof_standarts', name: 'app_prof_standarts')]
+    public function getProfStandart(ManagerRegistry $doctrine): Response
+    {
+        $on_page = 3000;
+        $data_item = file_get_contents('http://metodistam.niidpo.ru/run_transport.php?t=prof_standarts');
+        $data_item = json_decode($data_item);
+
+        $entityManager = $doctrine->getManager();
+        if (!empty($_GET['page'])) {
+            $page = $_GET['page'];
+            if (!is_numeric($page) || $page < 0) {
+                $page = 1;
+            }
+            $start = ($page * $on_page) - 1;
+            $end = $start + $on_page;
+        } else {
+            $page = 1;
+            $start = 0;
+            $end = count($data_item);
+        }
+
+
+        foreach ($data_item as $key => $val) {
+            if ($key < $start || $key > $end) {
+                continue;
+            }
+            $data = $entityManager->getRepository(ProfStandarts::class)->find($val->prof_standard_id);
+            if (empty($data)) {
+                $data = new ProfStandarts();
+                $data->setId($val->prof_standard_id);
+            }
+
+            $data->setName($val->name);
+            $data->setShortName($val->short_name);
+            $data->setArchiveFlag($val->archive_flag == "1" ? true : false);
+
+            $entityManager->persist($data);
+            $entityManager->flush();
+
+        }
+        if (ceil((int)$data_item / (int)$on_page) >= ((int)$page + 1)) {
+            return $this->redirect('https://127.0.0.1:8000/teleport/prof_standarts?page=' . ($page + 1));
+        } else {
+            return $this->render('teleport/index.html.twig', [
+                'out' => 'Imported',
+            ]);
+        }
+    }
+
+
+    #[Route('/teleport/prof_standarts_activities', name: 'prof_standarts_activities')]
+    public function getProfStandartActivities(ManagerRegistry $doctrine): Response
+    {
+        $on_page = 3000;
+        $data_item = file_get_contents('http://metodistam.niidpo.ru/run_transport.php?t=prof_standard_activities');
+        $data_item = json_decode($data_item);
+
+        $entityManager = $doctrine->getManager();
+        if (!empty($_GET['page'])) {
+            $page = $_GET['page'];
+            if (!is_numeric($page) || $page < 0) {
+                $page = 1;
+            }
+            $start = ($page * $on_page) - 1;
+            $end = $start + $on_page;
+        } else {
+            $page = 1;
+            $start = 0;
+            $end = count($data_item);
+        }
+
+
+        foreach ($data_item as $key => $val) {
+            if ($key < $start || $key > $end) {
+                continue;
+            }
+            $data = $entityManager->getRepository(ProfStandartsActivities::class)->find($val->prof_standard_activity_id);
+            if (empty($data)) {
+                $data = new ProfStandartsActivities();
+                $data->setId($val->prof_standard_activity_id);
+            }
+
+            $f_s = $entityManager->getRepository(ProfStandarts::class)->find($val->prof_standard_id);
+
+            $data->setName($val->name);
+            $data->setProfStandartId($f_s);
+            $data->setNumber($val->number);
+
+            $entityManager->persist($data);
+            $entityManager->flush();
+
+        }
+        if (ceil((int)$data_item / (int)$on_page) >= ((int)$page + 1)) {
+            return $this->redirect('https://127.0.0.1:8000/teleport/prof_standarts_activities?page=' . ($page + 1));
+        } else {
+            return $this->render('teleport/index.html.twig', [
+                'out' => 'Imported',
+            ]);
+        }
+    }
+
+
+    #[Route('/teleport/prof_standard_competences', name: 'prof_standard_competences')]
+    public function getProfStandartCompetences(ManagerRegistry $doctrine): Response
+    {
+        $on_page = 3000;
+        $data_item = file_get_contents('http://metodistam.niidpo.ru/run_transport.php?t=prof_standard_competences');
+        $data_item = json_decode($data_item);
+
+        $entityManager = $doctrine->getManager();
+        if (!empty($_GET['page'])) {
+            $page = $_GET['page'];
+            if (!is_numeric($page) || $page < 0) {
+                $page = 1;
+            }
+            $start = ($page * $on_page) - 1;
+            $end = $start + $on_page;
+        } else {
+            $page = 1;
+            $start = 0;
+            $end = count($data_item);
+        }
+
+
+        foreach ($data_item as $key => $val) {
+            if ($key < $start || $key > $end) {
+                continue;
+            }
+            $data = $entityManager->getRepository(ProfStandartsCompetences::class)->find($val->prof_standard_competence_id);
+            if (empty($data)) {
+                $data = new ProfStandartsCompetences();
+                $data->setId($val->prof_standard_competence_id);
+            }
+
+            $f_s = $entityManager->getRepository(ProfStandartsActivities::class)->find($val->prof_standard_activity_id);
+
+            $data->setName($val->name);
+            $data->setProfstandartActivities($f_s);
+            $data->setNumber($val->number);
+
+            $entityManager->persist($data);
+            $entityManager->flush();
+
+        }
+        if (ceil((int)$data_item / (int)$on_page) >= ((int)$page + 1)) {
+            return $this->redirect('https://127.0.0.1:8000/teleport/prof_standard_competences?page=' . ($page + 1));
         } else {
             return $this->render('teleport/index.html.twig', [
                 'out' => 'Imported',

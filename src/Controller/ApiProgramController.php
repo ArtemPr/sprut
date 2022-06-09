@@ -30,6 +30,10 @@ class ApiProgramController  extends AbstractController
     #[Route('/program_info', name: 'api_get_program_info', methods: ['GET'])]
     public function getProgramInfo()
     {
+        if ($this->getAuth() === false) {
+            return $this->json(['error'=>'error auth']);
+        }
+
         $result = $this->master_programm->getApiProgramInfo();
 
         return $this->render('api/index.html.twig', [
@@ -40,6 +44,10 @@ class ApiProgramController  extends AbstractController
     #[Route('/program', name: 'api_get_programs_list', methods: ['GET'])]
     public function getProgramsList(): Response
     {
+        if ($this->getAuth() === false) {
+            return $this->json(['error'=>'error auth']);
+        }
+
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
 
         $page = (int)($request->get('page') ?? 1);
@@ -75,6 +83,10 @@ class ApiProgramController  extends AbstractController
     #[Route('/program/{id}', name: 'api_get_program', methods: ['GET'])]
     public function getProgram(ManagerRegistry $doctrine, int $id): Response
     {
+        if ($this->getAuth() === false) {
+            return $this->json(['error'=>'error auth']);
+        }
+
         $val = $this->master_programm->findBy(['id' => $id]);
 
         if (!empty($val[0])) {

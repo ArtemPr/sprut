@@ -1,0 +1,76 @@
+body.user-editing-panel-opened {
+	overflow: hidden;
+	padding-right: 6px;
+}
+
+.page-layout {
+	min-height: calc(100vh - 100px);
+}
+
+.users-table-wrap {
+	max-height: calc(100vh - 330px);
+	position: relative;
+}
+
+.user-table-row {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.user-table-row.is-selected {
+	background-color: rgba(32, 107, 196, 0.25);
+}
+
+.t-draggable {
+	cursor: move;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.t-placeholder {
+	background-color: #edf2f7;
+	border: 2px dashed #cbd5e0;
+}
+
+.t-clone-list {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	left: 0 !important;
+	top: 0 !important;
+}
+
+.t-clone-table {
+	border-collapse: collapse;
+	border: none;
+}
+
+.t-clone-table th,
+.t-clone-table td {
+	border-left: none;
+	border-top: none;
+	padding: 0.5rem;
+}
+
+.t-dragging {
+	background: #fff;
+	z-index: 999;
+}
+
+#userEditingPanel.show {
+	visibility: visible !important;
+	-webkit-transform: translateX(0);
+	transform: translateX(0);
+}
+
+#userEditingOverlay {
+	visibility: hidden;
+}
+
+#userEditingOverlay.show {
+	visibility: visible !important;
+}

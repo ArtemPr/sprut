@@ -18,8 +18,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'integer')]
     private $id;
 
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    private $activity = false;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $surname;
+
     #[ORM\Column(type: 'string', length: 180, nullable: true)]
     private $username;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $patronymic;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $city;
+
+    #[ORM\Column(type: 'string', length: 50, nullable: true)]
+    private $phone;
+
+    #[ORM\Column(type: 'string', length: 50, nullable: true)]
+    private $skype;
+
+    #[ORM\Column(type: 'string', length: 100, nullable: true)]
+    private $avatar;
 
     #[ORM\Column(type: 'json')]
     private $roles = [];
@@ -29,9 +50,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'string', length: 100, nullable: true)]
     private $email;
-
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $name;
 
     #[ORM\Column(type: 'string', length: 32, nullable: true)]
     private $apiHash;
@@ -43,7 +61,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getUsername(): ?string
     {
-        return $this->email;
+        return $this->username;
     }
 
     /**
@@ -51,7 +69,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function setUsername(string $username): self
     {
-        $this->email = $username;
         $this->username = $username;
 
         return $this;
@@ -128,18 +145,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(?string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
     /**
      * @return mixed
      */
@@ -154,6 +159,118 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setApiHash($apiHash): void
     {
         $this->apiHash = $apiHash;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isActivity(): bool
+    {
+        return $this->activity;
+    }
+
+    /**
+     * @param bool $activity
+     */
+    public function setActivity(bool $activity): void
+    {
+        $this->activity = $activity;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSurname()
+    {
+        return $this->surname;
+    }
+
+    /**
+     * @param mixed $surname
+     */
+    public function setSurname($surname): void
+    {
+        $this->surname = $surname;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPatronymic()
+    {
+        return $this->patronymic;
+    }
+
+    /**
+     * @param mixed $patronymic
+     */
+    public function setPatronymic($patronymic): void
+    {
+        $this->patronymic = $patronymic;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * @param mixed $city
+     */
+    public function setCity($city): void
+    {
+        $this->city = $city;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * @param mixed $phone
+     */
+    public function setPhone($phone): void
+    {
+        $this->phone = $phone;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSkype()
+    {
+        return $this->skype;
+    }
+
+    /**
+     * @param mixed $skype
+     */
+    public function setSkype($skype): void
+    {
+        $this->skype = $skype;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+
+    /**
+     * @param mixed $avatar
+     */
+    public function setAvatar($avatar): void
+    {
+        $this->avatar = $avatar;
     }
 
     public function __toString()

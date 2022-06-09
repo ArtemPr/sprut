@@ -1,0 +1,1325 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}СПРУТ 1.0{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+{% block body %}
+    {{ include('block/header.html.twig') }}
+
+
+<div class="page page-layout">
+    <aside class="navbar navbar-vertical navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbar-menu">
+                <ul class="navbar-nav pt-lg-3">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" >
+                           <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                  <circle cx="12" cy="7" r="4" />
+                                  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                                </svg>
+                           </span>
+                            <span class="nav-link-title">ПОЛЬЗОВАТЕЛИ</span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#" >
+                           <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                  <circle cx="12" cy="7" r="4" />
+                                  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                                </svg>
+                           </span>
+                            <span class="nav-link-title">Роли</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" >
+                           <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                  <circle cx="12" cy="7" r="4" />
+                                  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                                </svg>
+                           </span>
+                            <span class="nav-link-title">Операции</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" >
+                           <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                  <circle cx="12" cy="7" r="4" />
+                                  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                                </svg>
+                           </span>
+                            <span class="nav-link-title">Пользователи</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </aside>
+    <div class="page-wrapper">
+        <div class="container-xl">
+            <!-- Page title -->
+            <div class="page-header d-print-none">
+                <div class="row g-2 align-items-center">
+                    <div class="col d-flex align-items-center">
+                        <!-- Page pre-title -->
+                        <h2 class="page-title">
+                            Пользователи
+                        </h2>
+                        <div class="ms-auto d-flex align-items-center">
+                            <div>По</div>
+                            <select class="form-select ms-2">
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                                <option value="all">Все</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page-body">
+            <div class="container-xl">
+                <div class="row row-deck row-cards">
+                    <div class="col-12">
+
+                        <div class="card">
+                            <div class="card-body border-bottom py-3">
+                                <div class="d-flex align-items-center mb-0">
+                                    <div class="input-group input-group-flat">
+                                        <input type="text" class="form-control" placeholder="Поиск"  autocomplete="off">
+                                        <span class="input-group-text">
+                                            <a href="#" class="link-secondary" title="Очистить Поиск" data-bs-toggle="tooltip">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+                                            </a>
+                                            <a href="#" class="link-secondary ms-2" title="Поиск" data-bs-toggle="tooltip">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><circle cx="10" cy="10" r="7"></circle><line x1="21" y1="21" x2="15" y2="15"></line></svg>
+                                            </a>
+                                            <a href="#" class="link-secondary ms-2" title="Экспорт в Excel" data-bs-toggle="tooltip">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-table-export" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                  <path d="M11.5 20h-5.5a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v7.5m-16 -3.5h16m-10 -6v16m4 -1h7m-3 -3l3 3l-3 3" />
+                                                </svg>
+                                            </a>
+                                        </span>
+                                    </div>
+                                    <div class="ms-2">
+                                        <div class="btn-group w-100">
+                                            <a class="btn" data-bs-toggle="offcanvas" href="#userCreationPanel" role="button" aria-controls="offcanvasEnd">Создать</a>
+                                            <a class="btn" data-bs-toggle="offcanvas" href="#userEditingPanel" role="button" aria-controls="offcanvasEnd">Изменить</a>
+                                            <a class="btn" data-bs-toggle="modal" data-bs-target="#userRemoveModal" href="#">Удалить</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="users-table-wrap table-responsive">
+                                <table id="usersTable" class="users-table table card-table table-vcenter text-nowrap datatable">
+                                    <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th></th>
+                                        <th>ФИО</th>
+                                        <th>Должность</th>
+                                        <th>Подразделение</th>
+                                        <th>Почта</th>
+                                        <th>Скайп</th>
+                                        <th>Телефон</th>
+                                        <th>Город</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr class="user-table-row is-selected">
+                                        <td><span class="badge bg-success"></span></td>
+                                        <td>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments-horizontal" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <circle cx="14" cy="6" r="2" />
+                                                <line x1="4" y1="6" x2="12" y2="6" />
+                                                <line x1="16" y1="6" x2="20" y2="6" />
+                                                <circle cx="8" cy="12" r="2" />
+                                                <line x1="4" y1="12" x2="6" y2="12" />
+                                                <line x1="10" y1="12" x2="20" y2="12" />
+                                                <circle cx="17" cy="18" r="2" />
+                                                <line x1="4" y1="18" x2="15" y2="18" />
+                                                <line x1="19" y1="18" x2="20" y2="18" />
+                                            </svg>
+                                        </td>
+                                        <td>
+                                            Иванов Иван Иванович
+                                        </td>
+                                        <td>
+                                            Программист
+                                        </td>
+                                        <td>
+                                            Отдел разработки
+                                        </td>
+                                        <td>
+                                            <a href="mailto:test@mail.ru">test@mail.ru</a>
+                                        </td>
+                                        <td>
+                                            <a href="skype:example123?chat">example123</a>
+                                        </td>
+                                        <td>
+                                            <a href="tel:+79999999999">+7 (999) 999-99-99</a>
+                                        </td>
+                                        <td>
+                                            Москва
+                                        </td>
+                                    </tr>
+                                    <tr class="user-table-row">
+                                        <td><span class="badge badge bg-danger"></span></td>
+                                        <td>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <circle cx="6" cy="10" r="2" />
+                                                <line x1="6" y1="4" x2="6" y2="8" />
+                                                <line x1="6" y1="12" x2="6" y2="20" />
+                                                <circle cx="12" cy="16" r="2" />
+                                                <line x1="12" y1="4" x2="12" y2="14" />
+                                                <line x1="12" y1="18" x2="12" y2="20" />
+                                                <circle cx="18" cy="7" r="2" />
+                                                <line x1="18" y1="4" x2="18" y2="5" />
+                                                <line x1="18" y1="9" x2="18" y2="20" />
+                                            </svg>
+                                        </td>
+                                        <td>
+                                            Иванов Иван Иванович
+                                        </td>
+                                        <td>
+                                            Программист
+                                        </td>
+                                        <td>
+                                            Отдел разработки
+                                        </td>
+                                        <td>
+                                            <a href="mailto:test@mail.ru">test@mail.ru</a>
+                                        </td>
+                                        <td>
+                                            <a href="skype:example123?chat">example123</a>
+                                        </td>
+                                        <td>
+                                            <a href="tel:+79999999999">+7 (999) 999-99-99</a>
+                                        </td>
+                                        <td>
+                                            Москва
+                                        </td>
+                                    </tr>
+                                    <tr class="user-table-row">
+                                        <td><span class="badge bg-success"></span></td>
+                                        <td>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments-horizontal" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <circle cx="14" cy="6" r="2" />
+                                                <line x1="4" y1="6" x2="12" y2="6" />
+                                                <line x1="16" y1="6" x2="20" y2="6" />
+                                                <circle cx="8" cy="12" r="2" />
+                                                <line x1="4" y1="12" x2="6" y2="12" />
+                                                <line x1="10" y1="12" x2="20" y2="12" />
+                                                <circle cx="17" cy="18" r="2" />
+                                                <line x1="4" y1="18" x2="15" y2="18" />
+                                                <line x1="19" y1="18" x2="20" y2="18" />
+                                            </svg>
+                                        </td>
+                                        <td>
+                                            Иванов Иван Иванович
+                                        </td>
+                                        <td>
+                                            Программист
+                                        </td>
+                                        <td>
+                                            Отдел разработки
+                                        </td>
+                                        <td>
+                                            <a href="mailto:test@mail.ru">test@mail.ru</a>
+                                        </td>
+                                        <td>
+                                            <a href="skype:example123?chat">example123</a>
+                                        </td>
+                                        <td>
+                                            <a href="tel:+79999999999">+7 (999) 999-99-99</a>
+                                        </td>
+                                        <td>
+                                            Москва
+                                        </td>
+                                    </tr>
+                                    <tr class="user-table-row">
+                                        <td><span class="badge bg-success"></span></td>
+                                        <td>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments-horizontal" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <circle cx="14" cy="6" r="2" />
+                                                <line x1="4" y1="6" x2="12" y2="6" />
+                                                <line x1="16" y1="6" x2="20" y2="6" />
+                                                <circle cx="8" cy="12" r="2" />
+                                                <line x1="4" y1="12" x2="6" y2="12" />
+                                                <line x1="10" y1="12" x2="20" y2="12" />
+                                                <circle cx="17" cy="18" r="2" />
+                                                <line x1="4" y1="18" x2="15" y2="18" />
+                                                <line x1="19" y1="18" x2="20" y2="18" />
+                                            </svg>
+                                        </td>
+                                        <td>
+                                            Иванов Иван Иванович
+                                        </td>
+                                        <td>
+                                            Программист
+                                        </td>
+                                        <td>
+                                            Отдел разработки
+                                        </td>
+                                        <td>
+                                            <a href="mailto:test@mail.ru">test@mail.ru</a>
+                                        </td>
+                                        <td>
+                                            <a href="skype:example123?chat">example123</a>
+                                        </td>
+                                        <td>
+                                            <a href="tel:+79999999999">+7 (999) 999-99-99</a>
+                                        </td>
+                                        <td>
+                                            Москва
+                                        </td>
+                                    </tr>
+                                    <tr class="user-table-row">
+                                        <td><span class="badge bg-success"></span></td>
+                                        <td>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments-horizontal" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <circle cx="14" cy="6" r="2" />
+                                                <line x1="4" y1="6" x2="12" y2="6" />
+                                                <line x1="16" y1="6" x2="20" y2="6" />
+                                                <circle cx="8" cy="12" r="2" />
+                                                <line x1="4" y1="12" x2="6" y2="12" />
+                                                <line x1="10" y1="12" x2="20" y2="12" />
+                                                <circle cx="17" cy="18" r="2" />
+                                                <line x1="4" y1="18" x2="15" y2="18" />
+                                                <line x1="19" y1="18" x2="20" y2="18" />
+                                            </svg>
+                                        </td>
+                                        <td>
+                                            Иванов Иван Иванович
+                                        </td>
+                                        <td>
+                                            Программист
+                                        </td>
+                                        <td>
+                                            Отдел разработки
+                                        </td>
+                                        <td>
+                                            <a href="mailto:test@mail.ru">test@mail.ru</a>
+                                        </td>
+                                        <td>
+                                            <a href="skype:example123?chat">example123</a>
+                                        </td>
+                                        <td>
+                                            <a href="tel:+79999999999">+7 (999) 999-99-99</a>
+                                        </td>
+                                        <td>
+                                            Москва
+                                        </td>
+                                    </tr>
+                                    <tr class="user-table-row">
+                                        <td><span class="badge bg-success"></span></td>
+                                        <td>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments-horizontal" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <circle cx="14" cy="6" r="2" />
+                                                <line x1="4" y1="6" x2="12" y2="6" />
+                                                <line x1="16" y1="6" x2="20" y2="6" />
+                                                <circle cx="8" cy="12" r="2" />
+                                                <line x1="4" y1="12" x2="6" y2="12" />
+                                                <line x1="10" y1="12" x2="20" y2="12" />
+                                                <circle cx="17" cy="18" r="2" />
+                                                <line x1="4" y1="18" x2="15" y2="18" />
+                                                <line x1="19" y1="18" x2="20" y2="18" />
+                                            </svg>
+                                        </td>
+                                        <td>
+                                            Иванов Иван Иванович
+                                        </td>
+                                        <td>
+                                            Программист
+                                        </td>
+                                        <td>
+                                            Отдел разработки
+                                        </td>
+                                        <td>
+                                            <a href="mailto:test@mail.ru">test@mail.ru</a>
+                                        </td>
+                                        <td>
+                                            <a href="skype:example123?chat">example123</a>
+                                        </td>
+                                        <td>
+                                            <a href="tel:+79999999999">+7 (999) 999-99-99</a>
+                                        </td>
+                                        <td>
+                                            Москва
+                                        </td>
+                                    </tr>
+                                    <tr class="user-table-row">
+                                        <td><span class="badge badge bg-danger"></span></td>
+                                        <td>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <circle cx="6" cy="10" r="2" />
+                                                <line x1="6" y1="4" x2="6" y2="8" />
+                                                <line x1="6" y1="12" x2="6" y2="20" />
+                                                <circle cx="12" cy="16" r="2" />
+                                                <line x1="12" y1="4" x2="12" y2="14" />
+                                                <line x1="12" y1="18" x2="12" y2="20" />
+                                                <circle cx="18" cy="7" r="2" />
+                                                <line x1="18" y1="4" x2="18" y2="5" />
+                                                <line x1="18" y1="9" x2="18" y2="20" />
+                                            </svg>
+                                        </td>
+                                        <td>
+                                            Иванов Иван Иванович
+                                        </td>
+                                        <td>
+                                            Программист
+                                        </td>
+                                        <td>
+                                            Отдел разработки
+                                        </td>
+                                        <td>
+                                            <a href="mailto:test@mail.ru">test@mail.ru</a>
+                                        </td>
+                                        <td>
+                                            <a href="skype:example123?chat">example123</a>
+                                        </td>
+                                        <td>
+                                            <a href="tel:+79999999999">+7 (999) 999-99-99</a>
+                                        </td>
+                                        <td>
+                                            Москва
+                                        </td>
+                                    </tr>
+                                    <tr class="user-table-row">
+                                        <td><span class="badge bg-success"></span></td>
+                                        <td>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments-horizontal" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <circle cx="14" cy="6" r="2" />
+                                                <line x1="4" y1="6" x2="12" y2="6" />
+                                                <line x1="16" y1="6" x2="20" y2="6" />
+                                                <circle cx="8" cy="12" r="2" />
+                                                <line x1="4" y1="12" x2="6" y2="12" />
+                                                <line x1="10" y1="12" x2="20" y2="12" />
+                                                <circle cx="17" cy="18" r="2" />
+                                                <line x1="4" y1="18" x2="15" y2="18" />
+                                                <line x1="19" y1="18" x2="20" y2="18" />
+                                            </svg>
+                                        </td>
+                                        <td>
+                                            Иванов Иван Иванович
+                                        </td>
+                                        <td>
+                                            Программист
+                                        </td>
+                                        <td>
+                                            Отдел разработки
+                                        </td>
+                                        <td>
+                                            <a href="mailto:test@mail.ru">test@mail.ru</a>
+                                        </td>
+                                        <td>
+                                            <a href="skype:example123?chat">example123</a>
+                                        </td>
+                                        <td>
+                                            <a href="tel:+79999999999">+7 (999) 999-99-99</a>
+                                        </td>
+                                        <td>
+                                            Москва
+                                        </td>
+                                    </tr>
+                                    <tr class="user-table-row">
+                                        <td><span class="badge bg-success"></span></td>
+                                        <td>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments-horizontal" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <circle cx="14" cy="6" r="2" />
+                                                <line x1="4" y1="6" x2="12" y2="6" />
+                                                <line x1="16" y1="6" x2="20" y2="6" />
+                                                <circle cx="8" cy="12" r="2" />
+                                                <line x1="4" y1="12" x2="6" y2="12" />
+                                                <line x1="10" y1="12" x2="20" y2="12" />
+                                                <circle cx="17" cy="18" r="2" />
+                                                <line x1="4" y1="18" x2="15" y2="18" />
+                                                <line x1="19" y1="18" x2="20" y2="18" />
+                                            </svg>
+                                        </td>
+                                        <td>
+                                            Иванов Иван Иванович
+                                        </td>
+                                        <td>
+                                            Программист
+                                        </td>
+                                        <td>
+                                            Отдел разработки
+                                        </td>
+                                        <td>
+                                            <a href="mailto:test@mail.ru">test@mail.ru</a>
+                                        </td>
+                                        <td>
+                                            <a href="skype:example123?chat">example123</a>
+                                        </td>
+                                        <td>
+                                            <a href="tel:+79999999999">+7 (999) 999-99-99</a>
+                                        </td>
+                                        <td>
+                                            Москва
+                                        </td>
+                                    </tr>
+                                    <tr class="user-table-row">
+                                        <td><span class="badge bg-success"></span></td>
+                                        <td>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments-horizontal" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <circle cx="14" cy="6" r="2" />
+                                                <line x1="4" y1="6" x2="12" y2="6" />
+                                                <line x1="16" y1="6" x2="20" y2="6" />
+                                                <circle cx="8" cy="12" r="2" />
+                                                <line x1="4" y1="12" x2="6" y2="12" />
+                                                <line x1="10" y1="12" x2="20" y2="12" />
+                                                <circle cx="17" cy="18" r="2" />
+                                                <line x1="4" y1="18" x2="15" y2="18" />
+                                                <line x1="19" y1="18" x2="20" y2="18" />
+                                            </svg>
+                                        </td>
+                                        <td>
+                                            Иванов Иван Иванович
+                                        </td>
+                                        <td>
+                                            Программист
+                                        </td>
+                                        <td>
+                                            Отдел разработки
+                                        </td>
+                                        <td>
+                                            <a href="mailto:test@mail.ru">test@mail.ru</a>
+                                        </td>
+                                        <td>
+                                            <a href="skype:example123?chat">example123</a>
+                                        </td>
+                                        <td>
+                                            <a href="tel:+79999999999">+7 (999) 999-99-99</a>
+                                        </td>
+                                        <td>
+                                            Москва
+                                        </td>
+                                    </tr>
+                                    <tr class="user-table-row">
+                                        <td><span class="badge bg-success"></span></td>
+                                        <td>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments-horizontal" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <circle cx="14" cy="6" r="2" />
+                                                <line x1="4" y1="6" x2="12" y2="6" />
+                                                <line x1="16" y1="6" x2="20" y2="6" />
+                                                <circle cx="8" cy="12" r="2" />
+                                                <line x1="4" y1="12" x2="6" y2="12" />
+                                                <line x1="10" y1="12" x2="20" y2="12" />
+                                                <circle cx="17" cy="18" r="2" />
+                                                <line x1="4" y1="18" x2="15" y2="18" />
+                                                <line x1="19" y1="18" x2="20" y2="18" />
+                                            </svg>
+                                        </td>
+                                        <td>
+                                            Иванов Иван Иванович
+                                        </td>
+                                        <td>
+                                            Программист
+                                        </td>
+                                        <td>
+                                            Отдел разработки
+                                        </td>
+                                        <td>
+                                            <a href="mailto:test@mail.ru">test@mail.ru</a>
+                                        </td>
+                                        <td>
+                                            <a href="skype:example123?chat">example123</a>
+                                        </td>
+                                        <td>
+                                            <a href="tel:+79999999999">+7 (999) 999-99-99</a>
+                                        </td>
+                                        <td>
+                                            Москва
+                                        </td>
+                                    </tr>
+                                    <tr class="user-table-row">
+                                        <td><span class="badge badge bg-danger"></span></td>
+                                        <td>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <circle cx="6" cy="10" r="2" />
+                                                <line x1="6" y1="4" x2="6" y2="8" />
+                                                <line x1="6" y1="12" x2="6" y2="20" />
+                                                <circle cx="12" cy="16" r="2" />
+                                                <line x1="12" y1="4" x2="12" y2="14" />
+                                                <line x1="12" y1="18" x2="12" y2="20" />
+                                                <circle cx="18" cy="7" r="2" />
+                                                <line x1="18" y1="4" x2="18" y2="5" />
+                                                <line x1="18" y1="9" x2="18" y2="20" />
+                                            </svg>
+                                        </td>
+                                        <td>
+                                            Иванов Иван Иванович
+                                        </td>
+                                        <td>
+                                            Программист
+                                        </td>
+                                        <td>
+                                            Отдел разработки
+                                        </td>
+                                        <td>
+                                            <a href="mailto:test@mail.ru">test@mail.ru</a>
+                                        </td>
+                                        <td>
+                                            <a href="skype:example123?chat">example123</a>
+                                        </td>
+                                        <td>
+                                            <a href="tel:+79999999999">+7 (999) 999-99-99</a>
+                                        </td>
+                                        <td>
+                                            Москва
+                                        </td>
+                                    </tr>
+                                    <tr class="user-table-row">
+                                        <td><span class="badge bg-success"></span></td>
+                                        <td>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments-horizontal" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <circle cx="14" cy="6" r="2" />
+                                                <line x1="4" y1="6" x2="12" y2="6" />
+                                                <line x1="16" y1="6" x2="20" y2="6" />
+                                                <circle cx="8" cy="12" r="2" />
+                                                <line x1="4" y1="12" x2="6" y2="12" />
+                                                <line x1="10" y1="12" x2="20" y2="12" />
+                                                <circle cx="17" cy="18" r="2" />
+                                                <line x1="4" y1="18" x2="15" y2="18" />
+                                                <line x1="19" y1="18" x2="20" y2="18" />
+                                            </svg>
+                                        </td>
+                                        <td>
+                                            Иванов Иван Иванович
+                                        </td>
+                                        <td>
+                                            Программист
+                                        </td>
+                                        <td>
+                                            Отдел разработки
+                                        </td>
+                                        <td>
+                                            <a href="mailto:test@mail.ru">test@mail.ru</a>
+                                        </td>
+                                        <td>
+                                            <a href="skype:example123?chat">example123</a>
+                                        </td>
+                                        <td>
+                                            <a href="tel:+79999999999">+7 (999) 999-99-99</a>
+                                        </td>
+                                        <td>
+                                            Москва
+                                        </td>
+                                    </tr>
+                                    <tr class="user-table-row">
+                                        <td><span class="badge bg-success"></span></td>
+                                        <td>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments-horizontal" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <circle cx="14" cy="6" r="2" />
+                                                <line x1="4" y1="6" x2="12" y2="6" />
+                                                <line x1="16" y1="6" x2="20" y2="6" />
+                                                <circle cx="8" cy="12" r="2" />
+                                                <line x1="4" y1="12" x2="6" y2="12" />
+                                                <line x1="10" y1="12" x2="20" y2="12" />
+                                                <circle cx="17" cy="18" r="2" />
+                                                <line x1="4" y1="18" x2="15" y2="18" />
+                                                <line x1="19" y1="18" x2="20" y2="18" />
+                                            </svg>
+                                        </td>
+                                        <td>
+                                            Иванов Иван Иванович
+                                        </td>
+                                        <td>
+                                            Программист
+                                        </td>
+                                        <td>
+                                            Отдел разработки
+                                        </td>
+                                        <td>
+                                            <a href="mailto:test@mail.ru">test@mail.ru</a>
+                                        </td>
+                                        <td>
+                                            <a href="skype:example123?chat">example123</a>
+                                        </td>
+                                        <td>
+                                            <a href="tel:+79999999999">+7 (999) 999-99-99</a>
+                                        </td>
+                                        <td>
+                                            Москва
+                                        </td>
+                                    </tr>
+                                    <tr class="user-table-row">
+                                        <td><span class="badge bg-success"></span></td>
+                                        <td>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments-horizontal" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <circle cx="14" cy="6" r="2" />
+                                                <line x1="4" y1="6" x2="12" y2="6" />
+                                                <line x1="16" y1="6" x2="20" y2="6" />
+                                                <circle cx="8" cy="12" r="2" />
+                                                <line x1="4" y1="12" x2="6" y2="12" />
+                                                <line x1="10" y1="12" x2="20" y2="12" />
+                                                <circle cx="17" cy="18" r="2" />
+                                                <line x1="4" y1="18" x2="15" y2="18" />
+                                                <line x1="19" y1="18" x2="20" y2="18" />
+                                            </svg>
+                                        </td>
+                                        <td>
+                                            Иванов Иван Иванович
+                                        </td>
+                                        <td>
+                                            Программист
+                                        </td>
+                                        <td>
+                                            Отдел разработки
+                                        </td>
+                                        <td>
+                                            <a href="mailto:test@mail.ru">test@mail.ru</a>
+                                        </td>
+                                        <td>
+                                            <a href="skype:example123?chat">example123</a>
+                                        </td>
+                                        <td>
+                                            <a href="tel:+79999999999">+7 (999) 999-99-99</a>
+                                        </td>
+                                        <td>
+                                            Москва
+                                        </td>
+                                    </tr>
+                                    <tr class="user-table-row">
+                                        <td><span class="badge bg-success"></span></td>
+                                        <td>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments-horizontal" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <circle cx="14" cy="6" r="2" />
+                                                <line x1="4" y1="6" x2="12" y2="6" />
+                                                <line x1="16" y1="6" x2="20" y2="6" />
+                                                <circle cx="8" cy="12" r="2" />
+                                                <line x1="4" y1="12" x2="6" y2="12" />
+                                                <line x1="10" y1="12" x2="20" y2="12" />
+                                                <circle cx="17" cy="18" r="2" />
+                                                <line x1="4" y1="18" x2="15" y2="18" />
+                                                <line x1="19" y1="18" x2="20" y2="18" />
+                                            </svg>
+                                        </td>
+                                        <td>
+                                            Иванов Иван Иванович
+                                        </td>
+                                        <td>
+                                            Программист
+                                        </td>
+                                        <td>
+                                            Отдел разработки
+                                        </td>
+                                        <td>
+                                            <a href="mailto:test@mail.ru">test@mail.ru</a>
+                                        </td>
+                                        <td>
+                                            <a href="skype:example123?chat">example123</a>
+                                        </td>
+                                        <td>
+                                            <a href="tel:+79999999999">+7 (999) 999-99-99</a>
+                                        </td>
+                                        <td>
+                                            Москва
+                                        </td>
+                                    </tr>
+                                    <tr class="user-table-row">
+                                        <td><span class="badge badge bg-danger"></span></td>
+                                        <td>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <circle cx="6" cy="10" r="2" />
+                                                <line x1="6" y1="4" x2="6" y2="8" />
+                                                <line x1="6" y1="12" x2="6" y2="20" />
+                                                <circle cx="12" cy="16" r="2" />
+                                                <line x1="12" y1="4" x2="12" y2="14" />
+                                                <line x1="12" y1="18" x2="12" y2="20" />
+                                                <circle cx="18" cy="7" r="2" />
+                                                <line x1="18" y1="4" x2="18" y2="5" />
+                                                <line x1="18" y1="9" x2="18" y2="20" />
+                                            </svg>
+                                        </td>
+                                        <td>
+                                            Иванов Иван Иванович
+                                        </td>
+                                        <td>
+                                            Программист
+                                        </td>
+                                        <td>
+                                            Отдел разработки
+                                        </td>
+                                        <td>
+                                            <a href="mailto:test@mail.ru">test@mail.ru</a>
+                                        </td>
+                                        <td>
+                                            <a href="skype:example123?chat">example123</a>
+                                        </td>
+                                        <td>
+                                            <a href="tel:+79999999999">+7 (999) 999-99-99</a>
+                                        </td>
+                                        <td>
+                                            Москва
+                                        </td>
+                                    </tr>
+                                    <tr class="user-table-row">
+                                        <td><span class="badge bg-success"></span></td>
+                                        <td>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments-horizontal" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <circle cx="14" cy="6" r="2" />
+                                                <line x1="4" y1="6" x2="12" y2="6" />
+                                                <line x1="16" y1="6" x2="20" y2="6" />
+                                                <circle cx="8" cy="12" r="2" />
+                                                <line x1="4" y1="12" x2="6" y2="12" />
+                                                <line x1="10" y1="12" x2="20" y2="12" />
+                                                <circle cx="17" cy="18" r="2" />
+                                                <line x1="4" y1="18" x2="15" y2="18" />
+                                                <line x1="19" y1="18" x2="20" y2="18" />
+                                            </svg>
+                                        </td>
+                                        <td>
+                                            Иванов Иван Иванович
+                                        </td>
+                                        <td>
+                                            Программист
+                                        </td>
+                                        <td>
+                                            Отдел разработки
+                                        </td>
+                                        <td>
+                                            <a href="mailto:test@mail.ru">test@mail.ru</a>
+                                        </td>
+                                        <td>
+                                            <a href="skype:example123?chat">example123</a>
+                                        </td>
+                                        <td>
+                                            <a href="tel:+79999999999">+7 (999) 999-99-99</a>
+                                        </td>
+                                        <td>
+                                            Москва
+                                        </td>
+                                    </tr>
+                                    <tr class="user-table-row">
+                                        <td><span class="badge bg-success"></span></td>
+                                        <td>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments-horizontal" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <circle cx="14" cy="6" r="2" />
+                                                <line x1="4" y1="6" x2="12" y2="6" />
+                                                <line x1="16" y1="6" x2="20" y2="6" />
+                                                <circle cx="8" cy="12" r="2" />
+                                                <line x1="4" y1="12" x2="6" y2="12" />
+                                                <line x1="10" y1="12" x2="20" y2="12" />
+                                                <circle cx="17" cy="18" r="2" />
+                                                <line x1="4" y1="18" x2="15" y2="18" />
+                                                <line x1="19" y1="18" x2="20" y2="18" />
+                                            </svg>
+                                        </td>
+                                        <td>
+                                            Иванов Иван Иванович
+                                        </td>
+                                        <td>
+                                            Программист
+                                        </td>
+                                        <td>
+                                            Отдел разработки
+                                        </td>
+                                        <td>
+                                            <a href="mailto:test@mail.ru">test@mail.ru</a>
+                                        </td>
+                                        <td>
+                                            <a href="skype:example123?chat">example123</a>
+                                        </td>
+                                        <td>
+                                            <a href="tel:+79999999999">+7 (999) 999-99-99</a>
+                                        </td>
+                                        <td>
+                                            Москва
+                                        </td>
+                                    </tr>
+                                    <tr class="user-table-row">
+                                        <td><span class="badge bg-success"></span></td>
+                                        <td>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments-horizontal" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <circle cx="14" cy="6" r="2" />
+                                                <line x1="4" y1="6" x2="12" y2="6" />
+                                                <line x1="16" y1="6" x2="20" y2="6" />
+                                                <circle cx="8" cy="12" r="2" />
+                                                <line x1="4" y1="12" x2="6" y2="12" />
+                                                <line x1="10" y1="12" x2="20" y2="12" />
+                                                <circle cx="17" cy="18" r="2" />
+                                                <line x1="4" y1="18" x2="15" y2="18" />
+                                                <line x1="19" y1="18" x2="20" y2="18" />
+                                            </svg>
+                                        </td>
+                                        <td>
+                                            Иванов Иван Иванович
+                                        </td>
+                                        <td>
+                                            Программист
+                                        </td>
+                                        <td>
+                                            Отдел разработки
+                                        </td>
+                                        <td>
+                                            <a href="mailto:test@mail.ru">test@mail.ru</a>
+                                        </td>
+                                        <td>
+                                            <a href="skype:example123?chat">example123</a>
+                                        </td>
+                                        <td>
+                                            <a href="tel:+79999999999">+7 (999) 999-99-99</a>
+                                        </td>
+                                        <td>
+                                            Москва
+                                        </td>
+                                    </tr>
+                                    <tr class="user-table-row">
+                                        <td><span class="badge bg-success"></span></td>
+                                        <td>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments-horizontal" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <circle cx="14" cy="6" r="2" />
+                                                <line x1="4" y1="6" x2="12" y2="6" />
+                                                <line x1="16" y1="6" x2="20" y2="6" />
+                                                <circle cx="8" cy="12" r="2" />
+                                                <line x1="4" y1="12" x2="6" y2="12" />
+                                                <line x1="10" y1="12" x2="20" y2="12" />
+                                                <circle cx="17" cy="18" r="2" />
+                                                <line x1="4" y1="18" x2="15" y2="18" />
+                                                <line x1="19" y1="18" x2="20" y2="18" />
+                                            </svg>
+                                        </td>
+                                        <td>
+                                            Иванов Иван Иванович
+                                        </td>
+                                        <td>
+                                            Программист
+                                        </td>
+                                        <td>
+                                            Отдел разработки
+                                        </td>
+                                        <td>
+                                            <a href="mailto:test@mail.ru">test@mail.ru</a>
+                                        </td>
+                                        <td>
+                                            <a href="skype:example123?chat">example123</a>
+                                        </td>
+                                        <td>
+                                            <a href="tel:+79999999999">+7 (999) 999-99-99</a>
+                                        </td>
+                                        <td>
+                                            Москва
+                                        </td>
+                                    </tr>
+                                    <tr class="user-table-row">
+                                        <td><span class="badge badge bg-danger"></span></td>
+                                        <td>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <circle cx="6" cy="10" r="2" />
+                                                <line x1="6" y1="4" x2="6" y2="8" />
+                                                <line x1="6" y1="12" x2="6" y2="20" />
+                                                <circle cx="12" cy="16" r="2" />
+                                                <line x1="12" y1="4" x2="12" y2="14" />
+                                                <line x1="12" y1="18" x2="12" y2="20" />
+                                                <circle cx="18" cy="7" r="2" />
+                                                <line x1="18" y1="4" x2="18" y2="5" />
+                                                <line x1="18" y1="9" x2="18" y2="20" />
+                                            </svg>
+                                        </td>
+                                        <td>
+                                            Иванов Иван Иванович
+                                        </td>
+                                        <td>
+                                            Программист
+                                        </td>
+                                        <td>
+                                            Отдел разработки
+                                        </td>
+                                        <td>
+                                            <a href="mailto:test@mail.ru">test@mail.ru</a>
+                                        </td>
+                                        <td>
+                                            <a href="skype:example123?chat">example123</a>
+                                        </td>
+                                        <td>
+                                            <a href="tel:+79999999999">+7 (999) 999-99-99</a>
+                                        </td>
+                                        <td>
+                                            Москва
+                                        </td>
+                                    </tr>
+                                    <tr class="user-table-row">
+                                        <td><span class="badge bg-success"></span></td>
+                                        <td>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments-horizontal" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <circle cx="14" cy="6" r="2" />
+                                                <line x1="4" y1="6" x2="12" y2="6" />
+                                                <line x1="16" y1="6" x2="20" y2="6" />
+                                                <circle cx="8" cy="12" r="2" />
+                                                <line x1="4" y1="12" x2="6" y2="12" />
+                                                <line x1="10" y1="12" x2="20" y2="12" />
+                                                <circle cx="17" cy="18" r="2" />
+                                                <line x1="4" y1="18" x2="15" y2="18" />
+                                                <line x1="19" y1="18" x2="20" y2="18" />
+                                            </svg>
+                                        </td>
+                                        <td>
+                                            Иванов Иван Иванович
+                                        </td>
+                                        <td>
+                                            Программист
+                                        </td>
+                                        <td>
+                                            Отдел разработки
+                                        </td>
+                                        <td>
+                                            <a href="mailto:test@mail.ru">test@mail.ru</a>
+                                        </td>
+                                        <td>
+                                            <a href="skype:example123?chat">example123</a>
+                                        </td>
+                                        <td>
+                                            <a href="tel:+79999999999">+7 (999) 999-99-99</a>
+                                        </td>
+                                        <td>
+                                            Москва
+                                        </td>
+                                    </tr>
+                                    <tr class="user-table-row">
+                                        <td><span class="badge bg-success"></span></td>
+                                        <td>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments-horizontal" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <circle cx="14" cy="6" r="2" />
+                                                <line x1="4" y1="6" x2="12" y2="6" />
+                                                <line x1="16" y1="6" x2="20" y2="6" />
+                                                <circle cx="8" cy="12" r="2" />
+                                                <line x1="4" y1="12" x2="6" y2="12" />
+                                                <line x1="10" y1="12" x2="20" y2="12" />
+                                                <circle cx="17" cy="18" r="2" />
+                                                <line x1="4" y1="18" x2="15" y2="18" />
+                                                <line x1="19" y1="18" x2="20" y2="18" />
+                                            </svg>
+                                        </td>
+                                        <td>
+                                            Иванов Иван Иванович
+                                        </td>
+                                        <td>
+                                            Программист
+                                        </td>
+                                        <td>
+                                            Отдел разработки
+                                        </td>
+                                        <td>
+                                            <a href="mailto:test@mail.ru">test@mail.ru</a>
+                                        </td>
+                                        <td>
+                                            <a href="skype:example123?chat">example123</a>
+                                        </td>
+                                        <td>
+                                            <a href="tel:+79999999999">+7 (999) 999-99-99</a>
+                                        </td>
+                                        <td>
+                                            Москва
+                                        </td>
+                                    </tr>
+                                    <tr class="user-table-row">
+                                        <td><span class="badge bg-success"></span></td>
+                                        <td>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments-horizontal" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <circle cx="14" cy="6" r="2" />
+                                                <line x1="4" y1="6" x2="12" y2="6" />
+                                                <line x1="16" y1="6" x2="20" y2="6" />
+                                                <circle cx="8" cy="12" r="2" />
+                                                <line x1="4" y1="12" x2="6" y2="12" />
+                                                <line x1="10" y1="12" x2="20" y2="12" />
+                                                <circle cx="17" cy="18" r="2" />
+                                                <line x1="4" y1="18" x2="15" y2="18" />
+                                                <line x1="19" y1="18" x2="20" y2="18" />
+                                            </svg>
+                                        </td>
+                                        <td>
+                                            Иванов Иван Иванович
+                                        </td>
+                                        <td>
+                                            Программист
+                                        </td>
+                                        <td>
+                                            Отдел разработки
+                                        </td>
+                                        <td>
+                                            <a href="mailto:test@mail.ru">test@mail.ru</a>
+                                        </td>
+                                        <td>
+                                            <a href="skype:example123?chat">example123</a>
+                                        </td>
+                                        <td>
+                                            <a href="tel:+79999999999">+7 (999) 999-99-99</a>
+                                        </td>
+                                        <td>
+                                            Москва
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="card-footer d-flex align-items-center">
+                                <p class="m-0 text-muted"><b>25</b> результатов</p>
+                                <ul class="pagination m-0 ms-auto">
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+                                            <!-- Download SVG icon from http://tabler-icons.io/i/chevron-left -->
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><polyline points="15 6 9 12 15 18" /></svg>
+                                        </a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item active"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">5</a></li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><polyline points="9 6 15 12 9 18" /></svg>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div id="userCreationPanel" class="offcanvas offcanvas-end" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                            <div class="offcanvas-header">
+                                <h2 class="offcanvas-title">Создание пользователя</h2>
+                                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                            </div>
+                            <div class="offcanvas-body">
+                                <form action="#" name="user-create">
+                                    <div class="form-group mb-3 ">
+                                        <label class="form-label">Фамилия</label>
+                                        <div>
+                                            <input type="text" class="form-control" placeholder="Фамилия">
+                                        </div>
+                                    </div>
+                                    <div class="form-group mb-3 ">
+                                        <label class="form-label">Имя</label>
+                                        <div>
+                                            <input type="text" class="form-control" placeholder="Имя">
+                                        </div>
+                                    </div>
+                                    <div class="form-group mb-3 ">
+                                        <label class="form-label">Отчество</label>
+                                        <div>
+                                            <input type="text" class="form-control" placeholder="Отчество">
+                                        </div>
+                                    </div>
+                                    <div class="form-group mb-3 ">
+                                        <label class="form-label">Активность</label>
+                                        <label class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" checked>
+                                            <span class="form-check-label">Активирован</span>
+                                        </label>
+                                    </div>
+                                    <div class="form-group mb-3 ">
+                                        <label class="form-label">Должность</label>
+                                        <div>
+                                            <input type="text" class="form-control" placeholder="Должность">
+                                        </div>
+                                    </div>
+                                    <div class="form-group mb-3 ">
+                                        <label class="form-label">Подразделение</label>
+                                        <div>
+                                            <button type="button" class="btn btn-primary">Изменить</button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group mb-3 ">
+                                        <label class="form-label">Роли</label>
+                                        <div>
+                                            <button type="button" class="btn btn-primary">Изменить</button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group mb-3 ">
+                                        <label class="form-label">E-mail</label>
+                                        <div>
+                                            <input type="email" class="form-control" placeholder="Адрес электронной почты">
+                                        </div>
+                                    </div>
+                                    <div class="form-group mb-3 ">
+                                        <label class="form-label">Скайп</label>
+                                        <div>
+                                            <input type="text" class="form-control" placeholder="Скайп">
+                                        </div>
+                                    </div>
+                                    <div class="form-group mb-3 ">
+                                        <label class="form-label">Телефон</label>
+                                        <div>
+                                            <input type="tel" class="form-control" placeholder="Телефон в формате +7 (xxx) xxx-xx-xx">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Город</label>
+                                        <select type="text" class="form-select">
+                                            <option disabled selected>Выберите город из списка</option>
+                                            <option value="1">Москва</option>
+                                            <option value="2">Санкт-Петербург</option>
+                                            <option value="3">Ярославль</option>
+                                        </select>
+                                    </div>
+                                    <div class="d-flex mb-4">
+                                        <button type="submit" class="btn btn-primary ms-auto">Сохранить</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div id="userEditingPanel" class="offcanvas offcanvas-end" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                            <div class="offcanvas-header">
+                                <h2 class="offcanvas-title">Редактирование пользователя</h2>
+                                <button id="jsEditingPanelCloser" type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                            </div>
+                            <div class="offcanvas-body">
+                                <form action="#" name="user-create">
+                                    <div class="form-group mb-3 ">
+                                        <label class="form-label">Фамилия</label>
+                                        <div>
+                                            <input type="text" class="form-control" placeholder="Фамилия" value="Иванов">
+                                        </div>
+                                    </div>
+                                    <div class="form-group mb-3 ">
+                                        <label class="form-label">Имя</label>
+                                        <div>
+                                            <input type="text" class="form-control" placeholder="Имя" value="Иван">
+                                        </div>
+                                    </div>
+                                    <div class="form-group mb-3 ">
+                                        <label class="form-label">Отчество</label>
+                                        <div>
+                                            <input type="text" class="form-control" placeholder="Отчество" value="Иванович">
+                                        </div>
+                                    </div>
+                                    <div class="form-group mb-3 ">
+                                        <label class="form-label">Активность</label>
+                                        <label class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" checked>
+                                            <span class="form-check-label">Активирован</span>
+                                        </label>
+                                    </div>
+                                    <div class="form-group mb-3 ">
+                                        <label class="form-label">Должность</label>
+                                        <div>
+                                            <input type="text" class="form-control" placeholder="Должность" value="Программист">
+                                        </div>
+                                    </div>
+                                    <div class="form-group mb-3 ">
+                                        <label class="form-label">Подразделение</label>
+                                        <div>
+                                            <button type="button" class="btn btn-primary">Изменить</button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group mb-3 ">
+                                        <label class="form-label">Роли</label>
+                                        <div>
+                                            <button type="button" class="btn btn-primary">Изменить</button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group mb-3 ">
+                                        <label class="form-label">E-mail</label>
+                                        <div>
+                                            <input type="email" class="form-control" placeholder="Адрес электронной почты" value="test@mail.ru">
+                                        </div>
+                                    </div>
+                                    <div class="form-group mb-3 ">
+                                        <label class="form-label">Скайп</label>
+                                        <div>
+                                            <input type="text" class="form-control" placeholder="Скайп" value="example123">
+                                        </div>
+                                    </div>
+                                    <div class="form-group mb-3 ">
+                                        <label class="form-label">Телефон</label>
+                                        <div>
+                                            <input type="tel" class="form-control" placeholder="Телефон в формате +7 (xxx) xxx-xx-xx" value="+7 (999) 999-99-99">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Город</label>
+                                        <select type="text" class="form-select">
+                                            <option disabled>Выберите город из списка</option>
+                                            <option value="1" selected>Москва</option>
+                                            <option value="2">Санкт-Петербург</option>
+                                            <option value="3">Ярославль</option>
+                                        </select>
+                                    </div>
+                                    <div class="d-flex mb-4">
+                                        <button type="submit" class="btn btn-primary ms-auto">Сохранить</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div id="userEditingOverlay" class="offcanvas-backdrop fade"></div>
+
+                        <div id="userRemoveModal" class="modal modal-blur fade" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <div class="modal-status bg-danger"></div>
+                                    <div class="modal-body text-center py-4">
+                                        <!-- Download SVG icon from http://tabler-icons.io/i/alert-triangle -->
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-danger icon-lg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 9v2m0 4v.01" /><path d="M5 19h14a2 2 0 0 0 1.84 -2.75l-7.1 -12.25a2 2 0 0 0 -3.5 0l-7.1 12.25a2 2 0 0 0 1.75 2.75" /></svg>
+                                        <h3>Вы уверены?</h3>
+                                        <div class="text-muted">Вы действительно хотите удалить пользователя Иванов Иван Иванович?</div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <div class="w-100">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <a href="#" class="btn w-100" data-bs-dismiss="modal">Отмена</a>
+                                                </div>
+                                                <div class="col">
+                                                    <a href="#" class="btn btn-danger w-100" data-bs-dismiss="modal">Удалить</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
