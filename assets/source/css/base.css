@@ -1,0 +1,7 @@
+.page-layout {
+	min-height: calc(100vh - 100px);
+}
+
+.navbar-nav .nav-item.active > a {
+	background-color: rgba(32, 107, 196, 0.25);
+}

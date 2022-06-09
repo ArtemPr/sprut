@@ -3,10 +3,6 @@ body.user-editing-panel-opened {
 	padding-right: 6px;
 }
 
-.page-layout {
-	min-height: calc(100vh - 100px);
-}
-
 .users-table-wrap {
 	max-height: calc(100vh - 330px);
 	position: relative;
@@ -21,6 +17,47 @@ body.user-editing-panel-opened {
 
 .user-table-row.is-selected {
 	background-color: rgba(32, 107, 196, 0.25);
+}
+
+.user-photo-col {
+	width: 156px;
+	-webkit-box-flex: 0;
+	-ms-flex: 0 0 156px;
+	flex: 0 0 156px;
+}
+
+.user-photo-box {
+	width: 100%;
+	height: 140px;
+	position: relative;
+	border: 1px solid #d9dbde;
+	background-color: #fff;
+	border-radius: 4px;
+	overflow: hidden;
+}
+
+.user-photo-input {
+	position: absolute;
+	opacity: 0;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	cursor: pointer;
+	z-index: 10;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+
+.user-photo-img {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	-o-object-fit: cover;
+	object-fit: cover;
 }
 
 .t-draggable {
@@ -59,6 +96,18 @@ body.user-editing-panel-opened {
 .t-dragging {
 	background: #fff;
 	z-index: 999;
+}
+
+.user-form-panel {
+	width: 550px;
+}
+
+.user-form-panel .offcanvas-body {
+	overflow-x: hidden;
+}
+
+.user-form-panel .form-label {
+	width: 130px;
 }
 
 #userEditingPanel.show {

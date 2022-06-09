@@ -21,8 +21,8 @@
                     <div class="d-none d-xl-block ps-2">
                         <div>
                             {{ app.user.username|default('Гость') }}
-                            {{ app.user.surname|default(false) }}
-                            {{ app.user.patronymic|default(false) }}
+                            {{ app.user.surname|default('Гость') }}
+                            {{ app.user.patronymic|default('Гость') }}
                         </div>
                     </div>
                 </a>

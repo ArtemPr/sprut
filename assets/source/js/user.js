@@ -6,7 +6,6 @@ const userEditingPanel = document.querySelector('#userEditingPanel');
 const userEditingPanelCloser = document.querySelector('#jsEditingPanelCloser');
 const userEditingOverlay = document.querySelector('#userEditingOverlay');
 
-
 /**
  * Users Interaction
  */
@@ -38,6 +37,30 @@ userEditingOverlay.addEventListener('click', function () {
   userEditingPanel.classList.remove('show');
   userEditingOverlay.classList.remove('show');
 });
+
+
+
+/**
+ * User Photo Upload
+ */
+
+window.addEventListener('load', function() {
+  const userPhotoInputs = document.querySelectorAll('.user-photo-input');
+  for (let i = 0; i < userPhotoInputs.length; ++i) {
+    let userPhotoInput = userPhotoInputs[i];
+    userPhotoInput.addEventListener('change', function() {
+      if (this.files && this.files[0]) {
+        const thisParent = this.parentElement;
+        const thisImg = thisParent.querySelector('.user-photo-img');
+        thisImg.onload = () => {
+          URL.revokeObjectURL(thisImg.src);
+        }
+        thisImg.src = URL.createObjectURL(this.files[0]);
+      }
+    });
+  }
+});
+
 
 
 /**
