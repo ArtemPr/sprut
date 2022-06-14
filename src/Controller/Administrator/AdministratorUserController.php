@@ -23,7 +23,10 @@ class AdministratorUserController extends AbstractController
         $user_list = $this->managerRegistry->getRepository(User::class)->getList();
         return $this->render(
             'administrator/user/list.html.twig',
-            ['user_list' => $user_list,]
+            [
+                'controller' => 'AdminUser',
+                'user_list' => $user_list,
+            ]
         );
     }
 }

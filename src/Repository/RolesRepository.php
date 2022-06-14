@@ -6,6 +6,7 @@ use App\Entity\Roles;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -18,6 +19,9 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class RolesRepository extends ServiceEntityRepository
 {
+
+    const PER_PAGE = 25;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Roles::class);
@@ -47,28 +51,18 @@ class RolesRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Roles[] Returns an array of Roles objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('r')
-//            ->andWhere('r.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('r.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * @return float|int|mixed|string
+     */
+    public function getList()
+    {
+        $entityManager = $this->getEntityManager();
 
-//    public function findOneBySomeField($value): ?Roles
-//    {
-//        return $this->createQueryBuilder('r')
-//            ->andWhere('r.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        $result = $entityManager->createQuery(
+            'SELECT role
+                FROM App\Entity\Roles role'
+        )->setMaxResults(self::PER_PAGE)->getResult(Query::HYDRATE_ARRAY);
+
+        return $result;
+    }
 }

@@ -16,4 +16,16 @@ class UserController extends AbstractController
     {
         return $this->render('user/index.html.twig');
     }
+
+    #[Route('/role', name: 'role_v')]
+    public function role(): Response
+    {
+        return $this->render('user/role.html.twig');
+    }
+
+    #[Route('/operation', name: 'operation_v')]
+    public function operation(): Response
+    {
+        return $this->render('user/role.html.twig');
+    }
 }

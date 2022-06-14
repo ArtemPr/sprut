@@ -1,0 +1,20 @@
+<div class="page-header d-print-none">
+    <div class="row g-2 align-items-center">
+        <div class="col d-flex align-items-center">
+            <!-- Page pre-title -->
+            <h2 class="page-title">
+                {{ header|default(false) }}
+            </h2>
+
+            <div class="ms-auto d-flex align-items-center">
+                <div>По</div>
+                <select class="form-select ms-2">
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                    <option value="all">Все</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>

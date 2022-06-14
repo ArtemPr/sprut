@@ -13,10 +13,10 @@
 <div class="page page-layout">
     <aside class="navbar navbar-vertical navbar-expand-lg navbar-light">
         <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-header-menu">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbar-menu">
+            <div class="collapse navbar-collapse" id="navbar-header-menu">
                 <ul class="navbar-nav pt-lg-3">
                     <li class="nav-item">
                         <a class="nav-link" href="#" >
@@ -71,7 +71,7 @@
         </div>
     </aside>
     <div class="page-wrapper">
-        <div class="container-xl">
+        <div class="container-fluid">
             <!-- Page title -->
             <div class="page-header d-print-none">
                 <div class="row g-2 align-items-center">
@@ -94,14 +94,14 @@
             </div>
         </div>
         <div class="page-body">
-            <div class="container-xl">
+            <div class="container-fluid">
                 <div class="row row-deck row-cards">
                     <div class="col-12">
 
                         <div class="card">
-                            <div class="card-body border-bottom py-3">
+                            <div class="users-option-panel card-body border-bottom py-3">
                                 <div class="d-flex align-items-center mb-0">
-                                    <div class="input-group input-group-flat">
+                                    <div class="is-left-col input-group input-group-flat me-2">
                                         <input type="text" class="form-control" placeholder="Поиск"  autocomplete="off">
                                         <span class="input-group-text">
                                         <a href="#" class="link-secondary" title="Очистить Поиск" data-bs-toggle="tooltip">
@@ -110,15 +110,17 @@
                                         <a href="#" class="link-secondary ms-2" title="Поиск" data-bs-toggle="tooltip">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><circle cx="10" cy="10" r="7"></circle><line x1="21" y1="21" x2="15" y2="15"></line></svg>
                                         </a>
-                                        <a href="#" class="link-secondary ms-2" title="Экспорт в Excel" data-bs-toggle="tooltip">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-table-export" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                              <path d="M11.5 20h-5.5a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v7.5m-16 -3.5h16m-10 -6v16m4 -1h7m-3 -3l3 3l-3 3" />
-                                            </svg>
-                                        </a>
                                     </span>
                                     </div>
-                                    <div class="ms-2">
+                                    <div class="me-2">
+                                        <a href="#" class="btn w-100 btn-icon" title="Экспорт в Excel" data-bs-toggle="tooltip">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-table-export" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <path d="M11.5 20h-5.5a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v7.5m-16 -3.5h16m-10 -6v16m4 -1h7m-3 -3l3 3l-3 3" />
+                                            </svg>
+                                        </a>
+                                    </div>
+                                    <div class="is-left-col ms-auto">
                                         <div class="btn-group w-100">
                                             <a class="btn" data-bs-toggle="offcanvas" href="#userCreationPanel" role="button" aria-controls="offcanvasEnd">Создать</a>
                                             <a class="btn" data-bs-toggle="offcanvas" href="#userEditingPanel" role="button" aria-controls="offcanvasEnd">Изменить</a>
@@ -131,36 +133,28 @@
                                 <table id="usersTable" class="users-table table card-table table-vcenter text-nowrap datatable">
                                     <thead>
                                     <tr>
-                                        <th></th>
-                                        <th></th>
-                                        <th>ФИО</th>
-                                        <th>Должность</th>
-                                        <th>Подразделение</th>
-                                        <th>Почта</th>
-                                        <th>Скайп</th>
-                                        <th>Телефон</th>
-                                        <th>Город</th>
+                                        <th><a class="sort-icon is-both" href="#"></a></th>
+                                        <th><a class="sort-icon is-both" href="#"></a></th>
+                                        <th>ФИО <a class="sort-icon is-both" href="#"></a></th>
+                                        <th>Должность <a class="sort-icon is-desc" href="#"></a></th>
+                                        <th>Подразделение <a class="sort-icon is-asc" href="#"></a></th>
+                                        <th>Почта <a class="sort-icon is-both" href="#"></a></th>
+                                        <th>Скайп <a class="sort-icon is-both" href="#"></a></th>
+                                        <th>Телефон <a class="sort-icon is-both" href="#"></a></th>
+                                        <th>Город <a class="sort-icon is-both" href="#"></a></th>
+                                        <th class="hidden-cell"></th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr class="user-table-row is-selected">
-                                        <td><span class="badge bg-success"></span></td>
                                         <td>
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments-horizontal" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                <circle cx="14" cy="6" r="2" />
-                                                <line x1="4" y1="6" x2="12" y2="6" />
-                                                <line x1="16" y1="6" x2="20" y2="6" />
-                                                <circle cx="8" cy="12" r="2" />
-                                                <line x1="4" y1="12" x2="6" y2="12" />
-                                                <line x1="10" y1="12" x2="20" y2="12" />
-                                                <circle cx="17" cy="18" r="2" />
-                                                <line x1="4" y1="18" x2="15" y2="18" />
-                                                <line x1="19" y1="18" x2="20" y2="18" />
-                                            </svg>
+                                            <span class="badge bg-success"></span>
                                         </td>
                                         <td>
-                                            Иванов Иван Иванович
+                                            Локальный
+                                        </td>
+                                        <td>
+                                            Иванов И.И.
                                         </td>
                                         <td>
                                             Программист
@@ -179,26 +173,20 @@
                                         </td>
                                         <td>
                                             Москва
+                                        </td>
+                                        <td class="hidden-cell">
+                                            <input class="selected-checkbox" type="checkbox" name="#" checked>
                                         </td>
                                     </tr>
                                     <tr class="user-table-row">
-                                        <td><span class="badge badge bg-danger"></span></td>
                                         <td>
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                <circle cx="6" cy="10" r="2" />
-                                                <line x1="6" y1="4" x2="6" y2="8" />
-                                                <line x1="6" y1="12" x2="6" y2="20" />
-                                                <circle cx="12" cy="16" r="2" />
-                                                <line x1="12" y1="4" x2="12" y2="14" />
-                                                <line x1="12" y1="18" x2="12" y2="20" />
-                                                <circle cx="18" cy="7" r="2" />
-                                                <line x1="18" y1="4" x2="18" y2="5" />
-                                                <line x1="18" y1="9" x2="18" y2="20" />
-                                            </svg>
+                                            <span class="badge badge bg-danger"></span>
                                         </td>
                                         <td>
-                                            Иванов Иван Иванович
+                                            Битрикс
+                                        </td>
+                                        <td>
+                                            Иванов И.И.
                                         </td>
                                         <td>
                                             Программист
@@ -217,26 +205,20 @@
                                         </td>
                                         <td>
                                             Москва
+                                        </td>
+                                        <td class="hidden-cell">
+                                            <input class="selected-checkbox" type="checkbox" name="#">
                                         </td>
                                     </tr>
                                     <tr class="user-table-row">
-                                        <td><span class="badge bg-success"></span></td>
                                         <td>
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments-horizontal" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                <circle cx="14" cy="6" r="2" />
-                                                <line x1="4" y1="6" x2="12" y2="6" />
-                                                <line x1="16" y1="6" x2="20" y2="6" />
-                                                <circle cx="8" cy="12" r="2" />
-                                                <line x1="4" y1="12" x2="6" y2="12" />
-                                                <line x1="10" y1="12" x2="20" y2="12" />
-                                                <circle cx="17" cy="18" r="2" />
-                                                <line x1="4" y1="18" x2="15" y2="18" />
-                                                <line x1="19" y1="18" x2="20" y2="18" />
-                                            </svg>
+                                            <span class="badge bg-success"></span>
                                         </td>
                                         <td>
-                                            Иванов Иван Иванович
+                                            Локальный
+                                        </td>
+                                        <td>
+                                            Иванов И.И.
                                         </td>
                                         <td>
                                             Программист
@@ -255,26 +237,20 @@
                                         </td>
                                         <td>
                                             Москва
+                                        </td>
+                                        <td class="hidden-cell">
+                                            <input class="selected-checkbox" type="checkbox" name="#">
                                         </td>
                                     </tr>
                                     <tr class="user-table-row">
-                                        <td><span class="badge bg-success"></span></td>
                                         <td>
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments-horizontal" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                <circle cx="14" cy="6" r="2" />
-                                                <line x1="4" y1="6" x2="12" y2="6" />
-                                                <line x1="16" y1="6" x2="20" y2="6" />
-                                                <circle cx="8" cy="12" r="2" />
-                                                <line x1="4" y1="12" x2="6" y2="12" />
-                                                <line x1="10" y1="12" x2="20" y2="12" />
-                                                <circle cx="17" cy="18" r="2" />
-                                                <line x1="4" y1="18" x2="15" y2="18" />
-                                                <line x1="19" y1="18" x2="20" y2="18" />
-                                            </svg>
+                                            <span class="badge bg-success"></span>
                                         </td>
                                         <td>
-                                            Иванов Иван Иванович
+                                            Локальный
+                                        </td>
+                                        <td>
+                                            Иванов И.И.
                                         </td>
                                         <td>
                                             Программист
@@ -293,26 +269,20 @@
                                         </td>
                                         <td>
                                             Москва
+                                        </td>
+                                        <td class="hidden-cell">
+                                            <input class="selected-checkbox" type="checkbox" name="#">
                                         </td>
                                     </tr>
                                     <tr class="user-table-row">
-                                        <td><span class="badge bg-success"></span></td>
                                         <td>
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments-horizontal" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                <circle cx="14" cy="6" r="2" />
-                                                <line x1="4" y1="6" x2="12" y2="6" />
-                                                <line x1="16" y1="6" x2="20" y2="6" />
-                                                <circle cx="8" cy="12" r="2" />
-                                                <line x1="4" y1="12" x2="6" y2="12" />
-                                                <line x1="10" y1="12" x2="20" y2="12" />
-                                                <circle cx="17" cy="18" r="2" />
-                                                <line x1="4" y1="18" x2="15" y2="18" />
-                                                <line x1="19" y1="18" x2="20" y2="18" />
-                                            </svg>
+                                            <span class="badge bg-success"></span>
                                         </td>
                                         <td>
-                                            Иванов Иван Иванович
+                                            Локальный
+                                        </td>
+                                        <td>
+                                            Иванов И.И.
                                         </td>
                                         <td>
                                             Программист
@@ -331,26 +301,20 @@
                                         </td>
                                         <td>
                                             Москва
+                                        </td>
+                                        <td class="hidden-cell">
+                                            <input class="selected-checkbox" type="checkbox" name="#">
                                         </td>
                                     </tr>
                                     <tr class="user-table-row">
-                                        <td><span class="badge bg-success"></span></td>
                                         <td>
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments-horizontal" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                <circle cx="14" cy="6" r="2" />
-                                                <line x1="4" y1="6" x2="12" y2="6" />
-                                                <line x1="16" y1="6" x2="20" y2="6" />
-                                                <circle cx="8" cy="12" r="2" />
-                                                <line x1="4" y1="12" x2="6" y2="12" />
-                                                <line x1="10" y1="12" x2="20" y2="12" />
-                                                <circle cx="17" cy="18" r="2" />
-                                                <line x1="4" y1="18" x2="15" y2="18" />
-                                                <line x1="19" y1="18" x2="20" y2="18" />
-                                            </svg>
+                                            <span class="badge bg-success"></span>
                                         </td>
                                         <td>
-                                            Иванов Иван Иванович
+                                            Локальный
+                                        </td>
+                                        <td>
+                                            Иванов И.И.
                                         </td>
                                         <td>
                                             Программист
@@ -369,26 +333,20 @@
                                         </td>
                                         <td>
                                             Москва
+                                        </td>
+                                        <td class="hidden-cell">
+                                            <input class="selected-checkbox" type="checkbox" name="#" checked>
                                         </td>
                                     </tr>
                                     <tr class="user-table-row">
-                                        <td><span class="badge badge bg-danger"></span></td>
                                         <td>
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                <circle cx="6" cy="10" r="2" />
-                                                <line x1="6" y1="4" x2="6" y2="8" />
-                                                <line x1="6" y1="12" x2="6" y2="20" />
-                                                <circle cx="12" cy="16" r="2" />
-                                                <line x1="12" y1="4" x2="12" y2="14" />
-                                                <line x1="12" y1="18" x2="12" y2="20" />
-                                                <circle cx="18" cy="7" r="2" />
-                                                <line x1="18" y1="4" x2="18" y2="5" />
-                                                <line x1="18" y1="9" x2="18" y2="20" />
-                                            </svg>
+                                            <span class="badge badge bg-danger"></span>
                                         </td>
                                         <td>
-                                            Иванов Иван Иванович
+                                            Битрикс
+                                        </td>
+                                        <td>
+                                            Иванов И.И.
                                         </td>
                                         <td>
                                             Программист
@@ -407,26 +365,20 @@
                                         </td>
                                         <td>
                                             Москва
+                                        </td>
+                                        <td class="hidden-cell">
+                                            <input class="selected-checkbox" type="checkbox" name="#">
                                         </td>
                                     </tr>
                                     <tr class="user-table-row">
-                                        <td><span class="badge bg-success"></span></td>
                                         <td>
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments-horizontal" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                <circle cx="14" cy="6" r="2" />
-                                                <line x1="4" y1="6" x2="12" y2="6" />
-                                                <line x1="16" y1="6" x2="20" y2="6" />
-                                                <circle cx="8" cy="12" r="2" />
-                                                <line x1="4" y1="12" x2="6" y2="12" />
-                                                <line x1="10" y1="12" x2="20" y2="12" />
-                                                <circle cx="17" cy="18" r="2" />
-                                                <line x1="4" y1="18" x2="15" y2="18" />
-                                                <line x1="19" y1="18" x2="20" y2="18" />
-                                            </svg>
+                                            <span class="badge bg-success"></span>
                                         </td>
                                         <td>
-                                            Иванов Иван Иванович
+                                            Локальный
+                                        </td>
+                                        <td>
+                                            Иванов И.И.
                                         </td>
                                         <td>
                                             Программист
@@ -445,26 +397,20 @@
                                         </td>
                                         <td>
                                             Москва
+                                        </td>
+                                        <td class="hidden-cell">
+                                            <input class="selected-checkbox" type="checkbox" name="#">
                                         </td>
                                     </tr>
                                     <tr class="user-table-row">
-                                        <td><span class="badge bg-success"></span></td>
                                         <td>
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments-horizontal" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                <circle cx="14" cy="6" r="2" />
-                                                <line x1="4" y1="6" x2="12" y2="6" />
-                                                <line x1="16" y1="6" x2="20" y2="6" />
-                                                <circle cx="8" cy="12" r="2" />
-                                                <line x1="4" y1="12" x2="6" y2="12" />
-                                                <line x1="10" y1="12" x2="20" y2="12" />
-                                                <circle cx="17" cy="18" r="2" />
-                                                <line x1="4" y1="18" x2="15" y2="18" />
-                                                <line x1="19" y1="18" x2="20" y2="18" />
-                                            </svg>
+                                            <span class="badge bg-success"></span>
                                         </td>
                                         <td>
-                                            Иванов Иван Иванович
+                                            Локальный
+                                        </td>
+                                        <td>
+                                            Иванов И.И.
                                         </td>
                                         <td>
                                             Программист
@@ -483,26 +429,20 @@
                                         </td>
                                         <td>
                                             Москва
+                                        </td>
+                                        <td class="hidden-cell">
+                                            <input class="selected-checkbox" type="checkbox" name="#">
                                         </td>
                                     </tr>
                                     <tr class="user-table-row">
-                                        <td><span class="badge bg-success"></span></td>
                                         <td>
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments-horizontal" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                <circle cx="14" cy="6" r="2" />
-                                                <line x1="4" y1="6" x2="12" y2="6" />
-                                                <line x1="16" y1="6" x2="20" y2="6" />
-                                                <circle cx="8" cy="12" r="2" />
-                                                <line x1="4" y1="12" x2="6" y2="12" />
-                                                <line x1="10" y1="12" x2="20" y2="12" />
-                                                <circle cx="17" cy="18" r="2" />
-                                                <line x1="4" y1="18" x2="15" y2="18" />
-                                                <line x1="19" y1="18" x2="20" y2="18" />
-                                            </svg>
+                                            <span class="badge bg-success"></span>
                                         </td>
                                         <td>
-                                            Иванов Иван Иванович
+                                            Локальный
+                                        </td>
+                                        <td>
+                                            Иванов И.И.
                                         </td>
                                         <td>
                                             Программист
@@ -521,26 +461,20 @@
                                         </td>
                                         <td>
                                             Москва
+                                        </td>
+                                        <td class="hidden-cell">
+                                            <input class="selected-checkbox" type="checkbox" name="#">
                                         </td>
                                     </tr>
                                     <tr class="user-table-row">
-                                        <td><span class="badge bg-success"></span></td>
                                         <td>
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments-horizontal" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                <circle cx="14" cy="6" r="2" />
-                                                <line x1="4" y1="6" x2="12" y2="6" />
-                                                <line x1="16" y1="6" x2="20" y2="6" />
-                                                <circle cx="8" cy="12" r="2" />
-                                                <line x1="4" y1="12" x2="6" y2="12" />
-                                                <line x1="10" y1="12" x2="20" y2="12" />
-                                                <circle cx="17" cy="18" r="2" />
-                                                <line x1="4" y1="18" x2="15" y2="18" />
-                                                <line x1="19" y1="18" x2="20" y2="18" />
-                                            </svg>
+                                            <span class="badge bg-success"></span>
                                         </td>
                                         <td>
-                                            Иванов Иван Иванович
+                                            Локальный
+                                        </td>
+                                        <td>
+                                            Иванов И.И.
                                         </td>
                                         <td>
                                             Программист
@@ -559,26 +493,20 @@
                                         </td>
                                         <td>
                                             Москва
+                                        </td>
+                                        <td class="hidden-cell">
+                                            <input class="selected-checkbox" type="checkbox" name="#" checked>
                                         </td>
                                     </tr>
                                     <tr class="user-table-row">
-                                        <td><span class="badge badge bg-danger"></span></td>
                                         <td>
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                <circle cx="6" cy="10" r="2" />
-                                                <line x1="6" y1="4" x2="6" y2="8" />
-                                                <line x1="6" y1="12" x2="6" y2="20" />
-                                                <circle cx="12" cy="16" r="2" />
-                                                <line x1="12" y1="4" x2="12" y2="14" />
-                                                <line x1="12" y1="18" x2="12" y2="20" />
-                                                <circle cx="18" cy="7" r="2" />
-                                                <line x1="18" y1="4" x2="18" y2="5" />
-                                                <line x1="18" y1="9" x2="18" y2="20" />
-                                            </svg>
+                                            <span class="badge badge bg-danger"></span>
                                         </td>
                                         <td>
-                                            Иванов Иван Иванович
+                                            Битрикс
+                                        </td>
+                                        <td>
+                                            Иванов И.И.
                                         </td>
                                         <td>
                                             Программист
@@ -597,26 +525,20 @@
                                         </td>
                                         <td>
                                             Москва
+                                        </td>
+                                        <td class="hidden-cell">
+                                            <input class="selected-checkbox" type="checkbox" name="#">
                                         </td>
                                     </tr>
                                     <tr class="user-table-row">
-                                        <td><span class="badge bg-success"></span></td>
                                         <td>
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments-horizontal" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                <circle cx="14" cy="6" r="2" />
-                                                <line x1="4" y1="6" x2="12" y2="6" />
-                                                <line x1="16" y1="6" x2="20" y2="6" />
-                                                <circle cx="8" cy="12" r="2" />
-                                                <line x1="4" y1="12" x2="6" y2="12" />
-                                                <line x1="10" y1="12" x2="20" y2="12" />
-                                                <circle cx="17" cy="18" r="2" />
-                                                <line x1="4" y1="18" x2="15" y2="18" />
-                                                <line x1="19" y1="18" x2="20" y2="18" />
-                                            </svg>
+                                            <span class="badge bg-success"></span>
                                         </td>
                                         <td>
-                                            Иванов Иван Иванович
+                                            Локальный
+                                        </td>
+                                        <td>
+                                            Иванов И.И.
                                         </td>
                                         <td>
                                             Программист
@@ -635,26 +557,20 @@
                                         </td>
                                         <td>
                                             Москва
+                                        </td>
+                                        <td class="hidden-cell">
+                                            <input class="selected-checkbox" type="checkbox" name="#">
                                         </td>
                                     </tr>
                                     <tr class="user-table-row">
-                                        <td><span class="badge bg-success"></span></td>
                                         <td>
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments-horizontal" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                <circle cx="14" cy="6" r="2" />
-                                                <line x1="4" y1="6" x2="12" y2="6" />
-                                                <line x1="16" y1="6" x2="20" y2="6" />
-                                                <circle cx="8" cy="12" r="2" />
-                                                <line x1="4" y1="12" x2="6" y2="12" />
-                                                <line x1="10" y1="12" x2="20" y2="12" />
-                                                <circle cx="17" cy="18" r="2" />
-                                                <line x1="4" y1="18" x2="15" y2="18" />
-                                                <line x1="19" y1="18" x2="20" y2="18" />
-                                            </svg>
+                                            <span class="badge bg-success"></span>
                                         </td>
                                         <td>
-                                            Иванов Иван Иванович
+                                            Локальный
+                                        </td>
+                                        <td>
+                                            Иванов И.И.
                                         </td>
                                         <td>
                                             Программист
@@ -673,26 +589,20 @@
                                         </td>
                                         <td>
                                             Москва
+                                        </td>
+                                        <td class="hidden-cell">
+                                            <input class="selected-checkbox" type="checkbox" name="#">
                                         </td>
                                     </tr>
                                     <tr class="user-table-row">
-                                        <td><span class="badge bg-success"></span></td>
                                         <td>
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments-horizontal" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                <circle cx="14" cy="6" r="2" />
-                                                <line x1="4" y1="6" x2="12" y2="6" />
-                                                <line x1="16" y1="6" x2="20" y2="6" />
-                                                <circle cx="8" cy="12" r="2" />
-                                                <line x1="4" y1="12" x2="6" y2="12" />
-                                                <line x1="10" y1="12" x2="20" y2="12" />
-                                                <circle cx="17" cy="18" r="2" />
-                                                <line x1="4" y1="18" x2="15" y2="18" />
-                                                <line x1="19" y1="18" x2="20" y2="18" />
-                                            </svg>
+                                            <span class="badge bg-success"></span>
                                         </td>
                                         <td>
-                                            Иванов Иван Иванович
+                                            Локальный
+                                        </td>
+                                        <td>
+                                            Иванов И.И.
                                         </td>
                                         <td>
                                             Программист
@@ -711,26 +621,20 @@
                                         </td>
                                         <td>
                                             Москва
+                                        </td>
+                                        <td class="hidden-cell">
+                                            <input class="selected-checkbox" type="checkbox" name="#">
                                         </td>
                                     </tr>
                                     <tr class="user-table-row">
-                                        <td><span class="badge bg-success"></span></td>
                                         <td>
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments-horizontal" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                <circle cx="14" cy="6" r="2" />
-                                                <line x1="4" y1="6" x2="12" y2="6" />
-                                                <line x1="16" y1="6" x2="20" y2="6" />
-                                                <circle cx="8" cy="12" r="2" />
-                                                <line x1="4" y1="12" x2="6" y2="12" />
-                                                <line x1="10" y1="12" x2="20" y2="12" />
-                                                <circle cx="17" cy="18" r="2" />
-                                                <line x1="4" y1="18" x2="15" y2="18" />
-                                                <line x1="19" y1="18" x2="20" y2="18" />
-                                            </svg>
+                                            <span class="badge bg-success"></span>
                                         </td>
                                         <td>
-                                            Иванов Иван Иванович
+                                            Локальный
+                                        </td>
+                                        <td>
+                                            Иванов И.И.
                                         </td>
                                         <td>
                                             Программист
@@ -749,26 +653,20 @@
                                         </td>
                                         <td>
                                             Москва
+                                        </td>
+                                        <td class="hidden-cell">
+                                            <input class="selected-checkbox" type="checkbox" name="#" checked>
                                         </td>
                                     </tr>
                                     <tr class="user-table-row">
-                                        <td><span class="badge badge bg-danger"></span></td>
                                         <td>
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                <circle cx="6" cy="10" r="2" />
-                                                <line x1="6" y1="4" x2="6" y2="8" />
-                                                <line x1="6" y1="12" x2="6" y2="20" />
-                                                <circle cx="12" cy="16" r="2" />
-                                                <line x1="12" y1="4" x2="12" y2="14" />
-                                                <line x1="12" y1="18" x2="12" y2="20" />
-                                                <circle cx="18" cy="7" r="2" />
-                                                <line x1="18" y1="4" x2="18" y2="5" />
-                                                <line x1="18" y1="9" x2="18" y2="20" />
-                                            </svg>
+                                            <span class="badge badge bg-danger"></span>
                                         </td>
                                         <td>
-                                            Иванов Иван Иванович
+                                            Битрикс
+                                        </td>
+                                        <td>
+                                            Иванов И.И.
                                         </td>
                                         <td>
                                             Программист
@@ -787,26 +685,20 @@
                                         </td>
                                         <td>
                                             Москва
+                                        </td>
+                                        <td class="hidden-cell">
+                                            <input class="selected-checkbox" type="checkbox" name="#">
                                         </td>
                                     </tr>
                                     <tr class="user-table-row">
-                                        <td><span class="badge bg-success"></span></td>
                                         <td>
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments-horizontal" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                <circle cx="14" cy="6" r="2" />
-                                                <line x1="4" y1="6" x2="12" y2="6" />
-                                                <line x1="16" y1="6" x2="20" y2="6" />
-                                                <circle cx="8" cy="12" r="2" />
-                                                <line x1="4" y1="12" x2="6" y2="12" />
-                                                <line x1="10" y1="12" x2="20" y2="12" />
-                                                <circle cx="17" cy="18" r="2" />
-                                                <line x1="4" y1="18" x2="15" y2="18" />
-                                                <line x1="19" y1="18" x2="20" y2="18" />
-                                            </svg>
+                                            <span class="badge bg-success"></span>
                                         </td>
                                         <td>
-                                            Иванов Иван Иванович
+                                            Локальный
+                                        </td>
+                                        <td>
+                                            Иванов И.И.
                                         </td>
                                         <td>
                                             Программист
@@ -825,26 +717,20 @@
                                         </td>
                                         <td>
                                             Москва
+                                        </td>
+                                        <td class="hidden-cell">
+                                            <input class="selected-checkbox" type="checkbox" name="#">
                                         </td>
                                     </tr>
                                     <tr class="user-table-row">
-                                        <td><span class="badge bg-success"></span></td>
                                         <td>
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments-horizontal" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                <circle cx="14" cy="6" r="2" />
-                                                <line x1="4" y1="6" x2="12" y2="6" />
-                                                <line x1="16" y1="6" x2="20" y2="6" />
-                                                <circle cx="8" cy="12" r="2" />
-                                                <line x1="4" y1="12" x2="6" y2="12" />
-                                                <line x1="10" y1="12" x2="20" y2="12" />
-                                                <circle cx="17" cy="18" r="2" />
-                                                <line x1="4" y1="18" x2="15" y2="18" />
-                                                <line x1="19" y1="18" x2="20" y2="18" />
-                                            </svg>
+                                            <span class="badge bg-success"></span>
                                         </td>
                                         <td>
-                                            Иванов Иван Иванович
+                                            Локальный
+                                        </td>
+                                        <td>
+                                            Иванов И.И.
                                         </td>
                                         <td>
                                             Программист
@@ -863,26 +749,20 @@
                                         </td>
                                         <td>
                                             Москва
+                                        </td>
+                                        <td class="hidden-cell">
+                                            <input class="selected-checkbox" type="checkbox" name="#">
                                         </td>
                                     </tr>
                                     <tr class="user-table-row">
-                                        <td><span class="badge bg-success"></span></td>
                                         <td>
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments-horizontal" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                <circle cx="14" cy="6" r="2" />
-                                                <line x1="4" y1="6" x2="12" y2="6" />
-                                                <line x1="16" y1="6" x2="20" y2="6" />
-                                                <circle cx="8" cy="12" r="2" />
-                                                <line x1="4" y1="12" x2="6" y2="12" />
-                                                <line x1="10" y1="12" x2="20" y2="12" />
-                                                <circle cx="17" cy="18" r="2" />
-                                                <line x1="4" y1="18" x2="15" y2="18" />
-                                                <line x1="19" y1="18" x2="20" y2="18" />
-                                            </svg>
+                                            <span class="badge bg-success"></span>
                                         </td>
                                         <td>
-                                            Иванов Иван Иванович
+                                            Локальный
+                                        </td>
+                                        <td>
+                                            Иванов И.И.
                                         </td>
                                         <td>
                                             Программист
@@ -901,26 +781,20 @@
                                         </td>
                                         <td>
                                             Москва
+                                        </td>
+                                        <td class="hidden-cell">
+                                            <input class="selected-checkbox" type="checkbox" name="#">
                                         </td>
                                     </tr>
                                     <tr class="user-table-row">
-                                        <td><span class="badge bg-success"></span></td>
                                         <td>
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments-horizontal" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                <circle cx="14" cy="6" r="2" />
-                                                <line x1="4" y1="6" x2="12" y2="6" />
-                                                <line x1="16" y1="6" x2="20" y2="6" />
-                                                <circle cx="8" cy="12" r="2" />
-                                                <line x1="4" y1="12" x2="6" y2="12" />
-                                                <line x1="10" y1="12" x2="20" y2="12" />
-                                                <circle cx="17" cy="18" r="2" />
-                                                <line x1="4" y1="18" x2="15" y2="18" />
-                                                <line x1="19" y1="18" x2="20" y2="18" />
-                                            </svg>
+                                            <span class="badge bg-success"></span>
                                         </td>
                                         <td>
-                                            Иванов Иван Иванович
+                                            Локальный
+                                        </td>
+                                        <td>
+                                            Иванов И.И.
                                         </td>
                                         <td>
                                             Программист
@@ -939,26 +813,20 @@
                                         </td>
                                         <td>
                                             Москва
+                                        </td>
+                                        <td class="hidden-cell">
+                                            <input class="selected-checkbox" type="checkbox" name="#" checked>
                                         </td>
                                     </tr>
                                     <tr class="user-table-row">
-                                        <td><span class="badge badge bg-danger"></span></td>
                                         <td>
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                <circle cx="6" cy="10" r="2" />
-                                                <line x1="6" y1="4" x2="6" y2="8" />
-                                                <line x1="6" y1="12" x2="6" y2="20" />
-                                                <circle cx="12" cy="16" r="2" />
-                                                <line x1="12" y1="4" x2="12" y2="14" />
-                                                <line x1="12" y1="18" x2="12" y2="20" />
-                                                <circle cx="18" cy="7" r="2" />
-                                                <line x1="18" y1="4" x2="18" y2="5" />
-                                                <line x1="18" y1="9" x2="18" y2="20" />
-                                            </svg>
+                                            <span class="badge badge bg-danger"></span>
                                         </td>
                                         <td>
-                                            Иванов Иван Иванович
+                                            Битрикс
+                                        </td>
+                                        <td>
+                                            Иванов И.И.
                                         </td>
                                         <td>
                                             Программист
@@ -977,26 +845,20 @@
                                         </td>
                                         <td>
                                             Москва
+                                        </td>
+                                        <td class="hidden-cell">
+                                            <input class="selected-checkbox" type="checkbox" name="#">
                                         </td>
                                     </tr>
                                     <tr class="user-table-row">
-                                        <td><span class="badge bg-success"></span></td>
                                         <td>
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments-horizontal" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                <circle cx="14" cy="6" r="2" />
-                                                <line x1="4" y1="6" x2="12" y2="6" />
-                                                <line x1="16" y1="6" x2="20" y2="6" />
-                                                <circle cx="8" cy="12" r="2" />
-                                                <line x1="4" y1="12" x2="6" y2="12" />
-                                                <line x1="10" y1="12" x2="20" y2="12" />
-                                                <circle cx="17" cy="18" r="2" />
-                                                <line x1="4" y1="18" x2="15" y2="18" />
-                                                <line x1="19" y1="18" x2="20" y2="18" />
-                                            </svg>
+                                            <span class="badge bg-success"></span>
                                         </td>
                                         <td>
-                                            Иванов Иван Иванович
+                                            Локальный
+                                        </td>
+                                        <td>
+                                            Иванов И.И.
                                         </td>
                                         <td>
                                             Программист
@@ -1015,26 +877,20 @@
                                         </td>
                                         <td>
                                             Москва
+                                        </td>
+                                        <td class="hidden-cell">
+                                            <input class="selected-checkbox" type="checkbox" name="#">
                                         </td>
                                     </tr>
                                     <tr class="user-table-row">
-                                        <td><span class="badge bg-success"></span></td>
                                         <td>
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments-horizontal" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                <circle cx="14" cy="6" r="2" />
-                                                <line x1="4" y1="6" x2="12" y2="6" />
-                                                <line x1="16" y1="6" x2="20" y2="6" />
-                                                <circle cx="8" cy="12" r="2" />
-                                                <line x1="4" y1="12" x2="6" y2="12" />
-                                                <line x1="10" y1="12" x2="20" y2="12" />
-                                                <circle cx="17" cy="18" r="2" />
-                                                <line x1="4" y1="18" x2="15" y2="18" />
-                                                <line x1="19" y1="18" x2="20" y2="18" />
-                                            </svg>
+                                            <span class="badge bg-success"></span>
                                         </td>
                                         <td>
-                                            Иванов Иван Иванович
+                                            Локальный
+                                        </td>
+                                        <td>
+                                            Иванов И.И.
                                         </td>
                                         <td>
                                             Программист
@@ -1053,26 +909,20 @@
                                         </td>
                                         <td>
                                             Москва
+                                        </td>
+                                        <td class="hidden-cell">
+                                            <input class="selected-checkbox" type="checkbox" name="#">
                                         </td>
                                     </tr>
                                     <tr class="user-table-row">
-                                        <td><span class="badge bg-success"></span></td>
                                         <td>
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments-horizontal" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                <circle cx="14" cy="6" r="2" />
-                                                <line x1="4" y1="6" x2="12" y2="6" />
-                                                <line x1="16" y1="6" x2="20" y2="6" />
-                                                <circle cx="8" cy="12" r="2" />
-                                                <line x1="4" y1="12" x2="6" y2="12" />
-                                                <line x1="10" y1="12" x2="20" y2="12" />
-                                                <circle cx="17" cy="18" r="2" />
-                                                <line x1="4" y1="18" x2="15" y2="18" />
-                                                <line x1="19" y1="18" x2="20" y2="18" />
-                                            </svg>
+                                            <span class="badge bg-success"></span>
                                         </td>
                                         <td>
-                                            Иванов Иван Иванович
+                                            Локальный
+                                        </td>
+                                        <td>
+                                            Иванов И.И.
                                         </td>
                                         <td>
                                             Программист
@@ -1091,6 +941,9 @@
                                         </td>
                                         <td>
                                             Москва
+                                        </td>
+                                        <td class="hidden-cell">
+                                            <input class="selected-checkbox" type="checkbox" name="#">
                                         </td>
                                     </tr>
                                     </tbody>
@@ -1339,37 +1192,95 @@
 
                         <div id="managingDepartmentsModal" class="modal modal-blur fade" tabindex="-1" role="dialog" aria-hidden="true">
                             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-                                <div class="modal-content">
+                                <form class="dual-controls-form modal-content" action="#" name="departments-control">
                                     <div class="modal-header">
                                         <h5 class="modal-title">Управление подразделениями</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci animi beatae delectus deleniti dolorem eveniet facere fuga iste nemo nesciunt nihil odio perspiciatis, quia quis reprehenderit sit tempora totam unde.
+                                        <div class="dual-controls-wrap mb-4">
+                                            <div class="dual-controls-label mb-3"><b>Выберите подразделение</b></div>
+                                            <div class="dual-controls-box">
+                                                <select class="dual-controls-select" name="departments[]" multiple>
+                                                    <option value="dep-1">Подразделение 1</option>
+                                                    <option value="dep-2">Подразделение 2</option>
+                                                    <option value="dep-3">Подразделение 3</option>
+                                                    <option value="dep-4">Подразделение 4</option>
+                                                    <option value="dep-5">Подразделение 5</option>
+                                                    <option value="dep-6">Подразделение 6</option>
+                                                    <option value="dep-7">Подразделение 7</option>
+                                                    <option value="dep-8">Подразделение 8</option>
+                                                    <option value="dep-9">Подразделение 9</option>
+                                                    <option value="dep-10">Подразделение 10</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="form-label col-4 col-form-label">Основное подразделение</label>
+                                            <div class="col">
+                                                <select class="form-select" name="main-department">
+                                                    <option value="main-dep-0" disabled selected>Выберите основное подразделение</option>
+                                                    <option value="main-dep-1">Основное подразделение 1</option>
+                                                    <option value="main-dep-2">Основное подразделение 2</option>
+                                                    <option value="main-dep-3">Основное подразделение 3</option>
+                                                    <option value="main-dep-4">Основное подразделение 4</option>
+                                                    <option value="main-dep-5">Основное подразделение 5</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn me-auto" data-bs-dismiss="modal">Закрыть</button>
-                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Сохранить изменения</button>
+                                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Сохранить изменения</button>
                                     </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
 
                         <div id="managingRolesModal" class="modal modal-blur fade" tabindex="-1" role="dialog" aria-hidden="true">
                             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-                                <div class="modal-content">
+                                <form class="dual-controls-form modal-content" action="#" name="departments-control">
                                     <div class="modal-header">
                                         <h5 class="modal-title">Управление ролями</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci animi beatae delectus deleniti dolorem eveniet facere fuga iste nemo nesciunt nihil odio perspiciatis, quia quis reprehenderit sit tempora totam unde.
+                                        <div class="dual-controls-wrap mb-4">
+                                            <div class="dual-controls-label mb-3"><b>Выберите роль</b></div>
+                                            <div class="dual-controls-box">
+                                                <select class="dual-controls-select" name="roles[]" multiple>
+                                                    <option value="role-1">Роль 1</option>
+                                                    <option value="role-2">Роль 2</option>
+                                                    <option selected value="role-3">Роль 3</option>
+                                                    <option selected value="role-4">Роль 4</option>
+                                                    <option selected value="role-5">Роль 5</option>
+                                                    <option value="role-6">Роль 6</option>
+                                                    <option value="role-7">Роль 7</option>
+                                                    <option value="role-8">Роль 8</option>
+                                                    <option value="role-9">Роль 9</option>
+                                                    <option value="role-10">Роль 10</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="form-label col-3 col-form-label">Основная роль</label>
+                                            <div class="col">
+                                                <select class="form-select" name="main-role">
+                                                    <option value="main-role-0" disabled selected>Выберите основную роль</option>
+                                                    <option value="main-role-1">Основная роль 1</option>
+                                                    <option value="main-role-2">Основная роль 2</option>
+                                                    <option value="main-role-3">Основная роль 3</option>
+                                                    <option value="main-role-4">Основная роль 4</option>
+                                                    <option value="main-role-5">Основная роль 5</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn me-auto" data-bs-dismiss="modal">Закрыть</button>
-                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Сохранить изменения</button>
+                                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Сохранить изменения</button>
                                     </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
 

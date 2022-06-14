@@ -2,7 +2,28 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4cb45298-3600-4dae-af1c-82217ff00d38" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Controller/Administrator/AdministratorRoleController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/administrator/block/header_list.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/administrator/block/nav_user.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/administrator/modal/delete.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/administrator/role/form/create_form.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/administrator/role/form/update_form.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/administrator/role/list.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/administrator/user/block/search_panel.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/administrator/user/form/create_form.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/administrator/user/form/update_form.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/administrator/user/modal/departament.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/administrator/user/modal/role.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/user/operation.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/user/role.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Administrator/AdministratorUserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Administrator/AdministratorUserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/AdministratorController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/AdministratorController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/RolesRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/RolesRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/administrator/user/list.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/administrator/user/list.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/block/navbar.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/block/navbar.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/user/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/user/index.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -145,7 +166,7 @@
     "WebServerToolWindowPanel.toolwindow.show.date": "false",
     "WebServerToolWindowPanel.toolwindow.show.permissions": "false",
     "WebServerToolWindowPanel.toolwindow.show.size": "false",
-    "last_opened_file_path": "/Users/artemprudishew/Проекты/sprut/public/assets/images",
+    "last_opened_file_path": "/Users/artemprudishew/Проекты/sprut/templates/user",
     "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "web.server",
     "vue.rearranger.settings.migration": "true"
@@ -158,11 +179,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/templates/user" />
+      <recent name="$PROJECT_DIR$/templates/administrator/role" />
+      <recent name="$PROJECT_DIR$/templates/administrator/modal" />
       <recent name="$PROJECT_DIR$/public/assets/images" />
       <recent name="$PROJECT_DIR$/templates" />
-      <recent name="$PROJECT_DIR$/bk" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/src/Repository" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/Sprut" />
@@ -206,7 +227,7 @@
       <workItem from="1654245568418" duration="654000" />
       <workItem from="1654444648248" duration="2862000" />
       <workItem from="1654494691777" duration="3859000" />
-      <workItem from="1654504538033" duration="26783000" />
+      <workItem from="1654504538033" duration="40927000" />
     </task>
     <servers />
   </component>

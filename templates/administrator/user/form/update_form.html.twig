@@ -1,0 +1,94 @@
+<div id="userEditingPanel" class="user-form-panel offcanvas offcanvas-end" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+    <div class="offcanvas-header">
+        <h2 class="offcanvas-title">Редактирование пользователя</h2>
+        <button id="jsEditingPanelCloser" type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <form action="#" name="user-edit">
+            <div class="row">
+                <div class="col">
+                    <div class="form-group mb-3 row">
+                        <label class="form-label col-3 col-form-label">Фамилия</label>
+                        <div class="col">
+                            <input type="text" class="form-control" placeholder="Фамилия" value="Иванов">
+                        </div>
+                    </div>
+                    <div class="form-group mb-3 row">
+                        <label class="form-label col-3 col-form-label">Имя</label>
+                        <div class="col">
+                            <input type="text" class="form-control" placeholder="Имя" value="Иван">
+                        </div>
+                    </div>
+                    <div class="form-group mb-3 row">
+                        <label class="form-label col-3 col-form-label">Отчество</label>
+                        <div class="col">
+                            <input type="text" class="form-control" placeholder="Отчество" value="Иванович">
+                        </div>
+                    </div>
+                </div>
+                <div class="col user-photo-col">
+                    <div class="user-photo-box">
+                        <input class="user-photo-input" name="user-photo" type="file" accept="image/png, image/jpg, image/jpeg, image/gif">
+                        <img class="user-photo-img" src="https://d38we5ntdyxyje.cloudfront.net/687389/profile/FWHYATCV_avatar_medium_square.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group mb-3 row flex-nowrap align-items-center">
+                <label for="cb-activity2" class="form-label col-3 col-form-label">Активирован</label>
+                <div class="form-check form-switch mb-0 ms-2">
+                    <input id="cb-activity2" class="form-check-input" type="checkbox" checked>
+                </div>
+            </div>
+            <div class="form-group mb-3 row">
+                <label class="form-label col-3 col-form-label">Должность</label>
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="Должность" value="Программист">
+                </div>
+            </div>
+            <div class="form-group mb-3 row">
+                <label class="form-label col-3 col-form-label">Подразделение</label>
+                <div class="col">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#managingDepartmentsModal">Изменить</button>
+                </div>
+            </div>
+            <div class="form-group mb-3 row">
+                <label class="form-label col-3 col-form-label">Роли</label>
+                <div class="col">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#managingRolesModal">Изменить</button>
+                </div>
+            </div>
+            <div class="form-group mb-3 row">
+                <label class="form-label col-3 col-form-label">E-mail</label>
+                <div class="col">
+                    <input type="email" class="form-control" placeholder="Адрес электронной почты" value="test@mail.ru">
+                </div>
+            </div>
+            <div class="form-group mb-3 row">
+                <label class="form-label col-3 col-form-label">Скайп</label>
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="Скайп" value="example123">
+                </div>
+            </div>
+            <div class="form-group mb-3 row">
+                <label class="form-label col-3 col-form-label">Телефон</label>
+                <div class="col">
+                    <input type="tel" class="form-control" placeholder="Телефон в формате +7 (xxx) xxx-xx-xx" value="+7 (999) 999-99-99">
+                </div>
+            </div>
+            <div class="form-group mb-3 row">
+                <label class="form-label col-3 col-form-label">Город</label>
+                <div class="col">
+                    <select class="form-select">
+                        <option disabled>Выберите город из списка</option>
+                        <option value="1" selected>Москва</option>
+                        <option value="2">Санкт-Петербург</option>
+                        <option value="3">Ярославль</option>
+                    </select>
+                </div>
+            </div>
+            <div class="d-flex mb-4">
+                <button type="submit" class="btn btn-primary ms-auto">Сохранить</button>
+            </div>
+        </form>
+    </div>
+</div>
