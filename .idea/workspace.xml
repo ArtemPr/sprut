@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4cb45298-3600-4dae-af1c-82217ff00d38" name="Changes" comment="">
+<<<<<<< HEAD
       <change afterPath="$PROJECT_DIR$/templates/user/log.html.twig" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/templates/user/program.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
@@ -49,6 +50,12 @@
       <change beforePath="$PROJECT_DIR$/templates/user/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/user/index.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/user/operation.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/user/operation.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/user/role.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/user/role.html.twig" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/source/js/action.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/source/js/action.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+>>>>>>> 332269a8ef8048d8c06b2f2d25358f8771e42562
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -188,9 +195,13 @@
     "WebServerToolWindowPanel.toolwindow.show.date": "false",
     "WebServerToolWindowPanel.toolwindow.show.permissions": "false",
     "WebServerToolWindowPanel.toolwindow.show.size": "false",
-    "last_opened_file_path": "/Users/artemprudishew/Проекты/sprut/templates/administrator/operations",
+    "last_opened_file_path": "/home/kira/www",
     "nodejs_package_manager_path": "npm",
+<<<<<<< HEAD
     "settings.editor.selected.configurable": "preferences.pluginManager",
+=======
+    "settings.editor.selected.configurable": "web.server",
+>>>>>>> 332269a8ef8048d8c06b2f2d25358f8771e42562
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -215,7 +226,7 @@
       <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="npm.watch">
     <configuration name="run.sh" type="ShConfigurationType" temporary="true">
       <option name="SCRIPT_TEXT" value="" />
       <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
@@ -231,8 +242,20 @@
       <envs />
       <method v="2" />
     </configuration>
+    <configuration name="watch" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="watch" />
+      </scripts>
+      <node-interpreter value="project" />
+      <package-manager value="npm" />
+      <envs />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="npm.watch" />
         <item itemvalue="Shell Script.run.sh" />
       </list>
     </recent_temporary>
@@ -249,7 +272,13 @@
       <workItem from="1654245568418" duration="654000" />
       <workItem from="1654444648248" duration="2862000" />
       <workItem from="1654494691777" duration="3859000" />
+<<<<<<< HEAD
       <workItem from="1654504538033" duration="104162000" />
+=======
+      <workItem from="1654504538033" duration="94052000" />
+      <workItem from="1655471538511" duration="1449000" />
+      <workItem from="1655473590606" duration="584000" />
+>>>>>>> 332269a8ef8048d8c06b2f2d25358f8771e42562
     </task>
     <servers />
   </component>
