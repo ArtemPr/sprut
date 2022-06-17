@@ -3,7 +3,7 @@
  * Created AptPr <prudishew@yandex.ru> 2022.
  */
 
-namespace App\Controller;
+namespace App\Controller\Api;
 
 use App\Repository\MasterProgramRepository;
 use App\Service\ApiService;
@@ -13,24 +13,28 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-
-#[Route('/api', name: 'api')]
-class ApiProgramController  extends AbstractController
+class ApiProgramController extends AbstractController
 {
     use ApiService;
 
+    /**
+     * @param MasterProgramRepository $master_programm
+     * @param ManagerRegistry $doctrine
+     */
     public function __construct(
         private MasterProgramRepository $master_programm,
-        private ManagerRegistry $doctrine
+        private ManagerRegistry         $doctrine
     )
     {
     }
 
-    #[Route('/program_info', name: 'api_get_program_info', methods: ['GET'])]
+    /**
+     * @return \Symfony\Component\HttpFoundation\JsonResponse|Response
+     */
     public function getProgramInfo()
     {
-        if ($this->getAuth('api_get_program_info') === false) {
-            return $this->json(['error'=>'error auth']);
+        if ($this->getAuth('ROLE_API_USER','api_get_program_info') === false) {
+            return $this->json(['error' => 'error auth']);
         }
 
         $result = $this->master_programm->getApiProgramInfo();
@@ -40,11 +44,13 @@ class ApiProgramController  extends AbstractController
         ]);
     }
 
-    #[Route('/program', name: 'api_get_programs_list', methods: ['GET'])]
+    /**
+     * @return Response
+     */
     public function getProgramsList(): Response
     {
-        if ($this->getAuth('api_get_programs_list') === false) {
-            return $this->json(['error'=>'error auth']);
+        if ($this->getAuth('ROLE_API_USER','api_get_programs_list') === false) {
+            return $this->json(['error' => 'error auth']);
         }
 
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
@@ -59,8 +65,7 @@ class ApiProgramController  extends AbstractController
 
         $param = $request->get('param') ?? null;
 
-        $result = $this->master_programm->getApiList((int)$page, $max_result, $param);
-
+        $result = $this->master_programm->getProgramList((int)$page, $max_result, $param);
 
         foreach ($result as $val) {
             $out[] = [
@@ -68,8 +73,7 @@ class ApiProgramController  extends AbstractController
                 'unique_id' => $val['id'] ?? false,
                 'program_name' => \html_entity_decode($val['name'] ?? ''),
                 'length_hour' => $val['length_hour'] ?? false,
-                'length_week' => $val['length_week'] ?? false,
-                'program_type' => $val['program_type'] ?? false
+                'length_week' => $val['length_week'] ?? false
             ];
         }
 
@@ -78,27 +82,17 @@ class ApiProgramController  extends AbstractController
         ]);
     }
 
-
-    #[Route('/program/{id}', name: 'api_get_program', methods: ['GET'])]
-    public function getProgram(ManagerRegistry $doctrine, int $id): Response
+    /**
+     * @param int $id
+     * @return Response
+     */
+    public function getProgram(int $id): Response
     {
-        if ($this->getAuth('api_get_program') === false) {
-            return $this->json(['error'=>'error auth']);
+        if ($this->getAuth('ROLE_API_USER','api_get_program') === false) {
+            return $this->json(['error' => 'error auth']);
         }
 
-        $val = $this->master_programm->findBy(['id' => $id]);
-
-        if (!empty($val[0])) {
-            $val = $val[0];
-            $out[] = [
-                'program_id' => $val->getId() ?? false,
-                'unique_id' => $val->getId() ?? false,
-                'program_name' => \html_entity_decode($val->getName() ?? ''),
-                'length_hour' => $val->getLengthHour() ?? false,
-                'length_week' => $val->getLengthWeek() ?? false,
-                'program_type' => $val->getProgramType() ?? false
-            ];
-        }
+        $out = $this->master_programm->getProgram($id);
 
         return $this->render('api/index.html.twig', [
             'out' => $this->convertJson($out ?? ['error' => 'no results'])

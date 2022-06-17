@@ -17,13 +17,24 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class MasterProgramRepository extends ServiceEntityRepository
 {
-    public const ON_PAGE = 20;
+    /**
+     *
+     */
+    public const ON_PAGE = 25;
 
+    /**
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, MasterProgram::class);
     }
 
+    /**
+     * @param MasterProgram $entity
+     * @param bool $flush
+     * @return void
+     */
     public function add(MasterProgram $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
@@ -33,6 +44,11 @@ class MasterProgramRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @param MasterProgram $entity
+     * @param bool $flush
+     * @return void
+     */
     public function remove(MasterProgram $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
@@ -42,26 +58,10 @@ class MasterProgramRepository extends ServiceEntityRepository
         }
     }
 
-    public function getApiList(int $page = 0, int|null $max_result = 0, string|null $param = null): array
-    {
-        $entityManager = $this->getEntityManager();
-
-        $max_result = (!empty($max_result) && $max_result > 1)
-            ?
-            $max_result
-            :
-            self::ON_PAGE;
-
-        $query_item = $entityManager->createQuery(
-            'SELECT pr, pt
-                FROM App\Entity\MasterProgram pr
-                INNER JOIN pr.program_type pt'
-        )->setMaxResults($max_result)->setFirstResult($page * $max_result);
-
-        return $query_item->getResult(Query::HYDRATE_ARRAY) ?? [];
-    }
-
-    public function getApiProgramInfo(): array
+    /**
+     * @return array
+     */
+    public function getApiProgramInfo(): array|null
     {
         $entityManager = $this->getEntityManager();
         $query_item = $entityManager->createQuery(
@@ -72,5 +72,51 @@ class MasterProgramRepository extends ServiceEntityRepository
         $out = $query_item->getResult(Query::HYDRATE_ARRAY) ?? [];
 
         return $out[0] ?? [];
+    }
+
+    /**
+     * @param int $page
+     * @param int|null $max_result
+     * @param string|null $param
+     * @return array
+     */
+    public function getProgramList(int $page = 0, int|null $max_result = 0, string|null $param = null): array|null
+    {
+        $entityManager = $this->getEntityManager();
+
+        $max_result = (!empty($max_result) && $max_result > 1) ? $max_result : self::ON_PAGE;
+
+        $sql = 'SELECT pr, pt
+                FROM App\Entity\MasterProgram pr
+                INNER JOIN pr.program_type pt';
+
+        if(!empty($param['order'])) {
+            $col = array_key_first($param['order']);
+            $type_sort = ucfirst($param['order'][$col]);
+            $sql .= 'ORDER BY pr.' . $col . ' ' . $type_sort;
+        }
+
+        $query_item = $entityManager->createQuery($sql)
+            ->setMaxResults($max_result)
+            ->setFirstResult($page * $max_result);
+
+        return $query_item->getResult(Query::HYDRATE_ARRAY) ?? [];
+    }
+
+    /**
+     * @param int $id
+     * @return array|null
+     */
+    public function getProgram(int $id): array|null
+    {
+        $entityManager = $this->getEntityManager();
+        $query_item = $entityManager->createQuery(
+            'SELECT pr, pt
+                FROM App\Entity\MasterProgram pr
+                INNER JOIN pr.program_type pt
+                WHERE pr.id = :id'
+        )->setParameter('id', $id);
+
+        return $query_item->getResult(Query::HYDRATE_ARRAY)[0] ?? null;
     }
 }

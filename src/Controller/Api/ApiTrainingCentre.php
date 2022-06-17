@@ -3,7 +3,11 @@
  * Created AptPr <prudishew@yandex.ru> 2022.
  */
 
-namespace App\Controller;
+/*
+ * Created AptPr <prudishew@yandex.ru> 2022.
+ */
+
+namespace App\Controller\Api;
 
 use App\Repository\TrainingCentersRepository;
 use App\Service\ApiService;
@@ -31,7 +35,7 @@ class ApiTrainingCentre extends AbstractController
     #[Route('/training_centre', name: 'api_get_training_centre_list', methods: ['GET'])]
     public function getTrainingCentreList(ManagerRegistry $doctrine): Response
     {
-        if ($this->getAuth('api_get_training_centre_list') === false) {
+        if ($this->getAuth('ROLE_API_USER','api_get_training_centre_list') === false) {
             return $this->json(['error'=>'error auth']);
         }
 
@@ -55,7 +59,7 @@ class ApiTrainingCentre extends AbstractController
     #[Route('/training_centre/{id}', name: 'api_get_training_centre', methods: ['GET'])]
     public function getTrainingCentre($id)
     {
-        if ($this->getAuth('api_get_training_centre') === false) {
+        if ($this->getAuth('ROLE_API_USER','api_get_training_centre') === false) {
             return $this->json(['error'=>'error auth']);
         }
 

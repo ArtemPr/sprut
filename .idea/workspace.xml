@@ -2,54 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4cb45298-3600-4dae-af1c-82217ff00d38" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/assets/source/js/action.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/Administrator/AdminDirectoryFGOS.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/Administrator/AdminDirectoryPS.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/Administrator/AdministratorOperationsController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/ApiUserController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/FormController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/administrator/block/nav_directory.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/administrator/directory/fgos.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/administrator/directory/ps.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/administrator/operations/form/update_form.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/administrator/operations/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/780500c2-bcad-4da4-a2d1-1f49f2c99c16.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/780500c2-bcad-4da4-a2d1-1f49f2c99c16.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/780500c2-bcad-4da4-a2d1-1f49f2c99c16/storage_v2/_src_/database/sprut.FDOJBg/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/780500c2-bcad-4da4-a2d1-1f49f2c99c16/storage_v2/_src_/database/sprut.FDOJBg/schema/public.abK9xQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sprut.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sprut.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controller/ApiController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/source/css/base.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/source/css/base.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/source/css/user.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/source/css/user.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/source/js/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/source/js/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/Admin/DashboardController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/Admin/RolesCrudController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/Admin/UserCrudController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/Administrator/AdministratorRoleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Administrator/AdministratorRoleController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/AdministratorController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/AdministratorController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/ApiProgramController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ApiProgramController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/ApiTrainingCentre.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ApiTrainingCentre.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/FederalStandart.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/FederalStandart.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Module.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Module.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/FederalStandartRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/FederalStandartRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/ProfStandartsRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/ProfStandartsRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/UserRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/UserRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/ApiProgramController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Api/ApiProgramController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/ApiTrainingCentre.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Api/ApiTrainingCentre.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/ApiUserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Api/ApiUserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/MasterProgramRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/MasterProgramRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Service/ApiService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/ApiService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/administrator/block/nav_user.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/administrator/block/nav_user.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/administrator/role/form/create_form.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/administrator/role/form/create_form.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/administrator/role/form/update_form.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/administrator/role/form/update_form.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/administrator/role/list.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/administrator/role/list.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/administrator/user/block/search_panel.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/administrator/user/block/search_panel.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/administrator/user/form/update_form.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/administrator/user/form/update_form.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/administrator/user/list.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/administrator/user/list.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/administrator/user/modal/departament.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/administrator/user/modal/departament.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/administrator/user/modal/role.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/administrator/user/modal/role.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/block/navbar.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/block/navbar.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/security/dashboard.html.twig" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -250,7 +210,7 @@
       <workItem from="1654245568418" duration="654000" />
       <workItem from="1654444648248" duration="2862000" />
       <workItem from="1654494691777" duration="3859000" />
-      <workItem from="1654504538033" duration="90415000" />
+      <workItem from="1654504538033" duration="94052000" />
     </task>
     <servers />
   </component>

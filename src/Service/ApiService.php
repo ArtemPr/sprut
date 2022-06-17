@@ -28,7 +28,7 @@ trait ApiService
         }
     }
 
-    public function getAuth($auth_type = '')
+    public function getAuth($role = 'ROLE_API_USER', $auth_type = '')
     {
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
         $token = $request->get('t') ?? false;
@@ -43,9 +43,9 @@ trait ApiService
             return false;
         }
 
-        $role = $result[0]->getRoles();
+        $role_list = $result[0]->getRoles();
 
-        if (!in_array('ROLE_API_USER', $role)) {
+        if (!in_array($role, $role_list)) {
             return false;
         }
     }

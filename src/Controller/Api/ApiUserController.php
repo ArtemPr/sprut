@@ -3,7 +3,11 @@
  * Created AptPr <prudishew@yandex.ru> 2022.
  */
 
-namespace App\Controller;
+/*
+ * Created AptPr <prudishew@yandex.ru> 2022.
+ */
+
+namespace App\Controller\Api;
 
 use App\Repository\UserRepository;
 use App\Service\ApiService;
@@ -32,7 +36,7 @@ class ApiUserController extends AbstractController
     #[Route('/user/{id}', name: 'api_get_user', methods: ['GET'])]
     public function getUserInfo($id): Response
     {
-        if ($this->getAuth('api_get_user') === false) {
+        if ($this->getAuth('ROLE_API_USER','api_get_user') === false) {
             return $this->json(['error'=>'error auth']);
         }
 
@@ -48,7 +52,7 @@ class ApiUserController extends AbstractController
     {
         $param = [];
 
-        if ($this->getAuth('api_get_users') === false) {
+        if ($this->getAuth('ROLE_API_USER','api_get_users') === false) {
             return $this->json(['error'=>'error auth']);
         }
 
