@@ -46,18 +46,16 @@ class FederalStandart
         return $this;
     }
 
-    public function getShortName(): ?string
+    public function getShortName()
     {
         return $this->short_name;
     }
 
-    public function setShortName(string $short_name): self
+    public function setShortName($short_name): void
     {
         $this->short_name = $short_name;
-
-        return $this;
     }
-
+    
     public function isActive(): ?bool
     {
         return $this->active;

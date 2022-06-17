@@ -1,0 +1,118 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}СПРУТ 1.0{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+{% block body %}
+    {{ include('block/header.html.twig') }}
+
+
+    <div class="page page-layout">
+        <aside class="navbar navbar-vertical navbar-expand-lg navbar-light">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbar-menu">
+                    {% include 'administrator/block/nav_user.html.twig' with {'controller': 'operations'} %}
+                </div>
+            </div>
+        </aside>
+        <div class="page-wrapper">
+            <div class="container-xl">
+                {% include 'administrator/block/header_list.html.twig' with {'header': 'Операции'} %}
+            </div>
+            <div class="page-body">
+                <div class="container-xl">
+                    <div class="row row-deck row-cards">
+                        <div class="col-12">
+
+                            <div class="card">
+                                {% include 'administrator/user/block/search_panel.html.twig' with {
+                                    'close_create': true,
+                                    'close_delete': true
+                                } %}
+
+                                {% if data|default(false) %}
+                                    <div class="users-table-wrap table-responsive">
+                                        <table id="usersTable"
+                                               class="users-table table card-table table-vcenter text-nowrap datatable">
+                                            <thead>
+                                            <tr>
+                                                <th><a class="sort-icon is-desc" href="#"></a> Название</th>
+                                                <th><a class="sort-icon is-both" href="#"></a> Комментарий</th>
+                                                <th><a class="sort-icon is-both" href="#"></a> Группа</th>
+                                                <th><a class="sort-icon is-both" href="#"></a> Код операции</th>
+                                                <th class="hidden-cell"></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                {% for operations in data %}
+                                                    <tr data-string="{{ operations.id }}" class="user-table-row {% if loop.first %}is-selected{% endif %}">
+                                                        <td>
+                                                            {{ operations.name|default(false)}}
+                                                        </td>
+                                                        <td>
+                                                            {{ operations.comment|default(false)}}
+                                                        </td>
+                                                        <td>
+                                                            {{ operations.group|default(false)}}
+                                                        </td>
+                                                        <td>
+                                                            {{ operations.code|default(false)}}
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            {% include 'administrator/modal/delete.html.twig' %}
+
+                            <div id="userEditingOverlay" class="offcanvas-backdrop fade"></div>
+
+                            <div id="userEditingPanel" class="user-form-panel offcanvas offcanvas-end" tabindex="-1"
+                                 aria-labelledby="offcanvasEndLabel">
+                                <div class="offcanvas-header">
+                                    <h2 class="offcanvas-title">Редактирование операции</h2>
+                                    <button id="jsEditingPanelCloser" type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="offcanvas-body">
+                                    <form action="#" name="user-edit">
+
+                                        <div class="form-group mb-3 row">
+                                            <label class="form-label col-3 col-form-label">Название</label>
+                                            <div class="col">
+                                                <input type="text" class="form-control" placeholder="Должность" value="{{ data.position|default('') }}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group mb-3 row">
+                                            <label class="form-label col-3 col-form-label">Комментарий</label>
+                                            <div class="col">
+                                                <textarea class="form-control" placeholder="Комментарий">
+                                                    {{ data.position|default('') }}
+                                                </textarea>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex mb-4">
+                                            <button type="submit" class="btn btn-primary ms-auto">Сохранить</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -3,9 +3,55 @@ body.user-editing-panel-opened {
 	padding-right: 6px;
 }
 
+.users-option-panel .is-left-col {
+	max-width: 650px;
+}
+
 .users-table-wrap {
 	max-height: calc(100vh - 330px);
 	position: relative;
+}
+
+.users-table .hidden-cell {
+	display: none;
+}
+
+.users-table th {
+	position: relative;
+  padding-left: 25px;
+}
+
+.users-table th .sort-icon {
+	width: 12px;
+	height: 11px;
+	position: absolute;
+	left: 8px;
+	top: 11px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	z-index: 30;
+}
+
+.users-table th .sort-icon.is-both {
+	background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjkiPjxwYXRoIGQ9Im0wIDQgNC00IDQgNHptMCAxIDQgNCA0LTR6Ii8+PC9zdmc+);
+}
+
+.users-table th .sort-icon.is-desc {
+	background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOCIgaGVpZ2h0PSI5IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Im00IDcgNC00SDB6Ii8+PC9zdmc+);
+}
+
+.users-table th .sort-icon.is-asc {
+	background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOCIgaGVpZ2h0PSI5IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik00IDIgMCA2aDh6Ii8+PC9zdmc+);
+}
+
+.users-table th .sort-icon:before {
+	content: "";
+	position: absolute;
+	left: -5px;
+	right: -5px;
+	top: -10px;
+	bottom: -10px;
 }
 
 .user-table-row {
@@ -81,6 +127,14 @@ body.user-editing-panel-opened {
 	top: 0 !important;
 }
 
+.t-clone-list .hidden-cell {
+	display: none;
+}
+
+.t-clone-list .sort-icon {
+	display: none;
+}
+
 .t-clone-table {
 	border-collapse: collapse;
 	border: none;
@@ -122,4 +176,29 @@ body.user-editing-panel-opened {
 
 #userEditingOverlay.show {
 	visibility: visible !important;
+}
+
+/* responsive */
+
+@media (max-width: 767px) {
+
+	.users-option-panel > .d-flex {
+		flex-wrap: wrap;
+	}
+
+	.users-option-panel .is-left-col {
+		flex: 0 0 calc(100% - 44px);
+		max-width: calc(100% - 44px);
+	}
+
+	.users-option-panel .is-left-col + .me-2 {
+		margin-right: 0 !important;
+	}
+
+	.users-option-panel .is-right-col {
+		flex: 0 0 100%;
+		max-width: 100%;
+		margin-top: 10px;
+	}
+
 }

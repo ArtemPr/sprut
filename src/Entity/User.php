@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -30,7 +31,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $patronymic;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[ORM\ManyToOne(inversedBy: 'user_city', targetEntity: City::class)]
     private $city;
 
     #[ORM\Column(type: 'string', length: 50, nullable: true)]
@@ -53,6 +54,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'string', length: 32, nullable: true)]
     private $apiHash;
+
+    #[ORM\ManyToOne(inversedBy: 'user_departament', targetEntity: Departament::class)]
+    private $departament;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $position;
+
+    public function __construct()
+    {
+        $this->departament = new ArrayCollection();
+        $this->city = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -212,22 +225,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @return mixed
      */
-    public function getCity()
-    {
-        return $this->city;
-    }
-
-    /**
-     * @param mixed $city
-     */
-    public function setCity($city): void
-    {
-        $this->city = $city;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getPhone()
     {
         return $this->phone;
@@ -289,5 +286,79 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             $this->password = password_hash($value, PASSWORD_DEFAULT);
             $this->setApiHash(md5($this->getName() . $this->getEmail() . $value));
         }
+    }
+
+    /**
+     * @return Collection<int, Departament>
+     */
+    public function getDepartament(): Collection
+    {
+        return $this->departament;
+    }
+
+    public function addDepartament(Departament $departament): self
+    {
+        if (!$this->departament->contains($departament)) {
+            $this->departament[] = $departament;
+            $departament->setUserDepartament($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDepartament(Departament $departament): self
+    {
+        if ($this->departament->removeElement($departament)) {
+            // set the owning side to null (unless already changed)
+            if ($departament->getUserDepartament() === $this) {
+                $departament->setUserDepartament(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, City>
+     */
+    public function getCity(): Collection
+    {
+        return $this->city;
+    }
+
+    public function addCity(City $City): self
+    {
+        if (!$this->city->contains($City)) {
+            $this->city[] = $City;
+            $City->setUserCity($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCity(City $City): self
+    {
+        if ($this->city->removeElement($City)) {
+            // set the owning side to null (unless already changed)
+            if ($City->getUserCity() === $this) {
+                $City->setUserCity(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+
+    public function getPosition(): ?string
+    {
+        return $this->position;
+    }
+
+    public function setPosition(string $position): self
+    {
+        $this->position = $position;
+
+        return $this;
     }
 }

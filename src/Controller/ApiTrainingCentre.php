@@ -24,10 +24,14 @@ class ApiTrainingCentre extends AbstractController
     {
     }
 
-    #[Route('/training_centre', name: 'api_get_training_centre_short', methods: ['GET'])]
-    public function getTrainingCentre(ManagerRegistry $doctrine): Response
+    /**
+     * @param ManagerRegistry $doctrine
+     * @return Response
+     */
+    #[Route('/training_centre', name: 'api_get_training_centre_list', methods: ['GET'])]
+    public function getTrainingCentreList(ManagerRegistry $doctrine): Response
     {
-        if ($this->getAuth() === false) {
+        if ($this->getAuth('api_get_training_centre_list') === false) {
             return $this->json(['error'=>'error auth']);
         }
 
@@ -40,9 +44,23 @@ class ApiTrainingCentre extends AbstractController
             ];
         }
 
-        return $this->render('api/index.html.twig', [
-            'out' => $this->convertJson($out ?? ['error' => 'no results'])
-        ]);
+        return $this->json($out ?? ['error' => 'no results']);
+    }
+
+    /**
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @TODO сделать выборку в репозитории
+     */
+    #[Route('/training_centre/{id}', name: 'api_get_training_centre', methods: ['GET'])]
+    public function getTrainingCentre($id)
+    {
+        if ($this->getAuth('api_get_training_centre') === false) {
+            return $this->json(['error'=>'error auth']);
+        }
+
+        $result = $this->trainingCentersRepository->find($id);
+        return $this->json($result ?? []);
     }
 
 }

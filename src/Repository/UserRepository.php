@@ -61,6 +61,34 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
 
     /**
+     * @param int $id
+     * @return float|int|mixed|string
+     */
+    public function getUser(int $id)
+    {
+        $entityManager = $this->getEntityManager();
+
+        $result = $entityManager->createQuery(
+            'SELECT user, dep, city
+                FROM App\Entity\User user
+                LEFT JOIN user.departament dep
+                LEFT JOIN user.city city
+                WHERE user.id = :id'
+        )->setParameter('id', $id)->setMaxResults(self::PER_PAGE)->getResult(Query::HYDRATE_ARRAY);
+
+        $roles = "'" . implode("','", $result['0']['roles']) . "'";
+        $role_result = $entityManager->createQuery(
+            "SELECT role
+            FROM App\Entity\Roles role
+            WHERE role.roles_alt IN (:roles)"
+        )->setParameter('roles', $result['0']['roles'])->getResult(Query::HYDRATE_ARRAY);
+
+        $result[0]['roles'] = $role_result;
+
+        return $result;
+    }
+
+    /**
      * @return float|int|mixed|string
      */
     public function getList()
@@ -68,10 +96,11 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $entityManager = $this->getEntityManager();
 
         $result = $entityManager->createQuery(
-            'SELECT user
-                FROM App\Entity\User user'
+            'SELECT user, dep, city
+                FROM App\Entity\User user
+                LEFT JOIN user.departament dep
+                LEFT JOIN user.city city'
         )->setMaxResults(self::PER_PAGE)->getResult(Query::HYDRATE_ARRAY);
-
         return $result;
     }
 

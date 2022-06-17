@@ -5,7 +5,6 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
 use App\Repository\MasterProgramRepository;
 use App\Service\ApiService;
 use Doctrine\Persistence\ManagerRegistry;
@@ -30,7 +29,7 @@ class ApiProgramController  extends AbstractController
     #[Route('/program_info', name: 'api_get_program_info', methods: ['GET'])]
     public function getProgramInfo()
     {
-        if ($this->getAuth() === false) {
+        if ($this->getAuth('api_get_program_info') === false) {
             return $this->json(['error'=>'error auth']);
         }
 
@@ -44,7 +43,7 @@ class ApiProgramController  extends AbstractController
     #[Route('/program', name: 'api_get_programs_list', methods: ['GET'])]
     public function getProgramsList(): Response
     {
-        if ($this->getAuth() === false) {
+        if ($this->getAuth('api_get_programs_list') === false) {
             return $this->json(['error'=>'error auth']);
         }
 
@@ -83,7 +82,7 @@ class ApiProgramController  extends AbstractController
     #[Route('/program/{id}', name: 'api_get_program', methods: ['GET'])]
     public function getProgram(ManagerRegistry $doctrine, int $id): Response
     {
-        if ($this->getAuth() === false) {
+        if ($this->getAuth('api_get_program') === false) {
             return $this->json(['error'=>'error auth']);
         }
 

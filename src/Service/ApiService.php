@@ -28,7 +28,7 @@ trait ApiService
         }
     }
 
-    public function getAuth()
+    public function getAuth($auth_type = '')
     {
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
         $token = $request->get('t') ?? false;

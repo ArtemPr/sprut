@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\ProfStandarts;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -16,6 +17,7 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ProfStandartsRepository extends ServiceEntityRepository
 {
+    const PER_PAGE = 500;
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, ProfStandarts::class);
@@ -39,28 +41,18 @@ class ProfStandartsRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return ProfStandarts[] Returns an array of ProfStandarts objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('p.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
 
-//    public function findOneBySomeField($value): ?ProfStandarts
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    /**
+     * @return float|int|mixed|string
+     */
+    public function getList()
+    {
+        $entityManager = $this->getEntityManager();
+
+        $result = $entityManager->createQuery(
+            'SELECT op
+                FROM App\Entity\ProfStandarts op'
+        )->setMaxResults(self::PER_PAGE)->getResult(Query::HYDRATE_ARRAY);
+        return $result;
+    }
 }

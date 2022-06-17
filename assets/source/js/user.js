@@ -16,6 +16,9 @@ for (let i = 0; i < userTableRows.length; ++i) {
   userItem.addEventListener('click', function () {
     userTableRows.forEach(f => f.classList.remove('is-selected'));
     userItem.classList.add('is-selected');
+
+    userTableRows.forEach(f => f.querySelector('.selected-checkbox').checked = false);
+    userItem.querySelector('.selected-checkbox').checked = true;
   });
 
   userItem.addEventListener('dblclick', function () {
@@ -25,12 +28,13 @@ for (let i = 0; i < userTableRows.length; ++i) {
   });
 
 }
-
-userEditingPanelCloser.addEventListener('click', function () {
-  body.classList.remove('user-editing-panel-opened');
-  userEditingPanel.classList.remove('show');
-  userEditingOverlay.classList.remove('show');
-});
+if (userEditingPanelCloser != null) {
+    userEditingPanelCloser.addEventListener('click', function () {
+        body.classList.remove('user-editing-panel-opened');
+        userEditingPanel.classList.remove('show');
+        userEditingOverlay.classList.remove('show');
+    });
+}
 
 userEditingOverlay.addEventListener('click', function () {
   body.classList.remove('user-editing-panel-opened');
@@ -61,6 +65,25 @@ window.addEventListener('load', function() {
   }
 });
 
+
+
+/**
+ * User Dual Controls
+ */
+
+const dualControlsSelects = document.querySelectorAll('.dual-controls-select');
+for (let i = 0; i < dualControlsSelects.length; ++i) {
+  let dualControlsSelect = dualControlsSelects[i];
+  new DualListbox(dualControlsSelect, {
+    availableTitle: 'Available numbers',
+    selectedTitle: 'Selected numbers',
+    addButtonText: '>',
+    removeButtonText: '<',
+    addAllButtonText: '>>',
+    removeAllButtonText: '<<',
+    searchPlaceholder: 'search numbers'
+  });
+}
 
 
 /**
@@ -155,6 +178,9 @@ document.addEventListener('DOMContentLoaded', function () {
   };
 
   const mouseDownHandler = function (e) {
+
+    if ( e.button !== 0 || (e.target.classList[0] === 'sort-icon') ) return false;
+
     draggingColumnIndex = [].slice.call(table.querySelectorAll('th')).indexOf(e.target);
 
     // Determine the mouse position
@@ -167,6 +193,8 @@ document.addEventListener('DOMContentLoaded', function () {
   };
 
   const mouseMoveHandler = function (e) {
+    if (e.button !== 0) return false;
+
     if (!isDraggingStarted) {
       isDraggingStarted = true;
 
@@ -229,7 +257,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // // Remove the placeholder
     placeholder && placeholder.parentNode.removeChild(placeholder);
 
-    draggingEle.classList.remove('dragging');
+    draggingEle.classList.remove('t-dragging');
     draggingEle.style.removeProperty('top');
     draggingEle.style.removeProperty('left');
     draggingEle.style.removeProperty('position');

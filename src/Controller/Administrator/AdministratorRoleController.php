@@ -24,10 +24,7 @@ class AdministratorRoleController extends AbstractController
         $user_list = $this->managerRegistry->getRepository(Roles::class)->getList();
         return $this->render(
             'administrator/role/list.html.twig',
-            [
-                'controller' => 'AdminRole',
-                'role_list' => $user_list,
-            ]
+            ['role_list' => $user_list,]
         );
     }
 }

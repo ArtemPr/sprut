@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\FederalStandart;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -16,6 +17,8 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class FederalStandartRepository extends ServiceEntityRepository
 {
+    const PER_PAGE = 400;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, FederalStandart::class);
@@ -39,28 +42,18 @@ class FederalStandartRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return FederalStandart[] Returns an array of FederalStandart objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('f')
-//            ->andWhere('f.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('f.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
 
-//    public function findOneBySomeField($value): ?FederalStandart
-//    {
-//        return $this->createQueryBuilder('f')
-//            ->andWhere('f.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    /**
+     * @return float|int|mixed|string
+     */
+    public function getList()
+    {
+        $entityManager = $this->getEntityManager();
+
+        $result = $entityManager->createQuery(
+            'SELECT op
+                FROM App\Entity\FederalStandart op'
+        )->setMaxResults(self::PER_PAGE)->getResult(Query::HYDRATE_ARRAY);
+        return $result;
+    }
 }

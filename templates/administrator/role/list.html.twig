@@ -31,68 +31,18 @@
                         <div class="col-12">
 
                             <div class="card">
-                                <div class="card-body border-bottom py-3">
-                                    <div class="d-flex align-items-center mb-0">
-                                        <div class="input-group input-group-flat">
-                                            <input type="text" class="form-control" placeholder="Поиск"
-                                                   autocomplete="off">
-                                            <span class="input-group-text">
-                                            <a href="#" class="link-secondary" title="Очистить Поиск"
-                                               data-bs-toggle="tooltip">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24"
-                                                     height="24" viewBox="0 0 24 24" stroke-width="2"
-                                                     stroke="currentColor" fill="none" stroke-linecap="round"
-                                                     stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"
-                                                                                   fill="none"/><line x1="18" y1="6"
-                                                                                                      x2="6" y2="18"/><line
-                                                        x1="6" y1="6" x2="18" y2="18"/></svg>
-                                            </a>
-                                            <a href="#" class="link-secondary ms-2" title="Поиск"
-                                               data-bs-toggle="tooltip">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24"
-                                                     height="24" viewBox="0 0 24 24" stroke-width="2"
-                                                     stroke="currentColor" fill="none" stroke-linecap="round"
-                                                     stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"
-                                                                                   fill="none"></path><circle cx="10"
-                                                                                                              cy="10"
-                                                                                                              r="7"></circle><line
-                                                        x1="21" y1="21" x2="15" y2="15"></line></svg>
-                                            </a>
-                                            <a href="#" class="link-secondary ms-2" title="Экспорт в Excel"
-                                               data-bs-toggle="tooltip">
-                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                     class="icon icon-tabler icon-tabler-table-export" width="44"
-                                                     height="44" viewBox="0 0 24 24" stroke-width="1.5"
-                                                     stroke="currentColor" fill="none" stroke-linecap="round"
-                                                     stroke-linejoin="round">
-                                                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                  <path
-                                                      d="M11.5 20h-5.5a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v7.5m-16 -3.5h16m-10 -6v16m4 -1h7m-3 -3l3 3l-3 3"/>
-                                                </svg>
-                                            </a>
-                                        </span>
-                                        </div>
-                                        <div class="ms-2">
-                                            <div class="btn-group w-100">
-                                                <a class="btn" data-bs-toggle="offcanvas" href="#userCreationPanel"
-                                                   role="button" aria-controls="offcanvasEnd">Создать</a>
-                                                <a class="btn" data-bs-toggle="offcanvas" href="#userEditingPanel"
-                                                   role="button" aria-controls="offcanvasEnd">Изменить</a>
-                                                <a class="btn" data-bs-toggle="modal" data-bs-target="#userRemoveModal"
-                                                   href="#">Удалить</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+
+                                {% include 'administrator/user/block/search_panel.html.twig' %}
+
                                 <div class="users-table-wrap table-responsive">
                                     <table id="usersTable"
                                            class="users-table table card-table table-vcenter text-nowrap datatable">
                                         <thead>
                                         <tr>
                                             <th></th>
-                                            <th></th>
-                                            <th>Название роли</th>
-                                            <th>Идентификатор роли</th>
+                                            <th>Название</th>
+                                            <th>Комментарий</th>
+                                            <th>Идентификатор</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -101,26 +51,9 @@
                                                 <tr class="user-table-row {% if loop.first %}is-selected{% endif %}">
                                                     <td><span class="badge bg-success"></span></td>
                                                     <td>
-                                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                                             class="icon icon-tabler icon-tabler-adjustments-horizontal"
-                                                             width="44" height="44" viewBox="0 0 24 24"
-                                                             stroke-width="1.5"
-                                                             stroke="currentColor" fill="none" stroke-linecap="round"
-                                                             stroke-linejoin="round">
-                                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                            <circle cx="14" cy="6" r="2"/>
-                                                            <line x1="4" y1="6" x2="12" y2="6"/>
-                                                            <line x1="16" y1="6" x2="20" y2="6"/>
-                                                            <circle cx="8" cy="12" r="2"/>
-                                                            <line x1="4" y1="12" x2="6" y2="12"/>
-                                                            <line x1="10" y1="12" x2="20" y2="12"/>
-                                                            <circle cx="17" cy="18" r="2"/>
-                                                            <line x1="4" y1="18" x2="15" y2="18"/>
-                                                            <line x1="19" y1="18" x2="20" y2="18"/>
-                                                        </svg>
+                                                        {{ ul.name|default(false) }}
                                                     </td>
                                                     <td>
-                                                        {{ ul.name|default(false) }}
                                                     </td>
                                                     <td>
                                                         {{ ul.roles_alt|default(false) }}

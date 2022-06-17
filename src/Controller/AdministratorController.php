@@ -5,6 +5,9 @@
 
 namespace App\Controller;
 
+use App\Controller\Administrator\AdminDirectoryFGOS;
+use App\Controller\Administrator\AdminDirectoryPS;
+use App\Controller\Administrator\AdministratorOperationsController;
 use App\Controller\Administrator\AdministratorRoleController;
 use App\Controller\Administrator\AdministratorUserController;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,11 +23,27 @@ class AdministratorController extends AbstractController
         return $administratorUserController->getUserList();
     }
 
-
     #[Route('/role', name: '_role')]
     public function getRoleList(AdministratorRoleController $administratorRoleController): Response
     {
         return $administratorRoleController->getRoleList();
     }
 
+    #[Route('/operation', name: '_operations')]
+    public function getOperationsList(AdministratorOperationsController $administratorOperationsController): Response
+    {
+        return $administratorOperationsController->getOperationsList();
+    }
+
+    #[Route('/directory/fros', name: '_directory_fgos')]
+    public function getDirectoryFgos(AdminDirectoryFGOS $adminDirectoryFGOS): Response
+    {
+        return $adminDirectoryFGOS->getList();
+    }
+
+    #[Route('/directory/ps', name: '_directory_ps')]
+    public function getDirectoryPS(AdminDirectoryPS $adminDirectoryPS): Response
+    {
+        return $adminDirectoryPS->getList();
+    }
 }

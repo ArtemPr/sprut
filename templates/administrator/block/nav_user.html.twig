@@ -1,6 +1,6 @@
 <ul class="navbar-nav pt-lg-3">
-    <li class="nav-item">
-        <a class="nav-link" href="#">
+    <li class="nav-item {% if controller|default(false) and controller == 'user' %}active{% endif %}">
+        <a class="nav-link" href="{{ path('administrator_user') }}">
                            <span class="nav-link-icon d-md-none d-lg-inline-block">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user"
                                      width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50"
@@ -10,7 +10,7 @@
                                   <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"/>
                                 </svg>
                            </span>
-            <span class="nav-link-title">ПОЛЬЗОВАТЕЛИ</span>
+            <span class="nav-link-title">Пользователи</span>
         </a>
     </li>
     <li class="nav-item {% if controller|default(false) and controller == 'role' %}active{% endif %}">
@@ -27,8 +27,8 @@
             <span class="nav-link-title">Роли</span>
         </a>
     </li>
-    <li class="nav-item {% if controller|default(false) and controller == 'operation' %}active{% endif %}">
-        <a class="nav-link" href="#">
+    <li class="nav-item {% if controller|default(false) and controller == 'operations' %}active{% endif %}">
+        <a class="nav-link" href="{{ path('administrator_operations') }}">
                            <span class="nav-link-icon d-md-none d-lg-inline-block">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user"
                                      width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50"
@@ -39,20 +39,6 @@
                                 </svg>
                            </span>
             <span class="nav-link-title">Операции</span>
-        </a>
-    </li>
-    <li class="nav-item {% if controller|default(false) and controller == 'user' %}active{% endif %}">
-        <a class="nav-link" href="{{ path('administrator_user') }}">
-                           <span class="nav-link-icon d-md-none d-lg-inline-block">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user"
-                                     width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50"
-                                     fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                  <circle cx="12" cy="7" r="4"/>
-                                  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"/>
-                                </svg>
-                           </span>
-            <span class="nav-link-title">Пользователи</span>
         </a>
     </li>
 </ul>

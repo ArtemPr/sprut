@@ -12,4 +12,6 @@ import './source/css/user.css';
 import './bootstrap';
 import './source/js/tabler.min'
 import './source/js/demo.min'
+import './source/js/dual.listbox.min'
 import './source/js/user'
+import './source/js/action'

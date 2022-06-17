@@ -1,17 +1,46 @@
 <div id="managingDepartmentsModal" class="modal modal-blur fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-        <div class="modal-content">
+        <form class="dual-controls-form modal-content" action="#" name="departments-control">
             <div class="modal-header">
                 <h5 class="modal-title">Управление подразделениями</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci animi beatae delectus deleniti dolorem eveniet facere fuga iste nemo nesciunt nihil odio perspiciatis, quia quis reprehenderit sit tempora totam unde.
+                <div class="dual-controls-wrap mb-4">
+                    <div class="dual-controls-label mb-3"><b>Выберите подразделение</b></div>
+                    <div class="dual-controls-box">
+                        <select class="dual-controls-select" name="departments[]" multiple>
+                            <option value="dep-1">Подразделение 1</option>
+                            <option value="dep-2">Подразделение 2</option>
+                            <option value="dep-3">Подразделение 3</option>
+                            <option value="dep-4">Подразделение 4</option>
+                            <option value="dep-5">Подразделение 5</option>
+                            <option value="dep-6">Подразделение 6</option>
+                            <option value="dep-7">Подразделение 7</option>
+                            <option value="dep-8">Подразделение 8</option>
+                            <option value="dep-9">Подразделение 9</option>
+                            <option value="dep-10">Подразделение 10</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="form-label col-4 col-form-label">Основное подразделение</label>
+                    <div class="col">
+                        <select class="form-select" name="main-department">
+                            <option value="main-dep-0" disabled selected>Выберите основное подразделение</option>
+                            <option value="main-dep-1">Основное подразделение 1</option>
+                            <option value="main-dep-2">Основное подразделение 2</option>
+                            <option value="main-dep-3">Основное подразделение 3</option>
+                            <option value="main-dep-4">Основное подразделение 4</option>
+                            <option value="main-dep-5">Основное подразделение 5</option>
+                        </select>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn me-auto" data-bs-dismiss="modal">Закрыть</button>
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Сохранить изменения</button>
+                <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Сохранить изменения</button>
             </div>
-        </div>
+        </form>
     </div>
 </div>

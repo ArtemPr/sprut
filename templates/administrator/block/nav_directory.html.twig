@@ -1,0 +1,12 @@
+<ul class="navbar-nav pt-lg-3">
+    <li class="nav-item {% if controller|default(false) and controller == 'fgos' %}active{% endif %}">
+        <a class="nav-link" href="{{ path('administrator_directory_fgos') }}">
+            <span class="nav-link-title">Государственные стандарты</span>
+        </a>
+    </li>
+    <li class="nav-item {% if controller|default(false) and controller == 'ps' %}active{% endif %}">
+        <a class="nav-link" href="{{ path('administrator_directory_ps') }}">
+            <span class="nav-link-title">Профессиональные стандарты</span>
+        </a>
+    </li>
+</ul>

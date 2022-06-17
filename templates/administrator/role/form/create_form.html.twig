@@ -6,19 +6,23 @@
     <div class="offcanvas-body">
         <form action="#" name="user-create">
             <div class="form-group mb-3 row">
-                <label class="form-label col-3 col-form-label">Название роли</label>
+                <label class="form-label col-3 col-form-label">Название</label>
                 <div class="col">
                     <input type="text" class="form-control" placeholder="название для роли">
                 </div>
             </div>
-
             <div class="form-group mb-3 row">
-                <label class="form-label col-3 col-form-label">Кодовое обозначение</label>
+                <label class="form-label col-3 col-form-label">Идентификатор</label>
                 <div class="col">
                     <input type="text" class="form-control" placeholder="ROLE_XXXXXXXXX">
                 </div>
             </div>
-
+            <div class="form-group mb-3 row">
+                <label class="form-label col-3 col-form-label">Комментарий</label>
+                <div class="col">
+                    <textarea name="comment" class="form-control"></textarea>
+                </div>
+            </div>
             <div class="d-flex mb-4">
                 <button type="submit" class="btn btn-primary ms-auto">Сохранить</button>
             </div>

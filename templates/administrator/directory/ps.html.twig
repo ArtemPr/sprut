@@ -16,13 +16,13 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbar-menu">
-                    {% include 'administrator/block/nav_user.html.twig' with {'controller': 'user'} %}
+                    {% include 'administrator/block/nav_directory.html.twig' with {'controller': 'ps'} %}
                 </div>
             </div>
         </aside>
         <div class="page-wrapper">
             <div class="container-xl">
-                {% include 'administrator/block/header_list.html.twig' with {'header': 'Пользователи'} %}
+                {% include 'administrator/block/header_list.html.twig' with {'header': 'Справочник - профессиональные стандарты'} %}
             </div>
             <div class="page-body">
                 <div class="container-xl">
@@ -36,72 +36,28 @@
                                         <thead>
                                         <tr>
                                             <th></th>
-                                            <th></th>
-                                            <th><a class="sort-icon is-desc" href="#"></a> ФИО</th>
-                                            <th><a class="sort-icon is-both" href="#"></a> Должность</th>
-                                            <th><a class="sort-icon is-both" href="#"></a> Подразделение</th>
-                                            <th><a class="sort-icon is-both" href="#"></a> Почта</th>
-                                            <th><a class="sort-icon is-both" href="#"></a> Скайп</th>
-                                            <th><a class="sort-icon is-both" href="#"></a> Телефон</th>
-                                            <th><a class="sort-icon is-both" href="#"></a> Город</th>
+                                            <th><a class="sort-icon is-desc" href="#"></a> Код</th>
+                                            <th><a class="sort-icon is-both" href="#"></a> Название</th>
                                             <th class="hidden-cell"></th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        {% if user_list|default(false) %}
-                                            {% for ul in user_list %}
-                                                <tr data-string="{{ ul.id }}"
+                                        {% if data|default(false) %}
+                                            {% for dat in data %}
+                                                <tr data-string="{{ dat.id }}"
                                                     class="user-table-row {% if loop.first %}is-selected{% endif %}">
                                                     <td><span class="badge
-                                                    {% if ul.activity|default(false) %}
+                                                    {% if dat.archive_flag|default(false) %}
                                                         bg-success
                                                     {% else %}
                                                         bg-danger
                                                     {% endif %}
                                                     "></span></td>
-                                                    <td>
-                                                        Локальный
+                                                    <td style="max-width: 500px; white-space: normal;">
+                                                        {{ dat.name|default(false)|raw }}
                                                     </td>
-                                                    <td>
-                                                        {{ ul.username|default(false) }}
-                                                        {{ ul.surname|default(false) }}
-                                                        {{ ul.patronymic|default(false) }}
-                                                    </td>
-                                                    <td>
-                                                        {{ ul.position|default('-') }}
-                                                    </td>
-                                                    <td>
-                                                        {{ ul.departament.name|default('-') }}
-                                                    </td>
-                                                    <td>
-                                                        {% if  ul.email|default(false) %}
-                                                            <a href="mailto:{{ ul.email }}">
-                                                                {{ ul.email }}
-                                                            </a>
-                                                        {% else %}
-                                                            -
-                                                        {% endif %}
-                                                    </td>
-                                                    <td>
-                                                        {% if  ul.skype|default(false) %}
-                                                            <a href="skype:{{ ul.skype }}">
-                                                                {{ ul.skype }}
-                                                            </a>
-                                                        {% else %}
-                                                            -
-                                                        {% endif %}
-                                                    </td>
-                                                    <td>
-                                                        {% if  ul.phone|default(false) %}
-                                                            <a href="tel:{{ ul.phone }}">
-                                                                {{ ul.phone }}
-                                                            </a>
-                                                        {% else %}
-                                                            -
-                                                        {% endif %}
-                                                    </td>
-                                                    <td>
-                                                        {{ ul.city.name|default('-') }}
+                                                    <td style="max-width: 500px; white-space: normal;">
+                                                        {{ dat.short_name|default(false)|raw }}
                                                     </td>
                                                 </tr>
                                             {% endfor %}
@@ -112,8 +68,8 @@
 
 
                                 <div class="card-footer d-flex align-items-center">
-                                    <p class="m-0 text-muted"><b>{{ user_list|length }}</b> результатов</p>
-                                    {% if user_list|length > 25 %}
+                                    <p class="m-0 text-muted"><b>{{ data|length }}</b> результатов</p>
+                                    {% if data|length > 25 %}
                                         <ul class="pagination m-0 ms-auto">
                                             <li class="page-item disabled">
                                                 <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
@@ -149,21 +105,6 @@
                             </div>
 
                             <div id="userEditingOverlay" class="offcanvas-backdrop fade"></div>
-
-                            <div id="userEditingPanel" class="user-form-panel offcanvas offcanvas-end" tabindex="-1"
-                                 aria-labelledby="offcanvasEndLabel">
-                                <div class="offcanvas-header">
-                                    <h2 class="offcanvas-title">Редактирование пользователя</h2>
-                                    <button id="jsEditingPanelCloser" type="button" class="btn-close text-reset"
-                                            data-bs-dismiss="offcanvas"
-                                            aria-label="Close"></button>
-                                </div>
-                            </div>
-
-                            {% include 'administrator/user/form/create_form.html.twig' %}
-                            {% include 'administrator/modal/delete.html.twig' %}
-                            {% include 'administrator/user/modal/departament.html.twig' %}
-                            {% include 'administrator/user/modal/role.html.twig' %}
 
                         </div>
                     </div>
