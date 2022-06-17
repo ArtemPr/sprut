@@ -1,12 +1,12 @@
-<header class="navbar navbar-expand-md navbar-light d-print-none">
+<header class="header navbar navbar-expand-md navbar-light d-print-none">
 
-    <div class="container-xl">
+    <div class="container-fluid">
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#header-navbar-menu">
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
+        <h1 class="header__logo navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
             <a href="{{ path('main') }}">
                 <img src="{{ asset('assets/images/logo.svg') }}" width="110" height="32" alt="СПРУТ" class="navbar-brand-image">
             </a>
@@ -14,9 +14,14 @@
 
         {% include "block/navbar.html.twig" %}
 
-        <div class="navbar-nav flex-row">
+        <div class="navbar-nav flex-row ms-auto">
             <div class="nav-item dropdown">
-                <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown" aria-label="Открыть меню пользователя">
+                <a href="#" class="nav-link d-flex lh-1 text-reset p-0"
+                   {% if app.user.username|default(false) %}
+                   data-bs-toggle="dropdown"
+                   aria-label="Открыть меню пользователя"
+                   {% endif %}
+                >
                     <span class="avatar avatar-sm" style="background-image: url({{ asset('assets/images/user-128.svg') }})"></span>
                     <div class="d-none d-xl-block ps-2">
                         <div>

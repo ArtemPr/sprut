@@ -14,8 +14,7 @@ class AdministratorOperationsController extends AbstractController
 {
     public function __construct(
         private ManagerRegistry $managerRegistry
-    )
-    {
+    ) {
     }
 
     public function getOperationsList(): Response
@@ -24,7 +23,7 @@ class AdministratorOperationsController extends AbstractController
 
         return $this->render('administrator/operations/index.html.twig',
             [
-                'data' => $result
+                'data' => $result,
             ]
         );
     }

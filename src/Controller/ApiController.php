@@ -15,6 +15,7 @@ class ApiController extends AbstractController
 {
     /**
      * @param ApiProgramController $apiProgramController
+     *
      * @return Response
      */
     #[Route('/program_info', name: 'api_get_program_info', methods: ['GET'])]
@@ -25,6 +26,7 @@ class ApiController extends AbstractController
 
     /**
      * @param ApiProgramController $apiProgramController
+     *
      * @return Response
      */
     #[Route('/program', name: 'api_get_programs_list', methods: ['GET'])]
@@ -35,7 +37,8 @@ class ApiController extends AbstractController
 
     /**
      * @param ApiProgramController $apiProgramController
-     * @param int $id
+     * @param int                  $id
+     *
      * @return Response
      */
     #[Route('/program/{id}', name: 'api_get_program', methods: ['GET'])]

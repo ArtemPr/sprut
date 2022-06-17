@@ -19,8 +19,7 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class RolesRepository extends ServiceEntityRepository
 {
-
-    const PER_PAGE = 25;
+    public const PER_PAGE = 25;
 
     public function __construct(ManagerRegistry $registry)
     {

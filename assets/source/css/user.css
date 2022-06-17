@@ -18,14 +18,13 @@ body.user-editing-panel-opened {
 
 .users-table th {
 	position: relative;
-  padding-left: 25px;
 }
 
 .users-table th .sort-icon {
 	width: 12px;
 	height: 11px;
 	position: absolute;
-	left: 8px;
+	right: 8px;
 	top: 11px;
 	background-position: center;
 	background-repeat: no-repeat;
@@ -154,6 +153,7 @@ body.user-editing-panel-opened {
 
 .user-form-panel {
 	width: 550px;
+	visibility: visible !important;
 }
 
 .user-form-panel .offcanvas-body {
@@ -164,6 +164,32 @@ body.user-editing-panel-opened {
 	width: 130px;
 }
 
+.user-form-panel .dual-listbox__search {
+	display: block !important;
+	height: 30px;
+	margin-bottom: 10px;
+}
+
+.user-form-panel .dual-listbox__item {
+	padding: 5px 10px;
+}
+
+.user-form-panel .dual-listbox__container > div:last-child .dual-listbox__search {
+	opacity: 0;
+	visibility: hidden;
+}
+
+.user-form-panel .dual-listbox__available,
+.user-form-panel .dual-listbox__selected {
+	height: 186px !important;
+	background-color: #fafbfc !important;
+}
+
+.user-form-panel .dual-listbox__buttons {
+	position: relative;
+	top: 20px;
+}
+
 #userEditingPanel.show {
 	visibility: visible !important;
 	-webkit-transform: translateX(0);
@@ -172,33 +198,11 @@ body.user-editing-panel-opened {
 
 #userEditingOverlay {
 	visibility: hidden;
+	-webkit-transition: 0.5s;
+	-o-transition: 0.5s;
+	transition: 0.5s;
 }
 
 #userEditingOverlay.show {
 	visibility: visible !important;
-}
-
-/* responsive */
-
-@media (max-width: 767px) {
-
-	.users-option-panel > .d-flex {
-		flex-wrap: wrap;
-	}
-
-	.users-option-panel .is-left-col {
-		flex: 0 0 calc(100% - 44px);
-		max-width: calc(100% - 44px);
-	}
-
-	.users-option-panel .is-left-col + .me-2 {
-		margin-right: 0 !important;
-	}
-
-	.users-option-panel .is-right-col {
-		flex: 0 0 100%;
-		max-width: 100%;
-		margin-top: 10px;
-	}
-
 }

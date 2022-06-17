@@ -38,5 +38,4 @@ class ModuleRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
 }

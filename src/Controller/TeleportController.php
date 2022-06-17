@@ -224,7 +224,6 @@ class TeleportController extends AbstractController
         ]);
     }
 
-
     #[Route('/teleport/discipline', name: 'app_discipline_rq')]
     public function getDiscipline(ManagerRegistry $doctrine): Response
     {
@@ -248,7 +247,6 @@ class TeleportController extends AbstractController
         }
 
         foreach ($data_item as $key => $val) {
-
             if ($key < $start || $key > $end) {
                 continue;
             }
@@ -274,15 +272,14 @@ class TeleportController extends AbstractController
             $entityManager->flush();
         }
 
-        if(ceil((int)$data_item / (int)$on_page) >= ((int)$page + 1)) {
-            return $this->redirect('https://127.0.0.1:8000/teleport/discipline?page=' . ($page + 1));
+        if (ceil((int) $data_item / (int) $on_page) >= ((int) $page + 1)) {
+            return $this->redirect('https://127.0.0.1:8000/teleport/discipline?page='.($page + 1));
         } else {
             return $this->render('teleport/index.html.twig', [
                 'out' => 'Imported',
             ]);
         }
     }
-
 
     #[Route('/teleport/federal_standart', name: 'app_federal_standart')]
     public function getFederalStandart(ManagerRegistry $doctrine): Response
@@ -315,14 +312,13 @@ class TeleportController extends AbstractController
             }
             $data->setName($val->name)
                 ->setShortName($val->short_name)
-                ->setActive((boolean)$val->archive_flag);
+                ->setActive((bool) $val->archive_flag);
 
             $entityManager->persist($data);
             $entityManager->flush();
-
         }
-        if (ceil((int)$data_item / (int)$on_page) >= ((int)$page + 1)) {
-            return $this->redirect('https://127.0.0.1:8000/teleport/federal_standart?page=' . ($page + 1));
+        if (ceil((int) $data_item / (int) $on_page) >= ((int) $page + 1)) {
+            return $this->redirect('https://127.0.0.1:8000/teleport/federal_standart?page='.($page + 1));
         } else {
             return $this->render('teleport/index.html.twig', [
                 'out' => 'Imported',
@@ -351,7 +347,6 @@ class TeleportController extends AbstractController
             $end = count($data_item);
         }
 
-
         foreach ($data_item as $key => $val) {
             if ($key < $start || $key > $end) {
                 continue;
@@ -366,22 +361,20 @@ class TeleportController extends AbstractController
 
             $data->setName($val->name);
             $data->setCode($val->code);
-            $data->setNumber((int)$val->number);
+            $data->setNumber((int) $val->number);
             $data->setFederalStandart($f_s);
 
             $entityManager->persist($data);
             $entityManager->flush();
-
         }
-        if (ceil((int)$data_item / (int)$on_page) >= ((int)$page + 1)) {
-            return $this->redirect('https://127.0.0.1:8000/teleport/fed_standard_competences?page=' . ($page + 1));
+        if (ceil((int) $data_item / (int) $on_page) >= ((int) $page + 1)) {
+            return $this->redirect('https://127.0.0.1:8000/teleport/fed_standard_competences?page='.($page + 1));
         } else {
             return $this->render('teleport/index.html.twig', [
                 'out' => 'Imported',
             ]);
         }
     }
-
 
     #[Route('/teleport/prof_standarts', name: 'app_prof_standarts')]
     public function getProfStandart(ManagerRegistry $doctrine): Response
@@ -404,7 +397,6 @@ class TeleportController extends AbstractController
             $end = count($data_item);
         }
 
-
         foreach ($data_item as $key => $val) {
             if ($key < $start || $key > $end) {
                 continue;
@@ -417,21 +409,19 @@ class TeleportController extends AbstractController
 
             $data->setName($val->name);
             $data->setShortName($val->short_name);
-            $data->setArchiveFlag($val->archive_flag == "1" ? true : false);
+            $data->setArchiveFlag('1' == $val->archive_flag ? true : false);
 
             $entityManager->persist($data);
             $entityManager->flush();
-
         }
-        if (ceil((int)$data_item / (int)$on_page) >= ((int)$page + 1)) {
-            return $this->redirect('https://127.0.0.1:8000/teleport/prof_standarts?page=' . ($page + 1));
+        if (ceil((int) $data_item / (int) $on_page) >= ((int) $page + 1)) {
+            return $this->redirect('https://127.0.0.1:8000/teleport/prof_standarts?page='.($page + 1));
         } else {
             return $this->render('teleport/index.html.twig', [
                 'out' => 'Imported',
             ]);
         }
     }
-
 
     #[Route('/teleport/prof_standarts_activities', name: 'prof_standarts_activities')]
     public function getProfStandartActivities(ManagerRegistry $doctrine): Response
@@ -454,7 +444,6 @@ class TeleportController extends AbstractController
             $end = count($data_item);
         }
 
-
         foreach ($data_item as $key => $val) {
             if ($key < $start || $key > $end) {
                 continue;
@@ -473,17 +462,15 @@ class TeleportController extends AbstractController
 
             $entityManager->persist($data);
             $entityManager->flush();
-
         }
-        if (ceil((int)$data_item / (int)$on_page) >= ((int)$page + 1)) {
-            return $this->redirect('https://127.0.0.1:8000/teleport/prof_standarts_activities?page=' . ($page + 1));
+        if (ceil((int) $data_item / (int) $on_page) >= ((int) $page + 1)) {
+            return $this->redirect('https://127.0.0.1:8000/teleport/prof_standarts_activities?page='.($page + 1));
         } else {
             return $this->render('teleport/index.html.twig', [
                 'out' => 'Imported',
             ]);
         }
     }
-
 
     #[Route('/teleport/prof_standard_competences', name: 'prof_standard_competences')]
     public function getProfStandartCompetences(ManagerRegistry $doctrine): Response
@@ -506,7 +493,6 @@ class TeleportController extends AbstractController
             $end = count($data_item);
         }
 
-
         foreach ($data_item as $key => $val) {
             if ($key < $start || $key > $end) {
                 continue;
@@ -525,10 +511,9 @@ class TeleportController extends AbstractController
 
             $entityManager->persist($data);
             $entityManager->flush();
-
         }
-        if (ceil((int)$data_item / (int)$on_page) >= ((int)$page + 1)) {
-            return $this->redirect('https://127.0.0.1:8000/teleport/prof_standard_competences?page=' . ($page + 1));
+        if (ceil((int) $data_item / (int) $on_page) >= ((int) $page + 1)) {
+            return $this->redirect('https://127.0.0.1:8000/teleport/prof_standard_competences?page='.($page + 1));
         } else {
             return $this->render('teleport/index.html.twig', [
                 'out' => 'Imported',

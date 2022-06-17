@@ -17,18 +17,13 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class OperationsRepository extends ServiceEntityRepository
 {
-    const PER_PAGE = 20;
+    public const PER_PAGE = 20;
 
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Operations::class);
     }
 
-    /**
-     * @param Operations $entity
-     * @param bool $flush
-     * @return void
-     */
     public function add(Operations $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
@@ -38,11 +33,6 @@ class OperationsRepository extends ServiceEntityRepository
         }
     }
 
-    /**
-     * @param Operations $entity
-     * @param bool $flush
-     * @return void
-     */
     public function remove(Operations $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
@@ -63,6 +53,7 @@ class OperationsRepository extends ServiceEntityRepository
             'SELECT op
                 FROM App\Entity\Operations op'
         )->setMaxResults(self::PER_PAGE)->getResult(Query::HYDRATE_ARRAY);
+
         return $result;
     }
 }

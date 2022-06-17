@@ -17,7 +17,7 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class FederalStandartRepository extends ServiceEntityRepository
 {
-    const PER_PAGE = 400;
+    public const PER_PAGE = 400;
 
     public function __construct(ManagerRegistry $registry)
     {
@@ -42,7 +42,6 @@ class FederalStandartRepository extends ServiceEntityRepository
         }
     }
 
-
     /**
      * @return float|int|mixed|string
      */
@@ -54,6 +53,7 @@ class FederalStandartRepository extends ServiceEntityRepository
             'SELECT op
                 FROM App\Entity\FederalStandart op'
         )->setMaxResults(self::PER_PAGE)->getResult(Query::HYDRATE_ARRAY);
+
         return $result;
     }
 }

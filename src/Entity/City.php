@@ -16,7 +16,6 @@ class City
     #[ORM\Column(type: 'string', length: 255)]
     private $name;
 
-
     #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'city')]
     private $user_city;
 
@@ -52,5 +51,4 @@ class City
     {
         $this->user_city = $user_city;
     }
-
 }

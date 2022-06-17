@@ -25,22 +25,23 @@ class ApiUserController extends AbstractController
     public function __construct(
         private UserRepository $userRepository,
         private ManagerRegistry $doctrine
-    )
-    {
+    ) {
     }
 
     /**
      * @param $id
+     *
      * @return Response
      */
     #[Route('/user/{id}', name: 'api_get_user', methods: ['GET'])]
     public function getUserInfo($id): Response
     {
-        if ($this->getAuth('ROLE_API_USER','api_get_user') === false) {
-            return $this->json(['error'=>'error auth']);
+        if (false === $this->getAuth('ROLE_API_USER', 'api_get_user')) {
+            return $this->json(['error' => 'error auth']);
         }
 
         $result = $this->userRepository->find($id);
+
         return $this->json($result ?? []);
     }
 
@@ -52,14 +53,14 @@ class ApiUserController extends AbstractController
     {
         $param = [];
 
-        if ($this->getAuth('ROLE_API_USER','api_get_users') === false) {
-            return $this->json(['error'=>'error auth']);
+        if (false === $this->getAuth('ROLE_API_USER', 'api_get_users')) {
+            return $this->json(['error' => 'error auth']);
         }
 
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
 
-
         $result = $this->userRepository->findBy($param);
+
         return $this->json($result ?? []);
     }
 }

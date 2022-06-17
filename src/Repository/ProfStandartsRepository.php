@@ -17,7 +17,8 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ProfStandartsRepository extends ServiceEntityRepository
 {
-    const PER_PAGE = 500;
+    public const PER_PAGE = 500;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, ProfStandarts::class);
@@ -41,7 +42,6 @@ class ProfStandartsRepository extends ServiceEntityRepository
         }
     }
 
-
     /**
      * @return float|int|mixed|string
      */
@@ -53,6 +53,7 @@ class ProfStandartsRepository extends ServiceEntityRepository
             'SELECT op
                 FROM App\Entity\ProfStandarts op'
         )->setMaxResults(self::PER_PAGE)->getResult(Query::HYDRATE_ARRAY);
+
         return $result;
     }
 }

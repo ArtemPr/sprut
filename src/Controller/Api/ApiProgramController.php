@@ -11,7 +11,6 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 
 class ApiProgramController extends AbstractController
 {
@@ -19,13 +18,12 @@ class ApiProgramController extends AbstractController
 
     /**
      * @param MasterProgramRepository $master_programm
-     * @param ManagerRegistry $doctrine
+     * @param ManagerRegistry         $doctrine
      */
     public function __construct(
         private MasterProgramRepository $master_programm,
-        private ManagerRegistry         $doctrine
-    )
-    {
+        private ManagerRegistry $doctrine
+    ) {
     }
 
     /**
@@ -33,29 +31,26 @@ class ApiProgramController extends AbstractController
      */
     public function getProgramInfo()
     {
-        if ($this->getAuth('ROLE_API_USER','api_get_program_info') === false) {
+        if (false === $this->getAuth('ROLE_API_USER', 'api_get_program_info')) {
             return $this->json(['error' => 'error auth']);
         }
 
         $result = $this->master_programm->getApiProgramInfo();
 
         return $this->render('api/index.html.twig', [
-            'out' => $this->convertJson($result ?? ['error' => 'no results'])
+            'out' => $this->convertJson($result ?? ['error' => 'no results']),
         ]);
     }
 
-    /**
-     * @return Response
-     */
     public function getProgramsList(): Response
     {
-        if ($this->getAuth('ROLE_API_USER','api_get_programs_list') === false) {
+        if (false === $this->getAuth('ROLE_API_USER', 'api_get_programs_list')) {
             return $this->json(['error' => 'error auth']);
         }
 
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
 
-        $page = (int)($request->get('page') ?? 1);
+        $page = (int) ($request->get('page') ?? 1);
         if ($page > 0) {
             $page = $page - 1;
         } else {
@@ -65,7 +60,7 @@ class ApiProgramController extends AbstractController
 
         $param = $request->get('param') ?? null;
 
-        $result = $this->master_programm->getProgramList((int)$page, $max_result, $param);
+        $result = $this->master_programm->getProgramList((int) $page, $max_result, $param);
 
         foreach ($result as $val) {
             $out[] = [
@@ -73,30 +68,25 @@ class ApiProgramController extends AbstractController
                 'unique_id' => $val['id'] ?? false,
                 'program_name' => \html_entity_decode($val['name'] ?? ''),
                 'length_hour' => $val['length_hour'] ?? false,
-                'length_week' => $val['length_week'] ?? false
+                'length_week' => $val['length_week'] ?? false,
             ];
         }
 
         return $this->render('api/index.html.twig', [
-            'out' => $this->convertJson($out ?? ['error' => 'no results'])
+            'out' => $this->convertJson($out ?? ['error' => 'no results']),
         ]);
     }
 
-    /**
-     * @param int $id
-     * @return Response
-     */
     public function getProgram(int $id): Response
     {
-        if ($this->getAuth('ROLE_API_USER','api_get_program') === false) {
+        if (false === $this->getAuth('ROLE_API_USER', 'api_get_program')) {
             return $this->json(['error' => 'error auth']);
         }
 
         $out = $this->master_programm->getProgram($id);
 
         return $this->render('api/index.html.twig', [
-            'out' => $this->convertJson($out ?? ['error' => 'no results'])
+            'out' => $this->convertJson($out ?? ['error' => 'no results']),
         ]);
     }
-
 }

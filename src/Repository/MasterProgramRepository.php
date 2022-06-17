@@ -17,24 +17,13 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class MasterProgramRepository extends ServiceEntityRepository
 {
-    /**
-     *
-     */
     public const ON_PAGE = 25;
 
-    /**
-     * @param ManagerRegistry $registry
-     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, MasterProgram::class);
     }
 
-    /**
-     * @param MasterProgram $entity
-     * @param bool $flush
-     * @return void
-     */
     public function add(MasterProgram $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
@@ -44,11 +33,6 @@ class MasterProgramRepository extends ServiceEntityRepository
         }
     }
 
-    /**
-     * @param MasterProgram $entity
-     * @param bool $flush
-     * @return void
-     */
     public function remove(MasterProgram $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
@@ -75,9 +59,8 @@ class MasterProgramRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param int $page
-     * @param int|null $max_result
      * @param string|null $param
+     *
      * @return array
      */
     public function getProgramList(int $page = 0, int|null $max_result = 0, string|null $param = null): array|null
@@ -90,10 +73,10 @@ class MasterProgramRepository extends ServiceEntityRepository
                 FROM App\Entity\MasterProgram pr
                 INNER JOIN pr.program_type pt';
 
-        if(!empty($param['order'])) {
+        if (!empty($param['order'])) {
             $col = array_key_first($param['order']);
             $type_sort = ucfirst($param['order'][$col]);
-            $sql .= 'ORDER BY pr.' . $col . ' ' . $type_sort;
+            $sql .= 'ORDER BY pr.'.$col.' '.$type_sort;
         }
 
         $query_item = $entityManager->createQuery($sql)
@@ -103,10 +86,6 @@ class MasterProgramRepository extends ServiceEntityRepository
         return $query_item->getResult(Query::HYDRATE_ARRAY) ?? [];
     }
 
-    /**
-     * @param int $id
-     * @return array|null
-     */
     public function getProgram(int $id): array|null
     {
         $entityManager = $this->getEntityManager();
@@ -118,5 +97,14 @@ class MasterProgramRepository extends ServiceEntityRepository
         )->setParameter('id', $id);
 
         return $query_item->getResult(Query::HYDRATE_ARRAY)[0] ?? null;
+    }
+
+    /**
+     * @param string|null $param
+     * @TODO УДАЛИТЬ после залива не сервер всей локали
+     */
+    public function getApiList(int $page = 0, int|null $max_result = 0, string|null $param = null): array
+    {
+        return $this->getProgramList($page, $max_result, $param);
     }
 }
