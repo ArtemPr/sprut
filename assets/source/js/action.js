@@ -2,8 +2,6 @@
  * Created AptPr <prudishew@yandex.ru> 2022.
  */
 
-//test
-
 let top_btn = document.querySelectorAll('.btn');
 
 for (var i = 0; i < top_btn.length; i++) {
