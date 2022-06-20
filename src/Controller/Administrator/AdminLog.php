@@ -8,6 +8,7 @@ namespace App\Controller\Administrator;
 use App\Entity\Loger;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class AdminLog extends AbstractController
@@ -20,10 +21,11 @@ class AdminLog extends AbstractController
 
     public function getList(): Response
     {
-        $page = false;
-        $on_page = false;
+        $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
+        $page = $request->get('page') ?? null;
+        $on_page =$request->get('on_page');
 
-        $data = $this->managerRegistry->getRepository(Loger::class)->getList($page ?? 1, $on_page ?? 25);
+        $data = $this->managerRegistry->getRepository(Loger::class)->getList($page, $on_page);
 
         foreach ($data as $key=>$value) {
             $data[$key]['time'] =$data[$key]['time']->format(
@@ -32,6 +34,10 @@ class AdminLog extends AbstractController
         }
 
         $data_action = $this->managerRegistry->getRepository(Loger::class)->getActionList();
+
+        $count = $this->managerRegistry->getRepository(Loger::class)->findAll();
+        $count = count($count);
+
 
         $da_out = [];
 
@@ -43,6 +49,11 @@ class AdminLog extends AbstractController
         [
             'data' => $data,
             'data_action' => $da_out,
+            'pager' => [
+                'count_all_position' => $count,
+                'current_page' => $page+1,
+                'count_page' => (int)ceil($count / $page)
+            ]
         ]
         );
     }
