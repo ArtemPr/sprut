@@ -29,6 +29,7 @@ class CustomLogoutListener
         $loger->setAction('logout');
         $loger->setUserLoger($logoutEvent->getToken()->getUser());
         $loger->setIp($logoutEvent->getRequest()->server->get('REMOTE_ADDR'));
+        $loger->setChapter('Пользователи');
         $entityManager = $this->managerRegistry->getManager();
         $entityManager->persist($loger);
         $entityManager->flush();
