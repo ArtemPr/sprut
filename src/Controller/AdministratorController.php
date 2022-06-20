@@ -6,6 +6,7 @@
 namespace App\Controller;
 
 use App\Controller\Administrator\AdminDirectoryFGOS;
+use App\Controller\Administrator\AdminDirectoryKafedra;
 use App\Controller\Administrator\AdminDirectoryPS;
 use App\Controller\Administrator\AdminDirectoryTrainingCentre;
 use App\Controller\Administrator\AdministratorOperationsController;
@@ -35,6 +36,12 @@ class AdministratorController extends AbstractController
     public function getOperationsList(AdministratorOperationsController $administratorOperationsController): Response
     {
         return $administratorOperationsController->getOperationsList();
+    }
+
+    #[Route('/kafedra', name: '_kafedra')]
+    public function getKafedraList(AdminDirectoryKafedra $adminDirectoryKafedra): Response
+    {
+        return $adminDirectoryKafedra->getList();
     }
 
     #[Route('/log', name: '_log')]

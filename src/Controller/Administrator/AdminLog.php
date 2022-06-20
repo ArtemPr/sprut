@@ -23,7 +23,7 @@ class AdminLog extends AbstractController
     {
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
         $page = $request->get('page') ?? null;
-        $on_page =$request->get('on_page');
+        $on_page =$request->get('on_page') ?? 25;;
 
         $data = $this->managerRegistry->getRepository(Loger::class)->getList($page, $on_page);
 
@@ -37,7 +37,6 @@ class AdminLog extends AbstractController
 
         $count = $this->managerRegistry->getRepository(Loger::class)->findAll();
         $count = count($count);
-     //   dd($count);
 
 
         $da_out = [];
@@ -47,6 +46,7 @@ class AdminLog extends AbstractController
         }
 
         $page = $page ?? 1;
+
         return $this->render('administrator/log/log.html.twig',
         [
             'data' => $data,
@@ -54,7 +54,7 @@ class AdminLog extends AbstractController
             'pager' => [
                 'count_all_position' => $count,
                 'current_page' => $page+1,
-                'count_page' => (int)ceil($count / $page)
+                'count_page' => (int)ceil($count / $on_page)
             ]
         ]
         );
