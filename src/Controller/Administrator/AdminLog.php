@@ -20,7 +20,16 @@ class AdminLog extends AbstractController
 
     public function getList(): Response
     {
-        $data = $this->managerRegistry->getRepository(Loger::class)->getList();
+        $page = false;
+        $on_page = false;
+
+        $data = $this->managerRegistry->getRepository(Loger::class)->getList($page ?? 1, $on_page ?? 25);
+
+        foreach ($data as $key=>$value) {
+            $data[$key]['time'] =$data[$key]['time']->format(
+                'H:i d.m.Y'
+            );
+        }
 
         $data_action = $this->managerRegistry->getRepository(Loger::class)->getActionList();
 
