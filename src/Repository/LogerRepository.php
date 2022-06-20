@@ -46,15 +46,18 @@ class LogerRepository extends ServiceEntityRepository
     /**
      * @return float|int|mixed|string
      */
-    public function getList()
+    public function getList(int|null $page = 0, int|null $on_page = 25)
     {
         $entityManager = $this->getEntityManager();
+        $first_result = $page === 1 ? 0 : (int)$page * (int)$on_page;
 
         $result = $entityManager->createQuery(
             'SELECT log, us
                 FROM App\Entity\Loger log
                 JOIN log.user_loger us'
-        )->setMaxResults(self::PER_PAGE)->getResult(Query::HYDRATE_ARRAY);
+        )->setFirstResult($first_result)
+            ->setMaxResults($on_page)
+            ->getResult(Query::HYDRATE_ARRAY);
 
         return $result;
     }
