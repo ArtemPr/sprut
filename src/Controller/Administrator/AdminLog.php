@@ -37,6 +37,7 @@ class AdminLog extends AbstractController
 
         $count = $this->managerRegistry->getRepository(Loger::class)->findAll();
         $count = count($count);
+     //   dd($count);
 
 
         $da_out = [];
@@ -45,6 +46,7 @@ class AdminLog extends AbstractController
             $da_out[$value['name']] = $value['value'];
         }
 
+        $page = $page ?? 1;
         return $this->render('administrator/log/log.html.twig',
         [
             'data' => $data,
