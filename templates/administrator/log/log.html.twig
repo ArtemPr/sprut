@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends '../../base.html.twig' %}
 
 {% block title %}СПРУТ 1.0{% endblock %}
 
@@ -29,7 +29,7 @@
                                 <span class="nav-link-title">Роли</span>
                             </a>
                         </li>
-                        <li class="nav-item active">
+                        <li class="nav-item">
                             <a class="nav-link" href="#" >
                            <span class="nav-link-icon d-md-none d-lg-inline-block">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -53,6 +53,18 @@
                                 <span class="nav-link-title">Пользователи</span>
                             </a>
                         </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#" >
+                           <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                  <circle cx="12" cy="7" r="4" />
+                                  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                                </svg>
+                           </span>
+                                <span class="nav-link-title">Журнал событий</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -65,7 +77,7 @@
                         <div class="col d-flex align-items-center">
                             <!-- Page pre-title -->
                             <h2 class="page-title">
-                                LOG
+                                Журнал событий
                             </h2>
                             <div class="ms-auto d-flex align-items-center">
                                 <div>По</div>
@@ -120,36 +132,31 @@
                                     <table id="usersTable" class="users-table table card-table table-vcenter text-nowrap datatable">
                                         <thead>
                                         <tr>
-                                            <th>Название <a class="sort-icon is-desc" href="#"></a></th>
+                                            <th>Раздел</th>
+                                            <th>Тип события</th>
+                                            <th>Название события </th>
+                                            <th>Инициатор события (ФИО)</th>
+                                            <th>Электронная почта</th>
+                                            <th>IP-адрес</th>
+                                            <th>Дата / Время</th>
                                             <th>Комментарий</th>
-                                            <th>Роли</th>
-                                            <th>Идентификатор <a class="sort-icon is-both" href="#"></a></th>
                                             <th class="hidden-cell"></th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr class="user-table-row is-selected">
                                             <td>
-                                                Операция 1
+                                                Раздел 1
                                             </td>
                                             <td>
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad, provident.
+                                                Тип события 1
                                             </td>
-                                            <td>
-                                                <a class="btn btn-icon" data-bs-toggle="offcanvas" href="#rolesListPanel" role="button" aria-controls="offcanvasEnd">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-list-numbers" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                        <path d="M11 6h9" />
-                                                        <path d="M11 12h9" />
-                                                        <path d="M12 18h8" />
-                                                        <path d="M4 16a2 2 0 1 1 4 0c0 .591 -.5 1 -1 1.5l-3 2.5h4" />
-                                                        <path d="M6 10v-6l-2 2" />
-                                                    </svg>
-                                                </a>
-                                            </td>
-                                            <td>
-                                                OPERATION_ID
-                                            </td>
+                                            <td>Название события 1</td>
+                                            <td>Иванов И.И</td>
+                                            <td>ivanov@gmail.com</td>
+                                            <td>192.168.123.132</td>
+                                            <td>12:45 23.09.2022</td>
+                                            <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad, provident.</td>
                                             <td class="hidden-cell">
                                                 <input class="selected-checkbox" type="checkbox" name="#" checked>
                                             </td>
