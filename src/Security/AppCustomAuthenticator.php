@@ -68,6 +68,7 @@ class AppCustomAuthenticator extends AbstractLoginFormAuthenticator
             $loger->setTime(new \DateTime());
             $loger->setAction('login');
             $loger->setUserLoger($token->getUser());
+            $loger->setIp($request->server->get('REMOTE_ADDR'));
             $entityManager = $this->managerRegistry->getManager();
             $entityManager->persist($loger);
             $entityManager->flush();

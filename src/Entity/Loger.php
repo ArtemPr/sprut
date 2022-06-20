@@ -23,6 +23,9 @@ class Loger
     #[ORM\Column(type: 'string', length: 255)]
     private $action;
 
+    #[ORM\Column(type: 'string', length: 15, nullable: true)]
+    private $ip;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +63,18 @@ class Loger
     public function setAction(string $action): self
     {
         $this->action = $action;
+
+        return $this;
+    }
+
+    public function getIp(): ?string
+    {
+        return $this->ip;
+    }
+
+    public function setIp(?string $ip): self
+    {
+        $this->ip = $ip;
 
         return $this;
     }
