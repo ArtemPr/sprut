@@ -11,6 +11,7 @@ use App\Controller\Administrator\AdminDirectoryTrainingCentre;
 use App\Controller\Administrator\AdministratorOperationsController;
 use App\Controller\Administrator\AdministratorRoleController;
 use App\Controller\Administrator\AdministratorUserController;
+use App\Controller\Administrator\AdminLog;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -34,6 +35,12 @@ class AdministratorController extends AbstractController
     public function getOperationsList(AdministratorOperationsController $administratorOperationsController): Response
     {
         return $administratorOperationsController->getOperationsList();
+    }
+
+    #[Route('/log', name: '_log')]
+    public function getLog(AdminLog $adminLog): Response
+    {
+        return $adminLog->getList();
     }
 
     #[Route('/directory/fros', name: '_directory_fgos')]
