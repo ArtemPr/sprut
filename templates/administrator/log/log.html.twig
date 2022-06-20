@@ -1,4 +1,4 @@
-{% extends '../../base.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}СПРУТ 1.0{% endblock %}
 
@@ -72,6 +72,10 @@
         <div class="page-wrapper">
             <div class="container-fluid">
                 <!-- Page title -->
+
+                {{ dump(data) }}
+                {{ dump(data_action) }}
+
                 <div class="page-header d-print-none">
                     <div class="row g-2 align-items-center">
                         <div class="col d-flex align-items-center">
