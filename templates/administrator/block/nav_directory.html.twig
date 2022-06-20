@@ -9,4 +9,9 @@
             <span class="nav-link-title">Профессиональные стандарты</span>
         </a>
     </li>
+    <li class="nav-item {% if controller|default(false) and controller == 'tc' %}active{% endif %}">
+        <a class="nav-link" href="{{ path('administrator_directory_tc') }}">
+            <span class="nav-link-title">Учебные центры</span>
+        </a>
+    </li>
 </ul>

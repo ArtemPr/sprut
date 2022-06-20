@@ -7,6 +7,7 @@ namespace App\Controller;
 
 use App\Controller\Administrator\AdminDirectoryFGOS;
 use App\Controller\Administrator\AdminDirectoryPS;
+use App\Controller\Administrator\AdminDirectoryTrainingCentre;
 use App\Controller\Administrator\AdministratorOperationsController;
 use App\Controller\Administrator\AdministratorRoleController;
 use App\Controller\Administrator\AdministratorUserController;
@@ -45,5 +46,11 @@ class AdministratorController extends AbstractController
     public function getDirectoryPS(AdminDirectoryPS $adminDirectoryPS): Response
     {
         return $adminDirectoryPS->getList();
+    }
+
+    #[Route('/directory/tc', name: '_directory_tc')]
+    public function getDirectoryTrainingCentre(AdminDirectoryTrainingCentre $adminDirectoryTrainingCentre): Response
+    {
+        return $adminDirectoryTrainingCentre->getList();
     }
 }

@@ -29,11 +29,13 @@ for (let i = 0; i < userTableRows.length; ++i) {
 
 }
 
-userEditingPanelCloser.addEventListener('click', function () {
-  body.classList.remove('user-editing-panel-opened');
-  userEditingPanel.classList.remove('show');
-  userEditingOverlay.classList.remove('show');
-});
+if (userEditingPanelCloser != undefined) {
+    userEditingPanelCloser.addEventListener('click', function () {
+        body.classList.remove('user-editing-panel-opened');
+        userEditingPanel.classList.remove('show');
+        userEditingOverlay.classList.remove('show');
+    });
+}
 
 userEditingOverlay.addEventListener('click', function () {
   body.classList.remove('user-editing-panel-opened');
