@@ -1,0 +1,376 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}СПРУТ 1.0{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+{% block body %}
+    {{ include('block/header.html.twig') }}
+
+    <div class="page page-layout">
+        <aside class="navbar navbar-vertical navbar-expand-lg navbar-light">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-header-menu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbar-header-menu">
+                    <ul class="navbar-nav pt-lg-3">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" >
+                           <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                  <circle cx="12" cy="7" r="4" />
+                                  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                                </svg>
+                           </span>
+                                <span class="nav-link-title">Роли</span>
+                            </a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#" >
+                           <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                  <circle cx="12" cy="7" r="4" />
+                                  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                                </svg>
+                           </span>
+                                <span class="nav-link-title">Операции</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" >
+                           <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                  <circle cx="12" cy="7" r="4" />
+                                  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                                </svg>
+                           </span>
+                                <span class="nav-link-title">Пользователи</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </aside>
+        <div class="page-wrapper">
+            <div class="container-fluid">
+                <!-- Page title -->
+                <div class="page-header d-print-none">
+                    <div class="row g-2 align-items-center">
+                        <div class="col d-flex align-items-center">
+                            <!-- Page pre-title -->
+                            <h2 class="page-title">
+                                LOG
+                            </h2>
+                            <div class="ms-auto d-flex align-items-center">
+                                <div>По</div>
+                                <select class="form-select ms-2">
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                    <option value="all">Все</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="page-body">
+                <div class="container-fluid">
+                    <div class="row row-deck row-cards">
+                        <div class="col-12">
+
+                            <div class="card">
+                                <div class="users-option-panel card-body border-bottom py-3">
+                                    <div class="d-flex align-items-center mb-0">
+                                        <div class="is-left-col input-group input-group-flat me-2">
+                                            <input type="text" class="form-control" placeholder="Поиск"  autocomplete="off">
+                                            <span class="input-group-text">
+                                            <a href="#" class="link-secondary" title="Очистить Поиск" data-bs-toggle="tooltip">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+                                            </a>
+                                            <a href="#" class="link-secondary ms-2" title="Поиск" data-bs-toggle="tooltip">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><circle cx="10" cy="10" r="7"></circle><line x1="21" y1="21" x2="15" y2="15"></line></svg>
+                                            </a>
+                                        </span>
+                                        </div>
+                                        <div>
+                                            <a href="#" class="btn w-100 btn-icon" title="Экспорт в Excel" data-bs-toggle="tooltip">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-table-export" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                    <path d="M11.5 20h-5.5a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v7.5m-16 -3.5h16m-10 -6v16m4 -1h7m-3 -3l3 3l-3 3" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                        <div class="is-left-col ms-auto">
+                                            <div class="btn-group w-100">
+                                                <a class="btn" data-bs-toggle="modal" data-bs-target="#operationCreateModal" href="#">Создать</a>
+                                                <a class="btn" data-bs-toggle="offcanvas" href="#userEditingPanel" role="button" aria-controls="offcanvasEnd">Изменить</a>
+                                                <a class="btn" data-bs-toggle="modal" data-bs-target="#operationRemoveModal" href="#">Удалить</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="users-table-wrap table-responsive">
+                                    <table id="usersTable" class="users-table table card-table table-vcenter text-nowrap datatable">
+                                        <thead>
+                                        <tr>
+                                            <th>Название <a class="sort-icon is-desc" href="#"></a></th>
+                                            <th>Комментарий</th>
+                                            <th>Роли</th>
+                                            <th>Идентификатор <a class="sort-icon is-both" href="#"></a></th>
+                                            <th class="hidden-cell"></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr class="user-table-row is-selected">
+                                            <td>
+                                                Операция 1
+                                            </td>
+                                            <td>
+                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad, provident.
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-icon" data-bs-toggle="offcanvas" href="#rolesListPanel" role="button" aria-controls="offcanvasEnd">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-list-numbers" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                        <path d="M11 6h9" />
+                                                        <path d="M11 12h9" />
+                                                        <path d="M12 18h8" />
+                                                        <path d="M4 16a2 2 0 1 1 4 0c0 .591 -.5 1 -1 1.5l-3 2.5h4" />
+                                                        <path d="M6 10v-6l-2 2" />
+                                                    </svg>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                OPERATION_ID
+                                            </td>
+                                            <td class="hidden-cell">
+                                                <input class="selected-checkbox" type="checkbox" name="#" checked>
+                                            </td>
+                                        </tr>
+                                        <tr class="user-table-row">
+                                            <td>
+                                                Операция 2
+                                            </td>
+                                            <td>
+                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad, provident.
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-icon" data-bs-toggle="offcanvas" href="#rolesListPanel" role="button" aria-controls="offcanvasEnd">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-list-numbers" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                        <path d="M11 6h9" />
+                                                        <path d="M11 12h9" />
+                                                        <path d="M12 18h8" />
+                                                        <path d="M4 16a2 2 0 1 1 4 0c0 .591 -.5 1 -1 1.5l-3 2.5h4" />
+                                                        <path d="M6 10v-6l-2 2" />
+                                                    </svg>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                OPERATION_ID
+                                            </td>
+                                            <td class="hidden-cell">
+                                                <input class="selected-checkbox" type="checkbox" name="#">
+                                            </td>
+                                        </tr>
+                                        <tr class="user-table-row">
+                                            <td>
+                                                Операция 3
+                                            </td>
+                                            <td>
+                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad, provident.
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-icon" data-bs-toggle="offcanvas" href="#rolesListPanel" role="button" aria-controls="offcanvasEnd">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-list-numbers" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                        <path d="M11 6h9" />
+                                                        <path d="M11 12h9" />
+                                                        <path d="M12 18h8" />
+                                                        <path d="M4 16a2 2 0 1 1 4 0c0 .591 -.5 1 -1 1.5l-3 2.5h4" />
+                                                        <path d="M6 10v-6l-2 2" />
+                                                    </svg>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                OPERATION_ID
+                                            </td>
+                                            <td class="hidden-cell">
+                                                <input class="selected-checkbox" type="checkbox" name="#">
+                                            </td>
+                                        </tr>
+                                        <tr class="user-table-row">
+                                            <td>
+                                                Операция 4
+                                            </td>
+                                            <td>
+                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad, provident.
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-icon" data-bs-toggle="offcanvas" href="#rolesListPanel" role="button" aria-controls="offcanvasEnd">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-list-numbers" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                        <path d="M11 6h9" />
+                                                        <path d="M11 12h9" />
+                                                        <path d="M12 18h8" />
+                                                        <path d="M4 16a2 2 0 1 1 4 0c0 .591 -.5 1 -1 1.5l-3 2.5h4" />
+                                                        <path d="M6 10v-6l-2 2" />
+                                                    </svg>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                OPERATION_ID
+                                            </td>
+                                            <td class="hidden-cell">
+                                                <input class="selected-checkbox" type="checkbox" name="#">
+                                            </td>
+                                        </tr>
+                                        <tr class="user-table-row">
+                                            <td>
+                                                Операция 5
+                                            </td>
+                                            <td>
+                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad, provident.
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-icon" data-bs-toggle="offcanvas" href="#rolesListPanel" role="button" aria-controls="offcanvasEnd">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-list-numbers" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                        <path d="M11 6h9" />
+                                                        <path d="M11 12h9" />
+                                                        <path d="M12 18h8" />
+                                                        <path d="M4 16a2 2 0 1 1 4 0c0 .591 -.5 1 -1 1.5l-3 2.5h4" />
+                                                        <path d="M6 10v-6l-2 2" />
+                                                    </svg>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                OPERATION_ID
+                                            </td>
+                                            <td class="hidden-cell">
+                                                <input class="selected-checkbox" type="checkbox" name="#">
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="card-footer d-flex align-items-center">
+                                    <p class="m-0 text-muted"><b>5</b> результатов</p>
+                                    <ul class="pagination m-0 ms-auto">
+                                        <li class="page-item disabled">
+                                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+                                                <!-- Download SVG icon from http://tabler-icons.io/i/chevron-left -->
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><polyline points="15 6 9 12 15 18" /></svg>
+                                            </a>
+                                        </li>
+                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item active"><a class="page-link" href="#">2</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">5</a></li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><polyline points="9 6 15 12 9 18" /></svg>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div id="userEditingPanel" class="user-form-panel offcanvas offcanvas-end" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                                <div class="offcanvas-header">
+                                    <h2 class="offcanvas-title">Редактирование операции</h2>
+                                    <button id="jsEditingPanelCloser" type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                </div>
+                                <div class="offcanvas-body">
+                                    <form action="#" name="role-edit">
+                                        <div class="form-group mb-3 row">
+                                            <label class="form-label col-3 col-form-label">Название</label>
+                                            <div class="col">
+                                                <input type="text" class="form-control" placeholder="Название операции" value="Операция 1">
+                                            </div>
+                                        </div>
+                                        <div class="form-group mb-3 row">
+                                            <label class="form-label col-3 col-form-label">Комментарий</label>
+                                            <div class="col">
+                                                <input type="text" class="form-control" placeholder="Комментарий" value="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad, provident.">
+                                            </div>
+                                        </div>
+                                        <div class="form-group mb-4 row align-items-center">
+                                            <label class="form-label col-3 col-form-label">Идентификатор</label>
+                                            <div class="col">
+                                                <code>OPERATION_ID</code>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex mb-4">
+                                            <button type="submit" class="btn btn-primary ms-auto">Сохранить</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div id="userEditingOverlay" class="offcanvas-backdrop fade"></div>
+
+                            <div id="rolesListPanel" class="offcanvas offcanvas-end" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                                <div class="offcanvas-header">
+                                    <h2 class="offcanvas-title">Список ролей</h2>
+                                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                </div>
+                                <div class="offcanvas-body">
+                                    <ol>
+                                        <li>Роль 1</li>
+                                        <li>Роль 2</li>
+                                        <li>Роль 3</li>
+                                        <li>Роль 4</li>
+                                        <li>Роль 5</li>
+                                        <li>Роль 6</li>
+                                        <li>Роль 7</li>
+                                        <li>Роль 8</li>
+                                        <li>Роль 9</li>
+                                        <li>Роль 10</li>
+                                    </ol>
+                                </div>
+                            </div>
+
+                            <div id="operationCreateModal" class="modal modal-blur fade" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <div class="modal-status bg-danger"></div>
+                                        <div class="modal-body text-center py-4">
+                                            <!-- Download SVG icon from http://tabler-icons.io/i/alert-triangle -->
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-danger icon-lg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 9v2m0 4v.01" /><path d="M5 19h14a2 2 0 0 0 1.84 -2.75l-7.1 -12.25a2 2 0 0 0 -3.5 0l-7.1 12.25a2 2 0 0 0 1.75 2.75" /></svg>
+                                            <h3>Для создания операции обратитесь к разработчикам приложения</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="operationRemoveModal" class="modal modal-blur fade" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <div class="modal-status bg-danger"></div>
+                                        <div class="modal-body text-center py-4">
+                                            <!-- Download SVG icon from http://tabler-icons.io/i/alert-triangle -->
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-danger icon-lg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 9v2m0 4v.01" /><path d="M5 19h14a2 2 0 0 0 1.84 -2.75l-7.1 -12.25a2 2 0 0 0 -3.5 0l-7.1 12.25a2 2 0 0 0 1.75 2.75" /></svg>
+                                            <h3>Удаление операции невозможно</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
