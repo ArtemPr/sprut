@@ -121,5 +121,4 @@ class FederalStandartCompetencies
     {
         $this->number = $number;
     }
-
 }

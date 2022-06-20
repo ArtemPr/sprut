@@ -22,7 +22,6 @@ class Operations
     #[ORM\Column(type: 'string', length: 255)]
     private $code;
 
-
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $group;
 
@@ -82,5 +81,4 @@ class Operations
     {
         $this->group = $group;
     }
-
 }

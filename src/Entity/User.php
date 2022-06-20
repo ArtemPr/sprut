@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -174,17 +173,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->apiHash = $apiHash;
     }
 
-    /**
-     * @return bool
-     */
     public function isActivity(): bool
     {
         return $this->activity;
     }
 
-    /**
-     * @param bool $activity
-     */
     public function setActivity(bool $activity): void
     {
         $this->activity = $activity;
@@ -284,7 +277,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!empty($param) && 'passwordNew' == $param && !empty($value)) {
             $this->password = password_hash($value, PASSWORD_DEFAULT);
-            $this->setApiHash(md5($this->getName() . $this->getEmail() . $value));
+            $this->setApiHash(md5($this->getName().$this->getEmail().$value));
         }
     }
 
@@ -347,8 +340,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
-
 
     public function getPosition(): ?string
     {

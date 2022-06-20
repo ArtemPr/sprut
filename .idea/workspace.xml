@@ -1,13 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4cb45298-3600-4dae-af1c-82217ff00d38" name="Changes" comment="test">
-      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
+    <list default="true" id="4cb45298-3600-4dae-af1c-82217ff00d38" name="Changes" comment="">
+<<<<<<< HEAD
+      <change afterPath="$PROJECT_DIR$/templates/user/log.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/user/program.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/source/css/base.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/source/css/base.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/source/css/user.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/source/css/user.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/source/js/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/source/js/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20220605161233.php" beforeDir="false" afterPath="$PROJECT_DIR$/migrations/Version20220605161233.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Administrator/AdminDirectoryFGOS.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Administrator/AdminDirectoryFGOS.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Administrator/AdminDirectoryPS.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Administrator/AdminDirectoryPS.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Administrator/AdministratorOperationsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Administrator/AdministratorOperationsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Administrator/AdministratorRoleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Administrator/AdministratorRoleController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Administrator/AdministratorUserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Administrator/AdministratorUserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Administrator/FormController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Administrator/FormController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Api/ApiProgramController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Api/ApiProgramController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Api/ApiTrainingCentre.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Api/ApiTrainingCentre.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Api/ApiUserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Api/ApiUserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/ApiController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ApiController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/FormController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/FormController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/TeleportController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/TeleportController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/defaultController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/defaultController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/City.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/City.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/FederalStandart.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/FederalStandart.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/FederalStandartCompetencies.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/FederalStandartCompetencies.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Module.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Module.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Operations.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Operations.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Roles.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Roles.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/FederalStandartRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/FederalStandartRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/LiteratureCategoryRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/LiteratureCategoryRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/LiteratureRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/LiteratureRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/MasterProgramRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/MasterProgramRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/ModuleRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/ModuleRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/OperationsRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/OperationsRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/ProfStandartsRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/ProfStandartsRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/ProgramTypeRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/ProgramTypeRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/RolesRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/RolesRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/TrainingCentersRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/TrainingCentersRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/TrainingCentersRequisitesRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/TrainingCentersRequisitesRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/UserRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/UserRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Security/AppCustomAuthenticator.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Security/AppCustomAuthenticator.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/ApiService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/ApiService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/block/header.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/block/header.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/user/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/user/index.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/user/operation.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/user/operation.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/user/role.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/user/role.html.twig" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/source/js/action.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/source/js/action.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+>>>>>>> 332269a8ef8048d8c06b2f2d25358f8771e42562
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,11 +67,6 @@
     <execution />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="main" />
-      </map>
-    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -142,27 +185,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowPanel.toolwindow.highlight.mappings&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowPanel.toolwindow.highlight.symlinks&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowPanel.toolwindow.show.date&quot;: &quot;false&quot;,
-    &quot;WebServerToolWindowPanel.toolwindow.show.permissions&quot;: &quot;false&quot;,
-    &quot;WebServerToolWindowPanel.toolwindow.show.size&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/kira/www&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.deploy.options&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "true",
+    "WebServerToolWindowPanel.toolwindow.highlight.mappings": "true",
+    "WebServerToolWindowPanel.toolwindow.highlight.symlinks": "true",
+    "WebServerToolWindowPanel.toolwindow.show.date": "false",
+    "WebServerToolWindowPanel.toolwindow.show.permissions": "false",
+    "WebServerToolWindowPanel.toolwindow.show.size": "false",
+    "last_opened_file_path": "/home/kira/www",
+    "nodejs_package_manager_path": "npm",
+<<<<<<< HEAD
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+=======
+    "settings.editor.selected.configurable": "web.server",
+>>>>>>> 332269a8ef8048d8c06b2f2d25358f8771e42562
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;postgresql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/templates/administrator/operations" />
@@ -225,18 +272,14 @@
       <workItem from="1654245568418" duration="654000" />
       <workItem from="1654444648248" duration="2862000" />
       <workItem from="1654494691777" duration="3859000" />
+<<<<<<< HEAD
+      <workItem from="1654504538033" duration="104162000" />
+=======
       <workItem from="1654504538033" duration="94052000" />
       <workItem from="1655471538511" duration="1449000" />
-      <workItem from="1655473590606" duration="1983000" />
+      <workItem from="1655473590606" duration="584000" />
+>>>>>>> 332269a8ef8048d8c06b2f2d25358f8771e42562
     </task>
-    <task id="LOCAL-00001" summary="test">
-      <created>1655474239877</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1655474239877</updated>
-    </task>
-    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -264,10 +307,6 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="test" />
-    <option name="LAST_COMMIT_MESSAGE" value="test" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

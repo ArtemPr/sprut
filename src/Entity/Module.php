@@ -33,17 +33,11 @@ class Module
     #[ORM\Column(type: 'string', length: 50)]
     private $status;
 
-    /**
-     * @return int|null
-     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     * @return string|null
-     */
     public function getName(): ?string
     {
         return $this->name;
@@ -138,5 +132,4 @@ class Module
     {
         $this->status = $status;
     }
-
 }

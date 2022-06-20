@@ -28,13 +28,12 @@ for (let i = 0; i < userTableRows.length; ++i) {
   });
 
 }
-if (userEditingPanelCloser != null) {
-    userEditingPanelCloser.addEventListener('click', function () {
-        body.classList.remove('user-editing-panel-opened');
-        userEditingPanel.classList.remove('show');
-        userEditingOverlay.classList.remove('show');
-    });
-}
+
+userEditingPanelCloser.addEventListener('click', function () {
+  body.classList.remove('user-editing-panel-opened');
+  userEditingPanel.classList.remove('show');
+  userEditingOverlay.classList.remove('show');
+});
 
 userEditingOverlay.addEventListener('click', function () {
   body.classList.remove('user-editing-panel-opened');
@@ -81,7 +80,7 @@ for (let i = 0; i < dualControlsSelects.length; ++i) {
     removeButtonText: '<',
     addAllButtonText: '>>',
     removeAllButtonText: '<<',
-    searchPlaceholder: 'search numbers'
+    searchPlaceholder: 'Поиск'
   });
 }
 

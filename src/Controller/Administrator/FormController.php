@@ -16,7 +16,7 @@ class FormController extends AbstractController
         return $this->render(
             'administrator/user/form/update_form.html.twig',
             [
-                'controller' => 'AdminUser'
+                'controller' => 'AdminUser',
             ]
         );
     }

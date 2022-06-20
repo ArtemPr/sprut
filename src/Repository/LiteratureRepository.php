@@ -38,5 +38,4 @@ class LiteratureRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
 }

@@ -6,8 +6,8 @@
 namespace App\Service;
 
 use App\Entity\User;
-use Symfony\Component\HttpFoundation\Request;
 use App\Repository\UserRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 trait ApiService
@@ -15,8 +15,7 @@ trait ApiService
     public function __construct(
         private UserRepository $userRepository,
         private PasswordAuthenticatedUserInterface $user
-    )
-    {
+    ) {
     }
 
     public function convertJson(array $arr = [])
@@ -37,7 +36,7 @@ trait ApiService
             return false;
         }
 
-        $result = $this->doctrine->getRepository(User::class)->findBy(['apiHash'=>$token]);
+        $result = $this->doctrine->getRepository(User::class)->findBy(['apiHash' => $token]);
 
         if (empty($result)) {
             return false;
@@ -49,5 +48,4 @@ trait ApiService
             return false;
         }
     }
-
 }

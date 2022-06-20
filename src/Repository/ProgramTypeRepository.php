@@ -38,5 +38,4 @@ class ProgramTypeRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
 }

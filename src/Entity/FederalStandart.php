@@ -55,7 +55,7 @@ class FederalStandart
     {
         $this->short_name = $short_name;
     }
-    
+
     public function isActive(): ?bool
     {
         return $this->active;

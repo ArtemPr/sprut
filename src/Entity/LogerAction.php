@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\CityRepository;
+use App\Repository\LogerActionRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: CityRepository::class)]
-class City
+#[ORM\Entity(repositoryClass: LogerActionRepository::class)]
+class LogerAction
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -16,8 +16,8 @@ class City
     #[ORM\Column(type: 'string', length: 255)]
     private $name;
 
-    #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'city')]
-    private $user_city;
+    #[ORM\Column(type: 'string', length: 255)]
+    private $value;
 
     public function getId(): ?int
     {
@@ -36,19 +36,15 @@ class City
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getUserCity()
+    public function getValue(): ?string
     {
-        return $this->user_city;
+        return $this->value;
     }
 
-    /**
-     * @param mixed $user_city
-     */
-    public function setUserCity($user_city): void
+    public function setValue(string $value): self
     {
-        $this->user_city = $user_city;
+        $this->value = $value;
+
+        return $this;
     }
 }

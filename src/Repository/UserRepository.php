@@ -20,8 +20,7 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
  */
 class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
-
-    const PER_PAGE = 25;
+    public const PER_PAGE = 25;
 
     public function __construct(ManagerRegistry $registry)
     {
@@ -61,7 +60,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
 
     /**
-     * @param int $id
      * @return float|int|mixed|string
      */
     public function getUser(int $id)
@@ -76,7 +74,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
                 WHERE user.id = :id'
         )->setParameter('id', $id)->setMaxResults(self::PER_PAGE)->getResult(Query::HYDRATE_ARRAY);
 
-        $roles = "'" . implode("','", $result['0']['roles']) . "'";
+        $roles = "'".implode("','", $result['0']['roles'])."'";
         $role_result = $entityManager->createQuery(
             "SELECT role
             FROM App\Entity\Roles role
@@ -101,7 +99,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
                 LEFT JOIN user.departament dep
                 LEFT JOIN user.city city'
         )->setMaxResults(self::PER_PAGE)->getResult(Query::HYDRATE_ARRAY);
+
         return $result;
     }
-
 }

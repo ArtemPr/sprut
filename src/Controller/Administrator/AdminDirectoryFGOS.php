@@ -14,13 +14,9 @@ class AdminDirectoryFGOS extends AbstractController
 {
     public function __construct(
         private ManagerRegistry $managerRegistry
-    )
-    {
+    ) {
     }
 
-    /**
-     * @return Response
-     */
     public function getList(): Response
     {
         $result = $this->managerRegistry->getRepository(FederalStandart::class)->getList();
