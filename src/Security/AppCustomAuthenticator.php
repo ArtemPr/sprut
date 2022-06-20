@@ -2,6 +2,8 @@
 
 namespace App\Security;
 
+use App\Entity\Loger;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,13 +23,21 @@ class AppCustomAuthenticator extends AbstractLoginFormAuthenticator
 
     public const LOGIN_ROUTE = 'app_login';
 
-    private UrlGeneratorInterface $urlGenerator;
-
-    public function __construct(UrlGeneratorInterface $urlGenerator)
+    /**
+     * @param UrlGeneratorInterface $urlGenerator
+     * @param ManagerRegistry $managerRegistry
+     */
+    public function __construct(
+        private UrlGeneratorInterface $urlGenerator,
+        private ManagerRegistry $managerRegistry
+    )
     {
-        $this->urlGenerator = $urlGenerator;
     }
 
+    /**
+     * @param Request $request
+     * @return Passport
+     */
     public function authenticate(Request $request): Passport
     {
         $email = $request->request->get('email', '');
@@ -43,10 +53,24 @@ class AppCustomAuthenticator extends AbstractLoginFormAuthenticator
         );
     }
 
+    /**
+     * @param Request $request
+     * @param TokenInterface $token
+     * @param string $firewallName
+     * @return Response|null
+     */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
+        } else {
+            $loger = new Loger();
+            $loger->setTime(new \DateTime());
+            $loger->setAction('login');
+            $loger->setUserLoger($token->getUser());
+            $entityManager = $this->managerRegistry->getManager();
+            $entityManager->persist($loger);
+            $entityManager->flush();
         }
 
         // For example:
@@ -54,6 +78,10 @@ class AppCustomAuthenticator extends AbstractLoginFormAuthenticator
         // throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
 
+    /**
+     * @param Request $request
+     * @return string
+     */
     protected function getLoginUrl(Request $request): string
     {
         return $this->urlGenerator->generate(self::LOGIN_ROUTE);
