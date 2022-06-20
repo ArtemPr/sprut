@@ -76,6 +76,7 @@
                 {{ dump(data) }}
                 {{ dump(data_action) }}
 
+
                 <div class="page-header d-print-none">
                     <div class="row g-2 align-items-center">
                         <div class="col d-flex align-items-center">
@@ -148,23 +149,29 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr class="user-table-row is-selected">
-                                            <td>
-                                                Раздел 1
-                                            </td>
-                                            <td>
-                                                Тип события 1
-                                            </td>
-                                            <td>Название события 1</td>
-                                            <td>Иванов И.И</td>
-                                            <td>ivanov@gmail.com</td>
-                                            <td>192.168.123.132</td>
-                                            <td>12:45 23.09.2022</td>
-                                            <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad, provident.</td>
-                                            <td class="hidden-cell">
-                                                <input class="selected-checkbox" type="checkbox" name="#" checked>
-                                            </td>
-                                        </tr>
+
+                                        {% if data|default(false) %}
+                                            {% for dat in data %}
+                                                <tr class="user-table-row is-selected">
+                                                    <td>
+                                                        Раздел {{ dat.id }}
+                                                    </td>
+                                                    <td>
+                                                         Администрирование
+                                                    </td>
+                                                    <td>{{ data_action[dat.action]}}</td>
+                                                    <td>{{ dat.user_loger.username}}</td>
+                                                    <td>{{ dat.user_loger.email}}</td>
+                                                    <td>{{ dat.ip }}</td>
+                                                    <td>time</td>
+                                                    <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad, provident.</td>
+                                                    <td class="hidden-cell">
+                                                        <input class="selected-checkbox" type="checkbox" name="#" checked>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        {% endif %}
+
                                         </tbody>
                                     </table>
                                 </div>
