@@ -28,4 +28,10 @@ class UserController extends AbstractController
     {
         return $this->render('user/operation.html.twig');
     }
+
+    #[Route('/log', name: 'log_v')]
+    public function log(): Response
+    {
+        return $this->render('user/log.html.twig');
+    }
 }
