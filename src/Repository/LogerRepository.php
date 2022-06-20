@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Loger;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -16,6 +17,8 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class LogerRepository extends ServiceEntityRepository
 {
+    const PER_PAGE = 25;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Loger::class);
@@ -39,28 +42,33 @@ class LogerRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Loger[] Returns an array of Loger objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('l')
-//            ->andWhere('l.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('l.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
 
-//    public function findOneBySomeField($value): ?Loger
-//    {
-//        return $this->createQueryBuilder('l')
-//            ->andWhere('l.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    /**
+     * @return float|int|mixed|string
+     */
+    public function getList()
+    {
+        $entityManager = $this->getEntityManager();
+
+        $result = $entityManager->createQuery(
+            'SELECT log, us
+                FROM App\Entity\Loger log
+                JOIN log.user_loger us'
+        )->setMaxResults(self::PER_PAGE)->getResult(Query::HYDRATE_ARRAY);
+
+        return $result;
+    }
+
+    public function getActionList()
+    {
+        $entityManager = $this->getEntityManager();
+
+        $result_log = $entityManager->createQuery(
+            'SELECT log_action
+                FROM App\Entity\LogerAction log_action'
+        )->getResult(Query::HYDRATE_ARRAY);
+
+        return $result_log;
+    }
+
 }

@@ -1,0 +1,123 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}СПРУТ 1.0{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+{% block body %}
+    {{ include('block/header.html.twig') }}
+
+
+    <div class="page page-layout">
+        <aside class="navbar navbar-vertical navbar-expand-lg navbar-light">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbar-menu">
+                    {% include 'administrator/block/nav_directory.html.twig' with {'controller': 'tc'} %}
+                </div>
+            </div>
+        </aside>
+        <div class="page-wrapper">
+            <div class="container-xl">
+                {% include 'administrator/block/header_list.html.twig' with {'header': 'Справочник - учебные центры'} %}
+            </div>
+            <div class="page-body">
+                <div class="container-xl">
+                    <div class="row row-deck row-cards">
+                        <div class="col-12">
+
+                            <div class="card">
+                                {% include 'administrator/user/block/search_panel.html.twig' with {
+                                    'close_delete': true
+                                } %}
+
+                                {% if data|default(false) %}
+                                    <div class="users-table-wrap table-responsive">
+                                        <table id="usersTable"
+                                               class="users-table table card-table table-vcenter text-nowrap datatable">
+                                            <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th><a class="sort-icon is-desc" href="#"></a> ID</th>
+                                                <th><a class="sort-icon is-both" href="#"></a> Название</th>
+                                                <th><a class="sort-icon is-both" href="#"></a> Телефоны</th>
+                                                <th><a class="sort-icon is-both" href="#"></a> E-mail</th>
+                                                <th><a class="sort-icon is-both" href="#"></a> URL</th>
+                                                <th class="hidden-cell"></th>
+                                            </tr>
+                                            </thead>
+                                            {% for dt in data %}
+                                                <tbody>
+                                                <tr data-string="">
+                                                    <td>{{ dt.id|default(false) }}</td>
+                                                    <td>{{ dt.name|default(false) }}</td>
+                                                    <td>{{ dt.phone|default(false) }}</td>
+                                                    <td>{{ dt.email|default(false) }}</td>
+                                                    <td>{{ dt.url|default(false) }}</td>
+                                                </tr>
+                                                </tbody>
+                                            {% endfor %}
+                                        </table>
+                                    </div>
+                                {% endif %}
+
+                                <div class="card-footer d-flex align-items-center">
+                                    <p class="m-0 text-muted"><b>{{ data|length }}</b> результатов</p>
+                                    {% if data|default(false) and data|length > 25 %}
+                                        <ul class="pagination m-0 ms-auto">
+                                            <li class="page-item disabled">
+                                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+                                                    <!-- Download SVG icon from http://tabler-icons.io/i/chevron-left -->
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24"
+                                                         height="24" viewBox="0 0 24 24" stroke-width="2"
+                                                         stroke="currentColor" fill="none" stroke-linecap="round"
+                                                         stroke-linejoin="round">
+                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                        <polyline points="15 6 9 12 15 18"/>
+                                                    </svg>
+                                                </a>
+                                            </li>
+                                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                            <li class="page-item active"><a class="page-link" href="#">2</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">5</a></li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="#">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24"
+                                                         height="24" viewBox="0 0 24 24" stroke-width="2"
+                                                         stroke="currentColor" fill="none" stroke-linecap="round"
+                                                         stroke-linejoin="round">
+                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                        <polyline points="9 6 15 12 9 18"/>
+                                                    </svg>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    {% endif %}
+                                </div>
+
+                            </div>
+
+
+                            <div id="userEditingOverlay" class="offcanvas-backdrop fade"></div>
+
+                            <div id="userEditingPanel" class="user-form-panel offcanvas offcanvas-end" tabindex="-1"
+                                 aria-labelledby="offcanvasEndLabel">
+                            </div>
+
+                            {% include 'administrator/user/form/create_form.html.twig' %}
+                            {% include 'administrator/modal/delete.html.twig' %}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
