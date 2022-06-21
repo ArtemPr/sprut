@@ -40,20 +40,37 @@ class KaferdaRepository extends ServiceEntityRepository
         }
     }
 
-    public function getList(int|null $page = 0, int|null $on_page = 5)
+    public function getList(int|null $page = 0, int|null $on_page = 25, string|null $sort = null)
     {
         $entityManager = $this->getEntityManager();
 
         $page = (empty($page) || $page === 1 || $page === 0) ? 0 : $page - 1;
         $first_result = (int)$page * (int)$on_page;
 
+        if (!is_null($sort)) {
+            if (strstr($sort, '__up')) {
+                $sort = str_replace('__up', ' DESC', $sort);
+            } else {
+                $sort .= " ASC";
+            }
+
+            if (!strstr($sort, '.')) {
+                $order = 'kafedra.' . $sort;
+            } else {
+                $order = $sort;
+            }
+        } else {
+            $order = 'kafedra.id DESC';
+        }
+        dump($order);
         $result = $entityManager->createQuery(
-            'SELECT op, dir, tc
-                FROM App\Entity\Kaferda op
-                LEFT JOIN op.director dir
-                LEFT JOIN op.training_centre tc
-                ORDER BY op.id'
-        )->setFirstResult($first_result)
+            'SELECT kafedra, director, training_centre
+                FROM App\Entity\Kaferda kafedra
+                LEFT JOIN kafedra.director director
+                LEFT JOIN kafedra.training_centre training_centre
+                ORDER BY ' . $order
+        )->
+        setFirstResult($first_result)
             ->setMaxResults($on_page)
             ->getResult(Query::HYDRATE_ARRAY);
 
