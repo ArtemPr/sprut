@@ -53,7 +53,7 @@ class AdminLog extends AbstractController
             'data_action' => $da_out,
             'pager' => [
                 'count_all_position' => $count,
-                'current_page' => $page+1,
+                'current_page' => $page,
                 'count_page' => (int)ceil($count / $on_page)
             ]
         ]

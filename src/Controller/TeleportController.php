@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Discipline;
 use App\Entity\FederalStandart;
 use App\Entity\FederalStandartCompetencies;
+use App\Entity\Kaferda;
 use App\Entity\Literature;
 use App\Entity\LiteratureCategory;
 use App\Entity\MasterProgram;

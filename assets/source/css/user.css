@@ -53,14 +53,14 @@ body.user-editing-panel-opened {
 	bottom: -10px;
 }
 
-.user-table-row {
+.user-table-row, .editable-table-row {
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
 }
 
-.user-table-row.is-selected {
+.user-table-row.is-selected, .editable-table-row.is-selected {
 	background-color: rgba(32, 107, 196, 0.25);
 }
 
@@ -205,4 +205,38 @@ body.user-editing-panel-opened {
 
 #userEditingOverlay.show {
 	visibility: visible !important;
+}
+
+/* responsive */
+@media (max-width: 767px) {
+	.users-option-panel .d-flex {
+		-ms-flex-wrap: wrap;
+		flex-wrap: wrap;
+	}
+
+	.users-option-panel .is-left-col {
+		width: calc(100% - 44px);
+	}
+
+	.users-option-panel .is-left-col + .me-2 {
+		margin-right: 0 !important;
+	}
+
+	.users-option-panel .is-right-col {
+		width: 100%;
+		margin-top: 8px;
+	}
+}
+
+@media (max-width: 639px) {
+	.user-photo-col {
+		-webkit-box-flex: 0;
+		-ms-flex: 0 0 100%;
+		flex: 0 0 100%;
+		max-width: 100%;
+	}
+
+	.user-photo-box {
+		width: 140px;
+	}
 }

@@ -29,7 +29,7 @@ for (let i = 0; i < userTableRows.length; ++i) {
 
 }
 
-if (userEditingPanelCloser != undefined) {
+if (userEditingPanelCloser !== undefined) {
     userEditingPanelCloser.addEventListener('click', function () {
         body.classList.remove('user-editing-panel-opened');
         userEditingPanel.classList.remove('show');
@@ -43,6 +43,57 @@ userEditingOverlay.addEventListener('click', function () {
   userEditingOverlay.classList.remove('show');
 });
 
+
+
+/**
+ * Editable Table
+ */
+
+const editableTables = document.querySelectorAll('.editable-table');
+const customAsidePanels = document.querySelectorAll('.custom-aside-panel');
+const customOverlay = document.querySelector('.custom-overlay');
+const customPanelCloser = document.querySelector('.custom-panel-closer');
+for (let i = 0; i < editableTables.length; ++i) {
+  let editableTable = editableTables[i];
+  let childEditableRows = editableTable.querySelectorAll('.editable-table-row');
+
+  for (let i = 0; i < childEditableRows.length; ++i) {
+    let editableTableRow = childEditableRows[i];
+    editableTableRow.addEventListener('click', function () {
+      childEditableRows.forEach(f => f.classList.remove('is-selected'));
+      editableTableRow.classList.add('is-selected');
+
+      childEditableRows.forEach(f => f.querySelector('.selected-checkbox').checked = false);
+      editableTableRow.querySelector('.selected-checkbox').checked = true;
+    });
+
+    editableTableRow.addEventListener('dblclick', function () {
+      let targetPanel = document.querySelector(this.getAttribute('data-target-panel'));
+      let targetOverlay = document.querySelector(this.getAttribute('data-target-overlay'));
+      if (targetPanel !== null && targetOverlay !== null) {
+        body.classList.add('user-editing-panel-opened');
+        targetPanel.classList.add('show');
+        targetOverlay.classList.add('show');
+      }
+    });
+
+  }
+
+}
+if (customPanelCloser != null) {
+  customPanelCloser.addEventListener('click', function () {
+    body.classList.remove('user-editing-panel-opened');
+    this.closest('.custom-aside-panel').classList.remove('show');
+    customOverlay.classList.remove('show');
+  });
+}
+if (customOverlay != null) {
+  customOverlay.addEventListener('click', function () {
+    body.classList.remove('user-editing-panel-opened');
+    customAsidePanels.forEach(f => f.classList.remove('show'));
+    this.classList.remove('show');
+  });
+}
 
 
 /**
@@ -85,6 +136,22 @@ for (let i = 0; i < dualControlsSelects.length; ++i) {
     searchPlaceholder: 'Поиск'
   });
 }
+
+
+/**
+ * Search Clear
+ */
+
+window.addEventListener('load', function() {
+  const clearSearchBtn = document.querySelector('#jsClearSearch');
+  clearSearchBtn.addEventListener('click', function (e) {
+    e.preventDefault();
+    const closestForm = clearSearchBtn.closest("form");
+    const thisSearchInput = closestForm.querySelector('.search-input');
+    thisSearchInput.value = "";
+  });
+});
+
 
 
 /**
@@ -298,3 +365,83 @@ document.addEventListener('DOMContentLoaded', function () {
     headerCell.addEventListener('mousedown', mouseDownHandler);
   });
 });
+
+
+/* JQuery START */
+
+if (window.jQuery) {
+
+  $(function() {
+
+    /**
+     * JS Tree Init
+     */
+    const $editableTree = $('.editable-tree');
+    $editableTree.jstree({
+      "core": {
+        "animation": 0,
+        "check_callback" : true,
+        'themes' : {
+          'responsive' : true,
+          'stripes' : false
+        }
+      },
+      "types" : {
+        "#" : {
+          "max_children": 1,
+          "max_depth": 2
+        }
+      },
+      'plugins': ['state','dnd','sort','types','contextmenu','unique'],
+      "contextmenu": {
+        "items": function($node) {
+          let tree = $editableTree.jstree(true);
+          return {
+            "Create": false,
+            "Rename": {
+              "label": "Изменить",
+              "action": function (obj) {
+                tree.edit($node);
+              }
+            },
+            "Remove": {
+              "label": "Удалить",
+              "action": function (obj) {
+                tree.delete_node($node);
+              }
+            }
+          };
+        }
+      }
+    });
+    $(document).on('click', '.js-create-node-tree', function () {
+      let ref = $editableTree.jstree(true);
+      let sel = ref.get_selected();
+      if(!sel.length) { return false; }
+      sel = sel[0];
+      sel = ref.create_node(sel, {"type":"file"});
+      if(sel) {
+        ref.edit(sel);
+      }
+    });
+    $(document).on('click', '.js-edit-node-tree', function () {
+      let ref = $editableTree.jstree(true);
+      let sel = ref.get_selected();
+      if(!sel.length) { return false; }
+      sel = sel[0];
+      ref.edit(sel);
+    });
+    $(document).on('click', '.js-remove-node-tree', function () {
+      let ref = $editableTree.jstree(true);
+      let sel = ref.get_selected();
+      if(!sel.length) { return false; }
+      ref.delete_node(sel);
+    });
+
+  });
+
+}
+
+
+
+/* JQuery END */
