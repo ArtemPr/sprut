@@ -20,7 +20,14 @@
                 <script>
                         let onpage_url = "{{ onpage_link }}";
                         // /administrator/kafedra?on_page=5
-
+                        const on_page_selector = document.querySelector('#on_page_selector');
+                        if(on_page_selector) {
+                            on_page_selector.addEventListener('change', function(){
+                                let results_number = on_page_selector.value
+                                window.location = `${onpage_url}?on_page=${results_number}`;
+                            })
+                        }
+                        // /administrator/kafedra?on_page=5
                 </script>
                 {% endif %}
             </div>
