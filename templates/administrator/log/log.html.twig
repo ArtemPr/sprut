@@ -103,7 +103,10 @@
                         <div class="col-12">
 
                             <div class="card">
-                                <div class="users-option-panel card-body border-bottom py-3">
+
+                            {% include ('administrator/user/block/search_panel.html.twig') %}
+
+                                {# <div class="users-option-panel card-body border-bottom py-3">
                                     <div class="d-flex align-items-center mb-0">
                                         <div class="is-left-col input-group input-group-flat me-2">
                                             <input type="text" class="form-control" placeholder="Поиск"  autocomplete="off">
@@ -132,7 +135,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> #}
+
                                 <div class="users-table-wrap table-responsive">
                                     <table id="usersTable" class="users-table table card-table table-vcenter text-nowrap datatable">
                                         <thead>

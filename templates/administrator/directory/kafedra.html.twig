@@ -37,6 +37,7 @@
                                            class="users-table table card-table table-vcenter text-nowrap datatable">
                                         <thead>
                                         <tr>
+{#                                            {{ dump(table)  }}#}
                                             {% if table|default(false) %}
                                                 {% for tbl in table %}
                                                     {% if loop.first == 1 %}
@@ -44,14 +45,18 @@
                                                             <a class="sort-icon
                                                        is-{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}desc{% elseif sort.current_sort|default(false) and sort.current_sort == (tbl.0~'__up') %}asc{% elseif sort.current_sort|default(false) == false %}asc{% else %}both{% endif %}"
                                                                href="{{ path('administrator_kafedra') ~ sort.sort_link ~ tbl.0 }}{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}__up{% endif %}"></a>
-                                                            {{ tbl.1 }}
+                                                            {% if  tbl.1  == 'ID' %}
+                                                                <span class="th-name id-name">{{ tbl.1 }}</span>
+                                                            {% else %}
+                                                            <span class="th-name">{{ tbl.1 }}</span>
+                                                            {% endif %}
                                                         </th>
                                                     {% else %}
                                                         <th>
                                                             <a class="sort-icon
                                                        is-{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}desc{% elseif sort.current_sort|default(false) and sort.current_sort == (tbl.0~'__up') %}asc{% else %}both{% endif %}"
                                                                href="{{ path('administrator_kafedra') ~ sort.sort_link ~ tbl.0 }}{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}__up{% endif %}"></a>
-                                                            {{ tbl.1 }}
+                                                            <span class="th-name"> {{ tbl.1 }}</span>
                                                         </th>
                                                     {% endif %}
                                                 {% endfor %}

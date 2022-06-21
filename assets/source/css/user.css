@@ -34,7 +34,7 @@ body.user-editing-panel-opened {
 }
 
 .th-name {
-  margin-left: 15px;
+  margin-left: 1rem;
 }
 
 .users-table th .sort-icon.is-both {
@@ -251,5 +251,5 @@ body.user-editing-panel-opened {
 }
 
 .id-name {
-  margin-left: 7px;
+  margin-left: 15px;
 }
