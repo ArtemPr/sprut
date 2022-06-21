@@ -8,12 +8,21 @@
 
             <div class="ms-auto d-flex align-items-center">
                 <div>По</div>
-                <select class="form-select ms-2">
-                    <option value="25">25</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                    <option value="all">Все</option>
+                <select class="form-select ms-2" id="on_page_selector">
+                    <option value="5" {% if pager.on_page|default(false) and pager.on_page == 5 %}selected{% endif %}>5</option>
+                    <option value="10" {% if pager.on_page|default(false) and pager.on_page == 10 %}selected{% endif %}>10</option>
+                    <option value="25" {% if pager.on_page|default(false) == false or pager.on_page|default(false) and pager.on_page == 25 %}selected{% endif %}>25</option>
+                    <option value="50" {% if pager.on_page|default(false) and pager.on_page == 50 %}selected{% endif %}>50</option>
+                    <option value="100" {% if pager.on_page|default(false) and pager.on_page == 100 %}selected{% endif %}>100</option>
+                    <option value="999999" {% if pager.on_page|default(false) and pager.on_page == 999999 %}selected{% endif %}>Все</option>
                 </select>
+                {% if onpage_link|default(false) %}
+                <script>
+                        let onpage_url = "{{ onpage_link }}";
+                        // /administrator/kafedra?on_page=5
+
+                </script>
+                {% endif %}
             </div>
         </div>
     </div>
