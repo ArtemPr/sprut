@@ -4,6 +4,7 @@ import './source/css/tabler-flags.min.css';
 import './source/css/tabler-payments.min.css';
 import './source/css/tabler-vendors.min.css';
 import './source/css/demo.min.css';
+import './source/css/jstree.css';
 
 import './source/css/base.css';
 import './source/css/user.css';
@@ -13,5 +14,7 @@ import './bootstrap';
 import './source/js/tabler.min'
 import './source/js/demo.min'
 import './source/js/dual.listbox.min'
+// import './source/js/jquery.min'
+// import './source/js/jstree.min'
 import './source/js/user'
 import './source/js/action'

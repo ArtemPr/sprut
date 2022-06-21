@@ -168,3 +168,45 @@
 .dual-listbox .dual-listbox__item.dual-listbox__item--selected {
 	background-color: rgba(32, 107, 196, 0.25);
 }
+
+.badge.bg-warning {
+	background: gold !important;
+}
+
+.custom-aside-panel.show {
+	visibility: visible !important;
+	-webkit-transform: translateX(0);
+	transform: translateX(0);
+}
+
+.custom-overlay {
+	visibility: hidden;
+	-webkit-transition: 0.5s;
+	-o-transition: 0.5s;
+	transition: 0.5s;
+}
+
+.custom-overlay.show {
+	visibility: visible !important;
+}
+
+/* responsive */
+@media (max-width: 767px) {
+	.dual-listbox .dual-listbox__item {
+		font-size: 12px;
+	}
+
+	.dual-listbox .dual-listbox__buttons {
+		-webkit-box-flex: 0;
+		-ms-flex: 0 0 20px;
+		flex: 0 0 20px;
+		max-width: 20px;
+	}
+
+	.dual-listbox .dual-listbox__button {
+		width: 20px;
+		height: 20px;
+		padding: 3px;
+		font-size: 10px;
+	}
+}

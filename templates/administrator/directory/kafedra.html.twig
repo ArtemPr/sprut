@@ -36,6 +36,7 @@
                                         <thead>
                                         <tr>
                                             <th></th>
+                                            <th><a class="sort-icon is-both" href="#"></a> ID</th>
                                             <th><a class="sort-icon is-both" href="#"></a> УЦ</th>
                                             <th><a class="sort-icon is-both" href="#"></a> Название</th>
                                             <th><a class="sort-icon is-both" href="#"></a> ФИО руководителя</th>
@@ -44,6 +45,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
+                                        {% set id=1 %}
                                         {% if data|default(false) %}
                                             {% for dat in data %}
                                                 <tr data-string="{{ dat.id }}"
@@ -55,6 +57,7 @@
                                                         bg-danger
                                                     {% endif %}
                                                     "></span></td> #}
+                                                    <td>{{ id }}{% set id=1 + id %}</td>
                                                     <td>
                                                         {{ dat.id|default(false) }}
                                                     </td>
@@ -98,11 +101,12 @@
 
                                             {% for page in 1..pager.count_page %}
                                                 {% if page == pager.current_page %}
-                                                    <li class="page-item active"><a class="page-link" href="#">{{ page }}</a></li>
+                                                    <li class="page-item active"><a class="page-link" href="{{ path('administrator_kafedra') }}">{{ page }}</a></li>
                                                 {% else %}
-                                                    <li class="page-item"><a class="page-link" href="#">{{ page }}</a></li>
+                                                    <li class="page-item"><a class="page-link" href="{{ path('administrator_kafedra') }}">{{ page }}</a></li>
                                                 {% endif %}
                                             {% endfor %}
+
                                             <li class="page-item">
                                                 <a class="page-link" href="#">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24"
