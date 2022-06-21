@@ -31,17 +31,31 @@
                             <div class="card">
                                 {% include 'administrator/user/block/search_panel.html.twig' %}
                                 <div class="users-table-wrap table-responsive">
-{#                                    {{ dump(pager) }}#}
+                                    {#{ dump(pager) }}
+                                    {{ dump(sort) }#}
                                     <table id="usersTable"
                                            class="users-table table card-table table-vcenter text-nowrap datatable">
                                         <thead>
                                         <tr>
-                                            {# <th></th> #}
-                                            <th><a class="sort-icon is-both" href="{{ path('administrator_kafedra') ~ sort.sort_link ~ 'id' }}"></a> <span class="th-name id-name">ID</span></th>
-                                            <th><a class="sort-icon is-both" href="{{ path('administrator_kafedra') ~ sort.sort_link ~ 'training_centre.name' }}"></a><span class="th-name"> УЦ</span></th>
-                                            <th><a class="sort-icon is-both" href="{{ path('administrator_kafedra') ~ sort.sort_link ~ 'name' }}"></a><span class="th-name">  Название</span></th>
-                                            <th><a class="sort-icon is-both" href="{{ path('administrator_kafedra') ~ sort.sort_link ~ 'director.username' }}"></a><span class="th-name">  ФИО руководителя</span></th>
-                                            <th><a class="sort-icon is-both" href="{{ path('administrator_kafedra') ~ sort.sort_link ~ 'director.email' }}"></a><span class="th-name"> E-mail руководителя</span></th>
+                                            {% if table|default(false) %}
+                                                {% for tbl in table %}
+                                                    {% if loop.first == 1 %}
+                                                        <th>
+                                                            <a class="sort-icon
+                                                       is-{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}desc{% elseif sort.current_sort|default(false) and sort.current_sort == (tbl.0~'__up') %}asc{% elseif sort.current_sort|default(false) == false %}asc{% else %}both{% endif %}"
+                                                               href="{{ path('administrator_kafedra') ~ sort.sort_link ~ tbl.0 }}{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}__up{% endif %}"></a>
+                                                            {{ tbl.1 }}
+                                                        </th>
+                                                    {% else %}
+                                                        <th>
+                                                            <a class="sort-icon
+                                                       is-{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}desc{% elseif sort.current_sort|default(false) and sort.current_sort == (tbl.0~'__up') %}asc{% else %}both{% endif %}"
+                                                               href="{{ path('administrator_kafedra') ~ sort.sort_link ~ tbl.0 }}{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}__up{% endif %}"></a>
+                                                            {{ tbl.1 }}
+                                                        </th>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% endif %}
                                             <th class="hidden-cell"></th>
                                         </tr>
                                         </thead>
@@ -49,17 +63,9 @@
                                         {% set id=1 %}
                                         {% if data|default(false) %}
                                             {% for dat in data %}
-                                                <tr data-string="{{ dat.id }}"
-                                                    class="user-table-row {% if loop.first %}is-selected{% endif %}">
-                                                    {# <td><span class="badge
-                                                    {% if dat.active|default(false) %}
-                                                        bg-success
-                                                    {% else %}
-                                                        bg-danger
-                                                    {% endif %}
-                                                    "></span></td> #}
+                                                <tr data-string="{{ dat.id }}" class="user-table-row {% if loop.first %}is-selected{% endif %}">
                                                     <td>
-                                                        {{ dat.id|default(false) }}
+                                                        {{ dat['id']|default(false) }}
                                                     </td>
                                                     <td>
                                                         {{ dat.training_centre.name|default(false) }}
@@ -69,8 +75,6 @@
                                                     </td>
                                                     <td>
                                                         {{ dat.director.username|default(false) }}
-                                                        {{ dat.director.surname|default(false) }}
-                                                        {{ dat.director.patronymic|default(false) }}
                                                     </td>
                                                     <td>
                                                         {{ dat.director.email|default(false) }}
@@ -102,9 +106,13 @@
 
                                             {% for page in 1..pager.count_page %}
                                                 {% if page == pager.current_page %}
-                                                    <li class="page-item active"><a class="page-link" href="{{ path('administrator_kafedra') ~ pager.paginator_link ~ page }}">{{ page }}</a></li>
+                                                    <li class="page-item active"><a class="page-link"
+                                                                                    href="{{ path('administrator_kafedra') ~ pager.paginator_link ~ page }}">{{ page }}</a>
+                                                    </li>
                                                 {% else %}
-                                                    <li class="page-item"><a class="page-link" href="{{ path('administrator_kafedra') ~ pager.paginator_link ~ page }}">{{ page }}</a></li>
+                                                    <li class="page-item"><a class="page-link"
+                                                                             href="{{ path('administrator_kafedra') ~ pager.paginator_link ~ page }}">{{ page }}</a>
+                                                    </li>
                                                 {% endif %}
                                             {% endfor %}
 
