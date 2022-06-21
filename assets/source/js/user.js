@@ -29,19 +29,22 @@ for (let i = 0; i < userTableRows.length; ++i) {
 
 }
 
-if (userEditingPanelCloser !== undefined) {
-    userEditingPanelCloser.addEventListener('click', function () {
+if (userEditingPanelCloser !== undefined && userEditingPanelCloser !== null) {
+        userEditingPanelCloser.addEventListener('click', function () {
+            body.classList.remove('user-editing-panel-opened');
+            userEditingPanel.classList.remove('show');
+            userEditingOverlay.classList.remove('show');
+        });
+}
+
+if(userEditingOverlay !== undefined && userEditingOverlay !== null) {
+    userEditingOverlay.addEventListener('click', function () {
         body.classList.remove('user-editing-panel-opened');
         userEditingPanel.classList.remove('show');
         userEditingOverlay.classList.remove('show');
     });
 }
 
-userEditingOverlay.addEventListener('click', function () {
-  body.classList.remove('user-editing-panel-opened');
-  userEditingPanel.classList.remove('show');
-  userEditingOverlay.classList.remove('show');
-});
 
 
 
@@ -144,12 +147,14 @@ for (let i = 0; i < dualControlsSelects.length; ++i) {
 
 window.addEventListener('load', function() {
   const clearSearchBtn = document.querySelector('#jsClearSearch');
-  clearSearchBtn.addEventListener('click', function (e) {
-    e.preventDefault();
-    const closestForm = clearSearchBtn.closest("form");
-    const thisSearchInput = closestForm.querySelector('.search-input');
-    thisSearchInput.value = "";
-  });
+  if(clearSearchBtn !== undefined && clearSearchBtn !== null) {
+      clearSearchBtn.addEventListener('click', function (e) {
+          e.preventDefault();
+          const closestForm = clearSearchBtn.closest("form");
+          const thisSearchInput = closestForm.querySelector('.search-input');
+          thisSearchInput.value = "";
+      });
+  }
 });
 
 
@@ -339,31 +344,39 @@ document.addEventListener('DOMContentLoaded', function () {
     list.parentNode.removeChild(list);
 
     // Move the dragged column to `endColumnIndex`
-    table.querySelectorAll('tr').forEach(function (row) {
-      const cells = [].slice.call(row.querySelectorAll('th, td'));
-      draggingColumnIndex > endColumnIndex
-        ? cells[endColumnIndex].parentNode.insertBefore(
-          cells[draggingColumnIndex],
-          cells[endColumnIndex]
-        )
-        : cells[endColumnIndex].parentNode.insertBefore(
-          cells[draggingColumnIndex],
-          cells[endColumnIndex].nextSibling
-        );
-    });
+      if(table !== undefined && table !== null) {
+          table.querySelectorAll('tr').forEach(function (row) {
+              const cells = [].slice.call(row.querySelectorAll('th, td'));
+              draggingColumnIndex > endColumnIndex
+                  ? cells[endColumnIndex].parentNode.insertBefore(
+                      cells[draggingColumnIndex],
+                      cells[endColumnIndex]
+                  )
+                  : cells[endColumnIndex].parentNode.insertBefore(
+                      cells[draggingColumnIndex],
+                      cells[endColumnIndex].nextSibling
+                  );
+          });
 
-    // Bring back the table
-    table.style.removeProperty('visibility');
+          // Bring back the table
+          table.style.removeProperty('visibility');
+      }
+
+
+
 
     // Remove the handlers of `mousemove` and `mouseup`
     document.removeEventListener('mousemove', mouseMoveHandler);
     document.removeEventListener('mouseup', mouseUpHandler);
   };
 
-  table.querySelectorAll('th').forEach(function (headerCell) {
-    headerCell.classList.add('t-draggable');
-    headerCell.addEventListener('mousedown', mouseDownHandler);
-  });
+    if(table !== undefined && table !== null) {
+        table.querySelectorAll('th').forEach(function (headerCell) {
+            headerCell.classList.add('t-draggable');
+            headerCell.addEventListener('mousedown', mouseDownHandler);
+        });
+    }
+
 });
 
 
