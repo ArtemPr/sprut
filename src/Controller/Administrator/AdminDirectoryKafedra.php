@@ -44,12 +44,21 @@ class AdminDirectoryKafedra extends AbstractController
         }
 
         // Колонки таблицы (заготовка для последующего расширения функционала для сортировки колонок и изменения их состава)
+        /**
+         * Порядок элементов в массиве = порядок в таблице
+         * [
+         *  'name', - имя поля в таблице
+         *  'имя поля', - имя поля для таблицы
+         *  'string|list|bool', - тип поля (строка|список если используется ассоциации|булево значение (красная/зеленая точка))
+         *  'true|false', - показывать/не показывать поле
+         * ]
+         */
         $table = [
-            ['id', 'ID'],
-            ['training_centre.name', 'УЦ'],
-            ['name', 'Название'],
-            ['director.username', 'ФИО руководителя'],
-            ['director.email', 'E-mail руководителя']
+            ['id', 'ID', 'string', true],
+            ['training_centre.name', 'УЦ', 'string', true],
+            ['name', 'Название', 'string', true],
+            ['director.username', 'ФИО руководителя', 'string', true],
+            ['director.email', 'E-mail руководителя', 'string', true]
         ];
 
         // Фикс страниц

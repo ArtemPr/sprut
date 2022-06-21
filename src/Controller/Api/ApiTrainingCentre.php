@@ -38,9 +38,12 @@ class ApiTrainingCentre extends AbstractController
         $result = $this->trainingCentersRepository->findAll();
 
         foreach ($result as $val) {
+            $url = $val->getUrl();
+            $url = str_replace(['http:','https:','/'],'', $url);
             $out[] = [
                 'centre_id' => $val->getId(),
                 'centre_name' => \mb_convert_encoding($val->getName(), 'utf8'),
+                'url' => $url,
             ];
         }
 

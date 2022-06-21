@@ -169,6 +169,14 @@
 	background-color: rgba(32, 107, 196, 0.25);
 }
 
+.dual-controls-box.without-search .dual-listbox__search {
+	display: none !important;
+}
+
+.dual-controls-box.without-search .dual-listbox__buttons {
+	top: auto !important;
+}
+
 .badge.bg-warning {
 	background: gold !important;
 }
@@ -190,9 +198,30 @@
 	visibility: visible !important;
 }
 
-.disabled-btn {
-  opacity: 0.5;
-  background-color: rgba(255, 255, 255, 0.15);
+.multi-steps-form__step {
+	display: none;
+}
+
+.multi-steps-form__step.active {
+	display: block;
+}
+
+.multi-steps-form__btns {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: end;
+	-ms-flex-pack: end;
+	justify-content: flex-end;
+}
+
+.multi-steps-form__btn {
+	min-width: 100px;
+	margin-right: 10px;
+}
+
+.multi-steps-form__btn:last-child {
+	margin-right: 0;
 }
 
 /* responsive */

@@ -160,6 +160,40 @@ window.addEventListener('load', function() {
 
 
 /**
+ * Multi Steps Form
+ */
+
+window.addEventListener('load', function() {
+  const multiStepsForms = document.querySelectorAll('.multi-steps-form');
+  for (let i = 0; i < multiStepsForms.length; ++i) {
+    let multiStepsForm = multiStepsForms[i];
+    let multiStepsFormSteps = multiStepsForm.querySelectorAll('.multi-steps-form__step');
+
+    for (let j = 0; j < multiStepsFormSteps.length; ++j) {
+      let multiStepsFormStep = multiStepsFormSteps[j];
+      let multiStepsFormBtns = multiStepsFormStep.querySelectorAll('.multi-steps-form__btn');
+
+      for (let k = 0; k < multiStepsFormBtns.length; ++k) {
+        let multiStepsFormBtn = multiStepsFormBtns[k];
+
+        multiStepsFormBtn.addEventListener('click', function () {
+          let targetStep = document.querySelector(this.getAttribute('data-target-step'));
+          if (targetStep !== null) {
+            multiStepsFormSteps.forEach(f => f.classList.remove('active'));
+            targetStep.classList.add('active');
+          }
+        });
+
+      }
+
+    }
+
+  }
+});
+
+
+
+/**
  * Users Table Drag'n'Drop
  */
 
