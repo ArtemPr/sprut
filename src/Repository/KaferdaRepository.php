@@ -40,10 +40,12 @@ class KaferdaRepository extends ServiceEntityRepository
         }
     }
 
-    public function getList(int|null $page = 0, int|null $on_page = 25)
+    public function getList(int|null $page = 0, int|null $on_page = 5)
     {
         $entityManager = $this->getEntityManager();
-        $first_result = $page === 1 ? 0 : (int)$page * (int)$on_page;
+
+        $page = (empty($page) || $page === 1 || $page === 0) ? 0 : $page - 1;
+        $first_result = (int)$page * (int)$on_page;
 
         $result = $entityManager->createQuery(
             'SELECT op, dir, tc

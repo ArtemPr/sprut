@@ -22,7 +22,7 @@
         </aside>
         <div class="page-wrapper">
             <div class="container-xl">
-                {% include 'administrator/block/header_list.html.twig' with {'header': 'Справочник - кафедры'} %}
+                {% include 'administrator/block/header_list.html.twig' with {'header': 'Справочник - кафедры', 'onpage_link': path('administrator_kafedra')} %}
             </div>
             <div class="page-body">
                 <div class="container-xl">
@@ -31,16 +31,17 @@
                             <div class="card">
                                 {% include 'administrator/user/block/search_panel.html.twig' %}
                                 <div class="users-table-wrap table-responsive">
+                                    {{ dump(pager) }}
                                     <table id="usersTable"
                                            class="users-table table card-table table-vcenter text-nowrap datatable">
                                         <thead>
                                         <tr>
-                                            <th></th>
-                                            <th><a class="sort-icon is-both" href="#"></a> ID</th>
-                                            <th><a class="sort-icon is-both" href="#"></a> УЦ</th>
-                                            <th><a class="sort-icon is-both" href="#"></a> Название</th>
-                                            <th><a class="sort-icon is-both" href="#"></a> ФИО руководителя</th>
-                                            <th><a class="sort-icon is-both" href="#"></a>E-mail руководителя</th>
+                                            {# <th></th> #}
+                                            <th><a class="sort-icon is-both" href="{{ path('administrator_kafedra') ~ sort.sort_link ~ 'id' }}"></a> ID</th>
+                                            <th><a class="sort-icon is-both" href="{{ path('administrator_kafedra') ~ sort.sort_link ~ 'training_centre.name' }}"></a> УЦ</th>
+                                            <th><a class="sort-icon is-both" href="{{ path('administrator_kafedra') ~ sort.sort_link ~ 'name' }}"></a> Название</th>
+                                            <th><a class="sort-icon is-both" href="{{ path('administrator_kafedra') ~ sort.sort_link ~ 'director.username' }}"></a> ФИО руководителя</th>
+                                            <th><a class="sort-icon is-both" href="{{ path('administrator_kafedra') ~ sort.sort_link ~ 'director.email' }}"></a>E-mail руководителя</th>
                                             <th class="hidden-cell"></th>
                                         </tr>
                                         </thead>
@@ -57,7 +58,6 @@
                                                         bg-danger
                                                     {% endif %}
                                                     "></span></td> #}
-                                                    <td>{{ id }}{% set id=1 + id %}</td>
                                                     <td>
                                                         {{ dat.id|default(false) }}
                                                     </td>
@@ -84,7 +84,8 @@
 
                                 <div class="card-footer d-flex align-items-center">
                                     <p class="m-0 text-muted"><b>{{ data|length }}</b> результатов</p>
-                                    {% if pager.count_all_position|default(false) and pager.count_all_position > 25 %}
+
+                                    {% if pager.count_page|default(false) and pager.count_page > 1 %}
                                         <ul class="pagination m-0 ms-auto">
                                             <li class="page-item disabled">
                                                 <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
@@ -101,9 +102,9 @@
 
                                             {% for page in 1..pager.count_page %}
                                                 {% if page == pager.current_page %}
-                                                    <li class="page-item active"><a class="page-link" href="{{ path('administrator_kafedra') }}">{{ page }}</a></li>
+                                                    <li class="page-item active"><a class="page-link" href="{{ path('administrator_kafedra') ~ pager.paginator_link ~ page }}">{{ page }}</a></li>
                                                 {% else %}
-                                                    <li class="page-item"><a class="page-link" href="{{ path('administrator_kafedra') }}">{{ page }}</a></li>
+                                                    <li class="page-item"><a class="page-link" href="{{ path('administrator_kafedra') ~ pager.paginator_link ~ page }}">{{ page }}</a></li>
                                                 {% endif %}
                                             {% endfor %}
 
@@ -120,6 +121,7 @@
                                             </li>
                                         </ul>
                                     {% endif %}
+
                                 </div>
                             </div>
 
