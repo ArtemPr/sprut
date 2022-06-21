@@ -145,14 +145,24 @@ for (let i = 0; i < dualControlsSelects.length; ++i) {
  * Search Clear
  */
 
+
+/*используется шаблон templates/administrator/user/block/search_panel.html.twig
+руками задан id инпуту и кнопочке id jsClearSearch, похоже, что начальное решение было
+изящным, но что-то пошло не так, поэтому правка */
 window.addEventListener('load', function() {
   const clearSearchBtn = document.querySelector('#jsClearSearch');
+  const searchInput = document.querySelector('#input-search');
+  console.log('jsClearSearch');
   if(clearSearchBtn !== undefined && clearSearchBtn !== null) {
       clearSearchBtn.addEventListener('click', function (e) {
           e.preventDefault();
-          const closestForm = clearSearchBtn.closest("form");
-          const thisSearchInput = closestForm.querySelector('.search-input');
-          thisSearchInput.value = "";
+          // const closestForm = clearSearchBtn.closest("form");
+          // console.log(closestForm);
+          // const thisSearchInput = closestForm.querySelector('.search-input');
+          // thisSearchInput.value = "";
+          if(searchInput) {
+              searchInput.value='';
+          }
       });
   }
 });
