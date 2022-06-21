@@ -23,7 +23,8 @@
         </aside>
         <div class="page-wrapper">
             <div class="container-xl">
-                {% include 'administrator/block/header_list.html.twig' with {'header': 'Операции'} %}
+            <!--ошибка при 'onpage_link': path('administrator_operation') нет роута-->
+                {% include 'administrator/block/header_list.html.twig' with {'header': 'Операции', 'onpage_link': path('administrator_operations')} %} 
             </div>
             <div class="page-body">
                 <div class="container-xl">

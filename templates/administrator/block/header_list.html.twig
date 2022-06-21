@@ -19,6 +19,7 @@
                 {% if onpage_link|default(false) %}
                 <script>
                         let onpage_url = "{{ onpage_link }}";
+                        console.log(onpage_url);
                         // /administrator/kafedra?on_page=5
                         const on_page_selector = document.querySelector('#on_page_selector');
                         if(on_page_selector) {
