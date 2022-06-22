@@ -5,6 +5,7 @@
 
 namespace App\Controller;
 
+use App\Controller\Api\ApiKafedra;
 use App\Controller\Api\ApiProgramController;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -46,4 +47,14 @@ class ApiController extends AbstractController
     {
         return $apiProgramController->getProgram($id);
     }
+
+
+    #[Route('/kafedra', name: 'api_add_kafedra', methods: ['POST'])]
+    public function add_kafedra(ApiKafedra $apiKafedra): Response
+    {
+        return $apiKafedra->add();
+    }
+
+
+
 }

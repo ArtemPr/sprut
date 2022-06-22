@@ -40,6 +40,7 @@ class ApiProgramController extends AbstractController
         return $this->render('api/index.html.twig', [
             'out' => $this->convertJson($result ?? ['error' => 'no results']),
         ]);
+
     }
 
     public function getProgramsList(): Response
@@ -62,6 +63,11 @@ class ApiProgramController extends AbstractController
 
         $result = $this->master_programm->getProgramList((int) $page, $max_result, $param);
 
+
+        foreach ($result as $key=>$value) {
+            $result[$key]['program_type'] = $result[$key]['program_type']['id'];
+        }
+
         foreach ($result as $val) {
             $out[] = [
                 'program_id' => $val['id'] ?? false,
@@ -69,12 +75,15 @@ class ApiProgramController extends AbstractController
                 'program_name' => \html_entity_decode($val['name'] ?? ''),
                 'length_hour' => $val['length_hour'] ?? false,
                 'length_week' => $val['length_week'] ?? false,
+                'program_type' => $val['program_type'] ?? false,
             ];
         }
 
-        return $this->render('api/index.html.twig', [
-            'out' => $this->convertJson($out ?? ['error' => 'no results']),
-        ]);
+//        return $this->render('api/index.html.twig', [
+//            'out' => $this->convertJson($out ?? ['error' => 'no results']),
+//        ]);
+
+        return $this->json($out ?? []);
     }
 
     public function getProgram(int $id): Response
@@ -85,8 +94,10 @@ class ApiProgramController extends AbstractController
 
         $out = $this->master_programm->getProgram($id);
 
-        return $this->render('api/index.html.twig', [
-            'out' => $this->convertJson($out ?? ['error' => 'no results']),
-        ]);
+//        return $this->render('api/index.html.twig', [
+//            'out' => $this->convertJson($out ?? ['error' => 'no results']),
+//        ]);
+
+        return $this->json($out ?? []);
     }
 }
