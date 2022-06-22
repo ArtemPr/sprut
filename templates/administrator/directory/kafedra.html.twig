@@ -32,10 +32,10 @@
                                 {% include 'administrator/user/block/search_panel.html.twig' %}
 
                                 {# ############################## #}
-                                <div id="ajax_content">
+
+                                <div class="ajax-table">
                                     {{ include('administrator/directory/kafedra_table.html.twig') }}
                                 </div>
-
                             </div>
 
                             <div id="userEditingOverlay" class="offcanvas-backdrop fade"></div>
@@ -49,33 +49,5 @@
             </div>
         </div>
     </div>
-
-    <script>
-        var btn_form = document.querySelector('button[data-action="send-form"]');
-
-        if (btn_form !== null) {
-            btn_form.addEventListener("click",
-                function (e) {
-                    let form_id = this.getAttribute('data-form-id');
-                    if (form_id !== undefined) {
-                        let form = document.querySelector('#' + form_id);
-                        let data = new FormData(form);
-
-                        return fetch('/api/kafedra', {
-                            method: 'PUT',
-                            body: data,
-                        })
-                        .then(function (response) {
-                            return response.text();
-                        })
-                        .then(function (data) {
-
-                        });
-                    }
-                }
-            );
-        }
-
-    </script>
 
 {% endblock %}
