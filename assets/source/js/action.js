@@ -47,30 +47,42 @@ let selectValue = 25;
 let tableUrl = `http://${location.host}/administrator/kafedra?ajax=true&&on_page=${selectValue}`;
 let selectOnPage = document.querySelector('#on_page_selector');
 let sortIcons = document.querySelectorAll('.sort-icon');
+let paginationLinks = document.querySelectorAll('.page-link');
 
 if (selectOnPage) {
     selectOnPage.addEventListener('change', function () {
         selectValue = selectOnPage.value;
         tableUrl = `http://${location.host}/administrator/kafedra?on_page=${selectValue}&ajax=true`;
-        // console.log(tableUrl);
         getTableData(tableUrl);
-        //console.log(selectValue);
     })
 }
 
+// при обновлении таблицы надо заново навешивать события на новую пагинацию
+function setPaginationListeners() {
+    paginationLinks = document.querySelectorAll('.page-link');
+    if (paginationLinks) {
+        paginationLinks.forEach(paginationLink => {
+            paginationLink.addEventListener('click', function (event) {
+                event.preventDefault();
+                let paginationLinkData = paginationLink.getAttribute('href');
+                getTableData(paginationLinkData);
+            })
+        })
+    }
+}
+
+// при обновлении таблицы надо заново навешивать события на новые стрелочки
 function setSortListeners() {
     sortIcons.forEach(sortIcon => {
         sortIcon.addEventListener('click', function (event) {
             event.preventDefault();
             let hrefData = sortIcon.getAttribute('href');
-            // console.log(hrefData);
             let hrefDataArr = hrefData.split('&');
             if (hrefDataArr.includes('ajax=true')) {
                 tableUrl = hrefData;
             } else {
                 tableUrl = `${hrefData}&ajax=true`;
             }
-            //  console.log(tableUrl);
             getTableData(tableUrl);
         })
     })
@@ -80,13 +92,17 @@ if (sortIcons) {
     setSortListeners();
 }
 
-async function getTableData() {
+async function getTableData(tableUrl) {
     let data = await fetch(tableUrl).then((result) => result.text());
-    ajaxTable.innerHTML = data;
+    if (ajaxTable) {
+        ajaxTable.innerHTML = data;
+    }
     sortIcons = document.querySelectorAll('.sort-icon');
     if (sortIcons) {
         setSortListeners();
     }
+    setPaginationListeners();
+    history.pushState('', '', tableUrl);
 //    console.log(data);
 }
 
