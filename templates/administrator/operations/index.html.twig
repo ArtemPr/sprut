@@ -23,8 +23,8 @@
         </aside>
         <div class="page-wrapper">
             <div class="container-xl">
-            <!--ошибка при 'onpage_link': path('administrator_operation') нет роута-->
-                {% include 'administrator/block/header_list.html.twig' with {'header': 'Операции', 'onpage_link': path('administrator_operations')} %} 
+                <!--ошибка при 'onpage_link': path('administrator_operation') нет роута-->
+                {% include 'administrator/block/header_list.html.twig' with {'header': 'Операции', 'onpage_link': path('administrator_operations')} %}
             </div>
             <div class="page-body">
                 <div class="container-xl">
@@ -44,34 +44,34 @@
                                             <thead>
                                             <tr>
                                                 <th><a class="sort-icon is-desc" href="#"></a>
-                                                 <span class="th-name"> Название</span></th>
-                                                <th><a class="sort-icon is-both" href="#"></a> 
-                                                 <span class="th-name">Комментарий</span></th>
+                                                    <span class="th-name"> Название</span></th>
                                                 <th><a class="sort-icon is-both" href="#"></a>
-                                                 <span class="th-name"> Группа</span></th>
+                                                    <span class="th-name">Комментарий</span></th>
                                                 <th><a class="sort-icon is-both" href="#"></a>
-                                                 <span class="th-name">Код операции</span></th>
+                                                    <span class="th-name"> Группа</span></th>
+                                                <th><a class="sort-icon is-both" href="#"></a>
+                                                    <span class="th-name">Код операции</span></th>
                                                 <th class="hidden-cell"></th>
                                             </tr>
                                             </thead>
                                             <tbody>
 
-                                                {% for operations in data %}
-                                                    <tr data-string="{{ operations.id }}" class="user-table-row {% if loop.first %}is-selected{% endif %}">
-                                                        <td>
-                                                            {{ operations.name|default(false)}}
-                                                        </td>
-                                                        <td>
-                                                            {{ operations.comment|default(false)}}
-                                                        </td>
-                                                        <td>
-                                                            {{ operations.group|default(false)}}
-                                                        </td>
-                                                        <td>
-                                                            {{ operations.code|default(false)}}
-                                                        </td>
-                                                    </tr>
-                                                {% endfor %}
+                                            {% for operations in data %}
+                                                <tr data-string="{{ operations.id }}" class="user-table-row {% if loop.first %}is-selected{% endif %}">
+                                                    <td>
+                                                        {{ operations.name|default(false)}}
+                                                    </td>
+                                                    <td>
+                                                        {{ operations.comment|default(false)}}
+                                                    </td>
+                                                    <td>
+                                                        {{ operations.group|default(false)}}
+                                                    </td>
+                                                    <td>
+                                                        {{ operations.code|default(false)}}
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
                                             </tbody>
                                         </table>
                                     </div>
