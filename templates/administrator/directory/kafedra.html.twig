@@ -32,9 +32,12 @@
                                 {% include 'administrator/user/block/search_panel.html.twig' %}
 
                                 {# ############################## #}
-                                {{ include('administrator/directory/kafedra_table.html.twig') }}
 
+                                <div class="ajax-table">
+                                    {{ include('administrator/directory/kafedra_table.html.twig') }}
+                                </div>
                             </div>
+
 
                             <div id="userEditingOverlay" class="offcanvas-backdrop fade"></div>
 
