@@ -6,6 +6,8 @@
 namespace App\Controller\Administrator;
 
 use App\Entity\Kaferda;
+use App\Entity\TrainingCenters;
+use App\Entity\User;
 use \App\Service\LinkService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -35,6 +37,9 @@ class AdminDirectoryKafedra extends AbstractController
         // @TODO перенести findAll в метод репозитория
         $count = $this->managerRegistry->getRepository(Kaferda::class)->findAll();
         $count = count($count);
+
+        $training_centre = $this->managerRegistry->getRepository(TrainingCenters::class)->getList();
+        $user = $this->managerRegistry->getRepository(User::class)->getList();
 
         // Сводим ФИО в одно поле
         foreach ($result as $key => $val) {
@@ -69,6 +74,8 @@ class AdminDirectoryKafedra extends AbstractController
         return $this->render($tpl,
             [
                 'data' => $result,
+                'traning_centre' => $training_centre,
+                'user'  => $user,
                 'pager' => [
                     'count_all_position' => $count,
                     'current_page' => $page,
