@@ -64,7 +64,9 @@ class AdminDirectoryKafedra extends AbstractController
         // Фикс страниц
         $page = $page ?? 1;
 
-        return $this->render('administrator/directory/kafedra.html.twig',
+        $tpl = $request->get('ajax') ? 'administrator/directory/kafedra_table.html.twig' : 'administrator/directory/kafedra.html.twig' ;
+
+        return $this->render($tpl,
             [
                 'data' => $result,
                 'pager' => [
