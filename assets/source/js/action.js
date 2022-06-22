@@ -44,15 +44,18 @@ function getDeleteData(select_id) {
 
 const ajaxTable = document.querySelector('.ajax-table');
 let selectValue = 25;
-let tableUrl = `http://${location.host}/administrator/kafedra?ajax=true&&on_page=${selectValue}`;
+let tableUrl = `${location.protocol}//${location.host}/administrator/kafedra?ajax=true&&on_page=${selectValue}`;
 let selectOnPage = document.querySelector('#on_page_selector');
 let sortIcons = document.querySelectorAll('.sort-icon');
 let paginationLinks = document.querySelectorAll('.page-link');
 
+console.log(location.protocol);
+// http:
+
 if (selectOnPage) {
     selectOnPage.addEventListener('change', function () {
         selectValue = selectOnPage.value;
-        tableUrl = `http://${location.host}/administrator/kafedra?on_page=${selectValue}&ajax=true`;
+        tableUrl = `${location.protocol}//${location.host}/administrator/kafedra?on_page=${selectValue}&ajax=true`;
         getTableData(tableUrl);
     })
 }
