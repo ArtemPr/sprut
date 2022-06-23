@@ -18,6 +18,9 @@ class ProgramType
     #[ORM\Column(type: 'string', length: 255)]
     private $name_type;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $short_name_type;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -37,4 +40,21 @@ class ProgramType
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getShortNameType()
+    {
+        return $this->short_name_type;
+    }
+
+    /**
+     * @param mixed $short_name_type
+     */
+    public function setShortNameType($short_name_type): void
+    {
+        $this->short_name_type = $short_name_type;
+    }
+
 }

@@ -7,6 +7,7 @@ namespace App\Controller;
 
 use App\Controller\Api\ApiKafedra;
 use App\Controller\Api\ApiProgramController;
+use App\Repository\ProgramTypeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -48,6 +49,14 @@ class ApiController extends AbstractController
         return $apiProgramController->getProgram($id);
     }
 
+    /**
+     * @return void
+     */
+    #[Route('/program_type', name: 'api_get_program_type', methods: ['GET'])]
+    public function api_get_program_type(ProgramTypeRepository $programTypeRepository): Response
+    {
+        return $this->json($programTypeRepository->findAll());
+    }
 
     #[Route('/kafedra', name: 'api_add_kafedra', methods: ['POST'])]
     public function add_kafedra(ApiKafedra $apiKafedra): Response

@@ -1,0 +1,466 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}СПРУТ 1.0{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+{% block body %}
+    {{ include('block/header.html.twig') }}
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.12/themes/default/style.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.12/jstree.min.js"></script>
+
+    <div class="page page-layout">
+        <aside class="navbar navbar-vertical navbar-expand-lg navbar-light">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-header-menu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbar-header-menu">
+                    <div class="mt-2 mb-3">
+                        <select class="form-select" id="select-tags">
+                            <option value="0" disabled selected>Направление</option>
+                            <option value="1">ФГОС 1</option>
+                            <option value="2">ФГОС 2</option>
+                            <option value="3">ФГОС 3</option>
+                            <option value="4">ФГОС 4</option>
+                            <option value="5">ФГОС 5</option>
+                        </select>
+                    </div>
+                    <div class="editable-tree-wrap">
+                        <div class="editable-tree-buttons mb-2">
+                            <div class="btn-group w-100">
+                                <button class="js-create-node-tree btn" role="button">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="m-0 icon icon-tabler icon-tabler-plus" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                        <line x1="12" y1="5" x2="12" y2="19" />
+                                        <line x1="5" y1="12" x2="19" y2="12" />
+                                    </svg>
+                                </button>
+                                <button class="js-edit-node-tree btn" role="button">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="m-0 icon icon-tabler icon-tabler-pencil" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                        <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
+                                        <line x1="13.5" y1="6.5" x2="17.5" y2="10.5" />
+                                    </svg>
+                                </button>
+                                <button class="js-remove-node-tree btn" role="button">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="m-0 icon icon-tabler icon-tabler-trash" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                        <line x1="4" y1="7" x2="20" y2="7" />
+                                        <line x1="10" y1="11" x2="10" y2="17" />
+                                        <line x1="14" y1="11" x2="14" y2="17" />
+                                        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                                        <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editable-tree">
+                            <ul>
+                                <li>Категория 1
+                                    <ul>
+                                        <li>Программа 1</li>
+                                        <li>Программа 2</li>
+                                        <li>Программа 3</li>
+                                    </ul>
+                                </li>
+                                <li>Категория 2
+                                    <ul>
+                                        <li>Программа 1</li>
+                                        <li>Программа 2</li>
+                                        <li>Программа 3</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        <div class="page-wrapper">
+            <div class="container-fluid">
+                <!-- Page title -->
+                <div class="page-header d-print-none">
+                    <div class="row g-2 align-items-center">
+                        <div class="col d-flex align-items-center">
+                            <!-- Page pre-title -->
+                            <h2 class="page-title">
+                                Программы
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="page-body">
+                <div class="container-fluid">
+
+                    <div class="row row-deck row-cards mb-3">
+                        <div class="col-12">
+
+                            <div class="card">
+                                <div class="users-option-panel card-body border-bottom py-3">
+                                    <div class="d-flex align-items-center mb-0">
+                                        <form class="is-left-col input-group input-group-flat me-2" action="#" name="search">
+                                            <input type="text" class="search-input form-control" placeholder="Поиск" autocomplete="off">
+                                            <span class="input-group-text">
+                                            <a id="jsClearSearch" href="#" class="link-secondary" title="Очистить Поиск" data-bs-toggle="tooltip">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+                                            </a>
+                                            <a href="#" class="link-secondary ms-2" title="Поиск" data-bs-toggle="tooltip">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><circle cx="10" cy="10" r="7"></circle><line x1="21" y1="21" x2="15" y2="15"></line></svg>
+                                            </a>
+                                        </span>
+                                        </form>
+                                        <div class="me-2">
+                                            <a href="#" class="btn w-100 btn-icon" title="Экспорт в Excel" data-bs-toggle="tooltip">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-table-export" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                    <path d="M11.5 20h-5.5a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v7.5m-16 -3.5h16m-10 -6v16m4 -1h7m-3 -3l3 3l-3 3" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                        <div class="is-right-col ms-auto">
+                                            <div class="btn-group w-100">
+                                                <a class="btn" data-bs-toggle="offcanvas" href="#userCreationPanel" role="button" aria-controls="offcanvasEnd">Создать</a>
+                                                <a class="btn" data-bs-toggle="offcanvas" href="#userEditingPanel" role="button" aria-controls="offcanvasEnd">Изменить</a>
+                                                <a class="btn" data-bs-toggle="modal" data-bs-target="#userRemoveModal" href="#">Удалить</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="users-table-wrap table-responsive">
+                                    <table id="usersTable" class="users-table table card-table table-vcenter text-nowrap datatable">
+                                        <thead>
+                                        <tr>
+                                            <th>Статус <a class="sort-icon is-desc" href="#"></a></th>
+                                            <th>ID <a class="sort-icon is-desc" href="#"></a></th>
+                                            <th>Тип <a class="sort-icon is-both" href="#"></a></th>
+                                            <th>Название <a class="sort-icon is-both" href="#"></a></th>
+                                            <th class="hidden-cell"></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        {% for program in data %}
+                                            <tr class="user-table-row {% if loop.first %}is-selected{% endif %}">
+                                                <td>
+                                                    <span class="badge bg-danger" title="создана, но не в работе" data-bs-toggle="tooltip"></span>
+                                                </td>
+                                                <td>
+                                                    {{ program.id }}
+                                                </td>
+                                                <td>
+                                                    {{ program.program_type.short_name_type|default(false) }}
+                                                </td>
+                                                <td>
+                                                    <b>{{ program.name|raw }}</b>
+                                                </td>
+                                                <td class="hidden-cell">
+                                                    <input class="selected-checkbox" type="checkbox" name="#" checked>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="card-footer d-flex align-items-center">
+                                    <p class="m-0 text-muted"><b>5</b> результатов</p>
+                                    <ul class="pagination m-0 ms-auto">
+                                        <li class="page-item disabled">
+                                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+                                                <!-- Download SVG icon from http://tabler-icons.io/i/chevron-left -->
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><polyline points="15 6 9 12 15 18" /></svg>
+                                            </a>
+                                        </li>
+                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item active"><a class="page-link" href="#">2</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">5</a></li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><polyline points="9 6 15 12 9 18" /></svg>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div id="userCreationPanel" class="user-form-panel offcanvas offcanvas-end" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                                <div class="offcanvas-header">
+                                    <h2 class="offcanvas-title">Создание программы</h2>
+                                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                </div>
+                                <div class="offcanvas-body">
+                                    <form action="#" name="program-create">
+                                        <div class="form-group mb-3 row">
+                                            <label class="form-label col-3 col-form-label">Название</label>
+                                            <div class="col">
+                                                <input type="text" class="form-control" placeholder="Название программы">
+                                            </div>
+                                        </div>
+                                        <div class="form-group mb-3 row">
+                                            <label class="form-label col-3 col-form-label">Тип программы</label>
+                                            <div class="col">
+                                                <select class="form-select">
+                                                    <option disabled selected>Выберите тип из списка</option>
+                                                    <option value="1">Повышение квалификации (ПК)</option>
+                                                    <option value="2">Профессиональная переподготовка (ПП)</option>
+                                                    <option value="3">Профессиональное обучение (ПО)</option>
+                                                    <option value="4">Дополнительное образование (ДО)</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group mb-3 row align-items-center">
+                                            <label class="form-label col-3 col-form-label">Направление</label>
+                                            <div class="col">
+                                                <div>Название выбранного направления</div>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex mb-4">
+                                            <button type="submit" class="btn btn-primary ms-auto">Сохранить</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <div id="userEditingPanel" class="user-form-panel offcanvas offcanvas-end" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                                <div class="offcanvas-header">
+                                    <h2 class="offcanvas-title">Редактирование программы</h2>
+                                    <button id="jsEditingPanelCloser" type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                </div>
+                                <div class="offcanvas-body">
+                                    <form action="#" name="program-edit">
+                                        <div class="form-group mb-3 row">
+                                            <label class="form-label col-3 col-form-label">Название</label>
+                                            <div class="col">
+                                                <input type="text" class="form-control" placeholder="Название программы" value="Программа 1">
+                                            </div>
+                                        </div>
+                                        <div class="form-group mb-3 row">
+                                            <label class="form-label col-3 col-form-label">Тип программы</label>
+                                            <div class="col">
+                                                <select class="form-select">
+                                                    <option disabled>Выберите тип из списка</option>
+                                                    <option value="1" selected>Повышение квалификации (ПК)</option>
+                                                    <option value="2">Профессиональная переподготовка (ПП)</option>
+                                                    <option value="3">Профессиональное обучение (ПО)</option>
+                                                    <option value="4">Дополнительное образование (ДО)</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group mb-3 row align-items-center">
+                                            <label class="form-label col-3 col-form-label">Направление</label>
+                                            <div class="col">
+                                                <div>Название выбранного направления</div>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex mb-4">
+                                            <button type="submit" class="btn btn-primary ms-auto">Сохранить</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div id="userEditingOverlay" class="offcanvas-backdrop fade"></div>
+
+                            <div id="userRemoveModal" class="modal modal-blur fade" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <div class="modal-status bg-danger"></div>
+                                        <div class="modal-body text-center py-4">
+                                            <!-- Download SVG icon from http://tabler-icons.io/i/alert-triangle -->
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-danger icon-lg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 9v2m0 4v.01" /><path d="M5 19h14a2 2 0 0 0 1.84 -2.75l-7.1 -12.25a2 2 0 0 0 -3.5 0l-7.1 12.25a2 2 0 0 0 1.75 2.75" /></svg>
+                                            <h3>Вы уверены?</h3>
+                                            <div class="text-muted">Вы действительно хотите удалить программу<br> Программа 1</div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <div class="w-100">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <a href="#" class="btn w-100" data-bs-dismiss="modal">Отмена</a>
+                                                    </div>
+                                                    <div class="col">
+                                                        <a href="#" class="btn btn-danger w-100" data-bs-dismiss="modal">Удалить</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row row-deck row-cards">
+                        <div class="col-12">
+
+                            <div class="card">
+                                <ul class="nav nav-tabs" data-bs-toggle="tabs" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <a href="#programs-tab-1" class="nav-link active" data-bs-toggle="tab" aria-selected="true" role="tab"><b>Этапы</b></a>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <a href="#programs-tab-2" class="nav-link" data-bs-toggle="tab" aria-selected="false" role="tab" tabindex="-1"><b>Статистика</b></a>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <a href="#programs-tab-3" class="nav-link" data-bs-toggle="tab" aria-selected="false" role="tab" tabindex="-1"><b>Документы</b></a>
+                                    </li>
+                                </ul>
+                                <div class="card-body p-0">
+                                    <div class="tab-content">
+
+                                        <div class="tab-pane show active" id="programs-tab-1" role="tabpanel">
+                                            <div class="users-table-wrap table-responsive">
+                                                <table class="users-table editable-table table card-table table-vcenter text-nowrap datatable">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Статус</th>
+                                                        <th>Название</th>
+                                                        <th>Исполнитель</th>
+                                                        <th>Описание</th>
+                                                        <th>Комментарий</th>
+                                                        <th></th>
+                                                        <th class="hidden-cell"></th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr class="editable-table-row">
+                                                        <td>
+                                                            <span class="badge bg-success" title="утвержден" data-bs-toggle="tooltip"></span>
+                                                        </td>
+                                                        <td>
+                                                            Настройка
+                                                        </td>
+                                                        <td>
+                                                            ФИО / Роль
+                                                        </td>
+                                                        <td>
+                                                            Назначение исполнителей
+                                                        </td>
+                                                        <td>
+
+                                                        </td>
+                                                        <td></td>
+                                                        <td class="hidden-cell">
+                                                            <input class="selected-checkbox" type="checkbox" name="#">
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="editable-table-row" data-target-panel="#FGOSEditingPanel" data-target-overlay=".custom-overlay">
+                                                        <td>
+                                                            <span class="badge bg-warning" title="в работе" data-bs-toggle="tooltip"></span>
+                                                        </td>
+                                                        <td>
+                                                            ФГОС и компетенции
+                                                        </td>
+                                                        <td>
+                                                            ФИО / Роль
+                                                        </td>
+                                                        <td>
+                                                            Привязка программы к ФГОС, назначение компетенций
+                                                        </td>
+                                                        <td>
+
+                                                        </td>
+                                                        <td>
+                                                            <a class="btn btn-icon" data-bs-toggle="offcanvas" href="#FGOSEditingPanel" role="button" aria-controls="offcanvasEnd">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                                    <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+                                                                    <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+                                                                </svg>
+                                                            </a>
+                                                        </td>
+                                                        <td class="hidden-cell">
+                                                            <input class="selected-checkbox" type="checkbox" name="#">
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="editable-table-row">
+                                                        <td>
+                                                            <span class="badge bg-danger" title="создан, но не в работе" data-bs-toggle="tooltip"></span>
+                                                        </td>
+                                                        <td>
+                                                            Учебный план
+                                                        </td>
+                                                        <td>
+                                                            ФИО / Роль
+                                                        </td>
+                                                        <td>
+                                                            Формирование учебного плана из дисциплин
+                                                        </td>
+                                                        <td>
+                                                            Не согласован этап &laquo;Настройка&raquo;
+                                                        </td>
+                                                        <td></td>
+                                                        <td class="hidden-cell">
+                                                            <input class="selected-checkbox" type="checkbox" name="#">
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="editable-table-row">
+                                                        <td>
+                                                            <span class="badge bg-danger" title="создан, но не в работе" data-bs-toggle="tooltip"></span>
+                                                        </td>
+                                                        <td>
+                                                            Календарный план
+                                                        </td>
+                                                        <td>
+                                                            ФИО / Роль
+                                                        </td>
+                                                        <td>
+                                                            Формирование календарного плана на основе учебного
+                                                        </td>
+                                                        <td>
+                                                            Не согласован этап &laquo;Учебный план&raquo;
+                                                        </td>
+                                                        <td></td>
+                                                        <td class="hidden-cell">
+                                                            <input class="selected-checkbox" type="checkbox" name="#">
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                        <div class="tab-pane" id="programs-tab-2" role="tabpanel">
+                                            <div class="p-3">Fringilla egestas nunc quis tellus diam rhoncus ultricies tristique enim at diam, sem nunc amet, pellentesque id egestas velit sed</div>
+                                        </div>
+
+                                        <div class="tab-pane" id="programs-tab-3" role="tabpanel">
+                                            <div class="p-3">Donec ac vitae diam amet vel leo egestas consequat rhoncus in luctus amet, facilisi sit mauris accumsan nibh habitant senectus</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="FGOSEditingPanel" class="custom-aside-panel user-form-panel offcanvas offcanvas-end" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                                <div class="offcanvas-header">
+                                    <h2 class="offcanvas-title">Привязка программы</h2>
+                                    <button type="button" class="custom-panel-closer btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                </div>
+                                <div class="offcanvas-body">
+                                    <form action="#" name="program-binding">
+
+                                        <div class="d-flex mb-4">
+                                            <button type="submit" class="btn btn-primary ms-auto">Сохранить</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="custom-overlay offcanvas-backdrop fade"></div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
