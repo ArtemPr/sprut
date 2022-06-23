@@ -40,10 +40,14 @@ class MasterProgram
     #[ORM\Column(type: 'boolean', nullable: true)]
     private $additional_flag;
 
+    #[ORM\ManyToMany(targetEntity: ProfStandarts::class)]
+    private $prof_standarts;
+
     public function __construct()
     {
         $this->federal_standart = new ArrayCollection();
         $this->federal_standart_competencies = new ArrayCollection();
+        $this->prof_standarts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -191,6 +195,30 @@ class MasterProgram
     public function setAdditionalFlag(?bool $additional_flag): self
     {
         $this->additional_flag = $additional_flag;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ProfStandarts>
+     */
+    public function getProfStandarts(): Collection
+    {
+        return $this->prof_standarts;
+    }
+
+    public function addProfStandart(ProfStandarts $profStandart): self
+    {
+        if (!$this->prof_standarts->contains($profStandart)) {
+            $this->prof_standarts[] = $profStandart;
+        }
+
+        return $this;
+    }
+
+    public function removeProfStandart(ProfStandarts $profStandart): self
+    {
+        $this->prof_standarts->removeElement($profStandart);
 
         return $this;
     }
