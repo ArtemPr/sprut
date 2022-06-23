@@ -71,12 +71,12 @@ async function getTableData(tableUrl) {
 // работа с формой Создать
 
 const btn_form = document.querySelector('button[data-action="send-form"]');
-const form_id = btn_form.getAttribute('data-form-id');
 const addItemForm = document.querySelector('.form-create');
 
 if (addItemForm && btn_form) {
     addItemForm.addEventListener('submit', async function (event) {
         event.preventDefault();
+        const form_id = btn_form.getAttribute('data-form-id');
         if (form_id !== undefined) {
             const sectionName = form_id.split('-')[0];
             let data = new FormData(addItemForm);
