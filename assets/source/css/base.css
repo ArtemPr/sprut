@@ -1,3 +1,8 @@
+.header {
+	position: relative;
+	z-index: 1035;
+}
+
 .header .container-fluid {
 	-webkit-box-pack: start;
 	-ms-flex-pack: start;
@@ -15,13 +20,21 @@
 
 @media (min-width: 992px) {
 	.page-layout > .navbar-vertical.navbar-expand-lg {
-		top: 64px;
-		padding-top: 6px;
+		padding-top: 70px;
 	}
 }
 
 .navbar-nav .nav-item.active > a {
 	background-color: rgba(32, 107, 196, 0.25);
+}
+
+.is-touch-device .page-link:hover {
+	z-index: 3;
+	color: #1a569d;
+	background-color: #e2e8f0;
+	outline: 0;
+	-webkit-box-shadow: 0 0 0 0.25rem rgba(32, 107, 196, 0.25);
+	box-shadow: 0 0 0 0.25rem rgba(32, 107, 196, 0.25);
 }
 
 .dual-listbox {
@@ -222,6 +235,120 @@
 
 .multi-steps-form__btn:last-child {
 	margin-right: 0;
+}
+
+/* regular tree */
+.regular-tree {
+	margin-top: 15px;
+	margin-bottom: 20px;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	-moz-user-select: none;
+}
+
+.regular-tree > details > summary {
+	display: none;
+}
+
+.regular-tree a,
+.regular-tree summary {
+	display: block;
+	width: -webkit-fit-content;
+	width: fit-content;
+	width: -moz-fit-content;
+	border: solid 1px transparent;
+	padding: 0 2px;
+	outline: none;
+	cursor: pointer;
+}
+
+.regular-tree a {
+	text-decoration: none;
+	color: inherit;
+}
+
+.regular-tree ::-webkit-details-marker {
+	display: none;
+}
+
+.regular-tree summary {
+	list-style-type: none;
+	background-color: #eee;
+	outline: none;
+}
+
+.regular-tree.dark summary {
+	background-color: #444;
+}
+
+.regular-tree details > :not(details),
+.regular-tree details {
+	position: relative;
+}
+
+.regular-tree details :not(summary) {
+	margin-left: 20px;
+}
+
+.regular-tree.nodots details :not(summary) {
+	margin-left: 12px;
+}
+
+.regular-tree details::before,
+.regular-tree details > :not(details)::before {
+	content: '';
+	width: 10px;
+	display: block;
+	position: absolute;
+}
+
+.regular-tree details::before,
+.regular-tree details > :not(details)::before {
+	background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 2 2" xmlns="http://www.w3.org/2000/svg"><g><rect x="0" y="0" width="1" height="1"/></g></svg>') left top/2px 2px;
+}
+
+.regular-tree.dark details::before,
+.regular-tree.dark details > :not(summary)::before {
+	background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 2 2" xmlns="http://www.w3.org/2000/svg"><g><rect x="0" y="0" width="1" height="1" fill="white"/></g></svg>');
+}
+
+.regular-tree.nodots details::before,
+.regular-tree.nodots details > :not(summary)::before {
+	background-image: none;
+}
+
+.regular-tree details::before {
+	top: 0;
+	height: 100%;
+	background-repeat: repeat-y;
+	left: 5px;
+	z-index: -1;
+}
+
+.regular-tree details > :not(details)::before {
+	top: 8px;
+	height: calc(100% - 8px);
+	background-repeat: repeat-x;
+	left: -15px;
+}
+
+.regular-tree details > summary::before {
+	background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg"><g><rect x="0" y="0" width="12" height="12" fill="white" stroke="gray" stroke-width="1"/><line x1="3" y1="6" x2="9" y2="6" stroke="black" stroke-width="2"/><line x1="6" y1="3" x2="6" y2="9" stroke="black" stroke-width="2"/></g></svg>') center center/12px 12px no-repeat;
+	left: -22px;
+	top: 2px;
+	width: 16px;
+	height: 16px;
+}
+
+.regular-tree details[open] > summary::before {
+	background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg"><title/><g><rect x="0" y="0" width="12" height="12" fill="white" stroke="gray" stroke-width="1"/><line x1="3" y1="6" x2="9" y2="6" stroke="black" stroke-width="2"/></g></svg>');
+}
+
+.regular-tree .selected {
+	background-color: #beebff;
+	border-color: #99defd;
+	z-index: 1;
 }
 
 /* responsive */

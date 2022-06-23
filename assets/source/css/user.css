@@ -18,15 +18,15 @@ body.user-editing-panel-opened {
 
 .users-table th {
 	position: relative;
-/*  box-sizing: border-box; */
+	padding-right: 25px;
 }
 
 .users-table th .sort-icon {
 	width: 12px;
 	height: 11px;
 	position: absolute;
-	left: 8px;
-	top: 10px;
+	right: 8px;
+	top: 11px;
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: contain;
@@ -187,7 +187,7 @@ body.user-editing-panel-opened {
 .user-form-panel .dual-listbox__available,
 .user-form-panel .dual-listbox__selected {
 	height: 186px !important;
-	background-color: #fafbfc !important;
+	background-color: #d1e1f1 !important;
 }
 
 .user-form-panel .dual-listbox__buttons {
@@ -214,6 +214,15 @@ body.user-editing-panel-opened {
 
 /* responsive */
 @media (max-width: 767px) {
+	.users-table-wrap {
+		max-height: 260px;
+	}
+
+	.users-option-panel {
+		padding-left: 15px;
+		padding-right: 15px;
+	}
+
 	.users-option-panel .d-flex {
 		-ms-flex-wrap: wrap;
 		flex-wrap: wrap;
@@ -231,9 +240,23 @@ body.user-editing-panel-opened {
 		width: 100%;
 		margin-top: 8px;
 	}
+
+	.users-option-panel .btn-group .btn {
+		padding-left: 5px;
+		padding-right: 5px;
+	}
 }
 
 @media (max-width: 639px) {
+	.user-form-panel .form-group.flex-nowrap {
+		-ms-flex-wrap: wrap !important;
+		flex-wrap: wrap !important;
+	}
+
+	.user-form-panel .form-label {
+		width: 100%;
+	}
+
 	.user-photo-col {
 		-webkit-box-flex: 0;
 		-ms-flex: 0 0 100%;
@@ -243,6 +266,8 @@ body.user-editing-panel-opened {
 
 	.user-photo-box {
 		width: 140px;
+		margin-top: 15px;
+		margin-bottom: 15px;
 	}
 }
 
