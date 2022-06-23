@@ -34,9 +34,13 @@ class MasterProgram
     #[ORM\ManyToMany(targetEntity: FederalStandart::class)]
     private $federal_standart;
 
+    #[ORM\ManyToMany(targetEntity: FederalStandartCompetencies::class)]
+    private $federal_standart_competencies;
+
     public function __construct()
     {
         $this->federal_standart = new ArrayCollection();
+        $this->federal_standart_competencies = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -148,6 +152,30 @@ class MasterProgram
     public function removeFederalStandart(FederalStandart $federalStandart): self
     {
         $this->federal_standart->removeElement($federalStandart);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, FederalStandartCompetencies>
+     */
+    public function getFederalStandartCompetencies(): Collection
+    {
+        return $this->federal_standart_competencies;
+    }
+
+    public function addFederalStandartCompetency(FederalStandartCompetencies $federalStandartCompetency): self
+    {
+        if (!$this->federal_standart_competencies->contains($federalStandartCompetency)) {
+            $this->federal_standart_competencies[] = $federalStandartCompetency;
+        }
+
+        return $this;
+    }
+
+    public function removeFederalStandartCompetency(FederalStandartCompetencies $federalStandartCompetency): self
+    {
+        $this->federal_standart_competencies->removeElement($federalStandartCompetency);
 
         return $this;
     }
