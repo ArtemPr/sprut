@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\MasterProgramRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: MasterProgramRepository::class)]
@@ -28,6 +30,14 @@ class MasterProgram
 
     #[ORM\Column(type: 'integer', nullable: true)]
     private $length_week_short;
+
+    #[ORM\ManyToMany(targetEntity: FederalStandart::class)]
+    private $federal_standart;
+
+    public function __construct()
+    {
+        $this->federal_standart = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -114,6 +124,30 @@ class MasterProgram
     public function setLengthWeekShort(?int $length_week_short): self
     {
         $this->length_week_short = $length_week_short;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, FederalStandart>
+     */
+    public function getFederalStandart(): Collection
+    {
+        return $this->federal_standart;
+    }
+
+    public function addFederalStandart(FederalStandart $federalStandart): self
+    {
+        if (!$this->federal_standart->contains($federalStandart)) {
+            $this->federal_standart[] = $federalStandart;
+        }
+
+        return $this;
+    }
+
+    public function removeFederalStandart(FederalStandart $federalStandart): self
+    {
+        $this->federal_standart->removeElement($federalStandart);
 
         return $this;
     }
