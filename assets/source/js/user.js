@@ -17,6 +17,7 @@ const userTableRows = document.querySelectorAll(".user-table-row");
 const userEditingPanel = document.querySelector("#userEditingPanel");
 const userEditingPanelCloser = document.querySelector("#jsEditingPanelCloser");
 const userEditingOverlay = document.querySelector("#userEditingOverlay");
+const userCreationPanel = document.querySelector("#userCreationPanel");
 
 if (isTouchDevice()) {
     body.classList.add("is-touch-device");

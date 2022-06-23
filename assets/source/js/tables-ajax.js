@@ -11,14 +11,6 @@ let selectOnPage = document.querySelector('#on_page_selector');
 let sortIcons = document.querySelectorAll('.sort-icon');
 let paginationLinks = document.querySelectorAll('.page-link');
 
-if (selectOnPage) {
-    selectOnPage.addEventListener('change', function () {
-        selectValue = selectOnPage.value;
-        tableUrl = `${location.protocol}//${location.host}/administrator/kafedra?on_page=${selectValue}&ajax=true`;
-        getTableData(tableUrl);
-    })
-}
-
 // при обновлении таблицы надо заново навешивать события на новую пагинацию
 function setPaginationListeners() {
     paginationLinks = document.querySelectorAll('.page-link');
@@ -50,8 +42,27 @@ function setSortListeners() {
     })
 }
 
-if (sortIcons) {
-    setSortListeners();
+function manageRows() {
+    let allRows = document.querySelectorAll('.user-table-row');
+    if (allRows.length > 0) {
+        allRows.forEach(row => {
+            row.addEventListener('click', function(){
+                allRows.forEach(rowDeep => {
+                    rowDeep.classList.remove('is-selected');
+                })
+                //    console.log(this);
+                this.classList.add('is-selected');
+
+              //  this.querySelector(".selected-checkbox").checked = true ???;
+
+                row.addEventListener('dblclick', function(){
+                    body.classList.add("user-editing-panel-opened");
+                    userEditingPanel.classList.add("show");
+                    userEditingOverlay.classList.add("show");
+                })
+            })
+        })
+    }
 }
 
 // получаем данные, заменяем таблицу, пишем запрос в адресную строку, заново вешаем слушатели
@@ -66,12 +77,36 @@ async function getTableData(tableUrl) {
     }
     setPaginationListeners();
     history.pushState('', '', tableUrl);
+    manageRows();
+}
+
+if (selectOnPage) {
+    selectOnPage.addEventListener('change', function () {
+        selectValue = selectOnPage.value;
+        tableUrl = `${location.protocol}//${location.host}/administrator/kafedra?on_page=${selectValue}&ajax=true`;
+        getTableData(tableUrl);
+    })
+}
+
+if (sortIcons) {
+    setSortListeners();
 }
 
 // работа с формой Создать
 
 const btn_form = document.querySelector('button[data-action="send-form"]');
 const addItemForm = document.querySelector('.form-create');
+const userEditingPanel = document.querySelector("#userEditingPanel");
+const userEditingOverlay = document.querySelector("#userEditingOverlay");
+const userCreationPanel = document.querySelector('#userCreationPanel');
+const body = document.querySelector("body");
+
+/*чтобы скрыть форму по submit меняем аттрибуты кнопки
+https://getbootstrap.com/docs/5.2/components/offcanvas/
+<button data-form-id="kafedra-create" data-action="send-form" type="submit"
+class="btn btn-primary ms-auto"
+!!! data-bs-dismiss="offcanvas" aria-label="Close" !!!
+>Сохранить </button>*/
 
 if (addItemForm && btn_form) {
     addItemForm.addEventListener('submit', async function (event) {
@@ -80,15 +115,29 @@ if (addItemForm && btn_form) {
         if (form_id !== undefined) {
             const sectionName = form_id.split('-')[0];
             let data = new FormData(addItemForm);
+
+            // fetch POST
             if (sectionName) {
                 let response = await fetch(`/api/${sectionName}`, {
                     method: 'POST',
                     body: data,
                 })
                 let result = await response.json();
-                if (result == "success") {
-                    console.log('succes post!');
-                    getTableData(tableUrl);
+                console.log(result)
+                if (result.result === "success") {
+                    console.log('success post!');
+                        await getTableData(tableUrl);
+                        // находим созданную строку по id и выделяем
+                        let rowId = result.id;
+                        let activeRow = document.querySelector(`[data-string="${rowId}"]`);
+                    if (activeRow) {
+                        let firstRow = document.querySelector('.user-table-row');
+                        if (firstRow) {
+                            firstRow.classList.remove('is-selected');
+                        }
+                        activeRow.classList.add('is-selected');
+                        activeRow.scrollIntoView({block: "center", behavior: "smooth"});
+                    }
                 }
             }
         }
