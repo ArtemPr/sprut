@@ -138,6 +138,7 @@
                                             <th>Статус <a class="sort-icon is-desc" href="#"></a></th>
                                             <th>ID <a class="sort-icon is-desc" href="#"></a></th>
                                             <th>Тип <a class="sort-icon is-both" href="#"></a></th>
+                                            <th>Дополнительная <br />общеобразовательная <br />программа ПК или ПП <a class="sort-icon is-both" href="#"></a></th>
                                             <th>Название <a class="sort-icon is-both" href="#"></a></th>
                                             <th class="hidden-cell"></th>
                                         </tr>
@@ -152,11 +153,14 @@
                                                 <td>
                                                     {{ program.id }}
                                                 </td>
-                                                <td>
+                                                <td style="text-align: center">
                                                     {{ program.program_type.short_name_type|default(false) }}
                                                 </td>
+                                                <td style="text-align: center">
+                                                    нет
+                                                </td>
                                                 <td>
-                                                    <b>{{ program.name|raw }}</b>
+                                                    {{ program.name|raw }}
                                                 </td>
                                                 <td class="hidden-cell">
                                                     <input class="selected-checkbox" type="checkbox" name="#" checked>
