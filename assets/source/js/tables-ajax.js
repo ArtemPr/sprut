@@ -86,7 +86,7 @@ if (addItemForm && btn_form) {
                     body: data,
                 })
                 let result = await response.json();
-                if (result == "succes") {
+                if (result == "success") {
                     console.log('succes post!');
                     getTableData(tableUrl);
                 }
