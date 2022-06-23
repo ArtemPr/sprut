@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\MasterProgramRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: MasterProgramRepository::class)]
@@ -28,6 +30,25 @@ class MasterProgram
 
     #[ORM\Column(type: 'integer', nullable: true)]
     private $length_week_short;
+
+    #[ORM\ManyToMany(targetEntity: FederalStandart::class)]
+    private $federal_standart;
+
+    #[ORM\ManyToMany(targetEntity: FederalStandartCompetencies::class)]
+    private $federal_standart_competencies;
+
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    private $additional_flag;
+
+    #[ORM\ManyToMany(targetEntity: ProfStandarts::class)]
+    private $prof_standarts;
+
+    public function __construct()
+    {
+        $this->federal_standart = new ArrayCollection();
+        $this->federal_standart_competencies = new ArrayCollection();
+        $this->prof_standarts = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -114,6 +135,90 @@ class MasterProgram
     public function setLengthWeekShort(?int $length_week_short): self
     {
         $this->length_week_short = $length_week_short;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, FederalStandart>
+     */
+    public function getFederalStandart(): Collection
+    {
+        return $this->federal_standart;
+    }
+
+    public function addFederalStandart(FederalStandart $federalStandart): self
+    {
+        if (!$this->federal_standart->contains($federalStandart)) {
+            $this->federal_standart[] = $federalStandart;
+        }
+
+        return $this;
+    }
+
+    public function removeFederalStandart(FederalStandart $federalStandart): self
+    {
+        $this->federal_standart->removeElement($federalStandart);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, FederalStandartCompetencies>
+     */
+    public function getFederalStandartCompetencies(): Collection
+    {
+        return $this->federal_standart_competencies;
+    }
+
+    public function addFederalStandartCompetency(FederalStandartCompetencies $federalStandartCompetency): self
+    {
+        if (!$this->federal_standart_competencies->contains($federalStandartCompetency)) {
+            $this->federal_standart_competencies[] = $federalStandartCompetency;
+        }
+
+        return $this;
+    }
+
+    public function removeFederalStandartCompetency(FederalStandartCompetencies $federalStandartCompetency): self
+    {
+        $this->federal_standart_competencies->removeElement($federalStandartCompetency);
+
+        return $this;
+    }
+
+    public function isAdditionalFlag(): ?bool
+    {
+        return $this->additional_flag;
+    }
+
+    public function setAdditionalFlag(?bool $additional_flag): self
+    {
+        $this->additional_flag = $additional_flag;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ProfStandarts>
+     */
+    public function getProfStandarts(): Collection
+    {
+        return $this->prof_standarts;
+    }
+
+    public function addProfStandart(ProfStandarts $profStandart): self
+    {
+        if (!$this->prof_standarts->contains($profStandart)) {
+            $this->prof_standarts[] = $profStandart;
+        }
+
+        return $this;
+    }
+
+    public function removeProfStandart(ProfStandarts $profStandart): self
+    {
+        $this->prof_standarts->removeElement($profStandart);
 
         return $this;
     }

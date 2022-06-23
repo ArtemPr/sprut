@@ -69,14 +69,20 @@ class MasterProgramRepository extends ServiceEntityRepository
 
         $max_result = (!empty($max_result) && $max_result > 1) ? $max_result : self::ON_PAGE;
 
-        $sql = 'SELECT pr, pt
+
+        $sql = 'SELECT pr, pt, fs, fsc
                 FROM App\Entity\MasterProgram pr
-                INNER JOIN pr.program_type pt';
+                LEFT JOIN pr.program_type pt
+                LEFT JOIN pr.federal_standart fs
+                LEFT JOIN pr.federal_standart_competencies fsc
+                ';
 
         if (!empty($param['order'])) {
             $col = array_key_first($param['order']);
             $type_sort = ucfirst($param['order'][$col]);
             $sql .= 'ORDER BY pr.'.$col.' '.$type_sort;
+        } else {
+            $sql .= 'ORDER BY pr.id DESC';
         }
 
         $query_item = $entityManager->createQuery($sql)

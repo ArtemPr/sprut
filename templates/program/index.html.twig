@@ -30,24 +30,24 @@
                             <option value="5">ФГОС 5</option>
                         </select>
                     </div>
-                    <div class="editable-tree-wrap">
-                        <div class="editable-tree-buttons mb-2">
+                    <div class="regular-tree-wrap">
+                        <div class="regular-tree-buttons mb-2">
                             <div class="btn-group w-100">
-                                <button class="js-create-node-tree btn" role="button">
+                                <a class="btn" data-bs-toggle="offcanvas" href="#userCreationPanel" role="button" aria-controls="offcanvasEnd">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="m-0 icon icon-tabler icon-tabler-plus" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                         <line x1="12" y1="5" x2="12" y2="19" />
                                         <line x1="5" y1="12" x2="19" y2="12" />
                                     </svg>
-                                </button>
-                                <button class="js-edit-node-tree btn" role="button">
+                                </a>
+                                <a class="btn" data-bs-toggle="offcanvas" href="#userEditingPanel" role="button" aria-controls="offcanvasEnd">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="m-0 icon icon-tabler icon-tabler-pencil" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                         <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
                                         <line x1="13.5" y1="6.5" x2="17.5" y2="10.5" />
                                     </svg>
-                                </button>
-                                <button class="js-remove-node-tree btn" role="button">
+                                </a>
+                                <a class="btn" data-bs-toggle="modal" data-bs-target="#userRemoveModal" href="#">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="m-0 icon icon-tabler icon-tabler-trash" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                         <line x1="4" y1="7" x2="20" y2="7" />
@@ -56,26 +56,25 @@
                                         <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
                                         <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
                                     </svg>
-                                </button>
+                                </a>
                             </div>
                         </div>
-                        <div class="editable-tree">
-                            <ul>
-                                <li>Категория 1
-                                    <ul>
-                                        <li>Программа 1</li>
-                                        <li>Программа 2</li>
-                                        <li>Программа 3</li>
-                                    </ul>
-                                </li>
-                                <li>Категория 2
-                                    <ul>
-                                        <li>Программа 1</li>
-                                        <li>Программа 2</li>
-                                        <li>Программа 3</li>
-                                    </ul>
-                                </li>
-                            </ul>
+                        <div class="regular-tree">
+                            <details open>
+                                <summary></summary>
+                                <details open>
+                                    <summary>Категория 1</summary>
+                                    <a class="can-select" href="#">Программа 1</a>
+                                    <a class="can-select" href="#">Программа 2</a>
+                                    <a class="can-select" href="#">Программа 3</a>
+                                </details>
+                                <details>
+                                    <summary>Категория 2</summary>
+                                    <a class="can-select" href="#">Программа 1</a>
+                                    <a class="can-select" href="#">Программа 2</a>
+                                    <a class="can-select" href="#">Программа 3</a>
+                                </details>
+                            </details>
                         </div>
                     </div>
                 </div>
@@ -139,6 +138,7 @@
                                             <th>Статус <a class="sort-icon is-desc" href="#"></a></th>
                                             <th>ID <a class="sort-icon is-desc" href="#"></a></th>
                                             <th>Тип <a class="sort-icon is-both" href="#"></a></th>
+                                            <th>Дополнительная <br />общеобразовательная <br />программа ПК или ПП <a class="sort-icon is-both" href="#"></a></th>
                                             <th>Название <a class="sort-icon is-both" href="#"></a></th>
                                             <th class="hidden-cell"></th>
                                         </tr>
@@ -153,11 +153,14 @@
                                                 <td>
                                                     {{ program.id }}
                                                 </td>
-                                                <td>
+                                                <td style="text-align: center">
                                                     {{ program.program_type.short_name_type|default(false) }}
                                                 </td>
+                                                <td style="text-align: center">
+                                                    нет
+                                                </td>
                                                 <td>
-                                                    <b>{{ program.name|raw }}</b>
+                                                    {{ program.name|raw }}
                                                 </td>
                                                 <td class="hidden-cell">
                                                     <input class="selected-checkbox" type="checkbox" name="#" checked>
