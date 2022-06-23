@@ -49,31 +49,31 @@
             </div>
         </div>
     </div>
-    <script>
-        var btn_form = document.querySelector('button[data-action="send-form"]');
+    {#    <script> #}
+    {#        var btn_form = document.querySelector('button[data-action="send-form"]'); #}
 
-        if (btn_form !== null) {
-            btn_form.addEventListener("click",
-                function (e) {
-                    let form_id = this.getAttribute('data-form-id');
-                    if (form_id !== undefined) {
-                        let form = document.querySelector('#' + form_id);
-                        let data = new FormData(form);
+    {#        if (btn_form !== null) { #}
+    {#            btn_form.addEventListener("click", #}
+    {#                function (e) { #}
+    {#                    let form_id = this.getAttribute('data-form-id'); #}
+    {#                    if (form_id !== undefined) { #}
+    {#                        let form = document.querySelector('#' + form_id); #}
+    {#                        let data = new FormData(form); #}
 
-                        return fetch('/api/kafedra', {
-                            method: 'POST',
-                            body: data,
-                        })
-                            .then(function (response) {
-                                return response.text();
-                            })
-                            .then(function (data) {
+    {#                        return fetch('/api/kafedra', { #}
+    {#                            method: 'POST', #}
+    {#                            body: data, #}
+    {#                        }) #}
+    {#                            .then(function (response) { #}
+    {#                                return response.text(); #}
+    {#                            }) #}
+    {#                            .then(function (data) { #}
 
-                            });
-                    }
-                }
-            );
-        }
+    {#                            }); #}
+    {#                    } #}
+    {#                } #}
+    {#            ); #}
+    {#        } #}
 
-    </script>
+    {#    </script> #}
 {% endblock %}
