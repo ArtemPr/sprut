@@ -63,18 +63,19 @@ class MasterProgramRepository extends ServiceEntityRepository
      *
      * @return array
      */
-    public function getProgramList(int $page = 0, int|null $max_result = 0, string|null $param = null): array|null
+    public function getProgramList(int $page = 0, int|null $max_result = 0, array|null $param = null): array|null
     {
         $entityManager = $this->getEntityManager();
 
         $max_result = (!empty($max_result) && $max_result > 1) ? $max_result : self::ON_PAGE;
 
 
-        $sql = 'SELECT pr, pt, fs, fsc
+        $sql = 'SELECT pr, pt, fs, fsc, ps
                 FROM App\Entity\MasterProgram pr
                 LEFT JOIN pr.program_type pt
                 LEFT JOIN pr.federal_standart fs
                 LEFT JOIN pr.federal_standart_competencies fsc
+                LEFT JOIN pr.prof_standarts ps
                 ';
 
         if (!empty($param['order'])) {
