@@ -37,6 +37,9 @@ class MasterProgram
     #[ORM\ManyToMany(targetEntity: FederalStandartCompetencies::class)]
     private $federal_standart_competencies;
 
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    private $additional_flag;
+
     public function __construct()
     {
         $this->federal_standart = new ArrayCollection();
@@ -176,6 +179,18 @@ class MasterProgram
     public function removeFederalStandartCompetency(FederalStandartCompetencies $federalStandartCompetency): self
     {
         $this->federal_standart_competencies->removeElement($federalStandartCompetency);
+
+        return $this;
+    }
+
+    public function isAdditionalFlag(): ?bool
+    {
+        return $this->additional_flag;
+    }
+
+    public function setAdditionalFlag(?bool $additional_flag): self
+    {
+        $this->additional_flag = $additional_flag;
 
         return $this;
     }
