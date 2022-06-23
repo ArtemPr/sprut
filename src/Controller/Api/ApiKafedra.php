@@ -48,8 +48,9 @@ class ApiKafedra extends AbstractController
         $entityManager = $this->doctrine->getManager();
         $entityManager->persist($kafedra);
         $entityManager->flush();
+        $lastId = $kafedra->getId();
 
-        return $this->json(['succes']);
+        return $this->json(['result' => 'success', 'id'=>$lastId]);
     }
 
     public function update()
