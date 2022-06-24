@@ -8,7 +8,7 @@
 
             <div class="ms-auto d-flex align-items-center">
                 <div>По</div>
-                <select class="form-select ms-2" id="on_page_selector">
+                <select class="form-select ms-2" id="on_page_selector" data-path="{{ onpage_link|default(false) }}">
                     <option value="5" {% if pager.on_page|default(false) and pager.on_page == 5 %}selected{% endif %}>
                         5
                     </option>
