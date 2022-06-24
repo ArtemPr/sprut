@@ -22,6 +22,7 @@ Encore
         config.useBuiltIns = 'usage';
         config.corejs = 3;
     })
-    .enableVueLoader()
+    .enableSassLoader()
+ //   .enableVueLoader()
 ;
 module.exports = Encore.getWebpackConfig();

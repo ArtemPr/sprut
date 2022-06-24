@@ -10,11 +10,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     const sectionName = selectOnPage.getAttribute('data-path');
     let sortIcons = document.querySelectorAll('.sort-icon');
     let paginationLinks = document.querySelectorAll('.page-link');
+    let allRows = document.querySelectorAll('.user-table-row');
     let tableUrl = `${location.protocol}//${location.host}${sectionName}?ajax=true&&on_page=${selectValue}`;
-
-// function clearOldListeners() {
-//     sortIcons.forEach(sortIcon => sortIcon.removeEventListener('click'));
-// }
 
 // функции обработки кликов
     function paginationClicker(event) {
@@ -40,16 +37,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
             rowDeep.classList.remove('is-selected');
         })
         this.classList.add('is-selected');
-
-        //  this.querySelector(".selected-checkbox").checked = true ???;
-        if (body && userEditingPanel && userEditingOverlay) {
-            row.addEventListener('dblclick', function(){
-                body.classList.add("user-editing-panel-opened");
-                userEditingPanel.classList.add("show");
-                userEditingOverlay.classList.add("show");
-            })
-        }
     }
+
+    function rowsDoubleClicker() {
+        body.classList.add("user-editing-panel-opened");
+        userEditingPanel.classList.add("show");
+        userEditingOverlay.classList.add("show");
+    }
+
 
 // при обновлении таблицы надо заново навешивать события на новые элементы
     function setPaginationListeners() {
@@ -71,24 +66,55 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }
 
     function manageRows() {
-        let allRows = document.querySelectorAll('.user-table-row');
+        allRows = document.querySelectorAll('.user-table-row');
         if (allRows.length > 0) {
             allRows.forEach(row => {
                 row.addEventListener('click', rowsClicker)
+                row.addEventListener('dblclick', rowsDoubleClicker)
             })
         }
     }
+
+    // снимаем слушатели событий, чтобы не перегружать память
+    function clearOldListeners() {
+        if(sortIcons) {
+            sortIcons.forEach(sortIcon => {
+                sortIcon.removeEventListener('click', sortClicker)
+            })
+        }
+        if (paginationLinks) {
+            paginationLinks.forEach(paginationLink => {
+                paginationLink.removeEventListener('click',  paginationClicker)
+            })
+        }
+        if (allRows) {
+            allRows.forEach(row => {
+                row.removeEventListener('click', rowsClicker);
+                row.removeEventListener('click', rowsDoubleClicker);
+            })
+        }
+}
 
 // получаем данные, заменяем таблицу, пишем запрос в адресную строку, заново вешаем слушатели
     async function getTableData(tableUrl) {
         let data = await fetch(tableUrl).then((result) => result.text());
         if (ajaxTable) {
+            clearOldListeners();
             ajaxTable.innerHTML = data;
         }
         setSortListeners();
         setPaginationListeners();
-        history.pushState('', '', tableUrl);
         manageRows();
+
+        let urlArr = tableUrl.split('&');
+        if( urlArr.includes('ajax=true')) {
+            let ajaxIndex = urlArr.indexOf('ajax=true');
+            urlArr.splice(ajaxIndex, 1);
+            let urlString = urlArr.join('&');
+            history.pushState('', '', urlString);
+        } else {
+            history.pushState('', '', tableUrl);
+        }
     }
 
 // начало сценария

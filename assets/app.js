@@ -19,3 +19,5 @@ import './source/js/dual.listbox.min'
 import './source/js/user'
 import './source/js/action'
 import './source/js/tables-ajax'
+
+import './source/sass/main.scss';
