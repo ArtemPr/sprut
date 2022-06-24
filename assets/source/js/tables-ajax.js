@@ -17,7 +17,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
     function paginationClicker(event) {
         event.preventDefault();
         let paginationLinkData = this.getAttribute('href');
-        getTableData(paginationLinkData);
+        console.log('paginationLinkData ', paginationLinkData);
+        if (paginationLinkData.includes('ajax=true')) {
+            tableUrl = paginationLinkData;
+        } else {
+            tableUrl = `${paginationLinkData}&ajax=true`;
+        }
+        getTableData(tableUrl);
     }
 
     function sortClicker(event) {
@@ -97,6 +103,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 // получаем данные, заменяем таблицу, пишем запрос в адресную строку, заново вешаем слушатели
     async function getTableData(tableUrl) {
+        console.log(tableUrl);
         let data = await fetch(tableUrl).then((result) => result.text());
         if (ajaxTable) {
             clearOldListeners();
@@ -129,6 +136,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
     if (sortIcons) {
         setSortListeners();
     }
+
+    if (paginationLinks) {
+        setPaginationListeners();
+    }
+
 
 // работа с формой Создать
 
