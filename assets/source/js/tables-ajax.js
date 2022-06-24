@@ -103,7 +103,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 // получаем данные, заменяем таблицу, пишем запрос в адресную строку, заново вешаем слушатели
     async function getTableData(tableUrl) {
-        console.log(tableUrl);
+        console.log('tableUrl ',tableUrl);
         let data = await fetch(tableUrl).then((result) => result.text());
         if (ajaxTable) {
             clearOldListeners();
@@ -113,11 +113,20 @@ document.addEventListener("DOMContentLoaded", function(event) {
         setPaginationListeners();
         manageRows();
 
-        let urlArr = tableUrl.split('&');
-        if( urlArr.includes('ajax=true')) {
-            let ajaxIndex = urlArr.indexOf('ajax=true');
-            urlArr.splice(ajaxIndex, 1);
-            let urlString = urlArr.join('&');
+        let urlArr = tableUrl.split('?');
+        if(urlArr.length > 1) {
+            let urlTail = urlArr[1];
+            let urlTailArr = urlTail.split('&');
+       //     console.log('urlTailArr ',urlTailArr);
+            for(let i = 0; i < urlTailArr.length; i++) {
+                if(urlTailArr.includes('ajax=true')){
+                    let ajaxIndex = urlTailArr.indexOf('ajax=true');
+                    urlTailArr.splice(ajaxIndex, 1);
+                }
+            }
+            urlTailArr = urlTailArr.join('&');
+            let urlString = urlArr[0] +'?'+ urlTailArr;
+        //    console.log('scary url');
             history.pushState('', '', urlString);
         } else {
             history.pushState('', '', tableUrl);
@@ -150,6 +159,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
     const userEditingOverlay = document.querySelector("#userEditingOverlay");
     const userCreationPanel = document.querySelector('#userCreationPanel');
     const body = document.querySelector("body");
+
+    if (btn_form) {
+        btn_form.disabled = true;
+    }
+
+    let inputName = document.querySelector('input[name="name"]');
+    if(inputName && btn_form) {
+        inputName.addEventListener('input', function(){
+            inputName.value.length === 0 ? btn_form.disabled = true : btn_form.disabled = false;
+        })
+    }
 
     /*чтобы скрыть форму по submit меняем аттрибуты кнопки
     https://getbootstrap.com/docs/5.2/components/offcanvas/
