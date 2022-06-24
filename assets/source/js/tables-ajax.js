@@ -11,56 +11,69 @@ let selectOnPage = document.querySelector('#on_page_selector');
 let sortIcons = document.querySelectorAll('.sort-icon');
 let paginationLinks = document.querySelectorAll('.page-link');
 
-// при обновлении таблицы надо заново навешивать события на новую пагинацию
-function setPaginationListeners() {
-    paginationLinks = document.querySelectorAll('.page-link');
-    if (paginationLinks) {
-        paginationLinks.forEach(paginationLink => {
-            paginationLink.addEventListener('click', function (event) {
-                event.preventDefault();
-                let paginationLinkData = paginationLink.getAttribute('href');
-                getTableData(paginationLinkData);
-            })
+// function clearOldListeners() {
+//     sortIcons.forEach(sortIcon => sortIcon.removeEventListener('click'));
+// }
+
+// функции обработки кликов
+function paginationClicker(event) {
+    event.preventDefault();
+    let paginationLinkData = this.getAttribute('href');
+    getTableData(paginationLinkData);
+}
+
+function sortClicker(event) {
+    event.preventDefault();
+    let hrefData = this.getAttribute('href');
+    let hrefDataArr = hrefData.split('&');
+    if (hrefDataArr.includes('ajax=true')) {
+        tableUrl = hrefData;
+    } else {
+        tableUrl = `${hrefData}&ajax=true`;
+    }
+    getTableData(tableUrl);
+}
+
+function rowsClicker() {
+    allRows.forEach(rowDeep => {
+        rowDeep.classList.remove('is-selected');
+    })
+    this.classList.add('is-selected');
+
+    //  this.querySelector(".selected-checkbox").checked = true ???;
+    if (body && userEditingPanel && userEditingOverlay) {
+        row.addEventListener('dblclick', function(){
+            body.classList.add("user-editing-panel-opened");
+            userEditingPanel.classList.add("show");
+            userEditingOverlay.classList.add("show");
         })
     }
 }
 
-// при обновлении таблицы надо заново навешивать события на новые стрелочки
-function setSortListeners() {
-    sortIcons.forEach(sortIcon => {
-        sortIcon.addEventListener('click', function (event) {
-            event.preventDefault();
-            let hrefData = sortIcon.getAttribute('href');
-            let hrefDataArr = hrefData.split('&');
-            if (hrefDataArr.includes('ajax=true')) {
-                tableUrl = hrefData;
-            } else {
-                tableUrl = `${hrefData}&ajax=true`;
-            }
-            getTableData(tableUrl);
+// при обновлении таблицы надо заново навешивать события на новые элементы
+function setPaginationListeners() {
+    paginationLinks = document.querySelectorAll('.page-link');
+    if (paginationLinks) {
+        paginationLinks.forEach(paginationLink => {
+            paginationLink.addEventListener('click',  paginationClicker)
         })
-    })
+    }
+}
+
+function setSortListeners() {
+    sortIcons = document.querySelectorAll('.sort-icon');
+    if(sortIcons) {
+        sortIcons.forEach(sortIcon => {
+            sortIcon.addEventListener('click', sortClicker)
+        })
+    }
 }
 
 function manageRows() {
     let allRows = document.querySelectorAll('.user-table-row');
     if (allRows.length > 0) {
         allRows.forEach(row => {
-            row.addEventListener('click', function(){
-                allRows.forEach(rowDeep => {
-                    rowDeep.classList.remove('is-selected');
-                })
-                //    console.log(this);
-                this.classList.add('is-selected');
-
-              //  this.querySelector(".selected-checkbox").checked = true ???;
-
-                row.addEventListener('dblclick', function(){
-                    body.classList.add("user-editing-panel-opened");
-                    userEditingPanel.classList.add("show");
-                    userEditingOverlay.classList.add("show");
-                })
-            })
+            row.addEventListener('click', rowsClicker)
         })
     }
 }
@@ -71,15 +84,13 @@ async function getTableData(tableUrl) {
     if (ajaxTable) {
         ajaxTable.innerHTML = data;
     }
-    sortIcons = document.querySelectorAll('.sort-icon');
-    if (sortIcons) {
-        setSortListeners();
-    }
+    setSortListeners();
     setPaginationListeners();
     history.pushState('', '', tableUrl);
     manageRows();
 }
 
+// начало сценария
 if (selectOnPage) {
     selectOnPage.addEventListener('change', function () {
         selectValue = selectOnPage.value;
