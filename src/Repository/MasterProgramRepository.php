@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\MasterProgram;
+use App\Entity\ProgramType;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
@@ -70,6 +71,36 @@ class MasterProgramRepository extends ServiceEntityRepository
         $max_result = (!empty($max_result) && $max_result > 1) ? $max_result : self::ON_PAGE;
 
 
+        $sql = 'SELECT pr, pt
+                FROM App\Entity\MasterProgram pr
+                LEFT JOIN pr.program_type pt
+                ';
+
+        if (!empty($param['order'])) {
+            $col = array_key_first($param['order']);
+            $type_sort = ucfirst($param['order'][$col]);
+            $sql .= 'ORDER BY pr.'.$col.' '.$type_sort;
+        } else {
+            $sql .= 'ORDER BY pr.id DESC';
+        }
+
+        $query_item = $entityManager->createQuery($sql)
+            ->setMaxResults($max_result)
+            ->setFirstResult($page * $max_result);
+
+        return $query_item->getResult(Query::HYDRATE_ARRAY) ?? [];
+    }
+
+
+    public function getProgramListInterface(int $page = 0, int|null $max_result = 0, array|null $param = null): array|null
+    {
+        $entityManager = $this->getEntityManager();
+        $max_result = (!empty($max_result) && $max_result > 1) ? $max_result : self::ON_PAGE;
+
+        if($page > 0) {
+            $page = $page-1;
+        }
+
         $sql = 'SELECT pr, pt, fs, fsc, ps
                 FROM App\Entity\MasterProgram pr
                 LEFT JOIN pr.program_type pt
@@ -90,7 +121,9 @@ class MasterProgramRepository extends ServiceEntityRepository
             ->setMaxResults($max_result)
             ->setFirstResult($page * $max_result);
 
-        return $query_item->getResult(Query::HYDRATE_ARRAY) ?? [];
+        $r = $query_item->getResult(Query::HYDRATE_ARRAY) ?? [];
+
+        return $r;
     }
 
     public function getProgram(int $id): array|null

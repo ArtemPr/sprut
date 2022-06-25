@@ -7,6 +7,7 @@ namespace App\Controller;
 
 use App\Entity\MasterProgram;
 use App\Entity\ProgramType;
+use App\Service\LinkService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,6 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ProgramController extends AbstractController
 {
+    use LinkService;
     public function __construct(
         private ManagerRegistry $managerRegistry
     )
@@ -35,15 +37,42 @@ class ProgramController extends AbstractController
         }
 
         $program_type = $this->managerRegistry->getRepository(ProgramType::class)->findAll();
-        $program_list = $this->managerRegistry->getRepository(MasterProgram::class)->getProgramList((int)$page, (int)$on_page, $sort);
+        $program_list = $this->managerRegistry->getRepository(MasterProgram::class)->getProgramListInterface((int)$page, (int)$on_page, $sort);
         $count = $this->managerRegistry->getRepository(MasterProgram::class)->getApiProgramInfo();
+        $count = $count['count_program'] ?? 0;
 
+
+        $tpl = $request->get('ajax') ? '/program/program_table.html.twig' : '/program/index.html.twig' ;
+
+
+        $table = [
+            ['', '', '', true],
+            ['', 'Статус', 'bool', true],
+            ['id', 'ID', 'string', true],
+            ['program_type.id', 'Тип', 'string', true],
+            ['additional_flag', 'Дополнительная<br /> общеобразовательная<br /> программа ПК или ПП', 'string', true],
+            ['name', 'Название', 'string', true],
+            ['federal_standart', 'ФГОС', 'string', true],
+            ['prof_standarts', 'ПС', 'string', true],
+        ];
 
         return $this->render(
-            '/program/index.html.twig',
+            $tpl,
             [
                 'data' => $program_list,
-                'program_type' => $program_type
+                'program_type' => $program_type,
+                'pager' => [
+                    'count_all_position' => $count,
+                    'current_page' => $page,
+                    'count_page' => (int)ceil($count / $on_page),
+                    'paginator_link' => $this->getParinatorLink(),
+                    'on_page' => $on_page
+                ],
+                'table' => $table,
+                'sort' => [
+                    'sort_link' => $this->getSortLink(),
+                    'current_sort' => $request->get('sort') ?? null,
+                ],
             ]
         );
     }
