@@ -81,18 +81,8 @@
             </div>
         </aside>
         <div class="page-wrapper">
-            <div class="container-fluid">
-                <!-- Page title -->
-                <div class="page-header d-print-none">
-                    <div class="row g-2 align-items-center">
-                        <div class="col d-flex align-items-center">
-                            <!-- Page pre-title -->
-                            <h2 class="page-title">
-                                Программы
-                            </h2>
-                        </div>
-                    </div>
-                </div>
+            <div class="container-xl">
+                {% include 'administrator/block/header_list.html.twig' with {'header': 'Программы', 'onpage_link': path('program')} %}
             </div>
             <div class="page-body">
                 <div class="container-fluid">
@@ -101,6 +91,7 @@
                         <div class="col-12">
 
                             <div class="card">
+
                                 <div class="users-option-panel card-body border-bottom py-3">
                                     <div class="d-flex align-items-center mb-0">
                                         <form class="is-left-col input-group input-group-flat me-2" action="#" name="search">
@@ -131,93 +122,14 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="users-table-wrap table-responsive">
-                                    <table id="usersTable" class="users-table table card-table table-vcenter datatable">
-                                        <thead>
-                                        <tr>
-                                            <th>Статус <a class="sort-icon is-desc" href="#"></a></th>
-                                            <th>ID <a class="sort-icon is-desc" href="#"></a></th>
-                                            <th>Тип <a class="sort-icon is-both" href="#"></a></th>
-                                            <th>Дополнительная <br />общеобразовательная <br />программа ПК или ПП <a class="sort-icon is-both" href="#"></a></th>
-                                            <th>Название <a class="sort-icon is-both" href="#"></a></th>
-                                            <th>ФГОС <a class="sort-icon is-both" href="#"></a></th>
-                                            <th>ПС <a class="sort-icon is-both" href="#"></a></th>
-                                            <th class="hidden-cell"></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
 
-                                        {% for program in data %}
-                                            <tr class="user-table-row {% if loop.first %}is-selected{% endif %}">
-                                                <td>
-                                                    {% if program.program_type.id == 0 %}
-                                                        <span class="badge bg-red" title="Не указан тип программы" data-bs-toggle="tooltip"></span>
-                                                    {% elseif program.federal_standart|default(false) == false or program.prof_standarts|default(false) == false %}
-                                                        <span class="badge bg-warning" title="Отсутствуют ФГОС и/или профстандарты" data-bs-toggle="tooltip"></span>
-                                                    {% else %}
-                                                        <span class="badge bg-green" title="Программа активна" data-bs-toggle="tooltip"></span>
-                                                    {% endif %}
-                                                </td>
-                                                <td>
-                                                    {{ program.id }}
-                                                </td>
-                                                <td style="text-align: center">
-                                                    {{ program.program_type.short_name_type|default(false) }}
-                                                </td>
-                                                <td style="text-align: center">
-                                                    {% if program.additional_flag == true %}
-                                                        да
-                                                    {% else %}
-                                                        нет
-                                                    {% endif %}
-                                                </td>
-                                                <td>
-                                                    {{ program.name|raw }}
-                                                </td>
-                                                <td>
-                                                        {% if program.federal_standart|default(false) %}
-                                                            {% for fs in program.federal_standart %}
-                                                                <span class="cursor-help text-decoration-underline" title="{{ fs.name|raw }}" data-bs-toggle="tooltip">{{ fs.short_name|raw }}</span>
-                                                            {% endfor %}
-                                                        {% endif %}
-                                                </td>
-                                                <td>
-                                                    {% if program.prof_standarts|default(false) %}
-                                                        {% for ps in program.prof_standarts %}
-                                                            {{ ps.short_name|raw }}
-                                                        {% endfor %}
-                                                    {% endif %}
-                                                </td>
-                                                <td class="hidden-cell">
-                                                    <input class="selected-checkbox" type="checkbox" name="#" checked>
-                                                </td>
-                                            </tr>
-                                        {% endfor %}
-                                        </tbody>
-                                    </table>
+                                <div class="ajax-table">
+                                    {% include '/program/program_table.html.twig' %}
                                 </div>
-                                <div class="card-footer d-flex align-items-center">
-                                    <p class="m-0 text-muted"><b>5</b> результатов</p>
-                                    <ul class="pagination m-0 ms-auto">
-                                        <li class="page-item disabled">
-                                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
-                                                <!-- Download SVG icon from http://tabler-icons.io/i/chevron-left -->
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><polyline points="15 6 9 12 15 18" /></svg>
-                                            </a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">5</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><polyline points="9 6 15 12 9 18" /></svg>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
+
                             </div>
+
+
 
                             <div id="userCreationPanel" class="user-form-panel offcanvas offcanvas-end" tabindex="-1" aria-labelledby="offcanvasEndLabel">
                                 <div class="offcanvas-header">
