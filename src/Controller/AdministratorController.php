@@ -44,12 +44,6 @@ class AdministratorController extends AbstractController
         return $adminDirectoryKafedra->getList();
     }
 
-    #[Route('/kafedra/{id}', name: 'edit_kafedra')]
-    public function getKafedraForm($id, AdminDirectoryKafedra $adminDirectoryKafedra): Response
-    {
-        return $adminDirectoryKafedra->getKafedraForm($id);
-    }
-
     #[Route('/log', name: '_log')]
     public function getLog(AdminLog $adminLog): Response
     {

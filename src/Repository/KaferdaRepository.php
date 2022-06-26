@@ -62,7 +62,6 @@ class KaferdaRepository extends ServiceEntityRepository
         } else {
             $order = 'kafedra.id DESC';
         }
-        dump($order);
         $result = $entityManager->createQuery(
             'SELECT kafedra, director, training_centre
                 FROM App\Entity\Kaferda kafedra
@@ -71,8 +70,8 @@ class KaferdaRepository extends ServiceEntityRepository
                 WHERE kafedra.delete = :delete
                 ORDER BY ' . $order
         )->
-            setParameter('delete', false)->
-            setFirstResult($first_result)
+            setParameter('delete', false)
+            ->setFirstResult($first_result)
             ->setMaxResults($on_page)
             ->getResult(Query::HYDRATE_ARRAY);
 

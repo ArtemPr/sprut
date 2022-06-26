@@ -80,23 +80,19 @@ class ApiKafedra extends AbstractController
         $entityManager = $this->doctrine->getManager();
         $entityManager->persist($kafedra);
         $entityManager->flush();
-        $lastId = $kafedra->getId();
 
-        return $this->json(['result' => 'success', 'id'=>$lastId]);
+        return $this->json(['result' => 'success', 'id'=>$data['id']]);
     }
 
-    public function hide()
+    public function hide($id)
     {
-        $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
-        $data = $request->request->all();
-
-        $kafedra = $this->doctrine->getRepository(Kaferda::class)->find((int)$data['id']);
+        $kafedra = $this->doctrine->getRepository(Kaferda::class)->find((int)$id);
         $kafedra->setDelete(true);
         $entityManager = $this->doctrine->getManager();
         $entityManager->persist($kafedra);
         $entityManager->flush();
 
-        return $this->json(['result' => 'success', 'id'=>$data['id']]);
+        return $this->json(['result' => 'success', 'id'=>$id]);
 
     }
 }

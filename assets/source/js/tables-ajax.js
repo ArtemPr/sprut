@@ -47,8 +47,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     function rowsDoubleClicker() {
         body.classList.add("user-editing-panel-opened");
-        userEditingPanel.classList.add("show");
-        userEditingOverlay.classList.add("show");
+        //userEditingPanel.classList.add("show");
+        //userEditingOverlay.classList.add("show");
+
     }
 
 
@@ -151,38 +152,19 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }
 
 
+
+
 // работа с формой Создать
 
     const btn_form = document.querySelector('button[data-action="send-form"]');
-    const addItemForm = document.querySelector('.form-create');
+    const addItemAddForm = document.querySelector('.form-create');
     const userEditingPanel = document.querySelector("#userEditingPanel");
     const userEditingOverlay = document.querySelector("#userEditingOverlay");
     const userCreationPanel = document.querySelector('#userCreationPanel');
     const body = document.querySelector("body");
 
-    /*if (btn_form) {
-        btn_form.disabled = true;
-    }*/
-
-    /*
-    перенес ниже на проверку наличия в поле required, в форме может быть много обязательных полей
-    let inputName = document.querySelector('input[name="name"]');
-    if(inputName && btn_form) {
-        inputName.addEventListener('input', function(){
-            inputName.value.length === 0 ? btn_form.disabled = true : btn_form.disabled = false;
-        })
-    }*/
-
-
-    /* чтобы скрыть форму по submit меняем аттрибуты кнопки
-    https://getbootstrap.com/docs/5.2/components/offcanvas/
-    <button data-form-id="kafedra-create" data-action="send-form" type="submit"
-    class="btn btn-primary ms-auto"
-    !!! data-bs-dismiss="offcanvas" aria-label="Close" !!!
-    >Сохранить </button>*/
-
-    if (addItemForm && btn_form) {
-        addItemForm.addEventListener('submit', async function (event) {
+    if (addItemAddForm && btn_form) {
+        addItemAddForm.addEventListener('submit', async function (event) {
             event.preventDefault();
             const form_id = btn_form.getAttribute('data-form-id');
 
@@ -197,10 +179,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
                     rq.classList.remove('is-invalid');
                 }
             });
-
             if (form_id !== undefined && error_control === false) {
                 const sectionName = form_id.split('-')[0];
-                let data = new FormData(addItemForm);
+                let data = new FormData(addItemAddForm);
 
                 // fetch POST
                 if (sectionName) {
@@ -237,8 +218,64 @@ document.addEventListener("DOMContentLoaded", function(event) {
                     }
                 }
             }
-        })
+        });
     }
+
+
+    document.querySelector("body").addEventListener('submit', async function (e) {
+        if (e.target.closest('.form-update')) {
+            e.preventDefault();
+            form_s = e.target;
+
+            const form_id = form_s.getAttribute('id');
+            let rq_elem = form_s.querySelectorAll('[required]');
+            let error_control = false;
+            rq_elem.forEach(function (rq) {
+                if (rq.value.length === 0) {
+                    error_control = true;
+                    rq.classList.add('is-invalid');
+                } else {
+                    rq.classList.remove('is-invalid');
+                }
+            });
+            if (form_id !== undefined && error_control === false) {
+
+                const sectionName = form_id.split('-')[0];
+                let data = new FormData(form_s);
+
+                // fetch POST
+                if (sectionName) {
+                    let response = await fetch(`/api/${sectionName}`, {
+                        method: 'POST',
+                        body: data,
+                    })
+                    let result = await response.json();
+
+                    await getTableData(tableUrl);
+
+                    let rowId = result.id;
+                    let activeRow = document.querySelector(`[data-string="${rowId}"]`);
+                    if (activeRow) {
+                        let firstRow = document.querySelector('.user-table-row');
+                        if (firstRow) {
+                            firstRow.classList.remove('is-selected');
+                        }
+                        activeRow.classList.add('is-selected');
+                        activeRow.scrollIntoView({block: "center", behavior: "smooth"});
+                    }
+
+                    form_s.closest('.offcanvas').classList.remove('show');
+                    let offcanvas = document.querySelectorAll('.offcanvas-backdrop');
+                    offcanvas.forEach(function (off) {
+                        off.classList.remove('show');
+                    });
+
+
+                }
+            }
+        }
+    })
+
 });
 
 

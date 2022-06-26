@@ -1,5 +1,4 @@
-<div id="userCreationPanel" class="user-form-panel offcanvas offcanvas-end" tabindex="-1"
-     aria-labelledby="offcanvasEndLabel">
+
     <div class="offcanvas-header">
         <h2 class="offcanvas-title">Создание кафедры</h2>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -39,7 +38,7 @@
                     <select class="form-select" name="director">
                         <option disabled selected>Выберите руководителя из списка</option>
                         {% for us in user %}
-                            <option value="{{ us.id }}">{{ us.username }}</option>
+                            <option value="{{ us.id }}">{{ us.username }} {{ us.surname }} {{ us.patronymic }}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -54,4 +53,3 @@
             </div>
         </form>
     </div>
-</div>

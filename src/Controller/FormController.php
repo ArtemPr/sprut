@@ -9,12 +9,16 @@
 
 namespace App\Controller;
 
+use App\Controller\Administrator\AdminDirectoryKafedra;
+use App\Controller\Administrator\AdminDirectoryTrainingCentre;
 use App\Entity\City;
 use App\Entity\User;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route('/form', name: 'form')]
 class FormController extends AbstractController
 {
     public function __construct(
@@ -22,23 +26,15 @@ class FormController extends AbstractController
     ) {
     }
 
-    #[Route('/form/edit_user/{id}', name: 'edit_user')]
-    public function getUserForm($id)
+    #[Route('/kafedra_edit/{id}', name: 'edit_kafedra')]
+    public function getKafedraForm($id, AdminDirectoryKafedra $adminDirectoryKafedra): Response
     {
-        $result = $this->managerRegistry->getRepository(User::class)->getUser((int) $id);
-        $city = $this->managerRegistry
-            ->getRepository(City::class)
-            ->createQueryBuilder('city')
-            ->orderBy('city.name', 'DESC')
-            ->getQuery()
-            ->getArrayResult();
+        return $adminDirectoryKafedra->getKafedraForm($id);
+    }
 
-        return $this->render(
-            'administrator/user/form/update_form.html.twig',
-            [
-                'data' => $result[0] ?? false,
-                'city_list' => $city ?? false,
-            ]
-        );
+    #[Route('/training_centre_edit/{id}', name: 'training_centre_edit')]
+    public function getTrainingCentreForm($id, AdminDirectoryTrainingCentre $adminDirectoryTrainingCentre): Response
+    {
+        return $adminDirectoryTrainingCentre->getTrainingCentreForm($id);
     }
 }

@@ -48,16 +48,6 @@ class AdminDirectoryKafedra extends AbstractController
             unset($result[$key]['director']['surname'], $result[$key]['director']['patronymic']);
         }
 
-        // Колонки таблицы (заготовка для последующего расширения функционала для сортировки колонок и изменения их состава)
-        /**
-         * Порядок элементов в массиве = порядок в таблице
-         * [
-         *  'name', - имя поля в таблице
-         *  'имя поля', - имя поля для таблицы
-         *  'string|list|bool', - тип поля (строка|список если используется ассоциации|булево значение (красная/зеленая точка))
-         *  'true|false', - показывать/не показывать поле
-         * ]
-         */
         $table = [
             ['id', 'ID', 'string', true],
             ['training_centre.name', 'УЦ', 'string', true],
@@ -99,12 +89,12 @@ class AdminDirectoryKafedra extends AbstractController
         $training_centre = $this->managerRegistry->getRepository(TrainingCenters::class)->getList();
         $user = $this->managerRegistry->getRepository(User::class)->getList();
 
-        $data_out = $this->managerRegistry->getRepository(Kaferda::class)->find($id);
+        $data_out = $this->managerRegistry->getRepository(Kaferda::class)->get($id);
 
         return $this->render(
             'administrator/directory/form/kafedra_update.html.twig',
             [
-                'data' => $data_out,
+                'data' => $data_out[0] ?? null,
                 'controller' => 'AdminKafedra',
                 'traning_centre' => $training_centre,
                 'user'  => $user,

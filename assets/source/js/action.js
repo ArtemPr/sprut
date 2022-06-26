@@ -9,12 +9,13 @@ for (var i = 0; i < top_btn.length; i++) {
         let select_string = document.querySelectorAll('.is-selected');
         let select_id = (select_string.length > 0) ? select_string[0].getAttribute('data-string') : null;
         let container_type = (select_string.length > 0) ? select_string[0].getAttribute('data-type') : null;
-        let type = this.getAttribute('href');
+
+        let typeAction = this.getAttribute('data-action');
+        let controller = this.getAttribute('data-controller');
+
         if (select_id != null) {
-            if (type === '#userEditingPanel') {
-                getFormData('kafedra_update-form', container_type, select_id);
-            } else if (type === '#userRemoveModal') {
-                getDeleteData(select_id);
+            if (typeAction === 'edit') {
+                getFormData(controller + 'EditingPanel', controller + '_edit', select_id);
             }
         }
     };
@@ -22,19 +23,37 @@ for (var i = 0; i < top_btn.length; i++) {
 
 let token = 'a78c9bd272533646ae84683a2eabb817';
 
-async function getFormData(id, type, select_id = null) {
+async function getFormData(container, controller, select_id = null) {
 
-
-    url = location.protocol + '//' + location.host + '/api/' + type + '/' + select_id;
+    url = location.protocol + '//' + location.host + '/form/' + controller + '/' + select_id;
 
     let data = await fetch(url).then((result) => result.text());
-    let out = JSON.parse(data);
-    out.forEach(function (o) {
-        console.log(o);
-        // @TODO сдесь закончить разбор данных и заполнить форму
-    });
+
+    let box = document.querySelector('#' + container);
+    if (box !== null && data !== null) {
+        box.innerHTML = data;
+    }
 }
 
-function getDeleteData(select_id) {
 
+// Удаление
+const delete_btn = document.querySelector('.delete_action');
+if(delete_btn != null) {
+    delete_btn.addEventListener('click', async function (event) {
+        event.preventDefault();
+        let select_string = document.querySelector('.is-selected');
+        let select_id = (select_string != null) ? select_string.getAttribute('data-string') : null;
+        let controller = (select_string != null) ? select_string.getAttribute('data-type') : null;
+
+        let url = location.protocol + '//' + location.host + '/api/' + controller + '_hide/' + select_id;
+        console.log(url);
+        await fetch(url).then((result) => result.text());
+
+        select_string.parentNode.removeChild(select_string);
+
+        let line = document.querySelectorAll('.user-table-row');
+        if (line[0] != null) {
+            line[0].classList.add('is-selected');
+        }
+    });
 }

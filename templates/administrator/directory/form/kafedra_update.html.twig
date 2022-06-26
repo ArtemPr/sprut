@@ -7,6 +7,7 @@
         <form action="#" name="kafedra-update" id="kafedra_update-form" class="form-update">
 
             <input type="hidden" name="id" value="{{ data.id|default(false) }}">
+
             <div class="form-group mb-3 row">
                 <label class="form-label col-3 col-form-label">Название *</label>
                 <div class="col">
@@ -20,7 +21,7 @@
                     <select class="form-select" name="training_centre">
                         <option disabled selected>Выберите учебный центр из списка</option>
                         {% for tc in traning_centre %}
-                            <option value="{{ tc.id }}">{{ tc.name }}</option>
+                            <option {% if data.training_centre|default(false) and data.training_centre.id == tc.id %}selected{% endif %} value="{{ tc.id }}">{{ tc.name }}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -32,7 +33,7 @@
                     <select class="form-select" name="director">
                         <option disabled selected>Выберите руководителя из списка</option>
                         {% for us in user %}
-                            <option value="{{ us.id }}">{{ us.username }}</option>
+                            <option {% if data.director|default(false) and data.director.id == us.id %}selected{% endif %} value="{{ us.id }}">{{ us.username }} {{ us.surname }} {{ us.patronymic }}</option>
                         {% endfor %}
                     </select>
                 </div>

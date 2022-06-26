@@ -29,21 +29,25 @@
                     <div class="row row-deck row-cards">
                         <div class="col-12">
                             <div class="card">
-                                {% include 'administrator/user/block/search_panel.html.twig' %}
+
+                                {% include 'administrator/user/block/search_panel.html.twig' with {'controller': 'kafedra'} %}
 
                                 <div class="ajax-table">
                                     {{ include('administrator/directory/kafedra_table.html.twig') }}
                                 </div>
+
                             </div>
 
                             <div id="userEditingOverlay" class="offcanvas-backdrop fade"></div>
 
-                            {% include 'administrator/directory/form/kafedra_add.html.twig' %}
-                            <div id="userEditingPanel" class="user-form-panel offcanvas offcanvas-end" tabindex="-1"
-                                 aria-labelledby="offcanvasEndLabel">
-                                {% include 'administrator/directory/form/kafedra_update.html.twig' %}
+                            <div id="kafedraCreationPanel" data-action="add" class="user-form-panel offcanvas offcanvas-end" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                                {% include 'administrator/directory/form/kafedra_add.html.twig'  %}
                             </div>
-                            {% include 'administrator/modal/delete.html.twig' %}
+                            <div id="kafedraEditingPanel" data-action="edit" class="user-form-panel offcanvas offcanvas-end" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                                <img src="{{ absolute_url('/assets/images/loading--big.gif') }}" style="position: absolute; top: 10%; left: 50%; margin-left: -75px;">
+                            </div>
+
+                            {% include 'administrator/modal/delete.html.twig' with {'controller': 'kafedra'} %}
                         </div>
                     </div>
                 </div>

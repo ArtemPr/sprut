@@ -1,0 +1,60 @@
+
+<div class="offcanvas-header">
+    <h2 class="offcanvas-title">Редактирование учебного центра</h2>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+</div>
+<div class="offcanvas-body">
+    <form action="#" name="training_centre-update" id="training_centre_update-form" class="form-update">
+
+        <input type="hidden" name="id" value="{{ data.id|default(false) }}">
+
+        <div class="form-group mb-3 row">
+            <label class="form-label col-3 col-form-label">Название *</label>
+            <div class="col">
+                <input name="name" type="text" class="form-control" placeholder="Название УЦ" value="{{ data.name|default(false) }}" required>
+            </div>
+        </div>
+
+        <div class="form-group mb-3 row">
+            <label class="form-label col-3 col-form-label">Телефон</label>
+            <div class="col">
+                <input name="phone" type="text" class="form-control" placeholder="телефон" value="{{ data.phone|default(false) }}">
+            </div>
+        </div>
+
+        <div class="form-group mb-3 row">
+            <label class="form-label col-3 col-form-label">E-mail</label>
+            <div class="col">
+                <input name="email" type="text" class="form-control" placeholder="email" value="{{ data.email|default(false) }}">
+            </div>
+        </div>
+
+        <div class="form-group mb-3 row">
+            <label class="form-label col-3 col-form-label">URL</label>
+            <div class="col">
+                <input name="url" type="text" class="form-control" placeholder="url" value="{{ data.url|default(false) }}">
+            </div>
+        </div>
+
+        <div class="form-group mb-3 row">
+            <label class="form-label col-3 col-form-label">Идентификатор в бакалавр-магистр</label>
+            <div class="col">
+                <input name="external_upload_bakalavrmagistr_id" type="text" class="form-control" placeholder="id" value="{{ data.external_upload_bakalavrmagistr_id|default(false) }}">
+            </div>
+        </div>
+
+        <div class="form-group mb-3 row">
+            <label class="form-label col-3 col-form-label">Идентификатор в сдо</label>
+            <div class="col">
+                <input name="external_upload_sdo_id" type="text" class="form-control" placeholder="id" value="{{ data.external_upload_sdo_id|default(false) }}">
+            </div>
+        </div>
+
+        <div class="d-flex mb-4">
+            <button data-form-id="training_centre_update-form" data-action="send-form" type="submit"
+                    class="btn btn-primary ms-auto"
+                    aria-label="Close">Сохранить
+            </button>
+        </div>
+    </form>
+</div>

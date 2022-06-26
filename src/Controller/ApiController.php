@@ -7,6 +7,7 @@ namespace App\Controller;
 
 use App\Controller\Api\ApiKafedra;
 use App\Controller\Api\ApiProgramController;
+use App\Controller\Api\ApiTrainingCentre;
 use App\Repository\KaferdaRepository;
 use App\Repository\ProgramTypeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -74,12 +75,45 @@ class ApiController extends AbstractController
     #[Route('/kafedra_update', name: 'api_update_kafedra', methods: ['POST'])]
     public function update_kafedra(ApiKafedra $apiKafedra): Response
     {
-        return $apiKafedra->update();
+        $update = $apiKafedra->update();
+        return $update;
     }
 
-    #[Route('/kafedra_hide', name: 'api_hide_kafedra', methods: ['POST'])]
-    public function hide_kafedra(ApiKafedra $apiKafedra): Response
+    #[Route('/kafedra_hide/{id}', name: 'api_hide_kafedra', methods: ['GET'])]
+    public function hide_kafedra($id, ApiKafedra $apiKafedra): Response
     {
-        return $apiKafedra->hide();
+        return $apiKafedra->hide($id);
+    }
+
+    #[Route('/training_centre_add', name: 'api_training_centr_add', methods: ['POST'])]
+    public function add_tc(ApiTrainingCentre $apiTrainingCentre): Response
+    {
+        return $apiTrainingCentre->add();
+    }
+
+    #[Route('/training_centre_update', name: 'api_training_centr_update', methods: ['POST'])]
+    public function update_tc(ApiTrainingCentre $apiTrainingCentre): Response
+    {
+        $update = $apiTrainingCentre->update();
+        return $update;
+    }
+
+    #[Route('/training_centre_hide/{id}', name: 'api_training_centr_hide', methods: ['GET'])]
+    public function hide_tc($id, ApiTrainingCentre $apiTrainingCentre): Response
+    {
+        return $apiTrainingCentre->hide($id);
+    }
+
+    #[Route('/ps_add', name: 'api_ps_add', methods: ['POST'])]
+    public function add_ps(ApiTrainingCentre $apiTrainingCentre): Response
+    {
+        return $apiTrainingCentre->add();
+    }
+
+    #[Route('/ps_update', name: 'api_ps_update', methods: ['POST'])]
+    public function update_ps(ApiTrainingCentre $apiTrainingCentre): Response
+    {
+        $update = $apiTrainingCentre->update();
+        return $update;
     }
 }
