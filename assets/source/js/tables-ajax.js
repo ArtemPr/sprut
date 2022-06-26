@@ -160,18 +160,21 @@ document.addEventListener("DOMContentLoaded", function(event) {
     const userCreationPanel = document.querySelector('#userCreationPanel');
     const body = document.querySelector("body");
 
-    if (btn_form) {
+    /*if (btn_form) {
         btn_form.disabled = true;
-    }
+    }*/
 
+    /*
+    перенес ниже на проверку наличия в поле required, в форме может быть много обязательных полей
     let inputName = document.querySelector('input[name="name"]');
     if(inputName && btn_form) {
         inputName.addEventListener('input', function(){
             inputName.value.length === 0 ? btn_form.disabled = true : btn_form.disabled = false;
         })
-    }
+    }*/
 
-    /*чтобы скрыть форму по submit меняем аттрибуты кнопки
+
+    /* чтобы скрыть форму по submit меняем аттрибуты кнопки
     https://getbootstrap.com/docs/5.2/components/offcanvas/
     <button data-form-id="kafedra-create" data-action="send-form" type="submit"
     class="btn btn-primary ms-auto"
@@ -182,7 +185,20 @@ document.addEventListener("DOMContentLoaded", function(event) {
         addItemForm.addEventListener('submit', async function (event) {
             event.preventDefault();
             const form_id = btn_form.getAttribute('data-form-id');
-            if (form_id !== undefined) {
+
+            let form_s = document.querySelector('#' + form_id);
+            let rq_elem = form_s.querySelectorAll('[required]');
+            let error_control = false;
+            rq_elem.forEach(function (rq) {
+                if (rq.value.length === 0) {
+                    error_control = true;
+                    rq.classList.add('is-invalid');
+                } else {
+                    rq.classList.remove('is-invalid');
+                }
+            });
+
+            if (form_id !== undefined && error_control === false) {
                 const sectionName = form_id.split('-')[0];
                 let data = new FormData(addItemForm);
 
@@ -195,6 +211,16 @@ document.addEventListener("DOMContentLoaded", function(event) {
                     let result = await response.json();
                     //console.log(result)
                     if (result.result === "success") {
+
+                        // Ресетим форму после успешной отправки
+                        form_s.reset();
+
+                        document.querySelector('.offcanvas').classList.remove('show');
+                        let offcanvas = document.querySelectorAll('.offcanvas-backdrop');
+                        offcanvas.forEach(function (off) {
+                           off.classList.remove('show');
+                        });
+
                         console.log('success post!');
                         await getTableData(tableUrl);
                         // находим созданную строку по id и выделяем

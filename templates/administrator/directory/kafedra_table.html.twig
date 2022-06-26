@@ -37,7 +37,7 @@
         {% if data|default(false) %}
             {% for dat in data %}
 
-                <tr data-string="{{ dat.id }}" class="user-table-row {% if loop.first %}is-selected{% endif %}">
+                <tr data-string="{{ dat.id }}" data-type="kafedra" class="user-table-row {% if loop.first %}is-selected{% endif %}">
                     <td>
                         {{ dat['id']|default(false) }}
                     </td>

@@ -7,6 +7,7 @@ namespace App\Controller;
 
 use App\Controller\Api\ApiKafedra;
 use App\Controller\Api\ApiProgramController;
+use App\Repository\KaferdaRepository;
 use App\Repository\ProgramTypeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -58,12 +59,27 @@ class ApiController extends AbstractController
         return $this->json($programTypeRepository->findAll());
     }
 
-    #[Route('/kafedra', name: 'api_add_kafedra', methods: ['POST'])]
+    #[Route('/kafedra/{id}', name: 'api_get_kafedra', methods: ['GET'])]
+    public function getKafedra($id, KaferdaRepository $kaferdaRepository): Response
+    {
+        return $this->json($kaferdaRepository->get($id));
+    }
+
+    #[Route('/kafedra_add', name: 'api_add_kafedra', methods: ['POST'])]
     public function add_kafedra(ApiKafedra $apiKafedra): Response
     {
         return $apiKafedra->add();
     }
 
+    #[Route('/kafedra_update', name: 'api_update_kafedra', methods: ['POST'])]
+    public function update_kafedra(ApiKafedra $apiKafedra): Response
+    {
+        return $apiKafedra->update();
+    }
 
-
+    #[Route('/kafedra_hide', name: 'api_hide_kafedra', methods: ['POST'])]
+    public function hide_kafedra(ApiKafedra $apiKafedra): Response
+    {
+        return $apiKafedra->hide();
+    }
 }

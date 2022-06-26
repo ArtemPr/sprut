@@ -92,4 +92,23 @@ class AdminDirectoryKafedra extends AbstractController
             ]
         );
     }
+
+
+    public function getKafedraForm($id)
+    {
+        $training_centre = $this->managerRegistry->getRepository(TrainingCenters::class)->getList();
+        $user = $this->managerRegistry->getRepository(User::class)->getList();
+
+        $data_out = $this->managerRegistry->getRepository(Kaferda::class)->find($id);
+
+        return $this->render(
+            'administrator/directory/form/kafedra_update.html.twig',
+            [
+                'data' => $data_out,
+                'controller' => 'AdminKafedra',
+                'traning_centre' => $training_centre,
+                'user'  => $user,
+            ]
+        );
+    }
 }

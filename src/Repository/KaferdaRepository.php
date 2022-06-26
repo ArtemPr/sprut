@@ -68,10 +68,28 @@ class KaferdaRepository extends ServiceEntityRepository
                 FROM App\Entity\Kaferda kafedra
                 LEFT JOIN kafedra.director director
                 LEFT JOIN kafedra.training_centre training_centre
+                WHERE kafedra.delete = :delete
                 ORDER BY ' . $order
         )->
-        setFirstResult($first_result)
+            setParameter('delete', false)->
+            setFirstResult($first_result)
             ->setMaxResults($on_page)
+            ->getResult(Query::HYDRATE_ARRAY);
+
+        return $result;
+    }
+
+    public function get($id)
+    {
+        $entityManager = $this->getEntityManager();
+
+        $result = $entityManager->createQuery(
+            'SELECT kafedra, director, training_centre
+                FROM App\Entity\Kaferda kafedra
+                LEFT JOIN kafedra.director director
+                LEFT JOIN kafedra.training_centre training_centre
+                WHERE kafedra.id = :id'
+        )->setParameter('id', $id)
             ->getResult(Query::HYDRATE_ARRAY);
 
         return $result;

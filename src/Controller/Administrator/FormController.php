@@ -10,8 +10,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class FormController extends AbstractController
 {
-    #[Route('/form/edit_user', name: 'edit_user')]
-    public function getUserForm()
+    #[Route('/form/edit_user/{id}', name: 'edit_user')]
+    public function getUserForm($id)
     {
         return $this->render(
             'administrator/user/form/update_form.html.twig',
@@ -20,4 +20,5 @@ class FormController extends AbstractController
             ]
         );
     }
+
 }

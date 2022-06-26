@@ -1,15 +1,49 @@
-<div id="userEditingPanel" class="user-form-panel offcanvas offcanvas-end" tabindex="-1"
-     aria-labelledby="offcanvasEndLabel">
+
     <div class="offcanvas-header">
         <h2 class="offcanvas-title">Редактирование кафедры</h2>
-        <button id="jsEditingPanelCloser" type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
-                aria-label="Close"></button>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <form action="#" name="user-edit">
+        <form action="#" name="kafedra-update" id="kafedra_update-form" class="form-update">
+
+            <input type="hidden" name="id" value="{{ data.id|default(false) }}">
+            <div class="form-group mb-3 row">
+                <label class="form-label col-3 col-form-label">Название *</label>
+                <div class="col">
+                    <input name="name" type="text" class="form-control" placeholder="Название кафедры" required value="{{ data.name|default(false) }}">
+                </div>
+            </div>
+
+            <div class="form-group mb-3 row">
+                <label class="form-label col-3 col-form-label">Учебный центр</label>
+                <div class="col">
+                    <select class="form-select" name="training_centre">
+                        <option disabled selected>Выберите учебный центр из списка</option>
+                        {% for tc in traning_centre %}
+                            <option value="{{ tc.id }}">{{ tc.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group mb-3 row">
+                <label class="form-label col-3 col-form-label">Директор</label>
+                <div class="col">
+                    <select class="form-select" name="director">
+                        <option disabled selected>Выберите руководителя из списка</option>
+                        {% for us in user %}
+                            <option value="{{ us.id }}">{{ us.username }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
             <div class="d-flex mb-4">
-                <button type="submit" class="btn btn-primary ms-auto">Сохранить</button>
+                <button data-form-id="kafedra_update-form" data-action="send-form" type="submit"
+                        class="btn btn-primary ms-auto"
+                        aria-label="Close"
+                >Сохранить
+                </button>
             </div>
         </form>
     </div>
-</div>

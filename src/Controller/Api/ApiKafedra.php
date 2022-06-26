@@ -42,9 +42,11 @@ class ApiKafedra extends AbstractController
         }
 
         $kafedra = new Kaferda();
-        $kafedra->setName($data['name'] ?? '');
+        $kafedra->setId((int)$data['id']);
+        $kafedra->setName(trim($data['name']));
         $kafedra->setTrainingCentre($tc);
         $kafedra->setDirector($dir);
+        $kafedra->setDelete(false);
         $entityManager = $this->doctrine->getManager();
         $entityManager->persist($kafedra);
         $entityManager->flush();
@@ -57,6 +59,44 @@ class ApiKafedra extends AbstractController
     {
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
         $data = $request->request->all();
+
+        if (!empty($data['training_centre'])) {
+            $tc = $this->doctrine->getRepository(TrainingCenters::class)->find($data['training_centre']);
+        } else {
+            $tc = null;
+        }
+
+        if (!empty($data['director'])) {
+            $dir = $this->doctrine->getRepository(User::class)->find($data['director']);
+        } else {
+            $dir = null;
+        }
+
+        $kafedra = $this->doctrine->getRepository(Kaferda::class)->find((int)$data['id']);
+        $kafedra->setName(trim($data['name']));
+        $kafedra->setTrainingCentre($tc);
+        $kafedra->setDirector($dir);
+        $kafedra->setDelete(false);
+        $entityManager = $this->doctrine->getManager();
+        $entityManager->persist($kafedra);
+        $entityManager->flush();
+        $lastId = $kafedra->getId();
+
+        return $this->json(['result' => 'success', 'id'=>$lastId]);
+    }
+
+    public function hide()
+    {
+        $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
+        $data = $request->request->all();
+
+        $kafedra = $this->doctrine->getRepository(Kaferda::class)->find((int)$data['id']);
+        $kafedra->setDelete(true);
+        $entityManager = $this->doctrine->getManager();
+        $entityManager->persist($kafedra);
+        $entityManager->flush();
+
+        return $this->json(['result' => 'success', 'id'=>$data['id']]);
 
     }
 }
