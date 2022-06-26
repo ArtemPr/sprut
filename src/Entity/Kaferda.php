@@ -9,7 +9,6 @@ use Doctrine\ORM\Mapping as ORM;
 class Kaferda
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private $id;
 
@@ -22,9 +21,20 @@ class Kaferda
     #[ORM\ManyToOne(targetEntity: TrainingCenters::class)]
     private $training_centre;
 
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    private $delete;
+
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id): void
+    {
+        $this->id = $id;
     }
 
     public function getName(): ?string
@@ -59,6 +69,18 @@ class Kaferda
     public function setTrainingCentre(?TrainingCenters $training_centre): self
     {
         $this->training_centre = $training_centre;
+
+        return $this;
+    }
+
+    public function isDelete(): ?bool
+    {
+        return $this->delete;
+    }
+
+    public function setDelete(?bool $delete): self
+    {
+        $this->delete = $delete;
 
         return $this;
     }

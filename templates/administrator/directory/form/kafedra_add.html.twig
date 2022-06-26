@@ -1,14 +1,20 @@
-<div id="userCreationPanel" class="user-form-panel offcanvas offcanvas-end" tabindex="-1"
-     aria-labelledby="offcanvasEndLabel">
+
     <div class="offcanvas-header">
         <h2 class="offcanvas-title">Создание кафедры</h2>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <form action="#" name="kafedra-create" id="kafedra-create" class="form-create">
+        <form action="#" name="kafedra-create" id="kafedra_add-create" class="form-create">
 
             <div class="form-group mb-3 row">
-                <label class="form-label col-3 col-form-label">Название</label>
+                <label class="form-label col-3 col-form-label">ID*</label>
+                <div class="col">
+                    <input name="id" type="text" class="form-control" placeholder="ID кафедры" required>
+                </div>
+            </div>
+
+            <div class="form-group mb-3 row">
+                <label class="form-label col-3 col-form-label">Название *</label>
                 <div class="col">
                     <input name="name" type="text" class="form-control" placeholder="Название кафедры" required>
                 </div>
@@ -32,20 +38,18 @@
                     <select class="form-select" name="director">
                         <option disabled selected>Выберите руководителя из списка</option>
                         {% for us in user %}
-                            <option value="{{ us.id }}">{{ us.username }}</option>
+                            <option value="{{ us.id }}">{{ us.username }} {{ us.surname }} {{ us.patronymic }}</option>
                         {% endfor %}
                     </select>
                 </div>
             </div>
 
             <div class="d-flex mb-4">
-                <button data-form-id="kafedra-create" data-action="send-form" type="submit"
+                <button data-form-id="kafedra_add-create" data-action="send-form" type="submit"
                         class="btn btn-primary ms-auto"
-                        data-bs-dismiss="offcanvas"
                         aria-label="Close"
                 >Сохранить
                 </button>
             </div>
         </form>
     </div>
-</div>

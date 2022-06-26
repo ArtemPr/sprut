@@ -19,21 +19,31 @@
                 </svg>
             </a>
         </div>
+
+        {#    Необходимо реализовать подключение нужного контекста    #}
         <div class="is-left-col ms-auto">
             <div class="btn-group w-100">
-                {% if close_create|default(false) %}
-                    <a class="btn disabled-btn" role="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Данная операция недоступна">Создать</a>
-                {% else %}
-                    <a class="btn" data-bs-toggle="offcanvas" href="#userCreationPanel" role="button" aria-controls="offcanvasEnd">Создать</a>
-                {% endif %}
-                <a class="btn" data-bs-toggle="offcanvas" href="#userEditingPanel" role="button" aria-controls="offcanvasEnd">Изменить</a>
 
+                {% set set_title = 'Данная операция недоступна, обратитесь к администратору системы.' %}
 
                 {% if close_create|default(false) %}
-                    <a class="btn disabled-btn" data-bs-toggle="tooltip" data-bs-placement="left" title="Данная операция недоступна">Удалить</a>
+                    <a class="btn disabled-btn" role="button" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ set_title }}">
                 {% else %}
-                    <a class="btn" data-bs-toggle="modal" data-bs-target="#userRemoveModal" href="#">Удалить</a>
-                {% endif %}
+                    <a class="btn" data-action="add" data-bs-toggle="offcanvas" href="#{{ controller|default(false) }}CreationPanel" data-controller="{{ controller|default(false) }}" role="button" aria-controls="offcanvasEnd">
+                {% endif %}Создать</a>
+
+                {% if close_edit|default(false) %}
+                    <a class="btn disabled-btn" role="button" data-bs-toggle="tooltip" aria-controls="offcanvasEnd" title="{{ set_title }}">
+                {% else %}
+                    <a class="btn" data-action="edit" data-bs-toggle="offcanvas" href="#{{ controller|default(false) }}EditingPanel" data-controller="{{ controller|default(false) }}" role="button" aria-controls="offcanvasEnd">
+                {% endif %}Изменить</a>
+
+                {% if close_delete|default(false) %}
+                    <a class="btn disabled-btn" data-bs-toggle="tooltip" data-bs-placement="left" title="{{ set_title }}">
+                {% else %}
+                    <a class="btn" data-action="delete" data-bs-toggle="modal" data-bs-target="#userRemoveModal" data-controller="{{ controller|default(false) }}" href="#">
+                {% endif %}Удалить</a>
+
             </div>
         </div>
     </div>

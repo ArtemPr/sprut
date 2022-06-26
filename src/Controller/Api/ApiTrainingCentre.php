@@ -5,10 +5,12 @@
 
 namespace App\Controller\Api;
 
+use App\Entity\TrainingCenters;
 use App\Repository\TrainingCentersRepository;
 use App\Service\ApiService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -66,5 +68,59 @@ class ApiTrainingCentre extends AbstractController
         $result = $this->trainingCentersRepository->find($id);
 
         return $this->json($result ?? []);
+    }
+
+
+
+    public function add()
+    {
+        $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
+        $data = $request->request->all();
+
+        $tc = new TrainingCenters();
+        $tc->setName(trim($data['name']));
+        $tc->setUrl($data['url'] ?? null);
+        $tc->setEmail($data['email'] ?? null);
+        $tc->setPhone($data['phone'] ?? null);
+        $tc->setExternalUploadSdoId($data['external_upload_sdo_id'] ?? null);
+        $tc->setExternalUploadBakalavrmagistrId($data['external_upload_bakalavrmagistr_id'] ?? null);
+        $tc->setDelete(false);
+        $entityManager = $this->doctrine->getManager();
+        $entityManager->persist($tc);
+        $entityManager->flush();
+        $lastId = $tc->getId();
+
+        return $this->json(['result' => 'success', 'id'=>$lastId]);
+    }
+
+    public function update()
+    {
+        $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
+        $data = $request->request->all();
+
+        $tc = $this->doctrine->getRepository(TrainingCenters::class)->find((int)$data['id']);
+        $tc->setName(trim($data['name']));
+        $tc->setUrl($data['url'] ?? null);
+        $tc->setEmail($data['email'] ?? null);
+        $tc->setPhone($data['phone'] ?? null);
+        $tc->setExternalUploadSdoId($data['external_upload_sdo_id'] ?? null);
+        $tc->setExternalUploadBakalavrmagistrId($data['external_upload_bakalavrmagistr_id'] ?? null);
+        $entityManager = $this->doctrine->getManager();
+        $entityManager->persist($tc);
+        $entityManager->flush();
+
+        return $this->json(['result' => 'success', 'id'=>$data['id']]);
+    }
+
+    public function hide($id)
+    {
+        $kafedra = $this->doctrine->getRepository(TrainingCenters::class)->find((int)$id);
+        $kafedra->setDelete(true);
+        $entityManager = $this->doctrine->getManager();
+        $entityManager->persist($kafedra);
+        $entityManager->flush();
+
+        return $this->json(['result' => 'success', 'id'=>$id]);
+
     }
 }

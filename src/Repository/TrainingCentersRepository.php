@@ -6,6 +6,7 @@ use App\Entity\TrainingCenters;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @extends ServiceEntityRepository<TrainingCenters>
@@ -45,14 +46,54 @@ class TrainingCentersRepository extends ServiceEntityRepository
     /**
      * @return float|int|mixed|string
      */
-    public function getList()
+    public function getList(int|null $page = 0, int|null $on_page = 25, string|null $sort = null)
+    {
+        $entityManager = $this->getEntityManager();
+
+        $page = (empty($page) || $page === 1 || $page === 0) ? 0 : $page - 1;
+        $first_result = (int)$page * (int)$on_page;
+
+        if (!is_null($sort)) {
+            if (strstr($sort, '__up')) {
+                $sort = str_replace('__up', ' DESC', $sort);
+            } else {
+                $sort .= " ASC";
+            }
+
+            if (!strstr($sort, '.')) {
+                $order = 'tc.' . $sort;
+            } else {
+                $order = $sort;
+            }
+        } else {
+            $order = 'tc.id DESC';
+        }
+
+        $result = $entityManager->createQuery(
+            'SELECT tc
+                FROM App\Entity\TrainingCenters tc
+                WHERE tc.delete = :delete
+                ORDER BY ' . $order
+        )
+            ->setParameter('delete', false)
+            ->setFirstResult($first_result)
+            ->setMaxResults($on_page)
+            ->getResult(Query::HYDRATE_ARRAY);
+
+        return $result;
+    }
+
+
+    public function get($id)
     {
         $entityManager = $this->getEntityManager();
 
         $result = $entityManager->createQuery(
             'SELECT tc
-                FROM App\Entity\TrainingCenters tc'
-        )->setMaxResults(self::PER_PAGE)->getResult(Query::HYDRATE_ARRAY);
+                FROM App\Entity\TrainingCenters tc
+                WHERE tc.id = :id'
+        )->setParameter('id', $id)
+            ->getResult(Query::HYDRATE_ARRAY);
 
         return $result;
     }

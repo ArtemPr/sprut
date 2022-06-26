@@ -16,6 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
 class TrainingCenters
 {
     #[ORM\Id]
+    #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private $id;
 
@@ -39,6 +40,9 @@ class TrainingCenters
 
     #[ORM\OneToMany(mappedBy: 'training_centre', targetEntity: TrainingCentersRequisites::class)]
     private $trainingCentersRequisites;
+
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    private $delete;
 
     public function __construct()
     {
@@ -175,6 +179,18 @@ class TrainingCenters
                 $trainingCentersRequisite->setTrainingCentre(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isDelete(): ?bool
+    {
+        return $this->delete;
+    }
+
+    public function setDelete(?bool $delete): self
+    {
+        $this->delete = $delete;
 
         return $this;
     }

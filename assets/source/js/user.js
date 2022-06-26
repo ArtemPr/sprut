@@ -27,11 +27,11 @@ if (isTouchDevice()) {
  * Users Interaction
  */
 
-function showUserEditingPanel() {
-    body.classList.add("user-editing-panel-opened");
-    userEditingPanel.classList.add("show");
-    userEditingOverlay.classList.add("show");
-}
+// function showUserEditingPanel() {
+//     body.classList.add("user-editing-panel-opened");
+//     userEditingPanel.classList.add("show");
+//     userEditingOverlay.classList.add("show");
+// }
 
 for (let i = 0; i < userTableRows.length; ++i) {
     let userItem = userTableRows[i];
@@ -40,13 +40,15 @@ for (let i = 0; i < userTableRows.length; ++i) {
         userTableRows.forEach((f) => f.classList.remove("is-selected"));
         userItem.classList.add("is-selected");
 
-        userTableRows.forEach(
-            (f) => (f.querySelector(".selected-checkbox").checked = false)
-        );
-        userItem.querySelector(".selected-checkbox").checked = true;
+
     });
 
-    userItem.addEventListener("dblclick", showUserEditingPanel, false);
+    userItem.addEventListener("dblclick", showUserEditingPanelNew, false);
+
+    function showUserEditingPanelNew()
+    {
+        document.querySelector('[data-action=edit]').click();
+    }
 
     /* detect double tap event */
     let timeout;
