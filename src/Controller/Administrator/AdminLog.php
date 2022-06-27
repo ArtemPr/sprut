@@ -62,7 +62,6 @@ class AdminLog extends AbstractController
         $page = $page ?? 1;
         $tpl = $request->get('ajax') ? 'administrator/log/log_table.html.twig' : 'administrator/log/log.html.twig' ;
 
-
         return $this->render($tpl,
         [
             'data' => $data,
