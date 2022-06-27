@@ -6,6 +6,7 @@
 namespace App\Controller\Administrator;
 
 use App\Entity\Operations;
+use App\Entity\TrainingCenters;
 use App\Service\LinkService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -61,6 +62,18 @@ class AdministratorOperationsController extends AbstractController
                     'current_sort' => $request->get('sort') ?? null,
                 ],
                 'table' => $table
+            ]
+        );
+    }
+
+    public function getOperationsForm($id)
+    {
+        $data_out = $this->managerRegistry->getRepository(Operations::class)->get($id);
+        return $this->render(
+            'administrator/operations/form/update_form.html.twig',
+            [
+                'data' => $data_out[0] ?? null,
+                'controller' => 'AdminOperations',
             ]
         );
     }
