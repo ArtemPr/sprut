@@ -1,7 +1,10 @@
+{% if data|default(false) %}
 <div class="users-table-wrap table-responsive">
-    <table id="usersTable" class="users-table table card-table table-vcenter text-nowrap datatable">
+    <table id="usersTable"
+           class="users-table table card-table table-vcenter text-nowrap datatable">
         <thead>
         <tr>
+
             {% if table|default(false) %}
                 {% for tbl in table %}
                     {% if tbl.3 == true %}
@@ -12,7 +15,7 @@
                                 <th>
                                     <a
                                         class="sort-icon is-{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}desc{% elseif sort.current_sort|default(false) and sort.current_sort == (tbl.0~'__up') %}asc{% elseif sort.current_sort|default(false) == false %}asc{% else %}both{% endif %}"
-                                        href="{{ path('administrator_log') ~ sort.sort_link ~ tbl.0 }}{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}__up{% endif %}"></a>
+                                        href="{{ path('administrator_operations') ~ sort.sort_link ~ tbl.0 }}{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}__up{% endif %}"></a>
                                     {% if  tbl.1  == 'ID' %}
                                         <p class="th-name id-name">{{ tbl.1 }}</p>
                                     {% else %}
@@ -23,7 +26,7 @@
                                 <th>
                                     <a
                                         class="sort-icon is-{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}desc{% elseif sort.current_sort|default(false) and sort.current_sort == (tbl.0~'__up') %}asc{% else %}both{% endif %}"
-                                        href="{{ path('administrator_log') ~ sort.sort_link ~ tbl.0 }}{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}__up{% endif %}"
+                                        href="{{ path('administrator_operations') ~ sort.sort_link ~ tbl.0 }}{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}__up{% endif %}"
                                     ></a>
                                     <p class="th-name"> {{ tbl.1 }}</p>
                                 </th>
@@ -32,33 +35,38 @@
                     {% endif %}
                 {% endfor %}
             {% endif %}
+
         </tr>
         </thead>
         <tbody>
-        {% if data|default(false) %} {% for dat in data %}
-            <tr class="user-table-row">
-                <td> {{ dat.chapter }} </td>
-                <td> Администрирование </td>
-                <td>{{ data_action[dat.action]}}</td>
-                <td>{{ dat.user_loger.username}} {{dat.user_loger.surname|first}}.{{dat.user_loger.patronymic|first}}. </td>
-                <td>{{ dat.user_loger.email}}</td>
-                <td>{{ dat.ip }}</td>
-                <td>{{ dat.time }}</td>
-                <td>{{ dat.comment }}</td>
-                <td class="hidden-cell"> <input class="selected-checkbox" type="checkbox" name="#" checked> </td> </tr>
+
+        {% for operations in data %}
+            <tr data-string="{{ operations.id }}" class="user-table-row {% if loop.first %}is-selected{% endif %}">
+                <td>
+                    {{ operations.name|default(false)}}
+                </td>
+                <td>
+                    {{ operations.comment|default(false)}}
+                </td>
+                <td>
+                    {{ operations.group|default(false)}}
+                </td>
+                <td>
+                    {{ operations.code|default(false)}}
+                </td>
+            </tr>
         {% endfor %}
-        {% endif %}
         </tbody>
     </table>
 </div>
-
+{% endif %}
 
 <div class="card-footer d-flex align-items-center">
     <p class="m-0 text-muted"><b>{{ pager.count_all_position }}</b> результатов</p>
     {% if pager.count_page|default(false) and pager.count_page > 1 %}
         <ul class="pagination m-0 ms-auto">
             <li class="page-item">
-                <a class="page-link" href="{{ path('administrator_log') ~ pager.paginator_link ~ '1' }}" tabindex="-1">
+                <a class="page-link" href="{{ path('administrator_operations') ~ pager.paginator_link ~ '1' }}" tabindex="-1">
                     <!-- Download SVG icon from http://tabler-icons.io/i/chevron-left -->
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24"
                          height="24" viewBox="0 0 24 24" stroke-width="2"
@@ -78,8 +86,6 @@
                 {% if start > 1 %}
                     {% set start = start - 1 %}
                 {% endif %}
-
-
                 {% if pager.current_page > (pager.count_page - 5) %}
                     {% set start = pager.count_page - 5 %}
                 {% endif %}
@@ -87,7 +93,7 @@
                 {% for page in start..pager.count_page %}
                     {% if loop.index < 8 %}
                         <li class="page-item {% if (page == pager.current_page) or (page == 1 and pager.current_page|default(false) == false) %}active{% endif %}">
-                            <a class="page-link" href="{{ path('administrator_log') ~ pager.paginator_link ~ page }}">
+                            <a class="page-link" href="{{ path('administrator_operations') ~ pager.paginator_link ~ page }}">
                                 {{ page }}
                             </a>
                         </li>
@@ -97,22 +103,20 @@
                 {% for page in 1..pager.count_page %}
                     {% if (page == pager.current_page) or (page == 1 and pager.current_page|default(false) == false) %}
                         <li class="page-item active"><a
-                                data-ajax="{{ path('administrator_log') ~ pager.paginator_link ~ page }}&ajax=true"
+                                data-ajax="{{ path('administrator_operations') ~ pager.paginator_link ~ page }}&ajax=true"
                                 class="page-link"
-                                href="{{ path('administrator_log') ~ pager.paginator_link ~ page }}">{{ page }}</a>
+                                href="{{ path('administrator_operations') ~ pager.paginator_link ~ page }}">{{ page }}</a>
                         </li>
                     {% else %}
                         <li class="page-item"><a class="page-link"
-                                                 href="{{ path('administrator_log') ~ pager.paginator_link ~ page }}">{{ page }}</a>
+                                                 href="{{ path('administrator_operations') ~ pager.paginator_link ~ page }}">{{ page }}</a>
                         </li>
                     {% endif %}
                 {% endfor %}
             {% endif %}
 
-
-
             <li class="page-item">
-                <a class="page-link" href="{{ path('administrator_log') ~ pager.paginator_link ~ pager.count_page }}">
+                <a class="page-link" href="{{ path('administrator_operations') ~ pager.paginator_link ~ pager.count_page }}">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24"
                          height="24" viewBox="0 0 24 24" stroke-width="2"
                          stroke="currentColor" fill="none" stroke-linecap="round"

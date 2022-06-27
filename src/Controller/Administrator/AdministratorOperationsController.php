@@ -6,12 +6,15 @@
 namespace App\Controller\Administrator;
 
 use App\Entity\Operations;
+use App\Service\LinkService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class AdministratorOperationsController extends AbstractController
 {
+    use LinkService;
     public function __construct(
         private ManagerRegistry $managerRegistry
     ) {
@@ -19,11 +22,45 @@ class AdministratorOperationsController extends AbstractController
 
     public function getOperationsList(): Response
     {
-        $result = $this->managerRegistry->getRepository(Operations::class)->getList();
+        $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
+        $page = $request->get('page') ?? null;
+        $on_page = $request->get('on_page') ?? 25;
+        $sort = $request->get('sort') ?? null;
 
-        return $this->render('administrator/operations/index.html.twig',
+        $result = $this->managerRegistry->getRepository(Operations::class)->getList($page, $on_page, $sort);
+
+
+        $count = $this->managerRegistry->getRepository(Operations::class)->findAll();
+        $count = count($count);
+
+
+        $table = [
+            ['name', 'Название', 'string', true],
+            ['comment', 'Комментарий', 'string', true],
+            ['group', 'Группа', 'string', true],
+            ['code', 'Код операции', 'string', true]
+        ];
+
+        $page = $page ?? 1;
+
+        $tpl = $request->get('ajax') ? 'administrator/operations/operation_table.html.twig' : 'administrator/operations/index.html.twig' ;
+
+
+        return $this->render($tpl,
             [
                 'data' => $result,
+                'pager' => [
+                    'count_all_position' => $count,
+                    'current_page' => $page,
+                    'count_page' => (int)ceil($count / $on_page),
+                    'paginator_link' => $this->getParinatorLink(),
+                    'on_page' => $on_page
+                ],
+                'sort' => [
+                    'sort_link' => $this->getSortLink(),
+                    'current_sort' => $request->get('sort') ?? null,
+                ],
+                'table' => $table
             ]
         );
     }

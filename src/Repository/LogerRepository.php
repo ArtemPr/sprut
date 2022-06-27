@@ -46,17 +46,35 @@ class LogerRepository extends ServiceEntityRepository
     /**
      * @return float|int|mixed|string
      */
-    public function getList(int|null $page = 0, int|null $on_page = 25)
+    public function getList(int|null $page = 0, int|null $on_page = 25, string|null $sort = null)
     {
         $entityManager = $this->getEntityManager();
-        $first_result = $page === 1 ? 0 : (int)$page * (int)$on_page;
+        $page = (empty($page) || $page === 1 || $page === 0) ? 0 : $page - 1;
+        $first_result = (int)$page * (int)$on_page;
+
+        if (!is_null($sort)) {
+            if (strstr($sort, '__up')) {
+                $sort = str_replace('__up', ' DESC', $sort);
+            } else {
+                $sort .= " ASC";
+            }
+
+            if (!strstr($sort, '.')) {
+                $order = 'log.' . $sort;
+            } else {
+                $order = $sort;
+            }
+        } else {
+            $order = 'log.id DESC';
+        }
 
         $result = $entityManager->createQuery(
             'SELECT log, us
                 FROM App\Entity\Loger log
                 JOIN log.user_loger us
-                ORDER BY log.id DESC'
-        )->setFirstResult($first_result)
+                ORDER BY ' . $order
+        )
+            ->setFirstResult($first_result)
             ->setMaxResults($on_page)
             ->getResult(Query::HYDRATE_ARRAY);
 
