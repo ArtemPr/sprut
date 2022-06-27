@@ -29,7 +29,46 @@
             >Сохранить
             </button>
         </div>
-{#
+
+
+        <form class="hierarchy" method="post">
+        <ul class="hierarchy__group-list">
+            <li class="hierarchy__group-item" data-scope-for="desktop">
+                    <label class="hierarchy__scope">
+                        <input type="checkbox" name="desktop" value="desktop" class="js-checkbox-scope parent-checkbox-scope"  data-selected-by="workflow" >Рабочий стол
+                    </label>
+            </li>
+            <li class="hierarchy__group-item" data-scope-for="desktop">
+                    <label class="hierarchy__scope">
+                        <input type="checkbox" name="desktop" value="desktop" class="js-checkbox-scope parent-checkbox-scope" data-selected-by="workflow" >Курсы
+                    </label>
+            </li>
+            <li class="hierarchy__group-item" data-scope-for="repo">
+                    <label class="hierarchy__scope parent-scope">
+                        <input type="checkbox" name="oauth_access[scopes][]" value="repo" class="js-checkbox-scope parent-checkbox-scope" data-selected-by="workflow" > Панель управления
+                </label>
+                <ul class="child-scopes">
+                    <li class="personal-access-tokens js-check-scope-container" data-scope-for="repo:status">
+                            <label class="hierarchy__scope">
+                                <input type="checkbox" name="oauth_access[scopes][]" value="repo:status" class="js-checkbox-scope" /> создание
+                            </label>
+                    </li>
+                    <li class="personal-access-tokens js-check-scope-container" data-scope-for="repo_deployment">
+                            <label class="hierarchy__scope">
+                                <input type="checkbox" name="oauth_access[scopes][]" value="repo_deployment" class="js-checkbox-scope"  data-selected-by> удаление
+                            </label>
+                    </li>
+                    <li class="personal-access-tokens js-check-scope-container" data-scope-for="repo_deployment">
+                            <label class="hierarchy__scope">
+                                <input type="checkbox" name="oauth_access[scopes][]" value="repo_deployment" class="js-checkbox-scope"> редактирование
+                            </label>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        </form>
+
+        {#
 
 Рабочий стол
 Курсы

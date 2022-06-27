@@ -21,4 +21,4 @@ import './source/js/user'
 import './source/js/action'
 import './source/js/tables-ajax'
 import './source/js/dual-select';
-;
+import './source/js/hierarchy-form';
