@@ -9,7 +9,6 @@
 {% block body %}
     {{ include('block/header.html.twig') }}
 
-
     <div class="page page-layout">
         <aside class="navbar navbar-vertical navbar-expand-lg navbar-light">
             <div class="container-fluid">
@@ -32,83 +31,25 @@
 
                             <div class="card">
 
-                                {% include 'administrator/user/block/search_panel.html.twig' %}
+                                {% include 'administrator/user/block/search_panel.html.twig' with {
+                                    'close_delete': true,
+                                    'controller': 'role'
+                                } %}
 
-                                <div class="users-table-wrap table-responsive">
-                                    <table id="usersTable"
-                                           class="users-table table card-table table-vcenter text-nowrap datatable">
-                                        <thead>
-                                        <tr>
-                                            <th></th>
-                                            <th>Название</th>
-                                            <th>Комментарий</th>
-                                            <th>Идентификатор</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        {% if role_list|default(false) %}
-                                            {% for ul in role_list %}
-                                                <tr class="user-table-row {% if loop.first %}is-selected{% endif %}">
-                                                    <td><span class="badge bg-success"></span></td>
-                                                    <td>
-                                                        {{ ul.name|default(false) }}
-                                                    </td>
-                                                    <td>
-                                                    </td>
-                                                    <td>
-                                                        {{ ul.roles_alt|default(false) }}
-                                                    </td>
-                                                </tr>
-                                            {% endfor %}
-                                        {% endif %}
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="card-footer d-flex align-items-center">
-                                    <p class="m-0 text-muted"><b>{{ role_list|length }}</b> результатов</p>
-                                    {#
-                                    <ul class="pagination m-0 ms-auto">
-                                        <li class="page-item disabled">
-                                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
-                                                <!-- Download SVG icon from http://tabler-icons.io/i/chevron-left -->
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24"
-                                                     height="24" viewBox="0 0 24 24" stroke-width="2"
-                                                     stroke="currentColor" fill="none" stroke-linecap="round"
-                                                     stroke-linejoin="round">
-                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                    <polyline points="15 6 9 12 15 18"/>
-                                                </svg>
-                                            </a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">5</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24"
-                                                     height="24" viewBox="0 0 24 24" stroke-width="2"
-                                                     stroke="currentColor" fill="none" stroke-linecap="round"
-                                                     stroke-linejoin="round">
-                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                    <polyline points="9 6 15 12 9 18"/>
-                                                </svg>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                    #}
+                                <div class="ajax-table">
+                                    {% include 'administrator/role/role_table.html.twig' %}
                                 </div>
                             </div>
 
-
-                            {% include 'administrator/role/form/create_form.html.twig' %}
-                            {% include 'administrator/role/form/update_form.html.twig' %}
-                            {% include 'administrator/modal/delete.html.twig' %}
-
                             <div id="userEditingOverlay" class="offcanvas-backdrop fade"></div>
 
+                            <div id="roleCreationPanel" data-action="add" class="user-form-panel offcanvas offcanvas-end" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                                {% include 'administrator/role/form/create_form.html.twig' %}
+                            </div>
 
+                            <div id="roleEditingPanel" class="user-form-panel offcanvas offcanvas-end" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+
+                            </div>
 
                         </div>
                     </div>

@@ -6,8 +6,11 @@
 namespace App\Controller;
 
 use App\Controller\Api\ApiKafedra;
+use App\Controller\Api\ApiOperations;
 use App\Controller\Api\ApiProgramController;
+use App\Controller\Api\ApiRole;
 use App\Controller\Api\ApiTrainingCentre;
+use App\Entity\Roles;
 use App\Repository\KaferdaRepository;
 use App\Repository\ProgramTypeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -115,5 +118,18 @@ class ApiController extends AbstractController
     {
         $update = $apiTrainingCentre->update();
         return $update;
+    }
+
+    #[Route('/operations_update', name: 'api_update_operations', methods: ['POST'])]
+    public function update_operations(ApiOperations $apiOperations): Response
+    {
+        $update = $apiOperations->update();
+        return $update;
+    }
+
+    #[Route('/role_add', name: 'api_ps_add', methods: ['POST'])]
+    public function add_role(ApiRole $apiRole): Response
+    {
+        return $apiRole->add();
     }
 }
