@@ -22,10 +22,17 @@
     @media(max-width: 1025px) {
       flex-direction: column;
     }
+  }
 
+  .icon {
+    margin: 0 auto 10px;
   }
 
   &__link {
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
     color: rgba(30,41,59,.7);
     transition: color .3s;
 
