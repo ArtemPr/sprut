@@ -54,7 +54,8 @@ class LogerRepository extends ServiceEntityRepository
         $result = $entityManager->createQuery(
             'SELECT log, us
                 FROM App\Entity\Loger log
-                JOIN log.user_loger us'
+                JOIN log.user_loger us
+                ORDER BY log.id DESC'
         )->setFirstResult($first_result)
             ->setMaxResults($on_page)
             ->getResult(Query::HYDRATE_ARRAY);

@@ -45,14 +45,37 @@ class FederalStandartRepository extends ServiceEntityRepository
     /**
      * @return float|int|mixed|string
      */
-    public function getList()
+    public function getList(int|null $page = 0, int|null $on_page = 25, string|null $sort = null)
     {
         $entityManager = $this->getEntityManager();
 
+        $page = (empty($page) || $page === 1 || $page === 0) ? 0 : $page - 1;
+        $first_result = (int)$page * (int)$on_page;
+
+        if (!is_null($sort)) {
+            if (strstr($sort, '__up')) {
+                $sort = str_replace('__up', ' DESC', $sort);
+            } else {
+                $sort .= " ASC";
+            }
+
+            if (!strstr($sort, '.')) {
+                $order = 'op.' . $sort;
+            } else {
+                $order = $sort;
+            }
+        } else {
+            $order = 'op.id DESC';
+        }
+
         $result = $entityManager->createQuery(
             'SELECT op
-                FROM App\Entity\FederalStandart op'
-        )->setMaxResults(self::PER_PAGE)->getResult(Query::HYDRATE_ARRAY);
+                FROM App\Entity\FederalStandart op
+                ORDER BY ' . $order
+        )
+            ->setFirstResult($first_result)
+            ->setMaxResults($on_page)
+            ->getResult(Query::HYDRATE_ARRAY);
 
         return $result;
     }

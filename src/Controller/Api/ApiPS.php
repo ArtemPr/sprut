@@ -5,6 +5,7 @@
 
 namespace App\Controller\Api;
 
+use App\Entity\Loger;
 use App\Entity\ProfStandarts;
 use App\Service\ApiService;
 use Doctrine\Persistence\ManagerRegistry;
@@ -32,6 +33,18 @@ class ApiPS extends AbstractController
         $entityManager->flush();
         $lastId = $tc->getId();
 
+
+        $loger = new Loger();
+        $loger->setTime(new \DateTime());
+        $loger->setAction('add_ps');
+        $loger->setUserLoger($this->getUser());
+        $loger->setIp($request->server->get('REMOTE_ADDR'));
+        $loger->setChapter('Профессиональные стандарты');
+        $loger->setComment($lastId . ' ' . $data['name']);
+        $entityManager = $this->doctrine->getManager();
+        $entityManager->persist($loger);
+        $entityManager->flush();
+
         return $this->json(['result' => 'success', 'id'=>$lastId]);
     }
 
@@ -45,6 +58,18 @@ class ApiPS extends AbstractController
         // add
         $entityManager = $this->doctrine->getManager();
         $entityManager->persist($tc);
+        $entityManager->flush();
+
+
+        $loger = new Loger();
+        $loger->setTime(new \DateTime());
+        $loger->setAction('add_update');
+        $loger->setUserLoger($this->getUser());
+        $loger->setIp($request->server->get('REMOTE_ADDR'));
+        $loger->setChapter('Профессиональные стандарты');
+        $loger->setComment($data['id'] . ' ' . $data['name']);
+        $entityManager = $this->doctrine->getManager();
+        $entityManager->persist($loger);
         $entityManager->flush();
 
         return $this->json(['result' => 'success', 'id'=>$data['id']]);

@@ -22,88 +22,19 @@
         </aside>
         <div class="page-wrapper">
             <div class="container-xl">
-                {% include 'administrator/block/header_list.html.twig' with {'header': 'Справочник - Федеральные государственные образовательные стандарты'} %}
+                {% include 'administrator/block/header_list.html.twig' with {'header': 'Справочник - Федеральные государственные образовательные стандарты', 'onpage_link': path('administrator_directory_fgos')} %}
             </div>
             <div class="page-body">
                 <div class="container-xl">
                     <div class="row row-deck row-cards">
                         <div class="col-12">
                             <div class="card">
-                                {% include 'administrator/user/block/search_panel.html.twig' %}
-                                <div class="users-table-wrap table-responsive">
-                                    <table id="usersTable"
-                                           class="users-table table card-table table-vcenter text-nowrap datatable">
-                                        <thead>
-                                        <tr>
-                                            <th></th>
-                                            <th><a class="sort-icon is-desc" href="#"></a>
-                                                <span class="th-name">Код</span></th>
-                                            <th><a class="sort-icon is-both" href="#"></a>
-                                                <span class="th-name">Название</span></th>
-                                            <th class="hidden-cell"></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        {% if data|default(false) %}
-                                            {% for dat in data %}
-                                                <tr data-string="{{ dat.id }}"
-                                                    class="user-table-row {% if loop.first %}is-selected{% endif %}">
-                                                    <td><span class="badge
-                                                    {% if dat.active|default(false) %}
-                                                        bg-success
-                                                    {% else %}
-                                                        bg-danger
-                                                    {% endif %}
-                                                    "></span></td>
-                                                    <td>
-                                                        {{ dat.short_name|default(false) }}
-                                                    </td>
-                                                    <td style="max-width: 550px; white-space: normal;">
-                                                        {{ dat.name|default(false) }}
-                                                    </td>
-                                                </tr>
-                                            {% endfor %}
-                                        {% endif %}
-                                        </tbody>
-                                    </table>
+                                {% include 'administrator/user/block/search_panel.html.twig' with {'close_delete': true, 'close_edit': true, 'close_create': true} %}
+
+                                <div class="ajax-table">
+                                    {{ include('administrator/directory/fgos_table.html.twig') }}
                                 </div>
 
-
-                                <div class="card-footer d-flex align-items-center">
-                                    <p class="m-0 text-muted"><b>{{ data|length }}</b> результатов</p>
-                                    {% if data|length > 25 %}
-                                        <ul class="pagination m-0 ms-auto">
-                                            <li class="page-item disabled">
-                                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
-                                                    <!-- Download SVG icon from http://tabler-icons.io/i/chevron-left -->
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24"
-                                                         height="24" viewBox="0 0 24 24" stroke-width="2"
-                                                         stroke="currentColor" fill="none" stroke-linecap="round"
-                                                         stroke-linejoin="round">
-                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                        <polyline points="15 6 9 12 15 18"/>
-                                                    </svg>
-                                                </a>
-                                            </li>
-                                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                            <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">5</a></li>
-                                            <li class="page-item">
-                                                <a class="page-link" href="#">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24"
-                                                         height="24" viewBox="0 0 24 24" stroke-width="2"
-                                                         stroke="currentColor" fill="none" stroke-linecap="round"
-                                                         stroke-linejoin="round">
-                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                        <polyline points="9 6 15 12 9 18"/>
-                                                    </svg>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    {% endif %}
-                                </div>
                             </div>
 
                             <div id="userEditingOverlay" class="offcanvas-backdrop fade"></div>

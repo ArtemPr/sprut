@@ -6,6 +6,7 @@
 namespace App\Controller\Api;
 
 use App\Entity\Kaferda;
+use App\Entity\Loger;
 use App\Entity\TrainingCenters;
 use App\Entity\User;
 use App\Repository\KaferdaRepository;
@@ -42,7 +43,7 @@ class ApiKafedra extends AbstractController
         }
 
         $kafedra = new Kaferda();
-        $kafedra->setId((int)$data['id']);
+        $kafedra->setId((int) $data['id']);
         $kafedra->setName(trim($data['name']));
         $kafedra->setTrainingCentre($tc);
         $kafedra->setDirector($dir);
@@ -52,7 +53,18 @@ class ApiKafedra extends AbstractController
         $entityManager->flush();
         $lastId = $kafedra->getId();
 
-        return $this->json(['result' => 'success', 'id'=>$lastId]);
+        $loger = new Loger();
+        $loger->setTime(new \DateTime());
+        $loger->setAction('add_kafedra');
+        $loger->setUserLoger($this->getUser());
+        $loger->setIp($request->server->get('REMOTE_ADDR'));
+        $loger->setChapter('Кафедры');
+        $loger->setComment('Обновление кафедры ' . $lastId . ' ' . $data['name']);
+        $entityManager = $this->doctrine->getManager();
+        $entityManager->persist($loger);
+        $entityManager->flush();
+
+        return $this->json(['result' => 'success', 'id' => $lastId]);
     }
 
     public function update()
@@ -72,7 +84,7 @@ class ApiKafedra extends AbstractController
             $dir = null;
         }
 
-        $kafedra = $this->doctrine->getRepository(Kaferda::class)->find((int)$data['id']);
+        $kafedra = $this->doctrine->getRepository(Kaferda::class)->find((int) $data['id']);
         $kafedra->setName(trim($data['name']));
         $kafedra->setTrainingCentre($tc);
         $kafedra->setDirector($dir);
@@ -81,18 +93,44 @@ class ApiKafedra extends AbstractController
         $entityManager->persist($kafedra);
         $entityManager->flush();
 
-        return $this->json(['result' => 'success', 'id'=>$data['id']]);
+        $loger = new Loger();
+        $loger->setTime(new \DateTime());
+        $loger->setAction('update_kafedra');
+        $loger->setUserLoger($this->getUser());
+        $loger->setIp($request->server->get('REMOTE_ADDR'));
+        $loger->setChapter('Кафедры');
+        $loger->setComment($data['id'] . ' ' . $data['name']);
+        $entityManager = $this->doctrine->getManager();
+        $entityManager->persist($loger);
+        $entityManager->flush();
+
+        return $this->json(['result' => 'success', 'id' => $data['id']]);
     }
 
     public function hide($id)
     {
-        $kafedra = $this->doctrine->getRepository(Kaferda::class)->find((int)$id);
+        $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
+        $data = $request->request->all();
+
+        $kafedra = $this->doctrine->getRepository(Kaferda::class)->find((int) $id);
         $kafedra->setDelete(true);
         $entityManager = $this->doctrine->getManager();
         $entityManager->persist($kafedra);
         $entityManager->flush();
 
-        return $this->json(['result' => 'success', 'id'=>$id]);
+        $data = $this->doctrine->getRepository(Kaferda::class)->find((int)$id);
 
+        $loger = new Loger();
+        $loger->setTime(new \DateTime());
+        $loger->setAction('delete_kafedra');
+        $loger->setUserLoger($this->getUser());
+        $loger->setIp($request->server->get('REMOTE_ADDR'));
+        $loger->setChapter('Кафедры');
+        $loger->setComment($id . ' ' . $data->getName());
+        $entityManager = $this->doctrine->getManager();
+        $entityManager->persist($loger);
+        $entityManager->flush();
+
+        return $this->json(['result' => 'success', 'id' => $id]);
     }
 }
