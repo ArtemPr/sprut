@@ -1,31 +1,61 @@
-<div id="userCreationPanel" class="user-form-panel offcanvas offcanvas-end" tabindex="-1" aria-labelledby="offcanvasEndLabel">
-    <div class="offcanvas-header">
-        <h2 class="offcanvas-title">Создание роли</h2>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        <form action="#" name="user-create">
-            <div class="form-group mb-3 row">
-                <label class="form-label col-3 col-form-label">Название</label>
-                <div class="col">
-                    <input type="text" class="form-control" placeholder="название для роли">
-                </div>
+<div class="offcanvas-header">
+    <h2 class="offcanvas-title">Создание роли</h2>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+</div>
+<div class="offcanvas-body">
+    <form action="#" name="role-create" id="role_add-create" class="form-create">
+        <div class="form-group mb-3 row">
+            <label class="form-label col-3 col-form-label">Название</label>
+            <div class="col">
+                <input type="text" class="form-control" name="name" placeholder="название для роли" required>
             </div>
-            <div class="form-group mb-3 row">
-                <label class="form-label col-3 col-form-label">Идентификатор</label>
-                <div class="col">
-                    <input type="text" class="form-control" placeholder="ROLE_XXXXXXXXX">
-                </div>
+        </div>
+        <div class="form-group mb-3 row">
+            <label class="form-label col-3 col-form-label">Идентификатор</label>
+            <div class="col">
+                <input type="text" class="form-control" name="roles_alt" placeholder="ROLE_XXXXXXXXX" required>
             </div>
-            <div class="form-group mb-3 row">
-                <label class="form-label col-3 col-form-label">Комментарий</label>
-                <div class="col">
-                    <textarea name="comment" class="form-control"></textarea>
-                </div>
+        </div>
+        <div class="form-group mb-3 row">
+            <label class="form-label col-3 col-form-label">Комментарий</label>
+            <div class="col">
+                <textarea name="comment" class="form-control"></textarea>
             </div>
-            <div class="d-flex mb-4">
-                <button type="submit" class="btn btn-primary ms-auto">Сохранить</button>
-            </div>
-        </form>
-    </div>
+        </div>
+        <div class="d-flex mb-4">
+            <button data-form-id="role_add-create" data-action="send-form" type="submit"
+                    class="btn btn-primary ms-auto"
+                    aria-label="Close"
+            >Сохранить
+            </button>
+        </div>
+{#
+
+Рабочий стол
+Курсы
+Панель управления
+	пользователи
+		пользователи
+			создание
+			удаление
+			редактирование
+		роли
+			создание
+			редактирование
+		операции
+			редактирование
+	справочники
+		ФГОС
+		Профессиональные стандарты
+		Учебные центры
+			создание
+			редактирование
+		кафедры
+			создание
+			удаление
+			редактирование
+	журнал событий
+
+#}
+    </form>
 </div>

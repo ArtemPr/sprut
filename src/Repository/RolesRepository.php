@@ -53,14 +53,38 @@ class RolesRepository extends ServiceEntityRepository
     /**
      * @return float|int|mixed|string
      */
-    public function getList()
+    public function getList(int|null $page = 0, int|null $on_page = 25, string|null $sort = null)
     {
         $entityManager = $this->getEntityManager();
 
+        $page = (empty($page) || $page === 1 || $page === 0) ? 0 : $page - 1;
+
+        $first_result = (int)$page * (int)$on_page;
+
+        if (!is_null($sort)) {
+            if (strstr($sort, '__up')) {
+                $sort = str_replace('__up', ' DESC', $sort);
+            } else {
+                $sort .= " ASC";
+            }
+
+            if (!strstr($sort, '.')) {
+                $order = 'role.' . $sort;
+            } else {
+                $order = $sort;
+            }
+        } else {
+            $order = 'role.id DESC';
+        }
+
         $result = $entityManager->createQuery(
             'SELECT role
-                FROM App\Entity\Roles role'
-        )->setMaxResults(self::PER_PAGE)->getResult(Query::HYDRATE_ARRAY);
+                FROM App\Entity\Roles role
+                ORDER BY ' . $order
+        )
+            ->setFirstResult($first_result)
+            ->setMaxResults($on_page)
+            ->getResult(Query::HYDRATE_ARRAY);
 
         return $result;
     }

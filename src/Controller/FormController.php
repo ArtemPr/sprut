@@ -11,8 +11,7 @@ namespace App\Controller;
 
 use App\Controller\Administrator\AdminDirectoryKafedra;
 use App\Controller\Administrator\AdminDirectoryTrainingCentre;
-use App\Entity\City;
-use App\Entity\User;
+use App\Controller\Administrator\AdministratorOperationsController;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -36,5 +35,12 @@ class FormController extends AbstractController
     public function getTrainingCentreForm($id, AdminDirectoryTrainingCentre $adminDirectoryTrainingCentre): Response
     {
         return $adminDirectoryTrainingCentre->getTrainingCentreForm($id);
+    }
+
+
+    #[Route('/operations_edit/{id}', name: 'training_centre_edit')]
+    public function getOperationsForm($id, AdministratorOperationsController $administratorOperationsController): Response
+    {
+        return $administratorOperationsController->getOperationsForm($id);
     }
 }
