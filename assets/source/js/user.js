@@ -185,19 +185,21 @@ window.addEventListener("load", function () {
  * User Dual Controls
  */
 
-const dualControlsSelects = document.querySelectorAll(".dual-controls-select");
-for (let i = 0; i < dualControlsSelects.length; ++i) {
-    let dualControlsSelect = dualControlsSelects[i];
-    new DualListbox(dualControlsSelect, {
-        availableTitle: "Available numbers",
-        selectedTitle: "Selected numbers",
-        addButtonText: ">",
-        removeButtonText: "<",
-        addAllButtonText: ">>",
-        removeAllButtonText: "<<",
-        searchPlaceholder: "Поиск",
-    });
-}
+// Удаляем плагин DUAL
+
+// const dualControlsSelects = document.querySelectorAll(".dual-controls-select");
+// for (let i = 0; i < dualControlsSelects.length; ++i) {
+//     let dualControlsSelect = dualControlsSelects[i];
+//     new DualListbox(dualControlsSelect, {
+//         availableTitle: "Available numbers",
+//         selectedTitle: "Selected numbers",
+//         addButtonText: ">",
+//         removeButtonText: "<",
+//         addAllButtonText: ">>",
+//         removeAllButtonText: "<<",
+//         searchPlaceholder: "Поиск",
+//     });
+// }
 
 /**
  * Search Clear

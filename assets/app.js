@@ -7,6 +7,7 @@ import './source/css/demo.min.css';
 import './source/css/jstree.css';
 
 import './source/css/base.css';
+import './source/sass/main.scss'
 import './source/css/user.css';
 
 // start the Stimulus application
@@ -19,5 +20,5 @@ import './source/js/dual.listbox.min'
 import './source/js/user'
 import './source/js/action'
 import './source/js/tables-ajax'
-
-import './source/sass/main.scss';
+import './source/js/dual-select';
+import './source/js/hierarchy-form';
