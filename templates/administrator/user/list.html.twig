@@ -29,7 +29,7 @@
                     <div class="row row-deck row-cards">
                         <div class="col-12">
                             <div class="card">
-                                {% include 'administrator/user/block/search_panel.html.twig' %}
+                                {% include 'administrator/user/block/search_panel.html.twig' with {'controller': 'user'} %}
                                 <div class="users-table-wrap table-responsive">
                                     <table id="usersTable"
                                            class="users-table table card-table table-vcenter text-nowrap datatable">
@@ -167,11 +167,11 @@
                                 </div>
                             </div>
 
-                            <div id="AdminUserCreationPanel" class="user-form-panel offcanvas offcanvas-end" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                            <div id="userCreationPanel" class="user-form-panel offcanvas offcanvas-end" tabindex="-1" aria-labelledby="offcanvasEndLabel">
                             {% include 'administrator/user/form/create_form.html.twig' %}
                             </div>
 
-                            <div id="AdminUserEditingPanel" class="user-form-panel offcanvas offcanvas-end" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                            <div id="userEditingPanel" class="user-form-panel offcanvas offcanvas-end" tabindex="-1" aria-labelledby="offcanvasEndLabel">
 
                             </div>
 

@@ -1,0 +1,44 @@
+/*!
+ * Created AptPr <prudishew@yandex.ru> 2022.
+ */
+
+  .hierarchy {
+    border: 1px solid #e5e5e5;
+    border-radius: 6px;
+    list-style: none;
+
+    &__group-list, .child-scopes {
+     list-style: none;
+    }
+
+    &__group-item {
+      display: block;
+      padding: 5px 10px;
+    }
+
+    &__group-label {
+      display: flex;
+    }
+
+    &__scope, .js-check-scope-container {
+      display: flex;
+      align-items: center;
+      width: 220px;
+      padding: 2px 0;
+      margin: 0;
+      color: black;
+      list-style: none;
+
+      .js-checkbox-scope {
+        margin-right: 7px;
+      }
+    }
+  }
+
+.child-scopes {
+  margin-top: 5px;
+  margin-left: 16px;
+  list-style: none;
+}
+
+

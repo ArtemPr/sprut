@@ -42,21 +42,12 @@ class ApiController extends AbstractController
         return $apiProgramController->getProgramsList();
     }
 
-    /**
-     * @param ApiProgramController $apiProgramController
-     * @param int                  $id
-     *
-     * @return Response
-     */
     #[Route('/program/{id}', name: 'api_get_program', methods: ['GET'])]
     public function api_get_program(ApiProgramController $apiProgramController, int $id): Response
     {
         return $apiProgramController->getProgram($id);
     }
 
-    /**
-     * @return void
-     */
     #[Route('/program_type', name: 'api_get_program_type', methods: ['GET'])]
     public function api_get_program_type(ProgramTypeRepository $programTypeRepository): Response
     {
@@ -127,7 +118,7 @@ class ApiController extends AbstractController
         return $update;
     }
 
-    #[Route('/role_add', name: 'api_ps_add', methods: ['POST'])]
+    #[Route('/role_add', name: 'role_add', methods: ['POST'])]
     public function add_role(ApiRole $apiRole): Response
     {
         return $apiRole->add();
