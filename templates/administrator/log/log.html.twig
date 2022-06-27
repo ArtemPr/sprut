@@ -19,7 +19,7 @@
                         <div class="col-12">
                             <div class="card">
                                 {% include 'administrator/user/block/search_panel.html.twig' with {'close_delete': true, 'close_edit': true, 'close_create': true} %}
-                                <div>
+                                <div class="ajax-table">
                                     {% include '/administrator/log/log_table.html.twig' %}
                                 </div>
                             </div>
