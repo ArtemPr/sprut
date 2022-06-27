@@ -371,3 +371,7 @@
 		font-size: 10px;
 	}
 }
+
+.disabled-btn {
+  opacity: 0.2;
+}
