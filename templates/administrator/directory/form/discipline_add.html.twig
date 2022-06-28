@@ -1,4 +1,3 @@
-
 <div class="offcanvas-header">
     <h2 class="offcanvas-title">Создание дисциплины</h2>
     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -6,57 +5,142 @@
 <div class="offcanvas-body">
     <form action="#" name="discipline-create" id="discipline_add-create" class="form-create">
 
-        <div class="form-group mb-3 row">
-            <label class="form-label col-3 col-form-label">Название *</label>
-            <div class="col">
-                <input name="name" type="text" class="form-control" placeholder="Название дисциплины" required>
+
+            <div class="form-group mb-3 row">
+                <label class="col-12 col-form-label">Статус</label>
+                <div class="">
+                    <select name="book" class="form-control">
+                        <option value="1">Новая</option>
+                        <option value="2">На проверке</option>
+                        <option value="3">На доработке</option>
+                        <option value="4">Принята</option>
+                        <option value="5">Готова</option>
+                    </select>
+                </div>
+            </div>
+
+
+        <div class="">
+            <ul class="nav nav-tabs" data-bs-toggle="tabs">
+                <li class="nav-item">
+                    <a href="#tabs-ex1" class="nav-link active" data-bs-toggle="tab">Основное</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#tabs-ex2" class="nav-link" data-bs-toggle="tab">Структура</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#tabs-ex3" class="nav-link" data-bs-toggle="tab">Литература</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#tabs-ex4" class="nav-link" data-bs-toggle="tab">Файлы</a>
+                </li>
+            </ul>
+            <div class="card-body">
+                <div class="tab-content">
+
+
+
+                    <div class="tab-pane active show" id="tabs-ex1">
+                        <div class="form-group mb-3 row">
+                            <label class="form-label col-3 col-form-label">Название *</label>
+                            <div class="col">
+                                <input name="name" type="text" class="form-control" placeholder="Название дисциплины"
+                                       required>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3 row">
+                            <label class="form-label col-3 col-form-label">Тип</label>
+                            <div class="col">
+                                <select name="type" class="form-control">
+                                    <option value="0">нет типа</option>
+                                    <option value="1">Профессиональная переподготовка</option>
+                                    <option value="2">Профессиональное обучение</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3 row">
+                            <label class="form-label col-3 col-form-label">Практикум</label>
+                            <div class="col">
+
+                                <select name="practicum_flag" class="form-control">
+                                    <option value="0">нет</option>
+                                    <option value="1">да</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3 row">
+                            <label class="form-label col-3 col-form-label">Цель освоения</label>
+                            <div class="col">
+                                <textarea name="purpose" type="text" class="form-control" placeholder="">
+                                </textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3 row">
+                            <label class="form-label col-3 col-form-label">Комментарий</label>
+                            <div class="col">
+                                <textarea name="comment" type="text" class="form-control" placeholder="">
+                                </textarea>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="tab-pane" id="tabs-ex2">
+                        <div class="form-group mb-3 row">
+                            <label class="col-12 col-form-label">Модули и темы</label>
+                            <div class="">
+                                <select name="module" class="form-control">
+                                    <option value="1">Выберите</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="tab-pane" id="tabs-ex3">
+                        <div class="form-group mb-3 row">
+                            <label class="col-12 col-form-label">Литература</label>
+                            <div class="">
+                                <select name="book" class="form-control">
+                                    <option value="1">Выберите</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="tab-pane" id="tabs-ex4">
+                        <div class="form-group mb-3 row">
+                            <label class="col-12 col-form-label">Файл Банка тестовых заданий</label>
+                            <div class="">
+                                <input type="file" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3 row">
+                            <label class="col-12 col-form-label">Файл РПД в старом формате</label>
+                            <div class="">
+                                <input type="file" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="d-flex mb-4 container">
+                <button data-form-id="discipline_add-create" data-action="send-form" type="submit"
+                        class="btn btn-primary ms-auto"
+                        aria-label="Close">Сохранить
+                </button>
             </div>
         </div>
 
-        <div class="form-group mb-3 row">
-            <label class="form-label col-3 col-form-label">Тип</label>
-            <div class="col">
-                <select name="type" class="form-control">
-                    <option value="0">нет типа</option>
-                    <option value="1">Профессиональная переподготовка</option>
-                    <option value="2">Профессиональное обучение</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="form-group mb-3 row">
-            <label class="form-label col-3 col-form-label">Практикум</label>
-            <div class="col">
-
-                <select name="practicum_flag" class="form-control">
-                    <option value="0">нет</option>
-                    <option value="1">да</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="form-group mb-3 row">
-            <label class="form-label col-3 col-form-label">Цель освоения</label>
-            <div class="col">
-                <textarea name="purpose" type="text" class="form-control" placeholder="">
-                </textarea>
-            </div>
-        </div>
-
-        <div class="form-group mb-3 row">
-            <label class="form-label col-3 col-form-label">Комментарий</label>
-            <div class="col">
-                <textarea name="comment" type="text" class="form-control" placeholder="">
-                </textarea>
-            </div>
-        </div>
-
-        <div class="d-flex mb-4">
-            <button data-form-id="discipline_add-create" data-action="send-form" type="submit"
-                    class="btn btn-primary ms-auto"
-                    aria-label="Close"
-            >Сохранить
-            </button>
-        </div>
     </form>
 </div>
