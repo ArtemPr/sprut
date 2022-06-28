@@ -62,4 +62,9 @@ class AdminDirectoryDiscipline extends AbstractController
             ]
         );
     }
+
+    public function getDisciplineForm($id)
+    {
+        return $this->render('administrator/directory/form/discipline_update.html.twig');
+    }
 }
