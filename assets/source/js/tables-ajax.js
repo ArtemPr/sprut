@@ -7,13 +7,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
     const ajaxTable = document.querySelector('.ajax-table');
     let selectValue = 25;
     let selectOnPage = document.querySelector('#on_page_selector');
-    if(selectOnPage) {
+ //   if(selectOnPage) {
         const sectionName = selectOnPage.getAttribute('data-path');
-    }
+ //   }
     let sortIcons = document.querySelectorAll('.sort-icon');
     let paginationLinks = document.querySelectorAll('.page-link');
     let allRows = document.querySelectorAll('.user-table-row');
-    if(selectOnPage) {
+    if(selectOnPage && sectionName) {
         let tableUrl = `${location.protocol}//${location.host}${sectionName}?ajax=true&&on_page=${selectValue}`;
     }
 
