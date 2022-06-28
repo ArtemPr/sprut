@@ -43,7 +43,8 @@ select {
   .dual-listbox__available,
   .dual-listbox__selected {
     border: 1px solid #ddd;
-    height: 300px;
+    background-color: rgba(32, 107, 196, 0.25);
+    height: 285px;
     overflow-y: auto;
     padding: 0;
     width: 300px;
@@ -60,7 +61,6 @@ select {
   .dual-listbox__button {
     margin-bottom: 5px;
     border: 0;
-    background-color: #eee;
     padding: 10px;
     color: #fff;
     background-color: #206bc4;
@@ -89,16 +89,18 @@ select {
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
-    border-bottom: 1px solid #efefef;
+    border-bottom: 1px solid #fff;
     transition: background 0.2s ease;
 
     &:focus-visible, &:active, &:focus,  &:hover {
-      background-color: rgba(32, 107, 196, 0.25) !important;
+      background-color: #5e9ae1 !important;
+      color: #fff;
       outline: none;
     }
 
     &.dual-listbox__item--selected {
-      background-color: rgba(32, 107, 196, 0.25) !important;
+      background-color: #206bc4;
+      color: #fff;
     }
   }
 
