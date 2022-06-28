@@ -24,6 +24,12 @@ class ApiRole extends \Symfony\Bundle\FrameworkBundle\Controller\AbstractControl
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
         $data = $request->request->all();
 
+        $data['roles_alt'] = strtoupper($data['roles_alt']);
+        // ROLE_
+        if (substr($data['roles_alt'],0, 5) !== "ROLE_") {
+            $data['roles_alt'] = 'ROLE_' . $data['roles_alt'];
+        }
+
         $tc = new Roles();
         $tc->setName(trim($data['name']));
         $tc->setRolesAlt(trim($data['roles_alt']));
