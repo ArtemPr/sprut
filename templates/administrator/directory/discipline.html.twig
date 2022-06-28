@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}СПРУТ 1.0{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+{% block body %}
+    {{ include('block/header.html.twig') }}
+
+    <div class="page page-layout">
+        <aside class="navbar navbar-vertical navbar-expand-lg navbar-light">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbar-menu">
+                    {% include 'administrator/block/nav_directory.html.twig' with {'controller': 'discipline'} %}
+                </div>
+            </div>
+        </aside>
+        <div class="page-wrapper">
+            <div class="container-xl">
+                {% include 'administrator/block/header_list.html.twig' with {'header': 'Справочник - дисциплины', 'onpage_link': path('administrator_directory_discipline')} %}
+            </div>
+            <div class="page-body">
+                <div class="container-xl">
+                    <div class="row row-deck row-cards">
+                        <div class="col-12">
+                            <div class="card">
+                                {% include 'administrator/user/block/search_panel.html.twig' with {
+                                    'close_delete': false,
+                                    'close_edit': false,
+                                    'close_create': false,
+                                    'controller': 'discipline'
+                                } %}
+
+                                <div class="ajax-table">
+                                    {{ include('administrator/directory/discipline_table.html.twig') }}
+                                </div>
+
+                            </div>
+
+                            <div id="userEditingOverlay" class="offcanvas-backdrop fade"></div>
+
+                            <div id="disciplineCreationPanel" data-action="add" class="user-form-panel offcanvas offcanvas-end modal-large" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                                {% include 'administrator/directory/form/discipline_add.html.twig'  %}
+                            </div>
+                            <div id="disciplineEditingPanel" data-action="edit" class="user-form-panel offcanvas offcanvas-end modal-large" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                                <img src="{{ absolute_url('/assets/images/loading--big.gif') }}" style="position: absolute; top: 10%; left: 50%; margin-left: -75px;">
+                            </div>
+
+                            {% include 'administrator/modal/delete.html.twig' with {'controller': 'discipline'} %}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

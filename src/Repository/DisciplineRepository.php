@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Discipline;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -39,28 +40,41 @@ class DisciplineRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Discipline[] Returns an array of Discipline objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('d')
-//            ->andWhere('d.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('d.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * @return float|int|mixed|string
+     */
+    public function getList(int|null $page = 0, int|null $on_page = 25, string|null $sort = null)
+    {
+        $entityManager = $this->getEntityManager();
 
-//    public function findOneBySomeField($value): ?Discipline
-//    {
-//        return $this->createQueryBuilder('d')
-//            ->andWhere('d.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        $page = (empty($page) || $page === 1 || $page === 0) ? 0 : $page - 1;
+        $first_result = (int)$page * (int)$on_page;
+
+        if (!is_null($sort)) {
+            if (strstr($sort, '__up')) {
+                $sort = str_replace('__up', ' DESC', $sort);
+            } else {
+                $sort .= " ASC";
+            }
+
+            if (!strstr($sort, '.')) {
+                $order = 'ds.' . $sort;
+            } else {
+                $order = $sort;
+            }
+        } else {
+            $order = 'ds.id DESC';
+        }
+
+        $result = $entityManager->createQuery(
+            'SELECT ds
+                FROM App\Entity\Discipline ds
+                ORDER BY ' . $order
+        )
+            ->setFirstResult($first_result)
+            ->setMaxResults($on_page)
+            ->getResult(Query::HYDRATE_ARRAY);
+
+        return $result;
+    }
 }
