@@ -19,4 +19,9 @@
             <span class="nav-link-title">Кафедры</span>
         </a>
     </li>
+    <li class="nav-item {% if controller|default(false) and controller == 'discipline' %}active{% endif %}">
+        <a class="nav-link" href="{{ path('administrator_directory_discipline') }}">
+            <span class="nav-link-title">Дисциплины</span>
+        </a>
+    </li>
 </ul>

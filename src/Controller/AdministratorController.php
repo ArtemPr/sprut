@@ -5,6 +5,7 @@
 
 namespace App\Controller;
 
+use App\Controller\Administrator\AdminDirectoryDiscipline;
 use App\Controller\Administrator\AdminDirectoryFGOS;
 use App\Controller\Administrator\AdminDirectoryKafedra;
 use App\Controller\Administrator\AdminDirectoryPS;
@@ -66,5 +67,11 @@ class AdministratorController extends AbstractController
     public function getDirectoryTrainingCentre(AdminDirectoryTrainingCentre $adminDirectoryTrainingCentre): Response
     {
         return $adminDirectoryTrainingCentre->getList();
+    }
+
+    #[Route('/discipline', name: '_directory_discipline')]
+    public function getDirectoryDiscipline(AdminDirectoryDiscipline $adminDirectoryDiscipline): Response
+    {
+        return $adminDirectoryDiscipline->getList();
     }
 }
