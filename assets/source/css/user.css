@@ -18,23 +18,18 @@ body.user-editing-panel-opened {
 
 .users-table th {
 	position: relative;
-	padding-right: 25px;
 }
 
 .users-table th .sort-icon {
 	width: 12px;
 	height: 11px;
 	position: absolute;
-	right: 8px;
-	top: 11px;
+	left: 8px;
+	top: 50%;
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: contain;
 	z-index: 30;
-}
-
-.th-name {
-  margin-left: 1rem;
 }
 
 .users-table th .sort-icon.is-both {
@@ -186,8 +181,8 @@ body.user-editing-panel-opened {
 
 .user-form-panel .dual-listbox__available,
 .user-form-panel .dual-listbox__selected {
+	width: auto;
 	height: 186px !important;
-	background-color: #d1e1f1 !important;
 }
 
 .user-form-panel .dual-listbox__buttons {

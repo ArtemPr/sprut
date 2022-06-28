@@ -1,8 +1,9 @@
 .th-name {
   position: relative;
-  padding-left: 10px;
+  padding-left: 1.3rem;
   margin-top: 0;
   margin-bottom: 0;
+  pointer-events: none;
 }
 
 .users-table th .sort-icon {
