@@ -1,0 +1,62 @@
+
+<div class="offcanvas-header">
+    <h2 class="offcanvas-title">Создание дисциплины</h2>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+</div>
+<div class="offcanvas-body">
+    <form action="#" name="discipline-create" id="discipline_add-create" class="form-create">
+
+        <div class="form-group mb-3 row">
+            <label class="form-label col-3 col-form-label">Название *</label>
+            <div class="col">
+                <input name="name" type="text" class="form-control" placeholder="Название дисциплины" required>
+            </div>
+        </div>
+
+        <div class="form-group mb-3 row">
+            <label class="form-label col-3 col-form-label">Тип</label>
+            <div class="col">
+                <select name="type" class="form-control">
+                    <option value="0">нет типа</option>
+                    <option value="1">Профессиональная переподготовка</option>
+                    <option value="2">Профессиональное обучение</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group mb-3 row">
+            <label class="form-label col-3 col-form-label">Практикум</label>
+            <div class="col">
+
+                <select name="practicum_flag" class="form-control">
+                    <option value="0">нет</option>
+                    <option value="1">да</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group mb-3 row">
+            <label class="form-label col-3 col-form-label">Цель освоения</label>
+            <div class="col">
+                <textarea name="purpose" type="text" class="form-control" placeholder="">
+                </textarea>
+            </div>
+        </div>
+
+        <div class="form-group mb-3 row">
+            <label class="form-label col-3 col-form-label">Комментарий</label>
+            <div class="col">
+                <textarea name="comment" type="text" class="form-control" placeholder="">
+                </textarea>
+            </div>
+        </div>
+
+        <div class="d-flex mb-4">
+            <button data-form-id="discipline_add-create" data-action="send-form" type="submit"
+                    class="btn btn-primary ms-auto"
+                    aria-label="Close"
+            >Сохранить
+            </button>
+        </div>
+    </form>
+</div>
