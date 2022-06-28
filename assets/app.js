@@ -7,8 +7,9 @@ import './source/css/demo.min.css';
 import './source/css/jstree.css';
 
 import './source/css/base.css';
-import './source/sass/main.scss'
 import './source/css/user.css';
+
+import './source/sass/main.scss';
 
 // start the Stimulus application
 import './bootstrap';

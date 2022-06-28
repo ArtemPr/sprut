@@ -2,43 +2,66 @@
  * Created AptPr <prudishew@yandex.ru> 2022.
  */
 
-  .hierarchy {
-    border: 1px solid #e5e5e5;
-    border-radius: 6px;
-    list-style: none;
-
-    &__group-list, .child-scopes {
-     list-style: none;
-    }
-
-    &__group-item {
-      display: block;
-      padding: 5px 10px;
-    }
-
-    &__group-label {
-      display: flex;
-    }
-
-    &__scope, .js-check-scope-container {
-      display: flex;
-      align-items: center;
-      width: 220px;
-      padding: 2px 0;
-      margin: 0;
-      color: black;
-      list-style: none;
-
-      .js-checkbox-scope {
-        margin-right: 7px;
-      }
-    }
+.hierarchy {
+  &__container {
+    margin-top: 50px;
+    margin-bottom: 50px;
   }
 
-.child-scopes {
-  margin-top: 5px;
-  margin-left: 16px;
-  list-style: none;
+  &__title {
+    padding-left: 0;
+    padding-bottom: 1.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.5rem;
+    border-bottom: 1px solid rgba(98, 105, 118, .16);
+  }
+
+  &__group-list {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: 20px;
+    max-height: 40vh;
+    overflow: auto;
+    border-top: 1px solid rgba(98, 105, 118, .16);
+    border-bottom: 1px solid rgba(98, 105, 118, .16);
+  }
+
+  &__group-list,
+  &__child-scopes {
+    list-style: none;
+    padding-left: 0;
+    margin-left: 0;
+  }
+
+  &__child-scopes {
+    margin-top: 5px;
+    margin-left: 30px;
+  }
+
+  &__group-item {
+    display: block;
+    padding: 5px 10px 5px 0;
+  }
+
+  &__group-label {
+    display: flex;
+  }
+
+  &__scope,
+  .js-check-scope-container {
+    display: flex;
+    align-items: center;
+    width: 220px;
+    padding: 2px 0;
+    margin: 0;
+    color: black;
+    list-style: none;
+
+    .js-checkbox-scope {
+      margin-right: 7px;
+    }
+  }
 }
 
 

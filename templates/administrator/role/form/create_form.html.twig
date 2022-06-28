@@ -22,6 +22,91 @@
                 <textarea name="comment" class="form-control"></textarea>
             </div>
         </div>
+
+        <div class="hierarchy__container">
+            <h2 class="hierarchy__title">Настройка прав</h2>
+            <ul class="hierarchy__group-list">
+                <li class="hierarchy__group-item" data-scope-for="desktop">
+                    <label class="hierarchy__scope">
+                        <input type="checkbox" name="desktop" value="desktop"
+                               class="form-check-input js-checkbox-scope parent-checkbox-scope"
+                               data-selected-by="workflow">Рабочий стол
+                    </label>
+                </li>
+                <li class="hierarchy__group-item" data-scope-for="desktop">
+                    <label class="hierarchy__scope">
+                        <input type="checkbox" name="desktop" value="desktop"
+                               class="form-check-input js-checkbox-scope parent-checkbox-scope"
+                               data-selected-by="workflow">Курсы
+                    </label>
+                </li>
+                <li class="hierarchy__group-item" data-scope-for="repo">
+                    <label class="hierarchy__scope hierarchy__scope--parent">
+                        <input type="checkbox" name="oauth_access[scopes][]" value="repo"
+                               class="form-check-input js-checkbox-scope parent-checkbox-scope"
+                               data-selected-by="workflow"> Панель управления
+                    </label>
+                    <ul class="hierarchy__child-scopes">
+                        <li class="js-check-scope-container" data-scope-for="repo:status">
+                            <label class="hierarchy__scope">
+                                <input type="checkbox" name="oauth_access[scopes][]" value="repo:status"
+                                       class="form-check-input js-checkbox-scope"/> создание
+                            </label>
+                        </li>
+                        <li class="js-check-scope-container" data-scope-for="repo_deployment">
+                            <label class="hierarchy__scope">
+                                <input type="checkbox" name="oauth_access[scopes][]" value="repo_deployment"
+                                       class="form-check-input js-checkbox-scope" data-selected-by> удаление
+                            </label>
+                        </li>
+                        <li class="js-check-scope-container" data-scope-for="repo_deployment">
+                            <label class="hierarchy__scope">
+                                <input type="checkbox" name="oauth_access[scopes][]" value="repo_deployment"
+                                       class="form-check-input js-checkbox-scope"> редактирование
+                            </label>
+                            <ul class="hierarchy__child-scopes">
+                                <li class="js-check-scope-container" data-scope-for="repo:status">
+                                    <label class="hierarchy__scope">
+                                        <input type="checkbox" name="oauth_access[scopes][]" value="repo:status"
+                                               class="form-check-input js-checkbox-scope"/> создание
+                                    </label>
+                                </li>
+                                <li class="js-check-scope-container" data-scope-for="repo_deployment">
+                                    <label class="hierarchy__scope">
+                                        <input type="checkbox" name="oauth_access[scopes][]" value="repo_deployment"
+                                               class="form-check-input js-checkbox-scope" data-selected-by> удаление
+                                    </label>
+                                </li>
+                                <li class="js-check-scope-container" data-scope-for="repo_deployment">
+                                    <label class="hierarchy__scope">
+                                        <input type="checkbox" name="oauth_access[scopes][]" value="repo_deployment"
+                                               class="form-check-input js-checkbox-scope"> редактирование
+                                    </label>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                    fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+                    deserunt mollit anim id est laborum."
+
+                    Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC
+                    "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam
+                    rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt
+                    explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
+                    consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui
+                    dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora
+                    incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum
+                    exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem
+                    vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum
+                    qui dolorem eum fugiat quo voluptas nulla pariatur?"</li>
+
+            </ul>
+        </div>
         <div class="d-flex mb-4">
             <button data-form-id="role_add-create" data-action="send-form" type="submit"
                     class="btn btn-primary ms-auto"
@@ -29,89 +114,34 @@
             >Сохранить
             </button>
         </div>
+    </form>
+</div>
 
-
-        <form class="hierarchy" method="post">
-        <ul class="hierarchy__group-list">
-            <li class="hierarchy__group-item" data-scope-for="desktop">
-                    <label class="hierarchy__scope">
-                        <input type="checkbox" name="desktop" value="desktop" class="js-checkbox-scope parent-checkbox-scope"  data-selected-by="workflow" >Рабочий стол
-                    </label>
-            </li>
-            <li class="hierarchy__group-item" data-scope-for="desktop">
-                    <label class="hierarchy__scope">
-                        <input type="checkbox" name="desktop" value="desktop" class="js-checkbox-scope parent-checkbox-scope" data-selected-by="workflow" >Курсы
-                    </label>
-            </li>
-            <li class="hierarchy__group-item" data-scope-for="repo">
-                    <label class="hierarchy__scope parent-scope">
-                        <input type="checkbox" name="oauth_access[scopes][]" value="repo" class="js-checkbox-scope parent-checkbox-scope" data-selected-by="workflow" > Панель управления
-                </label>
-                <ul class="child-scopes">
-                    <li class="personal-access-tokens js-check-scope-container" data-scope-for="repo:status">
-                            <label class="hierarchy__scope">
-                                <input type="checkbox" name="oauth_access[scopes][]" value="repo:status" class="js-checkbox-scope" /> создание
-                            </label>
-                    </li>
-                    <li class="personal-access-tokens js-check-scope-container" data-scope-for="repo_deployment">
-                            <label class="hierarchy__scope">
-                                <input type="checkbox" name="oauth_access[scopes][]" value="repo_deployment" class="js-checkbox-scope"  data-selected-by> удаление
-                            </label>
-                    </li>
-                    <li class="personal-access-tokens js-check-scope-container" data-scope-for="repo_deployment">
-                            <label class="hierarchy__scope">
-                                <input type="checkbox" name="oauth_access[scopes][]" value="repo_deployment" class="js-checkbox-scope"> редактирование
-                            </label>
-                        <ul class="child-scopes">
-                            <li class="personal-access-tokens js-check-scope-container" data-scope-for="repo:status">
-                                <label class="hierarchy__scope">
-                                    <input type="checkbox" name="oauth_access[scopes][]" value="repo:status" class="js-checkbox-scope" /> создание
-                                </label>
-                            </li>
-                            <li class="personal-access-tokens js-check-scope-container" data-scope-for="repo_deployment">
-                                <label class="hierarchy__scope">
-                                    <input type="checkbox" name="oauth_access[scopes][]" value="repo_deployment" class="js-checkbox-scope"  data-selected-by> удаление
-                                </label>
-                            </li>
-                            <li class="personal-access-tokens js-check-scope-container" data-scope-for="repo_deployment">
-                                <label class="hierarchy__scope">
-                                    <input type="checkbox" name="oauth_access[scopes][]" value="repo_deployment" class="js-checkbox-scope"> редактирование
-                                </label>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-        </form>
-
-        {#
-
+{#
 Рабочий стол
 Курсы
 Панель управления
-	пользователи
-		пользователи
-			создание
-			удаление
-			редактирование
-		роли
-			создание
-			редактирование
-		операции
-			редактирование
-	справочники
-		ФГОС
-		Профессиональные стандарты
-		Учебные центры
-			создание
-			редактирование
-		кафедры
-			создание
-			удаление
-			редактирование
-	журнал событий
-
+    пользователи
+        пользователи
+            создание
+            удаление
+            редактирование
+        роли
+            создание
+            редактирование
+        операции
+            редактирование
+    справочники
+        ФГОС
+        Профессиональные стандарты
+        Учебные центры
+            создание
+            редактирование
+        кафедры
+            создание
+            удаление
+            редактирование
+    журнал событий
 #}
-    </form>
+</form>
 </div>
