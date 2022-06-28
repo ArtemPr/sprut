@@ -26,12 +26,15 @@
 
   .icon {
     margin: 0 auto 10px;
+    width: auto;
+    height: auto;
   }
 
   &__link {
     font-size: 20px;
     display: flex;
-    flex-direction: column;
+   // flex-direction: column;
+    flex-basis: 48%;
     text-align: center;
     color: rgba(30,41,59,.7);
     transition: color .3s;
@@ -44,14 +47,20 @@
 
   &__item {
     display: flex;
-    flex-basis: 48%;
+    flex-direction: column;
+    flex-basis: 100%;
+   // flex-basis: 48%;
     outline: 2px solid rgba(30,41,59,.5);
     align-items: center;
     border-radius: 5px;
     align-content: center;
     justify-content: center;
     box-sizing: border-box;
-    padding: 130px 10px;
+ //   padding: 130px 10px;
+
+    &:hover {
+      outline: 2px solid rgba(30,41,59,1);
+    }
 
     @media(max-width: 1025px) {
       padding: 80px 10px;
@@ -59,3 +68,11 @@
     }
   }
 }
+
+.grid {
+  width: 400px;
+  height: 500px;
+  outline: 2px solid red;
+}
+.grid-item { width: 200px; background-color: #0ca678}
+.grid-item--width2 { width: 400px; background-color: #0a6aa1}

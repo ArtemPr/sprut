@@ -16,6 +16,7 @@ import './bootstrap';
 import './source/js/tabler.min'
 import './source/js/demo.min'
 import './source/js/dual.listbox.min'
+//import './source/js/masonry.js';
 // import './source/js/jquery.min'
 // import './source/js/jstree.min'
 import './source/js/user'
