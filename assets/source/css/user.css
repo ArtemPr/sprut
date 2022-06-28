@@ -273,3 +273,18 @@ body.user-editing-panel-opened {
 .id-name {
   margin-left: 15px;
 }
+
+/* добавочный класс .modal-large
+модального окна,
+которое больше остальных
+на стр создать-программы */
+
+.modal-large {
+  width: calc(100% - 250px);
+}
+
+@media(max-width: 820px) {
+  .modal-large {
+      width: 90%;
+  }
+}

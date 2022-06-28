@@ -4,7 +4,7 @@
 document.addEventListener("DOMContentLoaded", function(event) {
 
     let managingDepartmentsModal = document.querySelector('[data-bs-target="#managingDepartmentsModal"]');
-    console.log('managingModalsBtn ', managingDepartmentsModal);
+   // console.log('managingModalsBtn ', managingDepartmentsModal);
 
     if(managingDepartmentsModal) {
         managingDepartmentsModal.addEventListener('click', function(){
