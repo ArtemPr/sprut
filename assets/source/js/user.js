@@ -4,20 +4,20 @@
  * Check on Touch Device
  */
 
-var elem = document.querySelector('.grid');
-if(elem) {
-    var msnry = new Masonry( elem, {
-        // options
-        itemSelector: '.grid-item',
-        columnWidth: 200
-    });
+// var elem = document.querySelector('.grid');
+// if(elem) {
+//     var msnry = new Masonry( elem, {
+//         // options
+//         itemSelector: '.grid-item',
+//         columnWidth: 200
+//     });
 
 // element argument can be a selector string
 //   for an individual element
 //     var msnry = new Masonry( '.grid', {
 //         // options
 //     });
-}
+// }
 
 
 function isTouchDevice() {
