@@ -47,8 +47,8 @@
                                 {% include 'administrator/role/form/create_form.html.twig' %}
                             </div>
 
-                            <div id="roleEditingPanel" class="user-form-panel offcanvas offcanvas-end" tabindex="-1" aria-labelledby="offcanvasEndLabel">
-
+                            <div id="roleEditingPanel" data-action="edit" class="user-form-panel offcanvas offcanvas-end" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                                <img src="{{ absolute_url('/assets/images/loading--big.gif') }}" style="position: absolute; top: 10%; left: 50%; margin-left: -75px;">
                             </div>
 
                         </div>
