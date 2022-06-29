@@ -67,7 +67,7 @@ if(changeDisciplineBtn) {
     //    console.log('edit click');
         setTimeout(() => {
             const selectColored = document.getElementById('select-colored');
-            console.log('selectColored ', selectColored);
+         //   console.log('selectColored ', selectColored);
             if(selectColored) {
                 selectColored.addEventListener('change', function(){
                 const value = selectColored.options[selectColored.selectedIndex].value
