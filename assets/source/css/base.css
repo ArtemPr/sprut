@@ -443,3 +443,22 @@
 .form-control .option-ready {
   background-color: rgb(47, 179, 68, 0.4);
 }
+
+/* убираем обводки таблера */
+
+.btn:focus, .btn:hover {
+  box-shadow: none;
+  border-color: #e6e7e9;
+}
+
+.btn:focus:not([disabled]):not(.disabled) {
+  border-color: #e6e7e9;
+}
+
+.page-link:focus {
+  box-shadow: none;
+}
+
+.form-check-input:focus {
+  box-shadow: none;
+}
