@@ -8,10 +8,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
     if (scopes) {
         scopes.forEach(scope => scope.addEventListener('click', function () {
             if (scope.classList.contains('hierarchy__scope--parent')) {
-                //    console.log('parent');
+                let parent = scope.parentNode;
+                //console.log(parent);
                 const parentInput = scope.querySelector('input');
-                let childrenInputs = document.querySelectorAll('.hierarchy__child-scopes .js-checkbox-scope');
-            //    console.log(childrenInputs);
+                let childrenInputs = parent.querySelectorAll('.hierarchy__child-scopes .js-checkbox-scope');
+                // console.log(childrenInputs);
                 if (parentInput.checked === true && childrenInputs) {
                     childrenInputs.forEach(childInput => childInput.checked = true);
                 }
