@@ -13,6 +13,7 @@ use App\Controller\Administrator\AdminDirectoryDiscipline;
 use App\Controller\Administrator\AdminDirectoryKafedra;
 use App\Controller\Administrator\AdminDirectoryTrainingCentre;
 use App\Controller\Administrator\AdministratorOperationsController;
+use App\Controller\Administrator\AdministratorRoleController;
 use App\Controller\Administrator\AdministratorUserController;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -55,5 +56,11 @@ class FormController extends AbstractController
     public function getDisciplineForm($id, AdminDirectoryDiscipline $adminDirectoryDiscipline): Response
     {
         return $adminDirectoryDiscipline->getDisciplineForm($id);
+    }
+
+    #[Route('/role_edit/{id}', name: 'role_edit')]
+    public function getRoleForm($id, AdministratorRoleController $administratorRoleController): Response
+    {
+        return $administratorRoleController->getRoleForm($id);
     }
 }

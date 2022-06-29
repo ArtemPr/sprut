@@ -41,76 +41,6 @@ class AdministratorRoleController extends AbstractController
 
         $tpl = $request->get('ajax') ? 'administrator/role/role_table.html.twig' : 'administrator/role/list.html.twig' ;
 
-        $role_array = [
-            [
-                'name' => 'Рабочий стол',
-                'id' => 'desktop_view',
-            ],
-            [
-                'name' => 'Курсы',
-                'id' => 'program_view',
-                'action' => [
-                    [
-
-                        'name' => 'Создание',
-                        'id' => 'program_add',
-                    ],
-                    [
-
-                        'name' => 'Редактирование',
-                        'id' => 'program_edit',
-                    ],
-                    [
-
-                        'name' => 'Удаление',
-                        'id' => 'program_delete',
-                    ],
-                ],
-            ],
-            [
-                'name' => 'Панель управления',
-                'id' => 'admin',
-                'item' => [
-                    [
-                        'name' => 'Пользователи',
-                        'id' => 'user_view',
-                        'item' => [
-                            [
-                                'name' => 'Пользователи',
-                                'id' => 'user_list_view',
-                                'action' => [
-                                    [
-
-                                        'name' => 'Создание',
-                                        'id' => 'user_list_add',
-                                    ],
-                                    [
-
-                                        'name' => 'Редактирование',
-                                        'id' => 'user_list_edit',
-                                    ],
-                                    [
-
-                                        'name' => 'Удаление',
-                                        'id' => 'user_list_delete',
-                                    ],
-                                ]
-                            ]
-                        ],
-                    ],
-                    [
-                        'name' => 'Справочники',
-                        'id' => 'directory_view'
-                    ],
-                    [
-                        'name' => 'Журнал событий',
-                        'id' => 'log_view'
-                    ],
-                ],
-            ],
-        ];
-
-
 
         return $this->render(
             $tpl,
@@ -130,5 +60,10 @@ class AdministratorRoleController extends AbstractController
                 'table' => $table
             ]
         );
+    }
+
+    public function getRoleForm()
+    {
+        return $this->render('administrator/role/form/update_form.html.twig');
     }
 }

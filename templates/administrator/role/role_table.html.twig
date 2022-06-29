@@ -12,12 +12,14 @@
         <tbody>
         {% if role_list|default(false) %}
             {% for ul in role_list %}
-                <tr class="user-table-row {% if loop.first %}is-selected{% endif %}">
+                <tr data-string="{{ ul.id }}"
+                    class="user-table-row {% if loop.first %}is-selected{% endif %}">
                     <td><span class="badge bg-success"></span></td>
                     <td>
                         {{ ul.name|default(false) }}
                     </td>
                     <td>
+                        {{ ul.comment|default(false) }}
                     </td>
                     <td>
                         {{ ul.roles_alt|default(false) }}
