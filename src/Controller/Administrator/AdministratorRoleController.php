@@ -62,8 +62,15 @@ class AdministratorRoleController extends AbstractController
         );
     }
 
-    public function getRoleForm()
+    public function getRoleForm(int $id)
     {
-        return $this->render('administrator/role/form/update_form.html.twig');
+        $data = $this->managerRegistry->getRepository(Roles::class)->find($id);
+
+        return $this->render(
+            'administrator/role/form/update_form.html.twig',
+            [
+                'data' => $data,
+            ]
+        );
     }
 }
