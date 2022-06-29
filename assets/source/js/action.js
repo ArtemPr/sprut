@@ -2,6 +2,8 @@
  * Created AptPr <prudishew@yandex.ru> 2022.
  */
 
+document.addEventListener("DOMContentLoaded", function(event) {
+
 let top_btn = document.querySelectorAll('.btn');
 
 for (var i = 0; i < top_btn.length; i++) {
@@ -57,3 +59,42 @@ if(delete_btn != null) {
         }
     });
 }
+
+const changeDisciplineBtn = document.querySelector('.btn-group [data-action="edit"]');
+//console.log(changeDisciplineBtn);
+if(changeDisciplineBtn) {
+    changeDisciplineBtn.addEventListener('click', function(){
+    //    console.log('edit click');
+        setTimeout(() => {
+            const selectColored = document.getElementById('select-colored');
+            console.log('selectColored ', selectColored);
+            if(selectColored) {
+                selectColored.addEventListener('change', function(){
+                const value = selectColored.options[selectColored.selectedIndex].value
+                //    console.log('change ', value)
+                    switch (selectColored.value) {
+                        case "1":
+                            selectColored.style.backgroundColor = '#fff';
+                            break;
+                        case "2":
+                            selectColored.style.backgroundColor = 'rgb(214, 51, 108, 0.4)';
+                            break;
+                        case "3":
+                            selectColored.style.backgroundColor = 'rgb(245, 159, 0, 0.4)';
+                            break;
+                        case "4":
+                            selectColored.style.backgroundColor = 'rgb(66, 153, 225, 0.4)';
+                            break;
+                        case "5":
+                            selectColored.style.backgroundColor = 'rgb(47, 179, 68, 0.4)';
+                            break;
+                        default:
+                            selectColored.style.backgroundColor = '#fff';
+                            break;
+                    }
+                })
+            }
+        }, 1000);
+    })
+}
+})

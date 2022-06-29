@@ -3,17 +3,20 @@
  */
 
 // изменение данных в таблице при GET параметре ajax=true
-document.addEventListener("DOMContentLoaded", function(event) {
+document.addEventListener("DOMContentLoaded", function (event) {
     const ajaxTable = document.querySelector('.ajax-table');
     let selectValue = 25;
     let selectOnPage = document.querySelector('#on_page_selector');
- //   if(selectOnPage) {
-        const sectionName = selectOnPage.getAttribute('data-path');
- //   }
+    //   console.log('selectOnPage ', selectOnPage);
+    let sectionName = null;
+    if (selectOnPage !== null) {
+        sectionName = document.querySelector('#on_page_selector').getAttribute('data-path');
+    //    console.log('sectionName ', sectionName);
+    }
     let sortIcons = document.querySelectorAll('.sort-icon');
     let paginationLinks = document.querySelectorAll('.page-link');
     let allRows = document.querySelectorAll('.user-table-row');
-    if(selectOnPage && sectionName) {
+    if (selectOnPage !== null && sectionName !== null) {
         let tableUrl = `${location.protocol}//${location.host}${sectionName}?ajax=true&&on_page=${selectValue}`;
     }
 
@@ -21,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     function paginationClicker(event) {
         event.preventDefault();
         let paginationLinkData = this.getAttribute('href');
-        console.log('paginationLinkData ', paginationLinkData);
+    //    console.log('paginationLinkData ', paginationLinkData);
         if (paginationLinkData.includes('ajax=true')) {
             tableUrl = paginationLinkData;
         } else {
@@ -62,14 +65,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
         paginationLinks = document.querySelectorAll('.page-link');
         if (paginationLinks) {
             paginationLinks.forEach(paginationLink => {
-                paginationLink.addEventListener('click',  paginationClicker)
+                paginationLink.addEventListener('click', paginationClicker)
             })
         }
     }
 
     function setSortListeners() {
         sortIcons = document.querySelectorAll('.sort-icon');
-        if(sortIcons) {
+        if (sortIcons) {
             sortIcons.forEach(sortIcon => {
                 sortIcon.addEventListener('click', sortClicker)
             })
@@ -88,14 +91,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     // снимаем слушатели событий, чтобы не перегружать память
     function clearOldListeners() {
-        if(sortIcons) {
+        if (sortIcons) {
             sortIcons.forEach(sortIcon => {
                 sortIcon.removeEventListener('click', sortClicker)
             })
         }
         if (paginationLinks) {
             paginationLinks.forEach(paginationLink => {
-                paginationLink.removeEventListener('click',  paginationClicker)
+                paginationLink.removeEventListener('click', paginationClicker)
             })
         }
         if (allRows) {
@@ -104,11 +107,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 row.removeEventListener('click', rowsDoubleClicker);
             })
         }
-}
+    }
 
 // получаем данные, заменяем таблицу, пишем запрос в адресную строку, заново вешаем слушатели
     async function getTableData(tableUrl) {
-        console.log('tableUrl ',tableUrl);
+    //    console.log('tableUrl ', tableUrl);
         let data = await fetch(tableUrl).then((result) => result.text());
         if (ajaxTable) {
             clearOldListeners();
@@ -119,19 +122,19 @@ document.addEventListener("DOMContentLoaded", function(event) {
         manageRows();
 
         let urlArr = tableUrl.split('?');
-        if(urlArr.length > 1) {
+        if (urlArr.length > 1) {
             let urlTail = urlArr[1];
             let urlTailArr = urlTail.split('&');
-       //     console.log('urlTailArr ',urlTailArr);
-            for(let i = 0; i < urlTailArr.length; i++) {
-                if(urlTailArr.includes('ajax=true')){
+            //     console.log('urlTailArr ',urlTailArr);
+            for (let i = 0; i < urlTailArr.length; i++) {
+                if (urlTailArr.includes('ajax=true')) {
                     let ajaxIndex = urlTailArr.indexOf('ajax=true');
                     urlTailArr.splice(ajaxIndex, 1);
                 }
             }
             urlTailArr = urlTailArr.join('&');
-            let urlString = urlArr[0] +'?'+ urlTailArr;
-        //    console.log('scary url');
+            let urlString = urlArr[0] + '?' + urlTailArr;
+            //    console.log('scary url');
             history.pushState('', '', urlString);
         } else {
             history.pushState('', '', tableUrl);
@@ -154,8 +157,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
     if (paginationLinks) {
         setPaginationListeners();
     }
-
-
 
 
 // работа с формой Создать
@@ -203,7 +204,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                         document.querySelector('.offcanvas').classList.remove('show');
                         let offcanvas = document.querySelectorAll('.offcanvas-backdrop');
                         offcanvas.forEach(function (off) {
-                           off.classList.remove('show');
+                            off.classList.remove('show');
                         });
 
                         console.log('success post!');
