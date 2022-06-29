@@ -23,14 +23,14 @@
                             <label class="form-label col-3 col-form-label">Название</label>
                             <div class="col">
                                 <input type="text" class="form-control" name="name" placeholder="название для роли"
-                                       required>
+                                       value="{{ data.name|default(false) }}" required>
                             </div>
                         </div>
                         <div class="form-group mb-3 row">
                             <label class="form-label col-3 col-form-label">Идентификатор</label>
                             <div class="col">
                                 <input type="text" class="form-control" name="roles_alt" placeholder="ROLE_XXXXXXXXX"
-                                       required>
+                                       value="{{ data.roles_alt|default(false) }}" required>
                             </div>
                         </div>
                         <div class="form-group mb-3 row">

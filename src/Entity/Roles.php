@@ -39,17 +39,23 @@ class Roles
         return $this;
     }
 
-    public function getRolesAlt(): ?string
+    /**
+     * @return mixed
+     */
+    public function getRolesAlt()
     {
         return $this->roles_alt;
     }
 
-    public function setRolesAlt(string $roles_alt): self
+    /**
+     * @param mixed $roles_alt
+     */
+    public function setRolesAlt($roles_alt): void
     {
         $this->roles_alt = $roles_alt;
-
-        return $this;
     }
+
+
 
     public function getAuthList(): ?string
     {

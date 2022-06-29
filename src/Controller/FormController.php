@@ -61,6 +61,6 @@ class FormController extends AbstractController
     #[Route('/role_edit/{id}', name: 'role_edit')]
     public function getRoleForm($id, AdministratorRoleController $administratorRoleController): Response
     {
-        return $administratorRoleController->getRoleForm($id);
+        return $administratorRoleController->getRoleForm((int)$id);
     }
 }
