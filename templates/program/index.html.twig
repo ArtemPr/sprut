@@ -31,11 +31,11 @@
                         <div class="regular-tree">
                             {% if category|default(false) %}
                                 <ul>
-                                {% for tc in category %}
-                                    <li>
-                                        <a href="#">{{ tc.name }}</a>
-                                    </li>
-                                {% endfor %}
+                                    {% for tc in category %}
+                                        <li>
+                                            <a href="#">{{ tc.name }}</a>
+                                        </li>
+                                    {% endfor %}
                                 </ul>
                             {% endif %}
                         </div>
@@ -119,34 +119,28 @@
                             </div>
 
 
-
-                            <div id="userCreationPanel" class="user-form-panel offcanvas offcanvas-end modal-large" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                            <div id="userCreationPanel" class="user-form-panel offcanvas offcanvas-end modal-large"
+                                 tabindex="-1" aria-labelledby="offcanvasEndLabel">
                                 <div class="offcanvas-header">
                                     <h2 class="offcanvas-title">Создание программы</h2>
                                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
                                             aria-label="Close"></button>
                                 </div>
                                 <div class="offcanvas-body">
+                                    <form action="#" name="program-create">
 
-                                    <!--табы из таблера-->
-                                    <div class="card">
-                                        <ul class="nav nav-tabs" data-bs-toggle="tabs">
-                                            <li class="nav-item">
-                                                <a href="#tabs-home-ex1" class="nav-link active" data-bs-toggle="tab">Основное</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="#tabs-profile-ex1" class="nav-link"
-                                                   data-bs-toggle="tab">ФГОС</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="#tabs-tab-ex1" class="nav-link" data-bs-toggle="tab">Таб 3</a>
-                                            </li>
-                                        </ul>
-                                        <!--табы тело-->
-                                        <div class="card-body">
-                                            <form action="#" name="program-create">
+                                        <div class="card">
+                                            <ul class="nav nav-tabs" data-bs-toggle="tabs">
+                                                <li class="nav-item">
+                                                    <a href="#tabs-home-ex1" class="nav-link active"
+                                                       data-bs-toggle="tab">Основное</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="#tabs-profile-ex1" class="nav-link" data-bs-toggle="tab">ФГОС</a>
+                                                </li>
+                                            </ul>
+                                            <div class="card-body">
                                                 <div class="tab-content">
-
                                                     <div class="tab-pane active show" id="tabs-home-ex1">
                                                         <div class="form-group mb-3 row">
                                                             <label
@@ -182,79 +176,88 @@
                                                                 <input type="text" class="form-control"
                                                                        placeholder="Название выбранного направления">
                                                             </div>
-
                                                         </div>
                                                     </div>
-
                                                     <div class="tab-pane fgos-tab" id="tabs-profile-ex1">
 
-                                                        <div class="mb-3 fgos-datalist">
-                                                            <label class="form-label">Выберите ФГОС</label>
-                                                            <input class="form-control" list="datalistOptions" placeholder="Type to search..."/>
-                                                            <datalist id="datalistOptions" class="fgos-datalist">
-                                                                <option value="Aruba"/>
-                                                                <option value="Afghanistan"/>
-                                                                <option value="Angola"/>
-                                                                <option value="Anguilla"/>
-                                                                <option value="Albania"/>
-                                                                <option value="Andorra"/>
-                                                                <option value="United Arab Emirates"/>
-                                                                <option value="Argentina"/>
-                                                                <option value="Armenia"/>
-                                                                <option value="American Samoa"/>
-                                                            </datalist>
-                                                        </div>
+                                                        <!--FGOS-ITEM-->
+                                                        <div class="fgos-item">
+                                                            <div class="mb-3 fgos-datalist">
+                                                                <label class="form-label">Выберите ФГОС</label>
+                                                                <input class="form-control" list="datalistOptions"
+                                                                       placeholder="Поиск"/>
+                                                                <datalist id="datalistOptions" class="fgos-datalist">
+                                                                    <option value="Aruba"/>
+                                                                    <option value="Afghanistan"/>
+                                                                    <option value="Angola"/>
+                                                                    <option value="Anguilla"/>
+                                                                    <option value="Albania"/>
+                                                                    <option value="Andorra"/>
+                                                                    <option value="United Arab Emirates"/>
+                                                                    <option value="Argentina"/>
+                                                                    <option value="Armenia"/>
+                                                                    <option value="American Samoa"/>
+                                                                </datalist>
+                                                            </div>
 
-                                                        <button id="add-fgos" class="btn btn-primary">
-                                                            Добавить ФГОС
-                                                        </button>
+                                                            <p class="competence__title">Выберите компетенции</p>
+                                                            <div class="mb-3 competence__list">
+                                                                <label class="form-check">
+                                                                    <input class="form-check-input" type="checkbox">
+                                                                    <span class="form-check-label">компетенция 1</span>
+                                                                </label>
+                                                                <label class="form-check">
+                                                                    <input class="form-check-input" type="checkbox">
+                                                                    <span class="form-check-label">компетенция 1</span>
+                                                                </label>
+                                                                <label class="form-check">
+                                                                    <input class="form-check-input" type="checkbox">
+                                                                    <span class="form-check-label">компетенция 1</span>
+                                                                </label>
+                                                                <label class="form-check">
+                                                                    <input class="form-check-input" type="checkbox">
+                                                                    <span class="form-check-label">компетенция 2</span>
+                                                                </label>
+                                                                <label class="form-check">
+                                                                    <input class="form-check-input" type="checkbox">
+                                                                    <span class="form-check-label">компетенция 3</span>
+                                                                </label>
+                                                                <label class="form-check">
+                                                                    <input class="form-check-input" type="checkbox">
+                                                                    <span class="form-check-label">компетенция 4</span>
+                                                                </label>
+                                                                <label class="form-check">
+                                                                    <input class="form-check-input" type="checkbox">
+                                                                    <span class="form-check-label">компетенция 5</span>
+                                                                </label>
+                                                                <label class="form-check">
+                                                                    <input class="form-check-input" type="checkbox">
+                                                                    <span class="form-check-label">компетенция 5</span>
+                                                                </label>
+                                                                <label class="form-check">
+                                                                    <input class="form-check-input" type="checkbox">
+                                                                    <span class="form-check-label">компетенция 5</span>
+                                                                </label>
+                                                            </div>
+
+                                                            <button id="add-fgos" class="btn btn-primary add-fgos">
+                                                                Добавить ФГОС
+                                                            </button>
+                                                        </div>
+                                                        <!--FGOS-ITEM-->
 
                                                     </div>
-
-                                                    <div class="tab-pane" id="tabs-tab-ex1">
-                                                        <div>Контент таба 3 Fringilla egestas nunc quis tellus diam
-                                                            rhoncus
-                                                            ultricies tristique enim at diam, sem nunc amet,
-                                                            pellentesque id
-                                                            egestas velit sed
-                                                        </div>
+                                                    <div class="d-flex mb-4">
+                                                        <button type="submit" class="btn btn-primary ms-auto">Сохранить</button>
                                                     </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class="d-flex mb-4">
-                                            <button type="submit" class="btn btn-primary ms-auto">Сохранить
-                                            </button>
-                                        </div>
-                                    </form>
-                                    <!--табы из таблера-->
-                                    <div class="card">
-                                        <ul class="nav nav-tabs" data-bs-toggle="tabs">
-                                            <li class="nav-item">
-                                                <a href="#tabs-home-ex1" class="nav-link active" data-bs-toggle="tab">Home</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="#tabs-profile-ex1" class="nav-link" data-bs-toggle="tab">Profile</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="#tabs-tab-ex1" class="nav-link" data-bs-toggle="tab">Таб 3</a>
-                                            </li>
-                                        </ul>
-                                        <div class="card-body">
-                                            <div class="tab-content">
-                                                <div class="tab-pane active show" id="tabs-home-ex1">
-                                                    <div>Cursus turpis vestibulum, dui in pharetra vulputate id sed non turpis ultricies fringilla at sed facilisis lacus pellentesque purus nibh</div>
-                                                </div>
-                                                <div class="tab-pane" id="tabs-profile-ex1">
-                                                    <div>Fringilla egestas nunc quis tellus diam rhoncus ultricies tristique enim at diam, sem nunc amet, pellentesque id egestas velit sed</div>
-                                                </div>
-                                                <div class="tab-pane" id="tabs-tab-ex1">
-                                                    <div>Контент таба 3 Fringilla egestas nunc quis tellus diam rhoncus ultricies tristique enim at diam, sem nunc amet, pellentesque id egestas velit sed</div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <!--табы из таблера-->
+
+
+
+                                    </form>
+
                                 </div>
                             </div>
 

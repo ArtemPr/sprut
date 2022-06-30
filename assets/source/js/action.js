@@ -60,26 +60,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
         });
     }
 
-    const addFgosBtn = document.querySelector('#add-fgos');
-    let datalistId = 2;
-    if (addFgosBtn) {
-        addFgosBtn.addEventListener('click', function (event) {
-            event.preventDefault();
-            console.log('addFgosBtn click');
-            const fgosDatalist = document.querySelector('.fgos-datalist');
-            console.log('fgosDatalist ', fgosDatalist);
-            let fgosDatalistClone = fgosDatalist.cloneNode('deep');
-            let input = fgosDatalistClone.querySelector('.form-control');
-            let datalist = fgosDatalistClone.querySelector('.fgos-datalist');
-            console.log(input);
-            console.log(datalist);
-            input.setAttribute('list', `datalistOptions${datalistId}`);
-            datalist.setAttribute('id', `datalistOptions${datalistId}`);
-            addFgosBtn.before(fgosDatalistClone);
-            datalistId++;
-        })
-    }
-
     const changeDisciplineBtn = document.querySelector('.btn-group [data-action="edit"]');
     if (changeDisciplineBtn) {
         changeDisciplineBtn.addEventListener('click', function () {
