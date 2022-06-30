@@ -5,8 +5,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\MasterProgram;
 use App\Entity\ProgramType;
+use App\Entity\TrainingCenters;
 use App\Service\LinkService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -37,9 +39,10 @@ class ProgramController extends AbstractController
         $count = $this->managerRegistry->getRepository(MasterProgram::class)->getApiProgramInfo();
         $count = $count['count_program'] ?? 0;
 
+        $tc = $this->managerRegistry->getRepository(TrainingCenters::class)->findAll();
+        $category = $this->managerRegistry->getRepository(Category::class)->findAll();
 
         $tpl = $request->get('ajax') ? '/program/program_table.html.twig' : '/program/index.html.twig' ;
-
 
         $table = [
             ['', '', 'bool', true],
@@ -56,6 +59,8 @@ class ProgramController extends AbstractController
             [
                 'data' => $program_list,
                 'program_type' => $program_type,
+                'training_centre' => $tc,
+                'category' => $category,
                 'pager' => [
                     'count_all_position' => $count,
                     'current_page' => $page,

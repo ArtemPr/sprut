@@ -18,31 +18,25 @@
                 <div class="collapse navbar-collapse" id="navbar-header-menu">
                     <div class="mt-2 mb-3">
                         <select class="form-select" id="select-tags">
-                            <option value="0" disabled selected>Направление</option>
-                            <option value="1">ФГОС 1</option>
-                            <option value="2">ФГОС 2</option>
-                            <option value="3">ФГОС 3</option>
-                            <option value="4">ФГОС 4</option>
-                            <option value="5">ФГОС 5</option>
+                            <option value="0" disabled selected>Учебный центр</option>
+                            {% if training_centre|default(false) %}
+                                {% for tc in training_centre %}
+                                    <option value="{{ tc.id }}">{{ tc.name }}</option>
+                                {% endfor %}
+                            {% endif %}
                         </select>
                     </div>
                     <div class="regular-tree-wrap">
                         <div class="regular-tree">
-                            <details open>
-                                <summary></summary>
-                                <details open>
-                                    <summary>Категория 1</summary>
-                                    <a class="can-select" href="#">Программа 1</a>
-                                    <a class="can-select" href="#">Программа 2</a>
-                                    <a class="can-select" href="#">Программа 3</a>
-                                </details>
-                                <details>
-                                    <summary>Категория 2</summary>
-                                    <a class="can-select" href="#">Программа 1</a>
-                                    <a class="can-select" href="#">Программа 2</a>
-                                    <a class="can-select" href="#">Программа 3</a>
-                                </details>
-                            </details>
+                            {% if category|default(false) %}
+                                <ul>
+                                {% for tc in category %}
+                                    <li>
+                                        <a href="#">{{ tc.name }}</a>
+                                    </li>
+                                {% endfor %}
+                                </ul>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -99,7 +93,7 @@
 
 
 
-                            <div id="userCreationPanel" class="user-form-panel offcanvas offcanvas-end modal-large" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                            <div id="userCreationPanel" class="user-form-panel offcanvas offcanvas-end" tabindex="-1" aria-labelledby="offcanvasEndLabel">
                                 <div class="offcanvas-header">
                                     <h2 class="offcanvas-title">Создание программы</h2>
                                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -134,34 +128,6 @@
                                             <button type="submit" class="btn btn-primary ms-auto">Сохранить</button>
                                         </div>
                                     </form>
-                                    <!--табы из таблера-->
-                                    <div class="card">
-                                        <ul class="nav nav-tabs" data-bs-toggle="tabs">
-                                            <li class="nav-item">
-                                                <a href="#tabs-home-ex1" class="nav-link active" data-bs-toggle="tab">Home</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="#tabs-profile-ex1" class="nav-link" data-bs-toggle="tab">Profile</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="#tabs-tab-ex1" class="nav-link" data-bs-toggle="tab">Таб 3</a>
-                                            </li>
-                                        </ul>
-                                        <div class="card-body">
-                                            <div class="tab-content">
-                                                <div class="tab-pane active show" id="tabs-home-ex1">
-                                                    <div>Cursus turpis vestibulum, dui in pharetra vulputate id sed non turpis ultricies fringilla at sed facilisis lacus pellentesque purus nibh</div>
-                                                </div>
-                                                <div class="tab-pane" id="tabs-profile-ex1">
-                                                    <div>Fringilla egestas nunc quis tellus diam rhoncus ultricies tristique enim at diam, sem nunc amet, pellentesque id egestas velit sed</div>
-                                                </div>
-                                                <div class="tab-pane" id="tabs-tab-ex1">
-                                                    <div>Контент таба 3 Fringilla egestas nunc quis tellus diam rhoncus ultricies tristique enim at diam, sem nunc amet, pellentesque id egestas velit sed</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--табы из таблера-->
                                 </div>
                             </div>
 
