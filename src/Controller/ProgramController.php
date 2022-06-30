@@ -32,12 +32,8 @@ class ProgramController extends AbstractController
         $on_page = $request->get('on_page') ?? 25;
         $sort = $request->get('sort') ?? null;
 
-        if ($sort != null) {
-            $sort = ['order'=>[$sort => "DESC"]];
-        }
-
         $program_type = $this->managerRegistry->getRepository(ProgramType::class)->findAll();
-        $program_list = $this->managerRegistry->getRepository(MasterProgram::class)->getProgramListInterface((int)$page, (int)$on_page, $sort);
+        $program_list = $this->managerRegistry->getRepository(MasterProgram::class)->getList((int)$page, (int)$on_page, $sort);
         $count = $this->managerRegistry->getRepository(MasterProgram::class)->getApiProgramInfo();
         $count = $count['count_program'] ?? 0;
 
@@ -46,14 +42,13 @@ class ProgramController extends AbstractController
 
 
         $table = [
-            ['', '', '', true],
-            ['', 'Статус', 'bool', true],
+            ['', '', 'bool', true],
             ['id', 'ID', 'string', true],
-            ['program_type.id', 'Тип', 'string', true],
+            ['pt.id', 'Тип', 'string', true],
             ['additional_flag', 'Дополнительная<br /> общеобразовательная<br /> программа ПК или ПП', 'string', true],
             ['name', 'Название', 'string', true],
-            ['federal_standart', 'ФГОС', 'string', true],
-            ['prof_standarts', 'ПС', 'string', true],
+            ['fs.id', 'ФГОС', 'string', true],
+            ['ps.id', 'ПС', 'string', true],
         ];
 
         return $this->render(

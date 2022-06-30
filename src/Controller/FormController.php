@@ -9,7 +9,6 @@
 
 namespace App\Controller;
 
-use App\Controller\Administrator\AdminDirectoryDiscipline;
 use App\Controller\Administrator\AdminDirectoryKafedra;
 use App\Controller\Administrator\AdminDirectoryTrainingCentre;
 use App\Controller\Administrator\AdministratorOperationsController;
@@ -53,7 +52,7 @@ class FormController extends AbstractController
     }
 
     #[Route('/discipline_edit/{id}', name: 'discipline_edit')]
-    public function getDisciplineForm($id, AdminDirectoryDiscipline $adminDirectoryDiscipline): Response
+    public function getDisciplineForm($id, Discipline $adminDirectoryDiscipline): Response
     {
         return $adminDirectoryDiscipline->getDisciplineForm($id);
     }

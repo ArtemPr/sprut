@@ -92,38 +92,43 @@ class MasterProgramRepository extends ServiceEntityRepository
     }
 
 
-    public function getProgramListInterface(int $page = 0, int|null $max_result = 0, array|null $param = null): array|null
+    public function getList(int|null $page = 0, int|null $on_page = 25, string|null $sort = null): array|null
     {
         $entityManager = $this->getEntityManager();
-        $max_result = (!empty($max_result) && $max_result > 1) ? $max_result : self::ON_PAGE;
 
-        if($page > 0) {
-            $page = $page-1;
+        $page = (empty($page) || $page === 1 || $page === 0) ? 0 : $page - 1;
+        $first_result = (int)$page * (int)$on_page;
+
+        if (!is_null($sort)) {
+            if (strstr($sort, '__up')) {
+                $sort = str_replace('__up', ' DESC', $sort);
+            } else {
+                $sort .= " ASC";
+            }
+
+            if (!strstr($sort, '.')) {
+                $order = 'pr.' . $sort;
+            } else {
+                $order = $sort;
+            }
+        } else {
+            $order = 'pr.id DESC';
         }
 
-        $sql = 'SELECT pr, pt, fs, fsc, ps
+        $result = $entityManager->createQuery(
+            'SELECT pr, pt, fs, fsc, ps
                 FROM App\Entity\MasterProgram pr
                 LEFT JOIN pr.program_type pt
                 LEFT JOIN pr.federal_standart fs
                 LEFT JOIN pr.federal_standart_competencies fsc
                 LEFT JOIN pr.prof_standarts ps
-                ';
+                ORDER BY ' . $order
+        )
+            ->setFirstResult($first_result)
+            ->setMaxResults($on_page)
+            ->getResult(Query::HYDRATE_ARRAY);
 
-        if (!empty($param['order'])) {
-            $col = array_key_first($param['order']);
-            $type_sort = ucfirst($param['order'][$col]);
-            $sql .= 'ORDER BY pr.'.$col.' '.$type_sort;
-        } else {
-            $sql .= 'ORDER BY pr.id DESC';
-        }
-
-        $query_item = $entityManager->createQuery($sql)
-            ->setMaxResults($max_result)
-            ->setFirstResult($page * $max_result);
-
-        $r = $query_item->getResult(Query::HYDRATE_ARRAY) ?? [];
-
-        return $r;
+        return $result;
     }
 
     public function getProgram(int $id): array|null

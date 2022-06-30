@@ -7,8 +7,12 @@
                     {% if tbl.3 == true %}
                         {% if loop.first == 1 %}
                             <th>
-                                <a class="sort-icon is-{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}desc{% elseif sort.current_sort|default(false) and sort.current_sort == (tbl.0~'__up') %}asc{% elseif sort.current_sort|default(false) == false %}asc{% else %}both{% endif %}"
-                                   href="{{ path('administrator_kafedra') ~ sort.sort_link ~ tbl.0 }}{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}__up{% endif %}"></a>
+                                {% if tbl.0 != '' %}
+                                    <a
+                                        class="sort-icon is-{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}desc{% elseif sort.current_sort|default(false) and sort.current_sort == (tbl.0~'__up') %}asc{% elseif sort.current_sort|default(false) == false %}asc{% else %}both{% endif %}"
+                                       href="{{ path('program') ~ sort.sort_link ~ tbl.0 }}{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}__up{% endif %}"
+                                    ></a>
+                                {% endif %}
                                 {% if  tbl.1  == 'ID' %}
                                     <p class="th-name id-name">{{ tbl.1|raw }}</p>
                                 {% else %}
@@ -17,9 +21,11 @@
                             </th>
                         {% else %}
                             <th>
+                                {% if tbl.0 != '' %}
                                 <a class="sort-icon is-{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}desc{% elseif sort.current_sort|default(false) and sort.current_sort == (tbl.0~'__up') %}asc{% else %}both{% endif %}"
-                                   href="{{ path('administrator_kafedra') ~ sort.sort_link ~ tbl.0 }}{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}__up{% endif %}"></a>
-                                <p class="th-name"> {{ tbl.1|raw }}</p>
+                                   href="{{ path('program') ~ sort.sort_link ~ tbl.0 }}{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}__up{% endif %}"></a>
+                                {% endif %}
+                                    <p class="th-name"> {{ tbl.1|raw }}</p>
                             </th>
                         {% endif %}
                     {% endif %}
@@ -32,10 +38,6 @@
         {% set count = 1 %}
         {% for program in data %}
             <tr class="user-table-row {% if loop.first %}is-selected{% endif %}">
-                <td>
-                    {{ count }}
-                    {% set count = count + 1 %}
-                </td>
                 <td>
                     {% if program.program_type.id|default(false) and program.program_type.id == 0 %}
                         <span class="badge bg-red" title="Не указан тип программы" data-bs-toggle="tooltip"></span>

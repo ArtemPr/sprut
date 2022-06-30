@@ -3,7 +3,7 @@
  * Created AptPr <prudishew@yandex.ru> 2022.
  */
 
-namespace App\Controller\Administrator;
+namespace App\Controller;
 
 use App\Entity\Discipline;
 use App\Service\LinkService;
@@ -11,8 +11,9 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
-class AdminDirectoryDiscipline extends AbstractController
+class DisciplineController extends AbstractController
 {
     use LinkService;
 
@@ -22,6 +23,7 @@ class AdminDirectoryDiscipline extends AbstractController
     {
     }
 
+    #[Route('/discipline', name: 'discipline')]
     public function getList(): Response
     {
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
@@ -29,7 +31,7 @@ class AdminDirectoryDiscipline extends AbstractController
         $on_page = $request->get('on_page') ?? 25;
         $sort = $request->get('sort') ?? null;
 
-        $result = $this->managerRegistry->getRepository(Discipline::class)->getList($page, $on_page, $sort);
+        $result = $this->managerRegistry->getRepository(\App\Entity\Discipline::class)->getList($page, $on_page, $sort);
         $count = $this->managerRegistry->getRepository(Discipline::class)->findAll();
         $count = count($count);
 
@@ -42,7 +44,7 @@ class AdminDirectoryDiscipline extends AbstractController
             ['comment', 'Цель освоения', 'string', true]
         ];
 
-        $tpl = $request->get('ajax') ? 'administrator/directory/discipline_table.html.twig' : 'administrator/directory/discipline.html.twig';
+        $tpl = $request->get('ajax') ? 'discipline/discipline_table.html.twig' : 'discipline/discipline.html.twig';
 
         return $this->render($tpl,
             [
@@ -65,6 +67,6 @@ class AdminDirectoryDiscipline extends AbstractController
 
     public function getDisciplineForm($id)
     {
-        return $this->render('administrator/directory/form/discipline_update.html.twig');
+        return $this->render('discipline/form/discipline_update.html.twig');
     }
 }

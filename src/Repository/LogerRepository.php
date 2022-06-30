@@ -65,7 +65,7 @@ class LogerRepository extends ServiceEntityRepository
                 $order = $sort;
             }
         } else {
-            $order = 'log.id DESC';
+            $order = 'log.time DESC';
         }
 
         $result = $entityManager->createQuery(
