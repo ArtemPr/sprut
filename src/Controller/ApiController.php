@@ -10,7 +10,7 @@ use App\Controller\Api\ApiOperations;
 use App\Controller\Api\ApiProgramController;
 use App\Controller\Api\ApiRole;
 use App\Controller\Api\ApiTrainingCentre;
-use App\Entity\Roles;
+use App\Controller\Api\ApiUserController;
 use App\Repository\KaferdaRepository;
 use App\Repository\ProgramTypeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -122,5 +122,23 @@ class ApiController extends AbstractController
     public function add_role(ApiRole $apiRole): Response
     {
         return $apiRole->add();
+    }
+
+    #[Route('/user_add', name: 'user_add', methods: ['POST'])]
+    public function add_user(ApiUserController $apiUserController): Response
+    {
+        return $apiUserController->add();
+    }
+
+    #[Route('/user_hide/{id}', name: 'user_hide')]
+    public function user_hide($id, ApiUserController $apiUserController): Response
+    {
+        return $apiUserController->hide($id);
+    }
+
+    #[Route('/user_update', name: 'user_update', methods: ['POST'])]
+    public function user_update(ApiUserController $apiUserController): Response
+    {
+        return $apiUserController->update();
     }
 }

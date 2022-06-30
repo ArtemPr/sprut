@@ -97,8 +97,13 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             'SELECT user, dep, city
                 FROM App\Entity\User user
                 LEFT JOIN user.departament dep
-                LEFT JOIN user.city city'
-        )->setMaxResults(self::PER_PAGE)->getResult(Query::HYDRATE_ARRAY);
+                LEFT JOIN user.city city
+                WHERE user.delete = :delete
+                ORDER BY user.id DESC'
+        )
+            ->setParameter('delete', false)
+            ->setMaxResults(self::PER_PAGE)
+            ->getResult(Query::HYDRATE_ARRAY);
 
         return $result;
     }

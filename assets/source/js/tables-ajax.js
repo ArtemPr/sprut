@@ -16,9 +16,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
     let sortIcons = document.querySelectorAll('.sort-icon');
     let paginationLinks = document.querySelectorAll('.page-link');
     let allRows = document.querySelectorAll('.user-table-row');
+
     if (selectOnPage !== null && sectionName !== null) {
-        let tableUrl = `${location.protocol}//${location.host}${sectionName}?ajax=true&&on_page=${selectValue}`;
+        var tableUrl = `${location.protocol}//${location.host}${sectionName}?ajax=true&&on_page=${selectValue}`;
     }
+    console.log(tableUrl);
 
 // функции обработки кликов
     function paginationClicker(event) {
@@ -201,7 +203,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
                         // Ресетим форму после успешной отправки
                         form_s.reset();
 
-                        document.querySelector('.offcanvas').classList.remove('show');
+                        let panel = document.querySelectorAll('.offcanvas');
+                        panel.forEach(function (pn)
+                        {
+                            pn.classList.remove('show')
+                        });
                         let offcanvas = document.querySelectorAll('.offcanvas-backdrop');
                         offcanvas.forEach(function (off) {
                             off.classList.remove('show');
@@ -255,6 +261,17 @@ document.addEventListener("DOMContentLoaded", function (event) {
                         body: data,
                     })
                     let result = await response.json();
+
+
+                    let panel = document.querySelectorAll('.offcanvas');
+                    panel.forEach(function (pn)
+                    {
+                        pn.classList.remove('show')
+                    });
+                    let offcanvas_upd = document.querySelectorAll('.offcanvas-backdrop');
+                    offcanvas_upd.forEach(function (off) {
+                        off.classList.remove('show');
+                    });
 
                     await getTableData(tableUrl);
 
