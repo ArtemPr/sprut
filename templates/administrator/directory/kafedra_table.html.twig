@@ -58,52 +58,8 @@
         {% endif %}
         </tbody>
     </table>
-
 </div>
-<div class="card-footer d-flex align-items-center">
-    <p class="m-0 text-muted"><b>{{ data|length }}</b> результатов</p>
 
-    {% if pager.count_page|default(false) and pager.count_page > 1 %}
-        <ul class="pagination m-0 ms-auto">
-            <li class="page-item">
-                <a class="page-link" href="{{ path('administrator_kafedra') ~ pager.paginator_link ~ 1 }}" tabindex="-1" aria-disabled="true">
-                    <!-- Download SVG icon from http://tabler-icons.io/i/chevron-left -->
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24"
-                         height="24" viewBox="0 0 24 24" stroke-width="2"
-                         stroke="currentColor" fill="none" stroke-linecap="round"
-                         stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                        <polyline points="15 6 9 12 15 18"/>
-                    </svg>
-                </a>
-            </li>
-
-            {% for page in 1..pager.count_page %}
-                {% if page == pager.current_page %}
-                    <li class="page-item active"><a
-                            data-ajax="{{ path('administrator_kafedra') ~ pager.paginator_link ~ page }}&ajax=true"
-                            class="page-link"
-                            href="{{ path('administrator_kafedra') ~ pager.paginator_link ~ page }}">{{ page }}</a>
-                    </li>
-                {% else %}
-                    <li class="page-item"><a class="page-link"
-                                             href="{{ path('administrator_kafedra') ~ pager.paginator_link ~ page }}">{{ page }}</a>
-                    </li>
-                {% endif %}
-            {% endfor %}
-
-            <li class="page-item">
-                <a class="page-link" href="{{ path('administrator_kafedra') ~ pager.paginator_link ~ pager.count_page }}">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24"
-                         height="24" viewBox="0 0 24 24" stroke-width="2"
-                         stroke="currentColor" fill="none" stroke-linecap="round"
-                         stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                        <polyline points="9 6 15 12 9 18"/>
-                    </svg>
-                </a>
-            </li>
-        </ul>
-    {% endif %}
-
-</div>
+{% include 'block/paginator.html.twig' with {
+    'path': path('administrator_kafedra')
+}  %}
