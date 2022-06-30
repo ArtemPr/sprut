@@ -22,7 +22,7 @@
         </aside>
         <div class="page-wrapper">
             <div class="container-xl">
-                {% include 'administrator/block/header_list.html.twig' with {'header': 'Роли', 'onpage_link': path('administrator_role')} %}
+                {% include 'block/header_list.html.twig' with {'header': 'Роли', 'onpage_link': path('administrator_role')} %}
             </div>
             <div class="page-body">
                 <div class="container-xl">
@@ -31,7 +31,7 @@
 
                             <div class="card">
 
-                                {% include 'administrator/user/block/search_panel.html.twig' with {
+                                {% include 'block/search_panel.html.twig' with {
                                     'close_delete': true,
                                     'controller': 'role'
                                 } %}

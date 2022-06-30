@@ -1,92 +1,143 @@
 <div class="offcanvas-header">
-        <h2 class="offcanvas-title">Создание пользователя</h2>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        <form action="#" name="user-create">
-            <div class="row">
-                <div class="col">
-                    <div class="form-group mb-3 row">
-                        <label class="form-label col-3 col-form-label">Фамилия</label>
-                        <div class="col">
-                            <input type="text" class="form-control" placeholder="Фамилия">
+    <h2 class="offcanvas-title">Создание пользователя</h2>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+</div>
+<div class="offcanvas-body">
+    <form action="#" name="user-create" id="user_add-create" class="form-create">
+
+        <div class="form-group mb-3 row flex-nowrap align-items-center">
+            <label for="cb-activity" class="form-label col-3 col-form-label">Активирован</label>
+            <div class="form-check form-switch mb-0 ms-2">
+                <input id="cb-activity" class="form-check-input" name="activity" type="checkbox">
+            </div>
+        </div>
+
+        <div class="">
+            <ul class="nav nav-tabs" data-bs-toggle="tabs">
+                <li class="nav-item">
+                    <a href="#tabs-ex1" class="nav-link active" data-bs-toggle="tab">Основное</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#tabs-ex3" class="nav-link" data-bs-toggle="tab">Контактные данные</a>
+                </li>
+            </ul>
+            <div class="card-body">
+                <div class="tab-content">
+                    <div class="tab-pane active show" id="tabs-ex1">
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group mb-3 row">
+                                    <label class="form-label col-3 col-form-label">Фамилия</label>
+                                    <div class="col">
+                                        <input type="text" class="form-control" placeholder="Фамилия" name="username" required>
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3 row">
+                                    <label class="form-label col-3 col-form-label">Имя</label>
+                                    <div class="col">
+                                        <input type="text" class="form-control" placeholder="Имя" name="surname">
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3 row">
+                                    <label class="form-label col-3 col-form-label">Отчество</label>
+                                    <div class="col">
+                                        <input type="text" class="form-control" placeholder="Отчество" name="patronymic">
+                                    </div>
+                                </div>
+                            </div>
+                            {#
+                             <div class="col user-photo-col">
+                                 <div class="user-photo-box">
+                                     <input class="user-photo-input" name="user-photo" type="file" accept="image/png, image/jpg, image/jpeg, image/gif">
+                                     <img class="user-photo-img" src="/assets/images/user.png" alt="">
+                                 </div>
+                             </div>
+                            #}
+                        </div>
+                        <div class="form-group mb-3 row">
+                            <label class="form-label col-3 col-form-label">Должность</label>
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="Должность" name="position">
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3 row">
+                            <label class="form-label col-3 col-form-label">Подразделение</label>
+                            <div class="col">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#managingDepartmentsModal">Изменить
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group mb-3 row">
+                            <label class="form-label col-3 col-form-label">Роли</label>
+                            <div class="col">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#managingRolesModal">Изменить
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3 row">
+                            <label class="form-label col-3 col-form-label">E-mail</label>
+                            <div class="col">
+                                <input type="email" class="form-control" placeholder="Адрес электронной почты" name="email" required>
+                            </div>
+                        </div>
+                        <div class="form-group mb-3 row">
+                            <label class="form-label col-3 col-form-label">Пароль</label>
+                            <div class="col">
+                                <input type="password" class="form-control" placeholder="Пароль" name="password" required>
+                            </div>
+                        </div>
+                        <div class="form-group mb-3 row">
+                            <label class="form-label col-3 col-form-label">Повторите пароль</label>
+                            <div class="col">
+                                <input type="password" class="form-control" placeholder="Повторение пароля" name="password2" required>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group mb-3 row">
-                        <label class="form-label col-3 col-form-label">Имя</label>
-                        <div class="col">
-                            <input type="text" class="form-control" placeholder="Имя">
+
+                    <div class="tab-pane" id="tabs-ex3">
+                        <div class="form-group mb-3 row">
+                            <label class="form-label col-3 col-form-label">Скайп</label>
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="Скайп" name="skype">
+                            </div>
+                        </div>
+                        <div class="form-group mb-3 row">
+                            <label class="form-label col-3 col-form-label">Телефон</label>
+                            <div class="col">
+                                <input type="tel" class="form-control" placeholder="Телефон в формате +7 (xxx) xxx-xx-xx" name="phone">
+                            </div>
+                        </div>
+                        <div class="form-group mb-3 row">
+                            <label class="form-label col-3 col-form-label">Город</label>
+                            <div class="col">
+                                <select class="form-select" name="city">
+                                    <option disabled {% if data.city.id|default(false) == false %}selected{% endif %}>
+                                        Выберите город из списка
+                                    </option>
+                                    {% for city in city_list %}
+                                        <option value="{{ city.id }}"
+                                            {% if data.city.id|default(false) and city.id == data.city.id %}
+                                                selected
+                                            {% endif %}
+                                        >{{ city.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group mb-3 row">
-                        <label class="form-label col-3 col-form-label">Отчество</label>
-                        <div class="col">
-                            <input type="text" class="form-control" placeholder="Отчество">
-                        </div>
-                    </div>
-                </div>
-                <div class="col user-photo-col">
-                    <div class="user-photo-box">
-                        <input class="user-photo-input" name="user-photo" type="file" accept="image/png, image/jpg, image/jpeg, image/gif">
-                        <img class="user-photo-img" src="/assets/images/user.png" alt="">
-                    </div>
                 </div>
             </div>
-            <div class="form-group mb-3 row flex-nowrap align-items-center">
-                <label for="cb-activity" class="form-label col-3 col-form-label">Активирован</label>
-                <div class="form-check form-switch mb-0 ms-2">
-                    <input id="cb-activity" class="form-check-input" type="checkbox">
-                </div>
-            </div>
-            <div class="form-group mb-3 row">
-                <label class="form-label col-3 col-form-label">Должность</label>
-                <div class="col">
-                    <input type="text" class="form-control" placeholder="Должность">
-                </div>
-            </div>
-            <div class="form-group mb-3 row">
-                <label class="form-label col-3 col-form-label">Подразделение</label>
-                <div class="col">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#managingDepartmentsModal">Изменить</button>
-                </div>
-            </div>
-            <div class="form-group mb-3 row">
-                <label class="form-label col-3 col-form-label">Роли</label>
-                <div class="col">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#managingRolesModal">Изменить</button>
-                </div>
-            </div>
-            <div class="form-group mb-3 row">
-                <label class="form-label col-3 col-form-label">E-mail</label>
-                <div class="col">
-                    <input type="email" class="form-control" placeholder="Адрес электронной почты">
-                </div>
-            </div>
-            <div class="form-group mb-3 row">
-                <label class="form-label col-3 col-form-label">Скайп</label>
-                <div class="col">
-                    <input type="text" class="form-control" placeholder="Скайп">
-                </div>
-            </div>
-            <div class="form-group mb-3 row">
-                <label class="form-label col-3 col-form-label">Телефон</label>
-                <div class="col">
-                    <input type="tel" class="form-control" placeholder="Телефон в формате +7 (xxx) xxx-xx-xx">
-                </div>
-            </div>
-            <div class="form-group mb-3 row">
-                <label class="form-label col-3 col-form-label">Город</label>
-                <div class="col">
-                    <select class="form-select">
-                        <option disabled selected>Выберите город из списка</option>
-                        <option value="1">Москва</option>
-                        <option value="2">Санкт-Петербург</option>
-                        <option value="3">Ярославль</option>
-                    </select>
-                </div>
-            </div>
+
             <div class="d-flex mb-4">
-                <button type="submit" class="btn btn-primary ms-auto">Сохранить</button>
+                <button data-form-id="user_add-create" data-action="send-form" type="submit"
+                        class="btn btn-primary ms-auto"
+                        aria-label="Close">Сохранить
+                </button>
             </div>
-        </form>
-    </div>
+        </div>
+    </form>
+</div>

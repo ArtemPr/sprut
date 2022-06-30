@@ -68,10 +68,4 @@ class AdministratorController extends AbstractController
     {
         return $adminDirectoryTrainingCentre->getList();
     }
-
-    #[Route('/discipline', name: '_directory_discipline')]
-    public function getDirectoryDiscipline(AdminDirectoryDiscipline $adminDirectoryDiscipline): Response
-    {
-        return $adminDirectoryDiscipline->getList();
-    }
 }

@@ -23,7 +23,7 @@
         </aside>
         <div class="page-wrapper">
             <div class="container-xl">
-                {% include 'administrator/block/header_list.html.twig' with {'header': 'Справочник - учебные центры', 'onpage_link': path('administrator_directory_tc')} %}
+                {% include 'block/header_list.html.twig' with {'header': 'Справочник - учебные центры', 'onpage_link': path('administrator_directory_tc')} %}
             </div>
             <div class="page-body">
                 <div class="container-xl">
@@ -31,10 +31,12 @@
                         <div class="col-12">
 
                             <div class="card">
-                                {% include 'administrator/user/block/search_panel.html.twig' with {
-                                    'close_delete': true,
-                                    'controller': 'training_centre'
-                                } %}
+
+                                {% if app.user.roles|default(false) and ("ROLE_TEST" in  app.user.roles) %}
+                                    {% include 'block/search_panel.html.twig' with {'controller': 'training_centre', 'close_delete': true, 'close_edit': true, 'close_create': true} %}
+                                {% else %}
+                                    {% include 'block/search_panel.html.twig' with {'controller': 'training_centre', 'close_delete': true} %}
+                                {% endif %}
 
                                 <div class="ajax-table">
                                     {{ include('administrator/directory/training_centre_table.html.twig') }}
@@ -51,7 +53,7 @@
                                 <img src="{{ absolute_url('/assets/images/loading--big.gif') }}" style="position: absolute; top: 10%; left: 50%; margin-left: -75px;">
                             </div>
 
-                            {% include 'administrator/modal/delete.html.twig' with {'controller': 'training_centre'} %}
+                            {% include 'modal/delete.html.twig' with {'controller': 'training_centre'} %}
 
                         </div>
                     </div>

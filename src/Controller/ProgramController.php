@@ -5,8 +5,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\MasterProgram;
 use App\Entity\ProgramType;
+use App\Entity\TrainingCenters;
 use App\Service\LinkService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -32,28 +34,24 @@ class ProgramController extends AbstractController
         $on_page = $request->get('on_page') ?? 25;
         $sort = $request->get('sort') ?? null;
 
-        if ($sort != null) {
-            $sort = ['order'=>[$sort => "DESC"]];
-        }
-
         $program_type = $this->managerRegistry->getRepository(ProgramType::class)->findAll();
-        $program_list = $this->managerRegistry->getRepository(MasterProgram::class)->getProgramListInterface((int)$page, (int)$on_page, $sort);
+        $program_list = $this->managerRegistry->getRepository(MasterProgram::class)->getList((int)$page, (int)$on_page, $sort);
         $count = $this->managerRegistry->getRepository(MasterProgram::class)->getApiProgramInfo();
         $count = $count['count_program'] ?? 0;
 
+        $tc = $this->managerRegistry->getRepository(TrainingCenters::class)->findAll();
+        $category = $this->managerRegistry->getRepository(Category::class)->findAll();
 
         $tpl = $request->get('ajax') ? '/program/program_table.html.twig' : '/program/index.html.twig' ;
 
-
         $table = [
-            ['', '', '', true],
-            ['', 'Статус', 'bool', true],
+            ['', '', 'bool', true],
             ['id', 'ID', 'string', true],
-            ['program_type.id', 'Тип', 'string', true],
+            ['pt.id', 'Тип', 'string', true],
             ['additional_flag', 'Дополнительная<br /> общеобразовательная<br /> программа ПК или ПП', 'string', true],
             ['name', 'Название', 'string', true],
-            ['federal_standart', 'ФГОС', 'string', true],
-            ['prof_standarts', 'ПС', 'string', true],
+            ['fs.id', 'ФГОС', 'string', true],
+            ['ps.id', 'ПС', 'string', true],
         ];
 
         return $this->render(
@@ -61,6 +59,8 @@ class ProgramController extends AbstractController
             [
                 'data' => $program_list,
                 'program_type' => $program_type,
+                'training_centre' => $tc,
+                'category' => $category,
                 'pager' => [
                     'count_all_position' => $count,
                     'current_page' => $page,
