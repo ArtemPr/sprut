@@ -1,6 +1,14 @@
 .header {
-	position: relative;
+	/*position: relative;*/
+  top: 0;
+  left: 0;
+  position: fixed;
 	z-index: 1035;
+  width: 100%;
+}
+
+body {
+  padding-top: 75px;
 }
 
 .header .container-fluid {
@@ -490,5 +498,22 @@
 #add-fgos {
   margin-bottom: 20px;
 }
+
+/* сжатие шапки, уменьшение отступов на стр */
+
+.page-wrapper .page-header {
+  margin-top: 0;
+}
+
+.page-body {
+  margin-top: 0.7rem;
+}
+
+.header .navbar, .header .nav-link, .header .navbar-brand {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+
 
 
