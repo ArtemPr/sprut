@@ -30,129 +30,11 @@
                         <div class="col-12">
                             <div class="card">
                                 {% include 'block/search_panel.html.twig' with {'controller': 'user'} %}
-                                <div class="users-table-wrap table-responsive">
-                                    <table id="usersTable"
-                                           class="users-table table card-table table-vcenter text-nowrap datatable">
-                                        <thead>
-                                        <tr>
-                                            <th></th>
-                                            <th></th>
-                                            <th><a class="sort-icon is-desc" href="#"></a>
-                                                <span class="th-name">ФИО</span></th>
-                                            <th><a class="sort-icon is-both" href="#"></a>
-                                                <span class="th-name"> Должность</span></th>
-                                            <th><a class="sort-icon is-both" href="#"></a>
-                                                <span class="th-name">Подразделение</span></th>
-                                            <th><a class="sort-icon is-both" href="#"></a>
-                                                <span class="th-name">Почта</span></th>
-                                            <th><a class="sort-icon is-both" href="#"></a>
-                                                <span class="th-name">Скайп</span></th>
-                                            <th><a class="sort-icon is-both" href="#"></a>
-                                                <span class="th-name">Телефон</span></th>
-                                            <th><a class="sort-icon is-both" href="#"></a>
-                                                <span class="th-name">Город</span></th>
-                                            <th class="hidden-cell"></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        {% if user_list|default(false) %}
-                                            {% for ul in user_list %}
-                                                <tr data-string="{{ ul.id }}"
-                                                    class="user-table-row {% if loop.first %}is-selected{% endif %}">
-                                                    <td><span class="badge
-                                                    {% if ul.activity|default(false) %}
-                                                        bg-success
-                                                    {% else %}
-                                                        bg-danger
-                                                    {% endif %}
-                                                    "></span></td>
-                                                    <td>
-                                                        Локальный
-                                                    </td>
-                                                    <td>
-                                                        {{ ul.username|default(false) }}
-                                                        {{ ul.surname|default(false) }}
-                                                        {{ ul.patronymic|default(false) }}
-                                                    </td>
-                                                    <td>
-                                                        {{ ul.position|default('-') }}
-                                                    </td>
-                                                    <td>
-                                                        {{ ul.departament.name|default('-') }}
-                                                    </td>
-                                                    <td>
-                                                        {% if  ul.email|default(false) %}
-                                                            <a href="mailto:{{ ul.email }}">
-                                                                {{ ul.email }}
-                                                            </a>
-                                                        {% else %}
-                                                            -
-                                                        {% endif %}
-                                                    </td>
-                                                    <td>
-                                                        {% if  ul.skype|default(false) %}
-                                                            <a href="skype:{{ ul.skype }}">
-                                                                {{ ul.skype }}
-                                                            </a>
-                                                        {% else %}
-                                                            -
-                                                        {% endif %}
-                                                    </td>
-                                                    <td>
-                                                        {% if  ul.phone|default(false) %}
-                                                            <a href="tel:{{ ul.phone }}">
-                                                                {{ ul.phone }}
-                                                            </a>
-                                                        {% else %}
-                                                            -
-                                                        {% endif %}
-                                                    </td>
-                                                    <td>
-                                                        {{ ul.city.name|default('-') }}
-                                                    </td>
-                                                </tr>
-                                            {% endfor %}
-                                        {% endif %}
-                                        </tbody>
-                                    </table>
+
+                                <div class="ajax-table">
+                                    {{ include('administrator/user/user_table.html.twig') }}
                                 </div>
 
-
-                                <div class="card-footer d-flex align-items-center">
-                                    <p class="m-0 text-muted"><b>{{ user_list|length }}</b> результатов</p>
-                                    {% if user_list|length > 25 %}
-                                        <ul class="pagination m-0 ms-auto">
-                                            <li class="page-item disabled">
-                                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
-                                                    <!-- Download SVG icon from http://tabler-icons.io/i/chevron-left -->
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24"
-                                                         height="24" viewBox="0 0 24 24" stroke-width="2"
-                                                         stroke="currentColor" fill="none" stroke-linecap="round"
-                                                         stroke-linejoin="round">
-                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                        <polyline points="15 6 9 12 15 18"/>
-                                                    </svg>
-                                                </a>
-                                            </li>
-                                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                            <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">5</a></li>
-                                            <li class="page-item">
-                                                <a class="page-link" href="#">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24"
-                                                         height="24" viewBox="0 0 24 24" stroke-width="2"
-                                                         stroke="currentColor" fill="none" stroke-linecap="round"
-                                                         stroke-linejoin="round">
-                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                        <polyline points="9 6 15 12 9 18"/>
-                                                    </svg>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    {% endif %}
-                                </div>
                             </div>
 
                             <div id="userEditingOverlay" class="offcanvas-backdrop fade"></div>
@@ -167,12 +49,12 @@
                                 </div>
                             </div>
 
-                            <div id="userCreationPanel" class="user-form-panel offcanvas offcanvas-end" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                            <div id="userCreationPanel" data-action="add"  class="user-form-panel offcanvas offcanvas-end" tabindex="-1" aria-labelledby="offcanvasEndLabel">
                             {% include 'administrator/user/form/create_form.html.twig' %}
                             </div>
 
-                            <div id="userEditingPanel" class="user-form-panel offcanvas offcanvas-end" tabindex="-1" aria-labelledby="offcanvasEndLabel">
-
+                            <div id="userEditingPanel" data-action="edit" class="user-form-panel offcanvas offcanvas-end" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                                <img src="{{ absolute_url('/assets/images/loading--big.gif') }}" style="position: absolute; top: 10%; left: 50%; margin-left: -75px;">
                             </div>
 
                             {% include 'modal/delete.html.twig' %}

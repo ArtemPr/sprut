@@ -48,7 +48,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string')]
     private $password;
 
-    #[ORM\Column(type: 'string', length: 100, nullable: true)]
+    #[ORM\Column(type: 'string', length: 100, nullable: true, unique: true)]
     private $email;
 
     #[ORM\Column(type: 'string', length: 32, nullable: true)]
@@ -59,6 +59,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $position;
+
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    private $delete;
 
     public function __construct()
     {
@@ -289,6 +292,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->departament;
     }
 
+    /**
+     * @param ArrayCollection $departament
+     */
+    public function setDepartament($departament): void
+    {
+        $this->departament = $departament;
+    }
+
     public function addDepartament(Departament $departament): self
     {
         if (!$this->departament->contains($departament)) {
@@ -317,6 +328,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getCity(): Collection
     {
         return $this->city;
+    }
+
+    /**
+     * @param ArrayCollection $city
+     */
+    public function setCity($city): void
+    {
+        $this->city = $city;
     }
 
     public function addCity(City $City): self
@@ -352,4 +371,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getDelete()
+    {
+        return $this->delete;
+    }
+
+    /**
+     * @param mixed $delete
+     */
+    public function setDelete($delete): void
+    {
+        $this->delete = $delete;
+    }
+
 }
