@@ -53,13 +53,6 @@
                 <td style="text-align: center">
                     {{ program.program_type.short_name_type|default(false) }}
                 </td>
-                <td style="text-align: center">
-                    {% if program.additional_flag == true %}
-                        да
-                    {% else %}
-                        нет
-                    {% endif %}
-                </td>
                 <td>
                     {{ program.name|raw }}
                 </td>

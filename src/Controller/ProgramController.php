@@ -48,7 +48,6 @@ class ProgramController extends AbstractController
             ['', '', 'bool', true],
             ['id', 'ID', 'string', true],
             ['pt.id', 'Тип', 'string', true],
-            ['additional_flag', 'Дополнительная<br /> общеобразовательная<br /> программа ПК или ПП', 'string', true],
             ['name', 'Название', 'string', true],
             ['fs.id', 'ФГОС', 'string', true],
             ['ps.id', 'ПС', 'string', true],
