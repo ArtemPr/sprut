@@ -22,14 +22,14 @@
         </aside>
         <div class="page-wrapper">
             <div class="container-xl">
-                {% include 'administrator/block/header_list.html.twig' with {'header': 'Пользователи', 'onpage_link': path('administrator_user')} %}
+                {% include 'block/header_list.html.twig' with {'header': 'Пользователи', 'onpage_link': path('administrator_user')} %}
             </div>
             <div class="page-body">
                 <div class="container-xl">
                     <div class="row row-deck row-cards">
                         <div class="col-12">
                             <div class="card">
-                                {% include 'administrator/user/block/search_panel.html.twig' with {'controller': 'user'} %}
+                                {% include 'block/search_panel.html.twig' with {'controller': 'user'} %}
                                 <div class="users-table-wrap table-responsive">
                                     <table id="usersTable"
                                            class="users-table table card-table table-vcenter text-nowrap datatable">
@@ -38,7 +38,7 @@
                                             <th></th>
                                             <th></th>
                                             <th><a class="sort-icon is-desc" href="#"></a>
-                                                <span class="th-name">ФИО</th></span>
+                                                <span class="th-name">ФИО</span></th>
                                             <th><a class="sort-icon is-both" href="#"></a>
                                                 <span class="th-name"> Должность</span></th>
                                             <th><a class="sort-icon is-both" href="#"></a>
@@ -175,7 +175,7 @@
 
                             </div>
 
-                            {% include 'administrator/modal/delete.html.twig' %}
+                            {% include 'modal/delete.html.twig' %}
                             {% include 'administrator/user/modal/departament.html.twig' %}
                             {% include 'administrator/user/modal/role.html.twig' %}
 

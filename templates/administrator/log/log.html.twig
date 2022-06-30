@@ -11,14 +11,14 @@
     <div class="page page-layout">
         <div class="page-wrapper">
             <div class="container-fluid">
-                    {% include 'administrator/block/header_list.html.twig' with {'header': 'Журнал событий', 'onpage_link': path('administrator_log')} %}
+                    {% include 'block/header_list.html.twig' with {'header': 'Журнал событий', 'onpage_link': path('administrator_log')} %}
             </div>
             <div class="page-body">
                 <div class="container-fluid">
                     <div class="row row-deck row-cards">
                         <div class="col-12">
                             <div class="card">
-                                {% include 'administrator/user/block/search_panel.html.twig' with {'close_delete': true, 'close_edit': true, 'close_create': true} %}
+                                {% include 'block/search_panel.html.twig' with {'close_delete': true, 'close_edit': true, 'close_create': true} %}
                                 <div class="ajax-table">
                                     {% include '/administrator/log/log_table.html.twig' %}
                                 </div>

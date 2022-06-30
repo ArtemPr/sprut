@@ -21,11 +21,13 @@ class AdministratorUserController extends AbstractController
     {
         $user_list = $this->managerRegistry->getRepository(User::class)->getList();
 
+        $city = $this->managerRegistry->getRepository(City::class)->getList();
         return $this->render(
             'administrator/user/list.html.twig',
             [
                 'controller' => 'AdminUser',
                 'user_list' => $user_list,
+                'city_list' => $city
             ]
         );
     }
@@ -34,7 +36,7 @@ class AdministratorUserController extends AbstractController
     {
         $data = $this->managerRegistry->getRepository(User::class)->getUser($id);
 
-        $city = $this->managerRegistry->getRepository(City::class)->findAll();
+        $city = $this->managerRegistry->getRepository(City::class)->getList();
         return $this->render(
             'administrator/user/form/update_form.html.twig',
             [

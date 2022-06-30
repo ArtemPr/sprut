@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\City;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -39,28 +40,16 @@ class CityRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return City[] Returns an array of City objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('c.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function getList()
+    {
+        $entityManager = $this->getEntityManager();
 
-//    public function findOneBySomeField($value): ?City
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        $result = $entityManager->createQuery(
+            'SELECT city
+                FROM App\Entity\City city
+                ORDER BY city.name ASC'
+        )->getResult(Query::HYDRATE_ARRAY);
+
+        return $result;
+    }
 }
