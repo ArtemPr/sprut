@@ -93,7 +93,7 @@
 
 
 
-                            <div id="userCreationPanel" class="user-form-panel offcanvas offcanvas-end" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                            <div id="userCreationPanel" class="user-form-panel offcanvas offcanvas-end modal-large" tabindex="-1" aria-labelledby="offcanvasEndLabel">
                                 <div class="offcanvas-header">
                                     <h2 class="offcanvas-title">Создание программы</h2>
                                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -128,6 +128,34 @@
                                             <button type="submit" class="btn btn-primary ms-auto">Сохранить</button>
                                         </div>
                                     </form>
+                                    <!--табы из таблера-->
+                                    <div class="card">
+                                        <ul class="nav nav-tabs" data-bs-toggle="tabs">
+                                            <li class="nav-item">
+                                                <a href="#tabs-home-ex1" class="nav-link active" data-bs-toggle="tab">Home</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="#tabs-profile-ex1" class="nav-link" data-bs-toggle="tab">Profile</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="#tabs-tab-ex1" class="nav-link" data-bs-toggle="tab">Таб 3</a>
+                                            </li>
+                                        </ul>
+                                        <div class="card-body">
+                                            <div class="tab-content">
+                                                <div class="tab-pane active show" id="tabs-home-ex1">
+                                                    <div>Cursus turpis vestibulum, dui in pharetra vulputate id sed non turpis ultricies fringilla at sed facilisis lacus pellentesque purus nibh</div>
+                                                </div>
+                                                <div class="tab-pane" id="tabs-profile-ex1">
+                                                    <div>Fringilla egestas nunc quis tellus diam rhoncus ultricies tristique enim at diam, sem nunc amet, pellentesque id egestas velit sed</div>
+                                                </div>
+                                                <div class="tab-pane" id="tabs-tab-ex1">
+                                                    <div>Контент таба 3 Fringilla egestas nunc quis tellus diam rhoncus ultricies tristique enim at diam, sem nunc amet, pellentesque id egestas velit sed</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--табы из таблера-->
                                 </div>
                             </div>
 
