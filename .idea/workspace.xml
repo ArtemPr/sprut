@@ -1,73 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4cb45298-3600-4dae-af1c-82217ff00d38" name="Changes" comment="">
-<<<<<<< HEAD
-      <change afterPath="$PROJECT_DIR$/templates/user/log.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/user/program.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+    <list default="true" id="ffb25347-9683-47f3-8332-32302c3dcb54" name="Changes" comment="костыль">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/780500c2-bcad-4da4-a2d1-1f49f2c99c16.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/780500c2-bcad-4da4-a2d1-1f49f2c99c16.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/780500c2-bcad-4da4-a2d1-1f49f2c99c16/storage_v2/_src_/database/sprut.FDOJBg/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/780500c2-bcad-4da4-a2d1-1f49f2c99c16/storage_v2/_src_/database/sprut.FDOJBg/schema/public.abK9xQ.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/source/css/base.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/source/css/base.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/source/css/user.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/source/css/user.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/source/js/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/source/js/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/Version20220605161233.php" beforeDir="false" afterPath="$PROJECT_DIR$/migrations/Version20220605161233.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/Administrator/AdminDirectoryFGOS.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Administrator/AdminDirectoryFGOS.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/Administrator/AdminDirectoryPS.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Administrator/AdminDirectoryPS.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/Administrator/AdministratorOperationsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Administrator/AdministratorOperationsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/Administrator/AdministratorRoleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Administrator/AdministratorRoleController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/Administrator/AdministratorUserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Administrator/AdministratorUserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/Administrator/FormController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Administrator/FormController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/Api/ApiProgramController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Api/ApiProgramController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/Api/ApiTrainingCentre.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Api/ApiTrainingCentre.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/Api/ApiUserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Api/ApiUserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/ApiController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ApiController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/FormController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/FormController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/TeleportController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/TeleportController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/defaultController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/defaultController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/City.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/City.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/FederalStandart.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/FederalStandart.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/FederalStandartCompetencies.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/FederalStandartCompetencies.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Module.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Module.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Operations.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Operations.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Roles.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Roles.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/FederalStandartRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/FederalStandartRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/LiteratureCategoryRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/LiteratureCategoryRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/LiteratureRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/LiteratureRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/MasterProgramRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/MasterProgramRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/ModuleRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/ModuleRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/OperationsRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/OperationsRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/ProfStandartsRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/ProfStandartsRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/ProgramTypeRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/ProgramTypeRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/RolesRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/RolesRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/TrainingCentersRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/TrainingCentersRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/TrainingCentersRequisitesRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/TrainingCentersRequisitesRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/UserRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/UserRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Security/AppCustomAuthenticator.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Security/AppCustomAuthenticator.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/ApiService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/ApiService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/block/header.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/block/header.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/user/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/user/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/user/operation.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/user/operation.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/user/role.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/user/role.html.twig" afterDir="false" />
-=======
-      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/source/js/action.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/source/js/action.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
->>>>>>> 332269a8ef8048d8c06b2f2d25358f8771e42562
+      <change beforePath="$PROJECT_DIR$/src/Controller/ProgramController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProgramController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/administrator/block/nav_directory.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/administrator/block/nav_directory.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/administrator/directory/kafedra.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/administrator/directory/kafedra.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/block/navbar.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/block/navbar.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/discipline/discipline.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/discipline/discipline.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/main/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/main/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/program/program_table.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/program/program_table.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
+  <component name="ComposerSettings" doNotAsk="true">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="recentNewPullRequestHead">
+      <RepoCoordinatesHolder>
+        <option name="owner" value="ArtemPr" />
+        <option name="repository" value="sprut" />
+      </RepoCoordinatesHolder>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -179,107 +149,175 @@
       <path value="$PROJECT_DIR$/vendor/doctrine/common" />
     </include_path>
   </component>
-  <component name="ProjectId" id="29sBeqyu34ML8cOrdxMENNjZtlw" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectId" id="2Ay9wWmh8uft8ipFSgXuzPT9o4L" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "true",
-    "WebServerToolWindowPanel.toolwindow.highlight.mappings": "true",
-    "WebServerToolWindowPanel.toolwindow.highlight.symlinks": "true",
-    "WebServerToolWindowPanel.toolwindow.show.date": "false",
-    "WebServerToolWindowPanel.toolwindow.show.permissions": "false",
-    "WebServerToolWindowPanel.toolwindow.show.size": "false",
-    "last_opened_file_path": "/home/kira/www",
-    "nodejs_package_manager_path": "npm",
-<<<<<<< HEAD
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-=======
-    "settings.editor.selected.configurable": "web.server",
->>>>>>> 332269a8ef8048d8c06b2f2d25358f8771e42562
-    "vue.rearranger.settings.migration": "true"
-  },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "postgresql"
-    ]
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowPanel.toolwindow.highlight.mappings&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowPanel.toolwindow.highlight.symlinks&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowPanel.toolwindow.show.date&quot;: &quot;false&quot;,
+    &quot;WebServerToolWindowPanel.toolwindow.show.permissions&quot;: &quot;false&quot;,
+    &quot;WebServerToolWindowPanel.toolwindow.show.size&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/artemprudishew/Проекты/sprut/templates&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;web.server&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/templates/administrator/operations" />
-      <recent name="$PROJECT_DIR$/bk" />
-      <recent name="$PROJECT_DIR$/templates/user" />
-      <recent name="$PROJECT_DIR$/templates/administrator/role" />
-      <recent name="$PROJECT_DIR$/templates/administrator/modal" />
+      <recent name="$PROJECT_DIR$/templates" />
+      <recent name="$PROJECT_DIR$/templates/block" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/Sprut" />
-      <recent name="$PROJECT_DIR$/src/Core/Domain" />
-      <recent name="$PROJECT_DIR$/src/Core" />
-      <recent name="$PROJECT_DIR$/src/Shared/Infrastructure" />
-      <recent name="$PROJECT_DIR$/src" />
+      <recent name="$PROJECT_DIR$/templates/discitline/form" />
+      <recent name="$PROJECT_DIR$/templates/discitline" />
+      <recent name="$PROJECT_DIR$/templates/administrator/operations" />
     </key>
   </component>
-  <component name="RunManager" selected="npm.watch">
-    <configuration name="run.sh" type="ShConfigurationType" temporary="true">
-      <option name="SCRIPT_TEXT" value="" />
-      <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
-      <option name="SCRIPT_PATH" value="$PROJECT_DIR$/run.sh" />
-      <option name="SCRIPT_OPTIONS" value="" />
-      <option name="INDEPENDENT_SCRIPT_WORKING_DIRECTORY" value="true" />
-      <option name="SCRIPT_WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="INDEPENDENT_INTERPRETER_PATH" value="true" />
-      <option name="INTERPRETER_PATH" value="/bin/zsh" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="EXECUTE_IN_TERMINAL" value="true" />
-      <option name="EXECUTE_SCRIPT_FILE" value="true" />
-      <envs />
-      <method v="2" />
-    </configuration>
-    <configuration name="watch" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+  <component name="RunManager">
+    <configuration name="build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
       <scripts>
-        <script value="watch" />
+        <script value="build" />
       </scripts>
       <node-interpreter value="project" />
-      <package-manager value="npm" />
       <envs />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.watch" />
-        <item itemvalue="Shell Script.run.sh" />
+        <item itemvalue="npm.build" />
+        <item itemvalue="npm.build" />
+        <item itemvalue="npm.build" />
+        <item itemvalue="npm.build" />
+        <item itemvalue="npm.build" />
       </list>
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="4cb45298-3600-4dae-af1c-82217ff00d38" name="Changes" comment="" />
-      <created>1653892010213</created>
+      <changelist id="ffb25347-9683-47f3-8332-32302c3dcb54" name="Changes" comment="" />
+      <created>1655968408336</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1653892010213</updated>
-      <workItem from="1653892011293" duration="73333000" />
-      <workItem from="1654245568418" duration="654000" />
-      <workItem from="1654444648248" duration="2862000" />
-      <workItem from="1654494691777" duration="3859000" />
-<<<<<<< HEAD
-      <workItem from="1654504538033" duration="104162000" />
-=======
-      <workItem from="1654504538033" duration="94052000" />
-      <workItem from="1655471538511" duration="1449000" />
-      <workItem from="1655473590606" duration="584000" />
->>>>>>> 332269a8ef8048d8c06b2f2d25358f8771e42562
+      <updated>1655968408336</updated>
+      <workItem from="1655968410341" duration="2777000" />
+      <workItem from="1655971198242" duration="74647000" />
+      <workItem from="1656304895841" duration="9214000" />
+      <workItem from="1656315382574" duration="19203000" />
+      <workItem from="1656393076993" duration="16729000" />
+      <workItem from="1656480270496" duration="18112000" />
+      <workItem from="1656565270171" duration="17535000" />
+      <workItem from="1656584613003" duration="1889000" />
     </task>
+    <task id="LOCAL-00001" summary="синхронизация">
+      <created>1656345680160</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1656345680160</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Фикс навигация">
+      <created>1656346473635</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1656346473635</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Фикс навигация стили">
+      <created>1656346722523</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1656346722523</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Правки от Никонорова на 20.06.2022">
+      <created>1656393590763</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1656393590763</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Создание справочника дисциплин">
+      <created>1656408096627</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1656408096627</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Добавление форм к дисциплинам">
+      <created>1656414475166</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1656414475166</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Фикс ролей">
+      <created>1656417405646</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1656417405646</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Работа с формой создания роли">
+      <created>1656487150022</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1656487150022</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Работа с формой изменения роли">
+      <created>1656490523930</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1656490523930</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Работа с формой изменения роли part 2">
+      <created>1656492875897</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1656492875897</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Рефакторинг">
+      <created>1656567293705</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1656567293705</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Добавление формы обновления пользователя">
+      <created>1656580132979</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1656580132979</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Добавление категорий">
+      <created>1656581330114</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1656581330114</updated>
+    </task>
+    <task id="LOCAL-00014" summary="костыль">
+      <created>1656581881463</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1656581881463</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -296,7 +334,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="main" />
+                        <option value="artpr" />
                       </list>
                     </value>
                   </entry>
@@ -307,9 +345,60 @@
         </entry>
       </map>
     </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="artpr" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="art_pr" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="main" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
-  <component name="XSLT-Support.FileAssociations.UIState">
-    <expand />
-    <select />
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Добавление таблицы программ" />
+    <MESSAGE value="Модуль программ - добавление пагинатора" />
+    <MESSAGE value="синхронизация" />
+    <MESSAGE value="Фикс навигация" />
+    <MESSAGE value="Фикс навигация стили" />
+    <MESSAGE value="Правки от Никонорова на 20.06.2022" />
+    <MESSAGE value="Создание справочника дисциплин" />
+    <MESSAGE value="Добавление форм к дисциплинам" />
+    <MESSAGE value="Фикс ролей" />
+    <MESSAGE value="Работа с формой создания роли" />
+    <MESSAGE value="Работа с формой изменения роли" />
+    <MESSAGE value="Работа с формой изменения роли part 2" />
+    <MESSAGE value="Рефакторинг" />
+    <MESSAGE value="Добавление формы обновления пользователя" />
+    <MESSAGE value="Добавление категорий" />
+    <MESSAGE value="костыль" />
+    <option name="LAST_COMMIT_MESSAGE" value="костыль" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/templates/administrator/role/role_table.html.twig</url>
+          <line>1</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
