@@ -30,7 +30,14 @@
                         <div class="col-12">
                             <div class="card">
 
-                                {% include 'block/search_panel.html.twig' with {'controller': 'kafedra'} %}
+
+
+
+                                {% if app.user.roles|default(false) and ("ROLE_TEST" in  app.user.roles) %}
+                                    {% include 'block/search_panel.html.twig' with {'controller': 'kafedra', 'close_delete': true, 'close_edit': true, 'close_create': true} %}
+                                {% else %}
+                                    {% include 'block/search_panel.html.twig' with {'controller': 'kafedra'} %}
+                                {% endif %}
 
                                 <div class="ajax-table">
                                     {{ include('administrator/directory/kafedra_table.html.twig') }}
