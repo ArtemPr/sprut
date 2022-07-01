@@ -90,7 +90,11 @@ class ApiUserController extends AbstractController
             $user->setApiHash(md5($data['email'] . $data['username']));
             $user->setSkype($data['skype'] ? trim($data['skype']) : '');
             $user->setPosition($data['position'] ? trim($data['position']) : '');
-            $data['roles'] = [$data['roles'] ?? 'ROLE_USER'];
+            if (!empty($data['roles'])) {
+                $data['roles'] = [$data['roles'], 'ROLE_USER'];
+            } else {
+                $data['roles'] = ['ROLE_USER'];
+            }
             $user->setRoles($data['roles']);
 
             $user->setDelete(false);
@@ -179,7 +183,11 @@ class ApiUserController extends AbstractController
         $user->setApiHash(md5($data['email'] . $data['username']));
         $user->setSkype($data['skype'] ? trim($data['skype']) : '');
         $user->setPosition($data['position'] ? trim($data['position']) : '');
-        $data['roles'] = [$data['roles'] ?? 'ROLE_USER'];
+        if (!empty($data['roles'])) {
+            $data['roles'] = [$data['roles'], 'ROLE_USER'];
+        } else {
+            $data['roles'] = ['ROLE_USER'];
+        }
         $user->setRoles($data['roles']);
 
         $user->setDelete(false);
