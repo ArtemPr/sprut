@@ -13,7 +13,7 @@
         {% if role_list|default(false) %}
             {% for ul in role_list %}
                 <tr data-string="{{ ul.id }}"
-                    class="user-table-row {% if loop.first %}is-selected{% endif %}">
+                    class="user-table-row {% if loop.first %}is-selected{% endif %}" {% if ul.roles_alt == 'ROLE_USER' or ul.roles_alt == 'ROLE_ADMIN' or ul.roles_alt == 'ROLE_API_SERVICE' or ul.roles_alt == 'ROLE_API_FRONT' %}style="color: #cccccc;" data-bs-toggle="tooltip" data-bs-placement="left" title="системная роль" {% endif %}>
                     <td><span class="badge bg-success"></span></td>
                     <td>
                         {{ ul.name|default(false) }}

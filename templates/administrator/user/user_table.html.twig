@@ -8,13 +8,13 @@
             <th><a class="sort-icon is-desc" href="#"></a>
                 <span class="th-name">ФИО</span></th>
             <th><a class="sort-icon is-both" href="#"></a>
+                <span class="th-name">Роль</span></th>
+            <th><a class="sort-icon is-both" href="#"></a>
                 <span class="th-name"> Должность</span></th>
             <th><a class="sort-icon is-both" href="#"></a>
                 <span class="th-name">Подразделение</span></th>
             <th><a class="sort-icon is-both" href="#"></a>
                 <span class="th-name">Почта</span></th>
-            <th><a class="sort-icon is-both" href="#"></a>
-                <span class="th-name">Скайп</span></th>
             <th><a class="sort-icon is-both" href="#"></a>
                 <span class="th-name">Телефон</span></th>
             <th><a class="sort-icon is-both" href="#"></a>
@@ -43,6 +43,13 @@
                         {{ ul.patronymic|default(false) }}
                     </td>
                     <td>
+                        {% for rol in roles %}
+                            {% if ul.roles|default(false) and (rol.roles_alt in ul.roles) %}
+                                {{ rol.name }}
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>
                         {{ ul.position|default('-') }}
                     </td>
                     <td>
@@ -52,15 +59,6 @@
                         {% if  ul.email|default(false) %}
                             <a href="mailto:{{ ul.email }}">
                                 {{ ul.email }}
-                            </a>
-                        {% else %}
-                            -
-                        {% endif %}
-                    </td>
-                    <td>
-                        {% if  ul.skype|default(false) %}
-                            <a href="skype:{{ ul.skype }}">
-                                {{ ul.skype }}
                             </a>
                         {% else %}
                             -
