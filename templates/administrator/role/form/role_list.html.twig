@@ -1,33 +1,58 @@
 <ul class="hierarchy__group-list">
     <li class="hierarchy__group-item" data-scope-for="desktop">
         <label class="hierarchy__scope">
-            <input type="checkbox" name="desktop" value="desktop"
+            <input type="checkbox" name="role[desktop]" value="desktop"
+                   {% if data.auth_list|default(false) %}
+                       {% if data.auth_list['desktop']|default(false) %}
+                           checked
+                       {% endif %}
+                   {% endif %}
                    class="form-check-input js-checkbox-scope parent-checkbox-scope"
                    data-selected-by="workflow">Рабочий стол
         </label>
     </li>
     <li class="hierarchy__group-item" data-scope-for="desktop">
         <label class="hierarchy__scope hierarchy__scope--parent">
-            <input type="checkbox" name="program[view]" value="1"
+            <input type="checkbox" name="role[program][view]" value="1"
                    class="form-check-input js-checkbox-scope parent-checkbox-scope"
+                    {% if data.auth_list|default(false) %}
+                        {% if data.auth_list['program']['view']|default(false) %}
+                            checked
+                        {% endif %}
+                    {% endif %}
                    data-selected-by="workflow">Курсы
         </label>
         <ul class="hierarchy__child-scopes">
             <li class="js-check-scope-container" data-scope-for="repo:status">
                 <label class="hierarchy__scope">
-                    <input type="checkbox" name="program[add]" value="1"
+                    <input type="checkbox" name="role[program][add]" value="1"
+                        {% if data.auth_list|default(false) %}
+                            {% if data.auth_list['program']['add']|default(false) %}
+                                checked
+                            {% endif %}
+                        {% endif %}
                            class="form-check-input js-checkbox-scope"/> создание
                 </label>
             </li>
             <li class="js-check-scope-container" data-scope-for="repo:status">
                 <label class="hierarchy__scope">
-                    <input type="checkbox" name="program[edit]" value="1"
+                    <input type="checkbox" name="role[program][edit]" value="1"
+                        {% if data.auth_list|default(false) %}
+                            {% if data.auth_list['program']['edit']|default(false) %}
+                                checked
+                            {% endif %}
+                        {% endif %}
                            class="form-check-input js-checkbox-scope"/> редактирование
                 </label>
             </li>
             <li class="js-check-scope-container" data-scope-for="repo:status">
                 <label class="hierarchy__scope">
-                    <input type="checkbox" name="program[delete]" value="1"
+                    <input type="checkbox" name="role[program][delete]" value="1"
+                        {% if data.auth_list|default(false) %}
+                            {% if data.auth_list['program']['delete']|default(false) %}
+                                checked
+                            {% endif %}
+                        {% endif %}
                            class="form-check-input js-checkbox-scope"/> удаление
                 </label>
             </li>
@@ -37,44 +62,72 @@
 
     <li class="hierarchy__group-item" data-scope-for="repo">
         <label class="hierarchy__scope hierarchy__scope--parent">
-            <input type="checkbox" name="role_list[admin][view]" value="1"
+            <input type="checkbox" name="role[admin][view]" value="1"
                    class="form-check-input js-checkbox-scope parent-checkbox-scope"
+                {% if data.auth_list|default(false) %}
+                    {% if data.auth_list['admin']['view']|default(false) %}
+                        checked
+                    {% endif %}
+                {% endif %}
                    data-selected-by="workflow"> Панель управления
         </label>
         <ul class="hierarchy__child-scopes">
             <li class="js-check-scope-container" data-scope-for="repo:status">
                 <label class="hierarchy__scope hierarchy__scope--parent">
-                    <input type="checkbox" name="role_list[user][view]" value="1"
+                    <input type="checkbox" name="role[user][view]" value="1"
+                        {% if data.auth_list|default(false) %}
+                            {% if data.auth_list['user']['view']|default(false) %}
+                                checked
+                            {% endif %}
+                        {% endif %}
                            class="form-check-input js-checkbox-scope"/> Пользователи
                 </label>
                 <ul class="hierarchy__child-scopes">
                     <li class="js-check-scope-container" data-scope-for="repo:status">
                         <label class="hierarchy__scope hierarchy__scope--parent">
-                            <input type="checkbox" name="role_list[user_list][view]"
-                                   value="repo:status"
+                            <input type="checkbox" name="role[user_list][view]" value="1"
+                                {% if data.auth_list|default(false) %}
+                                    {% if data.auth_list['user_list']['view']|default(false) %}
+                                        checked
+                                    {% endif %}
+                                {% endif %}
                                    class="form-check-input js-checkbox-scope"/>
                             Пользователи
                         </label>
                         <ul class="hierarchy__child-scopes">
                             <li class="js-check-scope-container" data-scope-for="repo:status">
                                 <label class="hierarchy__scope">
-                                    <input type="checkbox" name="role_list[user_list][add]"
-                                           value="1"
+                                    <input type="checkbox" name="role[user_list][add]" value="1"
+                                        {% if data.auth_list|default(false) %}
+                                            {% if data.auth_list['user_list']['add']|default(false) %}
+                                                checked
+                                            {% endif %}
+                                        {% endif %}
                                            class="form-check-input js-checkbox-scope"/> создание
                                 </label>
                             </li>
                             <li class="js-check-scope-container" data-scope-for="repo:status">
                                 <label class="hierarchy__scope">
-                                    <input type="checkbox" name="role_list[user_list][edit]"
+                                    <input type="checkbox" name="role[user_list][edit]"
                                            value="1"
+                                        {% if data.auth_list|default(false) %}
+                                            {% if data.auth_list['user_list']['edit']|default(false) %}
+                                                checked
+                                            {% endif %}
+                                        {% endif %}
                                            class="form-check-input js-checkbox-scope"/>
                                     редактирование
                                 </label>
                             </li>
                             <li class="js-check-scope-container" data-scope-for="repo:status">
                                 <label class="hierarchy__scope">
-                                    <input type="checkbox" name="role_list[user_list][delete]"
+                                    <input type="checkbox" name="role[user_list][delete]"
                                            value="1"
+                                        {% if data.auth_list|default(false) %}
+                                            {% if data.auth_list['user_list']['delete']|default(false) %}
+                                                checked
+                                            {% endif %}
+                                        {% endif %}
                                            class="form-check-input js-checkbox-scope"/> удаление
                                 </label>
                             </li>
@@ -82,22 +135,35 @@
                     </li>
                     <li class="js-check-scope-container" data-scope-for="repo_deployment">
                         <label class="hierarchy__scope hierarchy__scope--parent">
-                            <input type="checkbox" name="role_list[role][view]"
-                                   value="repo_deployment"
+                            <input type="checkbox" name="role[role][view]" value="1"
+                                {% if data.auth_list|default(false) %}
+                                    {% if data.auth_list['role']['view']|default(false) %}
+                                        checked
+                                    {% endif %}
+                                {% endif %}
                                    class="form-check-input js-checkbox-scope" data-selected-by>
                             Роли
                         </label>
                         <ul class="hierarchy__child-scopes">
                             <li class="js-check-scope-container" data-scope-for="repo:status">
                                 <label class="hierarchy__scope">
-                                    <input type="checkbox" name="role_list[role][add]" value="1"
+                                    <input type="checkbox" name="role[role][add]" value="1"
+                                        {% if data.auth_list|default(false) %}
+                                            {% if data.auth_list['role']['add']|default(false) %}
+                                                checked
+                                            {% endif %}
+                                        {% endif %}
                                            class="form-check-input js-checkbox-scope"/> создание
                                 </label>
                             </li>
                             <li class="js-check-scope-container" data-scope-for="repo:status">
                                 <label class="hierarchy__scope">
-                                    <input type="checkbox" name="role_list[role][edit]"
-                                           value="1"
+                                    <input type="checkbox" name="role[role][edit]" value="1"
+                                        {% if data.auth_list|default(false) %}
+                                            {% if data.auth_list['role']['edit']|default(false) %}
+                                                checked
+                                            {% endif %}
+                                        {% endif %}
                                            class="form-check-input js-checkbox-scope"/>
                                     редактирование
                                 </label>
@@ -106,8 +172,12 @@
                     </li>
                     <li class="js-check-scope-container" data-scope-for="repo_deployment">
                         <label class="hierarchy__scope hierarchy__scope--parent">
-                            <input type="checkbox" name="role_list[operations][view]"
-                                   value="repo_deployment"
+                            <input type="checkbox" name="role[operations][view]" value="1"
+                                {% if data.auth_list|default(false) %}
+                                    {% if data.auth_list['operations']['view']|default(false) %}
+                                        checked
+                                    {% endif %}
+                                {% endif %}
                                    class="form-check-input js-checkbox-scope">
                             Операции
                         </label>
@@ -115,8 +185,12 @@
                         <ul class="hierarchy__child-scopes">
                             <li class="js-check-scope-container" data-scope-for="repo:status">
                                 <label class="hierarchy__scope">
-                                    <input type="checkbox" name="role_list[operations][edit]"
-                                           value="1"
+                                    <input type="checkbox" name="role[operations][edit]" value="1"
+                                        {% if data.auth_list|default(false) %}
+                                            {% if data.auth_list['operations']['edit']|default(false) %}
+                                                checked
+                                            {% endif %}
+                                        {% endif %}
                                            class="form-check-input js-checkbox-scope"/> создание
                                 </label>
                             </li>
@@ -125,35 +199,97 @@
                 </ul>
             </li>
             <li class="js-check-scope-container" data-scope-for="repo_deployment">
-                <label class="hierarchy__scope">
-                    <input type="checkbox" name="role_list[directory][view]" value="1"
+                <label class="hierarchy__scope hierarchy__scope--parent">
+                    <input type="checkbox" name="role[directory][view]" value="1"
+                        {% if data.auth_list|default(false) %}
+                            {% if data.auth_list['directory']|default(false) %}
+                                checked
+                            {% endif %}
+                        {% endif %}
                            class="form-check-input js-checkbox-scope" data-selected-by>
                     Справочники
                 </label>
+                <ul class="hierarchy__child-scopes">
+                    <li class="js-check-scope-container" data-scope-for="repo:status">
+                        <label class="hierarchy__scope">
+                            <input type="checkbox" name="role[directory][add]" value="1"
+                                {% if data.auth_list|default(false) %}
+                                    {% if data.auth_list['directory']['add']|default(false) %}
+                                        checked
+                                    {% endif %}
+                                {% endif %}
+                                   class="form-check-input js-checkbox-scope"/> создание
+                        </label>
+                    </li>
+                    <li class="js-check-scope-container" data-scope-for="repo:status">
+                        <label class="hierarchy__scope">
+                            <input type="checkbox" name="role[directory][edit]" value="1"
+                                {% if data.auth_list|default(false) %}
+                                    {% if data.auth_list['directory']['edit']|default(false) %}
+                                        checked
+                                    {% endif %}
+                                {% endif %}
+                                   class="form-check-input js-checkbox-scope"/> редактирование
+                        </label>
+                    </li>
+                    <li class="js-check-scope-container" data-scope-for="repo:status">
+                        <label class="hierarchy__scope">
+                            <input type="checkbox" name="role[directory][delete]" value="1"
+                                {% if data.auth_list|default(false) %}
+                                    {% if data.auth_list['directory']['delete']|default(false) %}
+                                        checked
+                                    {% endif %}
+                                {% endif %}
+                                   class="form-check-input js-checkbox-scope"/> удаление
+                        </label>
+                    </li>
+                </ul>
             </li>
             <li class="js-check-scope-container" data-scope-for="repo_deployment">
                 <label class="hierarchy__scope">
-                    <input type="checkbox" name="role_list[log][view]" value="repo_deployment"
+                    <input type="checkbox" name="role[log][view]" value="1"
+                        {% if data.auth_list|default(false) %}
+                            {% if data.auth_list['log']['view']|default(false) %}
+                                checked
+                            {% endif %}
+                        {% endif %}
                            class="form-check-input js-checkbox-scope">
                     Журнал
                 </label>
             </li>
             <li class="js-check-scope-container" data-scope-for="repo_deployment">
                 <label class="hierarchy__scope hierarchy__scope--parent">
-                    <input type="checkbox" name="api" value="1"
+                    <input type="checkbox" name="role[api]" value="1"
+                        {% if data.auth_list|default(false) %}
+                            {% if data.auth_list['api']|default(false) %}
+                                checked
+                            {% endif %}
+                        {% endif %}
                            class="form-check-input js-checkbox-scope parent-checkbox-scope"
                            data-selected-by="workflow"> API
                 </label>
                 <ul class="hierarchy__child-scopes">
                     <li class="js-check-scope-container" data-scope-for="repo:status">
                         <label class="hierarchy__scope">
-                            <input type="checkbox" name="api[view]" value="1" class="form-check-input js-checkbox-scope"/>
+                            <input type="checkbox" name="role[api][view]" value="1"
+                                {% if data.auth_list|default(false) %}
+                                    {% if data.auth_list['api']['view']|default(false) %}
+                                        checked
+                                    {% endif %}
+                                {% endif %}
+                                   class="form-check-input js-checkbox-scope"/>
                             чтение
                         </label>
                     </li>
                     <li class="js-check-scope-container" data-scope-for="repo:status">
                         <label class="hierarchy__scope">
-                            <input type="checkbox" name="api[add]" value="1" class="form-check-input js-checkbox-scope"/>
+                            <input type="checkbox" name="role[api][add]" value="1"
+                                {% if data.auth_list|default(false) %}
+                                    {% if data.auth_list['api']['add']|default(false) %}
+                                        checked
+                                    {% endif %}
+                                {% endif %}
+                                   class="form-check-input js-checkbox-scope"/>
                             запись
                         </label>
                     </li>

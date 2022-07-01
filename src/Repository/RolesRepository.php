@@ -88,4 +88,19 @@ class RolesRepository extends ServiceEntityRepository
 
         return $result;
     }
+
+    public function get($id)
+    {
+        $entityManager = $this->getEntityManager();
+
+        $result = $entityManager->createQuery(
+        'SELECT role
+                FROM App\Entity\Roles role
+                WHERE role.id = :id'
+        )
+            ->setParameter('id', $id)
+            ->getResult(Query::HYDRATE_ARRAY);
+
+        return $result[0] ?? [];
+    }
 }

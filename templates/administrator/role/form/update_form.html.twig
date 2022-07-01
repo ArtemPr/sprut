@@ -3,8 +3,9 @@
     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 </div>
 <div class="offcanvas-body">
-    <form action="#" name="role-create" id="role_add-create" class="form-update">
+    <form action="#" name="role-update" id="role_update-create" class="form-update">
 
+        <input type="hidden" name="id" value="{{ data.id|default(false) }}">
 
         <div class="">
             <ul class="nav nav-tabs" data-bs-toggle="tabs">
@@ -49,7 +50,7 @@
             </div>
         </div>
         <div class="d-flex mb-4">
-            <button data-form-id="role_add-create" data-action="send-form" type="submit"
+            <button data-form-id="role_update-create" data-action="send-form" type="submit"
                     class="btn btn-primary ms-auto"
                     aria-label="Close"
             >Сохранить
