@@ -57,6 +57,12 @@ class AdministratorController extends AbstractController
         return $adminDirectoryFGOS->getList();
     }
 
+    #[Route('/directory/fros_csv', name: '_directory_fgos_csv')]
+    public function getDirectoryFgosCSV(AdminDirectoryFGOS $adminDirectoryFGOS): Response
+    {
+        return $adminDirectoryFGOS->getCSV();
+    }
+
     #[Route('/directory/ps', name: '_directory_ps')]
     public function getDirectoryPS(AdminDirectoryPS $adminDirectoryPS): Response
     {
