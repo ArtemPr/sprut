@@ -5,10 +5,11 @@
   position: fixed;
 	z-index: 1035;
   width: 100%;
+  /*min-height: 50px !important;*/
 }
 
 body {
-  padding-top: 75px;
+  padding-top: 67px;
 }
 
 .header .container-fluid {
@@ -20,6 +21,26 @@ body {
 .header .navbar {
 	-webkit-box-shadow: none;
 	box-shadow: none;
+}
+
+.header__navbar {
+  padding-top: 0.1rem;
+  padding-bottom: 0.1rem;
+}
+
+@media(max-width: 400px) {
+  .header__navbar {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+  }
+}
+
+/*.header__navbar .navbar {*/
+/*  min-height: 50px !important;*/
+/*}*/
+
+.header__navbar .navbar-light {
+  min-height: auto;
 }
 
 .page-layout {

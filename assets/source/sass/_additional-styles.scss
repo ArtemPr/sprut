@@ -1,0 +1,8 @@
+// правки для перебивания таблера и основных стилей
+
+.ajax-table--program {
+  .users-table-wrap {
+    max-height: calc(100vh - 530px);
+    min-height: 275px;
+  }
+}
