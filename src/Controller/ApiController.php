@@ -124,6 +124,12 @@ class ApiController extends AbstractController
         return $apiRole->add();
     }
 
+    #[Route('/role_update', name: 'role_update', methods: ['POST'])]
+    public function update_role(ApiRole $apiRole): Response
+    {
+        return $apiRole->update();
+    }
+
     #[Route('/user_add', name: 'user_add', methods: ['POST'])]
     public function add_user(ApiUserController $apiUserController): Response
     {

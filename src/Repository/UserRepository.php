@@ -83,6 +83,17 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
         $result[0]['roles'] = $role_result;
 
+        $auth_list = [];
+        if (!empty($result[0]['roles'])) {
+            foreach ($result[0]['roles'] as $key=>$val)
+            {
+                if(!empty($val['auth_list'])) {
+                    $auth_list_tmp = unserialize($val['auth_list']);
+                    $auth_list = $auth_list + $auth_list_tmp;
+                }
+            }
+        }
+
         return $result;
     }
 

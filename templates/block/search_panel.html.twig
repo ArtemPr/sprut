@@ -1,7 +1,7 @@
 <div class="users-option-panel card-body border-bottom py-3">
     <div class="d-flex align-items-center mb-0">
         <div class="is-left-col input-group input-group-flat me-2">
-            <input id='input-search' type="text" class="form-control" placeholder="Поиск"  autocomplete="off">
+            <input id='input-search' type="text" class="form-control" placeholder="Поиск"  autocomplete="off" />
             <span class="input-group-text">
                                         <a id="jsClearSearch" href="#" class="link-secondary" title="Очистить Поиск" data-bs-toggle="tooltip">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
@@ -23,7 +23,6 @@
         {#    Необходимо реализовать подключение нужного контекста    #}
         <div class="is-left-col ms-auto">
             <div class="btn-group w-100">
-
                 {% set set_title = 'Данная операция недоступна, обратитесь к администратору системы.' %}
 
                 {% if close_create|default(false) %}
@@ -43,7 +42,6 @@
                 {% else %}
                     <a class="btn" data-action="delete" data-bs-toggle="modal" data-bs-target="#userRemoveModal" data-controller="{{ controller|default(false) }}" href="#">
                 {% endif %}Удалить</a>
-
             </div>
         </div>
     </div>

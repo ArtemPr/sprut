@@ -64,7 +64,12 @@ class AdministratorRoleController extends AbstractController
 
     public function getRoleForm(int $id)
     {
-        $data = $this->managerRegistry->getRepository(Roles::class)->find($id);
+        $data = $this->managerRegistry->getRepository(Roles::class)->get($id);
+
+        $auth_list = $data['auth_list'];
+        if(!empty($auth_list)) {
+            $data['auth_list'] = (unserialize($auth_list));
+        }
 
         return $this->render(
             'administrator/role/form/update_form.html.twig',
