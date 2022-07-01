@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class defaultController extends AbstractController
+class DefaultController extends AbstractController
 {
     #[Route('/', name: 'main')]
     public function getMain(): Response

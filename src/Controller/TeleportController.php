@@ -19,6 +19,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Класс для импорта данных
+ */
 class TeleportController extends AbstractController
 {
     /**
