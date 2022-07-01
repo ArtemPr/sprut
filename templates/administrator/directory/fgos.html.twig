@@ -29,11 +29,7 @@
                     <div class="row row-deck row-cards">
                         <div class="col-12">
                             <div class="card">
-                                {% if app.user.roles|default(false) and ("ROLE_TEST" in  app.user.roles) %}
-                                    {% include 'block/search_panel.html.twig' with {'close_delete': true, 'close_edit': true, 'close_delete': true, 'close_create': true} %}
-                                {% else %}
-                                    {% include 'block/search_panel.html.twig' with {'close_delete': true, 'close_edit': true, 'close_create': true} %}
-                                {% endif %}
+                                    {% include 'block/search_panel.html.twig' with {'close_delete': true, 'close_edit': true, 'close_create': true, 'add_csv': path('administrator_directory_fgos') ~ '_csv'} %}
                                 <div class="ajax-table">
                                     {{ include('administrator/directory/fgos_table.html.twig') }}
                                 </div>
