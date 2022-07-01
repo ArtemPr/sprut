@@ -32,7 +32,6 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         ##- { path: ^/api, roles: ROLE_API_USER }
-        - { path: ^/administrator, roles: ROLE_ADMIN }
         - { path: ^/login, roles: PUBLIC_ACCESS }
         - { path: ^/logout, roles: PUBLIC_ACCESS }
         - { path: ^/, roles: ROLE_USER }

@@ -45,7 +45,7 @@ class FederalStandartRepository extends ServiceEntityRepository
     /**
      * @return float|int|mixed|string
      */
-    public function getList(int|null $page = 0, int|null $on_page = 25, string|null $sort = null)
+    public function getList(int|null $page = 0, int|null $on_page = 25, string|null $sort = null, string|null $search = null)
     {
         $entityManager = $this->getEntityManager();
 
@@ -68,14 +68,58 @@ class FederalStandartRepository extends ServiceEntityRepository
             $order = 'op.id DESC';
         }
 
-        $result = $entityManager->createQuery(
-            'SELECT op
+        if (!empty($search)) {
+            $sql = "SELECT op
                 FROM App\Entity\FederalStandart op
-                ORDER BY ' . $order
-        )
-            ->setFirstResult($first_result)
-            ->setMaxResults($on_page)
-            ->getResult(Query::HYDRATE_ARRAY);
+                WHERE op.name LIKE :search
+                ORDER BY " . $order;
+
+            $result = $entityManager->createQuery(
+                $sql
+            )
+                ->setParameter('search', '%' . $search . '%')
+                ->setFirstResult($first_result)
+                ->setMaxResults($on_page)
+                ->getResult(Query::HYDRATE_ARRAY);
+        } else {
+            $sql = 'SELECT op
+                FROM App\Entity\FederalStandart op
+                ORDER BY ' . $order;
+
+            $result = $entityManager->createQuery(
+                $sql
+            )
+                ->setFirstResult($first_result)
+                ->setMaxResults($on_page)
+                ->getResult(Query::HYDRATE_ARRAY);
+        }
+
+
+        return $result;
+    }
+
+    public function getListAll(int|null $page = 0, int|null $on_page = 25, string|null $sort = null, string|null $search = null)
+    {
+        $entityManager = $this->getEntityManager();
+
+        if (!empty($search)) {
+            $sql = "SELECT op
+                FROM App\Entity\FederalStandart op
+                WHERE op.name LIKE :search";
+
+            $result = $entityManager->createQuery(
+                $sql
+            )->setParameter('search', '%' . $search . '%')
+                ->getResult(Query::HYDRATE_ARRAY);
+        } else {
+            $sql = 'SELECT op
+                FROM App\Entity\FederalStandart op';
+
+            $result = $entityManager->createQuery(
+                $sql
+            )->getResult(Query::HYDRATE_ARRAY);
+        }
+
 
         return $result;
     }

@@ -28,9 +28,10 @@ class AdminDirectoryFGOS extends AbstractController
         $page = $request->get('page') ?? null;
         $on_page = $request->get('on_page') ?? 25;
         $sort = $request->get('sort') ?? null;
+        $search = $request->get('search') ?? null;
 
-        $result = $this->managerRegistry->getRepository(FederalStandart::class)->getList($page, $on_page, $sort);
-        $count = $this->managerRegistry->getRepository(FederalStandart::class)->findAll();
+        $result = $this->managerRegistry->getRepository(FederalStandart::class)->getList($page, $on_page, $sort, $search);
+        $count = $this->managerRegistry->getRepository(FederalStandart::class)->getListAll($page, $on_page, $sort, $search);
         $count = count($count);
 
         $table = [
@@ -44,6 +45,7 @@ class AdminDirectoryFGOS extends AbstractController
         return $this->render($tpl,
             [
                 'data' => $result,
+                'search' => strip_tags($search) ?? '',
                 'pager' => [
                     'count_all_position' => $count,
                     'current_page' => $page,

@@ -30,10 +30,12 @@
                     <div class="regular-tree-wrap">
                         <div class="regular-tree">
                             {% if category|default(false) %}
-                                <ul>
+                                <ul style="padding: 0; margin: 0">
                                     {% for tc in category %}
-                                        <li>
-                                            <a href="#">{{ tc.name }}</a>
+                                        <li
+                                            style="padding: 0; margin: 0; list-style: none; border-bottom: 1px dotted #cccccc; padding: 5px 3px 5px 3px;"
+                                        >
+                                            <a href="{{ path('program') ~ '?category=' ~ tc.id }}">{{ tc.name }}</a>
                                         </li>
                                     {% endfor %}
                                 </ul>
