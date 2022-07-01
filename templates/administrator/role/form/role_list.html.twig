@@ -2,11 +2,11 @@
     <li class="hierarchy__group-item" data-scope-for="desktop" data-level="1">
         <label class="hierarchy__scope">
             <input type="checkbox" name="role[desktop]" value="desktop"
-                   {% if data.auth_list|default(false) %}
-                       {% if data.auth_list['desktop']|default(false) %}
-                           checked
-                       {% endif %}
-                   {% endif %}
+                {% if data.auth_list|default(false) %}
+                    {% if data.auth_list['desktop']|default(false) %}
+                        checked
+                    {% endif %}
+                {% endif %}
                    class="form-check-input js-checkbox-scope parent-checkbox-scope"
                    data-selected-by="workflow">{{ operations.auth_desktop }}
         </label>
@@ -15,11 +15,11 @@
         <label class="hierarchy__scope hierarchy__scope--parent">
             <input type="checkbox" name="role[program][view]" value="1"
                    class="form-check-input js-checkbox-scope parent-checkbox-scope"
-                    {% if data.auth_list|default(false) %}
-                        {% if data.auth_list['program']['view']|default(false) %}
-                            checked
-                        {% endif %}
+                {% if data.auth_list|default(false) %}
+                    {% if data.auth_list['program']['view']|default(false) %}
+                        checked
                     {% endif %}
+                {% endif %}
                    data-selected-by="workflow">{{ operations.auth_program }}
         </label>
         <ul class="hierarchy__child-scopes">

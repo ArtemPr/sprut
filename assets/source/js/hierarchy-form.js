@@ -20,9 +20,17 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     scope.addEventListener("click", function () {
                         console.log("this ", this);
                         console.log(
-                            "scope.parentNode.parentNode ",
-                            scope.parentNode.parentNode
+                            "scope.closest ",
+                            scope.closest('li')
                         );
+                        let closestParentLi = scope.closest('li');
+                        let scopeLevel = closestParentLi.getAttribute('data-level');
+                        if(scopeLevel > 1) {
+
+                        }
+
+
+
                         if (
                             scope.classList.contains("hierarchy__scope--parent")
                         ) {
