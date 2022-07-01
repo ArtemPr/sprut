@@ -1,6 +1,14 @@
 .header {
-	position: relative;
+	/*position: relative;*/
+  top: 0;
+  left: 0;
+  position: fixed;
 	z-index: 1035;
+  width: 100%;
+}
+
+body {
+  padding-top: 75px;
 }
 
 .header .container-fluid {
@@ -421,27 +429,51 @@
 		padding: 3px;
 		font-size: 10px;
 	}
-
 }
 
 .disabled-btn {
   opacity: 0.2;
 }
 
-.form-control .option-check {
-  background-color: rgb(214, 51, 108, 0.4);
+.competence__title {
+  margin-top: 20px;
+  width: auto;
 }
 
-.form-control .option-work {
-  background-color: rgb(245, 159, 0, 0.4);
+.competence__list {
+  border-top: 1px solid rgba(98,105,118,.16);
+  border-bottom: 1px solid rgba(98,105,118,.16);
+  max-height: 20vh;
+  overflow: auto;
+  padding: 10px 10px 10px 0;
+  box-sizing: border-box;
 }
 
-.form-control .option-approved {
-  background-color: rgb(66, 153, 225, 0.4);
+#select-colored{
+  background-size: 10px;
+  padding-left: 30px;
+  background-repeat: no-repeat;
+  background-position: 10px center;
 }
 
-.form-control .option-ready {
-  background-color: rgb(47, 179, 68, 0.4);
+.select-new {
+  background-image: url('../img/circles-svg/circle-svg-grey.svg');
+}
+
+.select-check {
+  background-image: url('../img/circles-svg/circle-svg-yellow.svg');
+}
+
+.select-work {
+  background-image: url('../img/circles-svg/circle-svg-purple.svg');
+}
+
+.select-approved {
+  background-image: url('../img/circles-svg/circle-svg-blue.svg');
+}
+
+.select-ready {
+  background-image: url('../img/circles-svg/circle-svg-green.svg');
 }
 
 /* убираем обводки таблера */
@@ -462,3 +494,26 @@
 .form-check-input:focus {
   box-shadow: none;
 }
+
+#add-fgos {
+  margin-bottom: 20px;
+}
+
+/* сжатие шапки, уменьшение отступов на стр */
+
+.page-wrapper .page-header {
+  margin-top: 0;
+}
+
+.page-body {
+  margin-top: 0.7rem;
+}
+
+.header .navbar, .header .nav-link, .header .navbar-brand {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+
+
+

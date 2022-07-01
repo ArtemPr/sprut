@@ -12,7 +12,8 @@
     <div class="page page-layout">
         <aside class="navbar navbar-vertical navbar-expand-lg navbar-light">
             <div class="container-fluid">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-header-menu">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbar-header-menu">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbar-header-menu">
@@ -30,11 +31,11 @@
                         <div class="regular-tree">
                             {% if category|default(false) %}
                                 <ul>
-                                {% for tc in category %}
-                                    <li>
-                                        <a href="#">{{ tc.name }}</a>
-                                    </li>
-                                {% endfor %}
+                                    {% for tc in category %}
+                                        <li>
+                                            <a href="#">{{ tc.name }}</a>
+                                        </li>
+                                    {% endfor %}
                                 </ul>
                             {% endif %}
                         </div>
@@ -56,30 +57,56 @@
 
                                 <div class="users-option-panel card-body border-bottom py-3">
                                     <div class="d-flex align-items-center mb-0">
-                                        <form class="is-left-col input-group input-group-flat me-2" action="#" name="search">
-                                            <input type="text" class="search-input form-control" placeholder="Поиск" autocomplete="off">
+                                        <form class="is-left-col input-group input-group-flat me-2" action="#"
+                                              name="search">
+                                            <input type="text" class="search-input form-control" placeholder="Поиск"
+                                                   autocomplete="off">
                                             <span class="input-group-text">
-                                            <a id="jsClearSearch" href="#" class="link-secondary" title="Очистить Поиск" data-bs-toggle="tooltip">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+                                            <a id="jsClearSearch" href="#" class="link-secondary" title="Очистить Поиск"
+                                               data-bs-toggle="tooltip">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24"
+                                                     height="24" viewBox="0 0 24 24" stroke-width="2"
+                                                     stroke="currentColor" fill="none" stroke-linecap="round"
+                                                     stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"
+                                                                                   fill="none"/><line x1="18" y1="6"
+                                                                                                      x2="6" y2="18"/><line
+                                                        x1="6" y1="6" x2="18" y2="18"/></svg>
                                             </a>
-                                            <a href="#" class="link-secondary ms-2" title="Поиск" data-bs-toggle="tooltip">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><circle cx="10" cy="10" r="7"></circle><line x1="21" y1="21" x2="15" y2="15"></line></svg>
+                                            <a href="#" class="link-secondary ms-2" title="Поиск"
+                                               data-bs-toggle="tooltip">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24"
+                                                     height="24" viewBox="0 0 24 24" stroke-width="2"
+                                                     stroke="currentColor" fill="none" stroke-linecap="round"
+                                                     stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"
+                                                                                   fill="none"></path><circle cx="10"
+                                                                                                              cy="10"
+                                                                                                              r="7"></circle><line
+                                                        x1="21" y1="21" x2="15" y2="15"></line></svg>
                                             </a>
                                         </span>
                                         </form>
                                         <div class="me-2">
-                                            <a href="#" class="btn w-100 btn-icon" title="Экспорт в Excel" data-bs-toggle="tooltip">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-table-export" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <a href="#" class="btn w-100 btn-icon" title="Экспорт в Excel"
+                                               data-bs-toggle="tooltip">
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                     class="icon icon-tabler icon-tabler-table-export" width="44"
+                                                     height="44" viewBox="0 0 24 24" stroke-width="1.5"
+                                                     stroke="currentColor" fill="none" stroke-linecap="round"
+                                                     stroke-linejoin="round">
                                                     <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                    <path d="M11.5 20h-5.5a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v7.5m-16 -3.5h16m-10 -6v16m4 -1h7m-3 -3l3 3l-3 3" />
+                                                    <path
+                                                        d="M11.5 20h-5.5a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v7.5m-16 -3.5h16m-10 -6v16m4 -1h7m-3 -3l3 3l-3 3"/>
                                                 </svg>
                                             </a>
                                         </div>
                                         <div class="is-right-col ms-auto">
                                             <div class="btn-group w-100">
-                                                <a class="btn" data-bs-toggle="offcanvas" href="#userCreationPanel" role="button" aria-controls="offcanvasEnd">Создать</a>
-                                                <a class="btn" data-bs-toggle="offcanvas" href="#userEditingPanel" role="button" aria-controls="offcanvasEnd">Изменить</a>
-                                                <a class="btn" data-bs-toggle="modal" data-bs-target="#userRemoveModal" href="#">Удалить</a>
+                                                <a class="btn" data-bs-toggle="offcanvas" href="#userCreationPanel"
+                                                   role="button" aria-controls="offcanvasEnd">Создать</a>
+                                                <a class="btn" data-bs-toggle="offcanvas" href="#userEditingPanel"
+                                                   role="button" aria-controls="offcanvasEnd">Изменить</a>
+                                                <a class="btn" data-bs-toggle="modal" data-bs-target="#userRemoveModal"
+                                                   href="#">Удалить</a>
                                             </div>
                                         </div>
                                     </div>
@@ -92,84 +119,162 @@
                             </div>
 
 
-
-                            <div id="userCreationPanel" class="user-form-panel offcanvas offcanvas-end modal-large" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                            <div id="userCreationPanel" class="user-form-panel offcanvas offcanvas-end modal-large"
+                                 tabindex="-1" aria-labelledby="offcanvasEndLabel">
                                 <div class="offcanvas-header">
                                     <h2 class="offcanvas-title">Создание программы</h2>
-                                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                                            aria-label="Close"></button>
                                 </div>
                                 <div class="offcanvas-body">
                                     <form action="#" name="program-create">
-                                        <div class="form-group mb-3 row">
-                                            <label class="form-label col-3 col-form-label">Название</label>
-                                            <div class="col">
-                                                <input type="text" class="form-control" placeholder="Название программы">
+
+                                        <div class="card">
+                                            <ul class="nav nav-tabs" data-bs-toggle="tabs">
+                                                <li class="nav-item">
+                                                    <a href="#tabs-home-ex1" class="nav-link active"
+                                                       data-bs-toggle="tab">Основное</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="#tabs-profile-ex1" class="nav-link" data-bs-toggle="tab">ФГОС</a>
+                                                </li>
+                                            </ul>
+                                            <div class="card-body">
+                                                <div class="tab-content">
+                                                    <div class="tab-pane active show" id="tabs-home-ex1">
+                                                        <div class="form-group mb-3 row">
+                                                            <label
+                                                                class="form-label col-3 col-form-label">Название</label>
+                                                            <div class="col">
+                                                                <input type="text" class="form-control"
+                                                                       placeholder="Название программы">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group mb-3 row">
+                                                            <label class="form-label col-3 col-form-label">Тип
+                                                                программы</label>
+                                                            <div class="col">
+                                                                <select class="form-select">
+                                                                    <option disabled selected>Выберите тип из списка
+                                                                    </option>
+                                                                    <option value="1">Повышение квалификации (ПК)
+                                                                    </option>
+                                                                    <option value="2">Профессиональная переподготовка
+                                                                        (ПП)
+                                                                    </option>
+                                                                    <option value="3">Профессиональное обучение (ПО)
+                                                                    </option>
+                                                                    <option value="4">Дополнительное образование (ДО)
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group mb-3 row align-items-center">
+                                                            <label
+                                                                class="form-label col-3 col-form-label">Направление</label>
+                                                            <div class="col">
+                                                                <input type="text" class="form-control"
+                                                                       placeholder="Название выбранного направления">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="tab-pane fgos-tab" id="tabs-profile-ex1">
+
+                                                        <!--FGOS-ITEM-->
+                                                        <div class="fgos-item">
+                                                            <div class="mb-3 fgos-datalist">
+                                                                <label class="form-label">Выберите ФГОС</label>
+                                                                <input class="form-control" list="datalistOptions"
+                                                                       placeholder="Поиск"/>
+                                                                <datalist id="datalistOptions" class="fgos-datalist">
+                                                                    <option value="Aruba"/>
+                                                                    <option value="Afghanistan"/>
+                                                                    <option value="Angola"/>
+                                                                    <option value="Anguilla"/>
+                                                                    <option value="Albania"/>
+                                                                    <option value="Andorra"/>
+                                                                    <option value="United Arab Emirates"/>
+                                                                    <option value="Argentina"/>
+                                                                    <option value="Armenia"/>
+                                                                    <option value="American Samoa"/>
+                                                                </datalist>
+                                                            </div>
+
+                                                            <p class="competence__title">Выберите компетенции</p>
+                                                            <div class="mb-3 competence__list">
+                                                                <label class="form-check">
+                                                                    <input class="form-check-input" type="checkbox">
+                                                                    <span class="form-check-label">компетенция 1</span>
+                                                                </label>
+                                                                <label class="form-check">
+                                                                    <input class="form-check-input" type="checkbox">
+                                                                    <span class="form-check-label">компетенция 1</span>
+                                                                </label>
+                                                                <label class="form-check">
+                                                                    <input class="form-check-input" type="checkbox">
+                                                                    <span class="form-check-label">компетенция 1</span>
+                                                                </label>
+                                                                <label class="form-check">
+                                                                    <input class="form-check-input" type="checkbox">
+                                                                    <span class="form-check-label">компетенция 2</span>
+                                                                </label>
+                                                                <label class="form-check">
+                                                                    <input class="form-check-input" type="checkbox">
+                                                                    <span class="form-check-label">компетенция 3</span>
+                                                                </label>
+                                                                <label class="form-check">
+                                                                    <input class="form-check-input" type="checkbox">
+                                                                    <span class="form-check-label">компетенция 4</span>
+                                                                </label>
+                                                                <label class="form-check">
+                                                                    <input class="form-check-input" type="checkbox">
+                                                                    <span class="form-check-label">компетенция 5</span>
+                                                                </label>
+                                                                <label class="form-check">
+                                                                    <input class="form-check-input" type="checkbox">
+                                                                    <span class="form-check-label">компетенция 5</span>
+                                                                </label>
+                                                                <label class="form-check">
+                                                                    <input class="form-check-input" type="checkbox">
+                                                                    <span class="form-check-label">компетенция 5</span>
+                                                                </label>
+                                                            </div>
+
+                                                            <button id="add-fgos" class="btn btn-primary add-fgos">
+                                                                Добавить ФГОС
+                                                            </button>
+                                                        </div>
+                                                        <!--FGOS-ITEM-->
+
+                                                    </div>
+                                                    <div class="d-flex mb-4">
+                                                        <button type="submit" class="btn btn-primary ms-auto">Сохранить</button>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="form-group mb-3 row">
-                                            <label class="form-label col-3 col-form-label">Тип программы</label>
-                                            <div class="col">
-                                                <select class="form-select">
-                                                    <option disabled selected>Выберите тип из списка</option>
-                                                    <option value="1">Повышение квалификации (ПК)</option>
-                                                    <option value="2">Профессиональная переподготовка (ПП)</option>
-                                                    <option value="3">Профессиональное обучение (ПО)</option>
-                                                    <option value="4">Дополнительное образование (ДО)</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group mb-3 row align-items-center">
-                                            <label class="form-label col-3 col-form-label">Направление</label>
-                                            <div class="col">
-                                                <div>Название выбранного направления</div>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex mb-4">
-                                            <button type="submit" class="btn btn-primary ms-auto">Сохранить</button>
-                                        </div>
+
+
+
                                     </form>
-                                    <!--табы из таблера-->
-                                    <div class="card">
-                                        <ul class="nav nav-tabs" data-bs-toggle="tabs">
-                                            <li class="nav-item">
-                                                <a href="#tabs-home-ex1" class="nav-link active" data-bs-toggle="tab">Home</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="#tabs-profile-ex1" class="nav-link" data-bs-toggle="tab">Profile</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="#tabs-tab-ex1" class="nav-link" data-bs-toggle="tab">Таб 3</a>
-                                            </li>
-                                        </ul>
-                                        <div class="card-body">
-                                            <div class="tab-content">
-                                                <div class="tab-pane active show" id="tabs-home-ex1">
-                                                    <div>Cursus turpis vestibulum, dui in pharetra vulputate id sed non turpis ultricies fringilla at sed facilisis lacus pellentesque purus nibh</div>
-                                                </div>
-                                                <div class="tab-pane" id="tabs-profile-ex1">
-                                                    <div>Fringilla egestas nunc quis tellus diam rhoncus ultricies tristique enim at diam, sem nunc amet, pellentesque id egestas velit sed</div>
-                                                </div>
-                                                <div class="tab-pane" id="tabs-tab-ex1">
-                                                    <div>Контент таба 3 Fringilla egestas nunc quis tellus diam rhoncus ultricies tristique enim at diam, sem nunc amet, pellentesque id egestas velit sed</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--табы из таблера-->
+
                                 </div>
                             </div>
 
-                            <div id="userEditingPanel" class="user-form-panel offcanvas offcanvas-end" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                            <div id="userEditingPanel" class="user-form-panel offcanvas offcanvas-end" tabindex="-1"
+                                 aria-labelledby="offcanvasEndLabel">
                                 <div class="offcanvas-header">
                                     <h2 class="offcanvas-title">Редактирование программы</h2>
-                                    <button id="jsEditingPanelCloser" type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                    <button id="jsEditingPanelCloser" type="button" class="btn-close text-reset"
+                                            data-bs-dismiss="offcanvas" aria-label="Close"></button>
                                 </div>
                                 <div class="offcanvas-body">
                                     <form action="#" name="program-edit">
                                         <div class="form-group mb-3 row">
                                             <label class="form-label col-3 col-form-label">Название</label>
                                             <div class="col">
-                                                <input type="text" class="form-control" placeholder="Название программы" value="Программа 1">
+                                                <input type="text" class="form-control" placeholder="Название программы"
+                                                       value="Программа 1">
                                             </div>
                                         </div>
                                         <div class="form-group mb-3 row">
@@ -198,16 +303,28 @@
                             </div>
                             <div id="userEditingOverlay" class="offcanvas-backdrop fade"></div>
 
-                            <div id="userRemoveModal" class="modal modal-blur fade" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div id="userRemoveModal" class="modal modal-blur fade" tabindex="-1" role="dialog"
+                                 aria-hidden="true">
                                 <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
                                     <div class="modal-content">
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
                                         <div class="modal-status bg-danger"></div>
                                         <div class="modal-body text-center py-4">
                                             <!-- Download SVG icon from http://tabler-icons.io/i/alert-triangle -->
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-danger icon-lg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 9v2m0 4v.01" /><path d="M5 19h14a2 2 0 0 0 1.84 -2.75l-7.1 -12.25a2 2 0 0 0 -3.5 0l-7.1 12.25a2 2 0 0 0 1.75 2.75" /></svg>
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                 class="icon mb-2 text-danger icon-lg" width="24" height="24"
+                                                 viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                                 stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <path d="M12 9v2m0 4v.01"/>
+                                                <path
+                                                    d="M5 19h14a2 2 0 0 0 1.84 -2.75l-7.1 -12.25a2 2 0 0 0 -3.5 0l-7.1 12.25a2 2 0 0 0 1.75 2.75"/>
+                                            </svg>
                                             <h3>Вы уверены?</h3>
-                                            <div class="text-muted">Вы действительно хотите удалить программу<br> Программа 1</div>
+                                            <div class="text-muted">Вы действительно хотите удалить программу<br>
+                                                Программа 1
+                                            </div>
                                         </div>
                                         <div class="modal-footer">
                                             <div class="w-100">
@@ -216,7 +333,8 @@
                                                         <a href="#" class="btn w-100" data-bs-dismiss="modal">Отмена</a>
                                                     </div>
                                                     <div class="col">
-                                                        <a href="#" class="btn btn-danger w-100" data-bs-dismiss="modal">Удалить</a>
+                                                        <a href="#" class="btn btn-danger w-100"
+                                                           data-bs-dismiss="modal">Удалить</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -234,13 +352,16 @@
                             <div class="card">
                                 <ul class="nav nav-tabs" data-bs-toggle="tabs" role="tablist">
                                     <li class="nav-item" role="presentation">
-                                        <a href="#programs-tab-1" class="nav-link active" data-bs-toggle="tab" aria-selected="true" role="tab"><b>Этапы</b></a>
+                                        <a href="#programs-tab-1" class="nav-link active" data-bs-toggle="tab"
+                                           aria-selected="true" role="tab"><b>Этапы</b></a>
                                     </li>
                                     <li class="nav-item" role="presentation">
-                                        <a href="#programs-tab-2" class="nav-link" data-bs-toggle="tab" aria-selected="false" role="tab" tabindex="-1"><b>Статистика</b></a>
+                                        <a href="#programs-tab-2" class="nav-link" data-bs-toggle="tab"
+                                           aria-selected="false" role="tab" tabindex="-1"><b>Статистика</b></a>
                                     </li>
                                     <li class="nav-item" role="presentation">
-                                        <a href="#programs-tab-3" class="nav-link" data-bs-toggle="tab" aria-selected="false" role="tab" tabindex="-1"><b>Документы</b></a>
+                                        <a href="#programs-tab-3" class="nav-link" data-bs-toggle="tab"
+                                           aria-selected="false" role="tab" tabindex="-1"><b>Документы</b></a>
                                     </li>
                                 </ul>
                                 <div class="card-body p-0">
@@ -248,7 +369,8 @@
 
                                         <div class="tab-pane show active" id="programs-tab-1" role="tabpanel">
                                             <div class="users-table-wrap table-responsive">
-                                                <table class="users-table editable-table table card-table table-vcenter text-nowrap datatable">
+                                                <table
+                                                    class="users-table editable-table table card-table table-vcenter text-nowrap datatable">
                                                     <thead>
                                                     <tr>
                                                         <th>Статус</th>
@@ -263,7 +385,8 @@
                                                     <tbody>
                                                     <tr class="editable-table-row">
                                                         <td>
-                                                            <span class="badge bg-success" title="утвержден" data-bs-toggle="tooltip"></span>
+                                                            <span class="badge bg-success" title="утвержден"
+                                                                  data-bs-toggle="tooltip"></span>
                                                         </td>
                                                         <td>
                                                             Настройка
@@ -282,9 +405,11 @@
                                                             <input class="selected-checkbox" type="checkbox" name="#">
                                                         </td>
                                                     </tr>
-                                                    <tr class="editable-table-row" data-target-panel="#FGOSEditingPanel" data-target-overlay=".custom-overlay">
+                                                    <tr class="editable-table-row" data-target-panel="#FGOSEditingPanel"
+                                                        data-target-overlay=".custom-overlay">
                                                         <td>
-                                                            <span class="badge bg-warning" title="в работе" data-bs-toggle="tooltip"></span>
+                                                            <span class="badge bg-warning" title="в работе"
+                                                                  data-bs-toggle="tooltip"></span>
                                                         </td>
                                                         <td>
                                                             ФГОС и компетенции
@@ -299,11 +424,20 @@
 
                                                         </td>
                                                         <td>
-                                                            <a class="btn btn-icon" data-bs-toggle="offcanvas" href="#FGOSEditingPanel" role="button" aria-controls="offcanvasEnd">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                            <a class="btn btn-icon" data-bs-toggle="offcanvas"
+                                                               href="#FGOSEditingPanel" role="button"
+                                                               aria-controls="offcanvasEnd">
+                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                     class="icon icon-tabler icon-tabler-link"
+                                                                     width="44" height="44" viewBox="0 0 24 24"
+                                                                     stroke-width="1.5" stroke="currentColor"
+                                                                     fill="none" stroke-linecap="round"
+                                                                     stroke-linejoin="round">
                                                                     <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                                    <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
-                                                                    <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+                                                                    <path
+                                                                        d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5"/>
+                                                                    <path
+                                                                        d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5"/>
                                                                 </svg>
                                                             </a>
                                                         </td>
@@ -313,7 +447,8 @@
                                                     </tr>
                                                     <tr class="editable-table-row">
                                                         <td>
-                                                            <span class="badge bg-danger" title="создан, но не в работе" data-bs-toggle="tooltip"></span>
+                                                            <span class="badge bg-danger" title="создан, но не в работе"
+                                                                  data-bs-toggle="tooltip"></span>
                                                         </td>
                                                         <td>
                                                             Учебный план
@@ -334,7 +469,8 @@
                                                     </tr>
                                                     <tr class="editable-table-row">
                                                         <td>
-                                                            <span class="badge bg-danger" title="создан, но не в работе" data-bs-toggle="tooltip"></span>
+                                                            <span class="badge bg-danger" title="создан, но не в работе"
+                                                                  data-bs-toggle="tooltip"></span>
                                                         </td>
                                                         <td>
                                                             Календарный план
@@ -359,21 +495,28 @@
                                         </div>
 
                                         <div class="tab-pane" id="programs-tab-2" role="tabpanel">
-                                            <div class="p-3">Fringilla egestas nunc quis tellus diam rhoncus ultricies tristique enim at diam, sem nunc amet, pellentesque id egestas velit sed</div>
+                                            <div class="p-3">Fringilla egestas nunc quis tellus diam rhoncus ultricies
+                                                tristique enim at diam, sem nunc amet, pellentesque id egestas velit sed
+                                            </div>
                                         </div>
 
                                         <div class="tab-pane" id="programs-tab-3" role="tabpanel">
-                                            <div class="p-3">Donec ac vitae diam amet vel leo egestas consequat rhoncus in luctus amet, facilisi sit mauris accumsan nibh habitant senectus</div>
+                                            <div class="p-3">Donec ac vitae diam amet vel leo egestas consequat rhoncus
+                                                in luctus amet, facilisi sit mauris accumsan nibh habitant senectus
+                                            </div>
                                         </div>
 
                                     </div>
                                 </div>
                             </div>
 
-                            <div id="FGOSEditingPanel" class="custom-aside-panel user-form-panel offcanvas offcanvas-end" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                            <div id="FGOSEditingPanel"
+                                 class="custom-aside-panel user-form-panel offcanvas offcanvas-end" tabindex="-1"
+                                 aria-labelledby="offcanvasEndLabel">
                                 <div class="offcanvas-header">
                                     <h2 class="offcanvas-title">Привязка программы</h2>
-                                    <button type="button" class="custom-panel-closer btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                    <button type="button" class="custom-panel-closer btn-close text-reset"
+                                            data-bs-dismiss="offcanvas" aria-label="Close"></button>
                                 </div>
                                 <div class="offcanvas-body">
                                     <form action="#" name="program-binding">
