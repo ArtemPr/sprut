@@ -61,20 +61,34 @@
                             </div>
                         </div>
 
-                        <div class="form-group mb-3 row">
-                            <label class="form-label col-3 col-form-label">Подразделение</label>
-                            <div class="col">
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                        data-bs-target="#managingDepartmentsModal">Изменить
-                                </button>
-                            </div>
-                        </div>
+{#                        <div class="form-group mb-3 row">#}
+{#                            <label class="form-label col-3 col-form-label">Подразделение</label>#}
+{#                            <div class="col">#}
+{#                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"#}
+{#                                        data-bs-target="#managingDepartmentsModal">Изменить#}
+{#                                </button>#}
+{#                            </div>#}
+{#                        </div>#}
+
+{#                        <div class="form-group mb-3 row">#}
+{#                            <label class="form-label col-3 col-form-label">Роли</label>#}
+{#                            <div class="col">#}
+{#                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"#}
+{#                                        data-bs-target="#managingRolesModal">Изменить#}
+{#                                </button>#}
+{#                            </div>#}
+{#                        </div>#}
                         <div class="form-group mb-3 row">
                             <label class="form-label col-3 col-form-label">Роли</label>
                             <div class="col">
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                        data-bs-target="#managingRolesModal">Изменить
-                                </button>
+                                <select name="roles" class="form-control" required>
+                                    <option disabled>Выберите роль</option>
+                                    {% if roles|default(false) %}
+                                        {% for rol in roles %}
+                                            <option {% if data.roles|default(false) and (data.roles in rol.roles_alt) %}selected{% endif %} value="{{ rol.roles_alt }}">{{ rol.name }}</option>
+                                        {% endfor %}
+                                    {% endif %}
+                                </select>
                             </div>
                         </div>
 

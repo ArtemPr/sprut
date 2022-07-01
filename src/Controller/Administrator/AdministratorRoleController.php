@@ -41,7 +41,6 @@ class AdministratorRoleController extends AbstractController
 
         $tpl = $request->get('ajax') ? 'administrator/role/role_table.html.twig' : 'administrator/role/list.html.twig' ;
 
-
         return $this->render(
             $tpl,
             [
@@ -57,7 +56,8 @@ class AdministratorRoleController extends AbstractController
                     'sort_link' => $this->getSortLink(),
                     'current_sort' => $request->get('sort') ?? null,
                 ],
-                'table' => $table
+                'table' => $table,
+                'operations' => $this->getOperations()
             ]
         );
     }
@@ -75,7 +75,18 @@ class AdministratorRoleController extends AbstractController
             'administrator/role/form/update_form.html.twig',
             [
                 'data' => $data,
+                'operations' => $this->getOperations()
             ]
         );
+    }
+
+    private function getOperations(): array
+    {
+        $out = [];
+        $operations = $this->managerRegistry->getRepository(Operations::class)->getList();
+        foreach ($operations as $op) {
+            $out[$op['code']] = $op['name'];
+        }
+        return $out;
     }
 }

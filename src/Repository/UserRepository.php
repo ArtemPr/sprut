@@ -81,7 +81,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             WHERE role.roles_alt IN (:roles)"
         )->setParameter('roles', $result['0']['roles'])->getResult(Query::HYDRATE_ARRAY);
 
-        $result[0]['roles'] = $role_result;
+        $result[0]['role'] = $role_result;
 
         $auth_list = [];
         if (!empty($result[0]['roles'])) {

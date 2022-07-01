@@ -8,17 +8,15 @@
             <th><a class="sort-icon is-desc" href="#"></a>
                 <span class="th-name">ФИО</span></th>
             <th><a class="sort-icon is-both" href="#"></a>
+                <span class="th-name">Роль</span></th>
+            <th><a class="sort-icon is-both" href="#"></a>
                 <span class="th-name"> Должность</span></th>
             <th><a class="sort-icon is-both" href="#"></a>
                 <span class="th-name">Подразделение</span></th>
             <th><a class="sort-icon is-both" href="#"></a>
                 <span class="th-name">Почта</span></th>
             <th><a class="sort-icon is-both" href="#"></a>
-                <span class="th-name">Скайп</span></th>
-            <th><a class="sort-icon is-both" href="#"></a>
                 <span class="th-name">Телефон</span></th>
-            <th><a class="sort-icon is-both" href="#"></a>
-                <span class="th-name">Город</span></th>
             <th class="hidden-cell"></th>
         </tr>
         </thead>
@@ -43,6 +41,13 @@
                         {{ ul.patronymic|default(false) }}
                     </td>
                     <td>
+                        {% for rol in roles %}
+                            {% if ul.roles|default(false) and (rol.roles_alt in ul.roles) %}
+                                {{ rol.name }}
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>
                         {{ ul.position|default('-') }}
                     </td>
                     <td>
@@ -58,15 +63,6 @@
                         {% endif %}
                     </td>
                     <td>
-                        {% if  ul.skype|default(false) %}
-                            <a href="skype:{{ ul.skype }}">
-                                {{ ul.skype }}
-                            </a>
-                        {% else %}
-                            -
-                        {% endif %}
-                    </td>
-                    <td>
                         {% if  ul.phone|default(false) %}
                             <a href="tel:{{ ul.phone }}">
                                 {{ ul.phone }}
@@ -74,9 +70,6 @@
                         {% else %}
                             -
                         {% endif %}
-                    </td>
-                    <td>
-                        {{ ul.city.name|default('-') }}
                     </td>
                 </tr>
             {% endfor %}
