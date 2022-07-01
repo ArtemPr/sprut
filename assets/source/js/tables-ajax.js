@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     let paginationLinks = document.querySelectorAll(".page-link");
     let allRows = document.querySelectorAll(".user-table-row");
     const editBtn = document.querySelector("[data-action=edit]");
-    console.log("1 editBtn ", editBtn);
+  //  console.log("1 editBtn ", editBtn);
 
     if (selectOnPage !== null && sectionName !== null) {
         var tableUrl = `${location.protocol}//${location.host}${sectionName}?ajax=true&&on_page=${selectValue}`;
