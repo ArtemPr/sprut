@@ -7,3 +7,5 @@ import './source/css/demo.min.css';
 
 // start the Stimulus application
 import './bootstrap';
+
+import './source/js/login-pass.js';
