@@ -26,24 +26,17 @@
                     <div class="d-none d-xl-block ps-2">
                         <div>
                             {{ app.user.username|default('Гость') }}
-                            {{ app.user.surname|default('Гость') }}
-                            {{ app.user.patronymic|default('Гость') }}
+                            {{ app.user.surname|default(false) }}
+                            {{ app.user.patronymic|default(false) }}
                         </div>
                     </div>
                 </a>
                 {% if app.user.username|default(false) %}
                     <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                        {# <a href="#" class="dropdown-item">Set status</a> #}
-                        {# <a href="#" class="dropdown-item">Profile & account</a> #}
-                        {# <a href="#" class="dropdown-item">Feedback</a> #}
-                        {# <div class="dropdown-divider"></div> #}
-                        {# <a href="#" class="dropdown-item">Settings</a> #}
                         <a href="{{ path('app_logout') }}" class="dropdown-item">Выход</a>
                     </div>
                 {% endif %}
             </div>
         </div>
-
     </div>
-
 </header>
