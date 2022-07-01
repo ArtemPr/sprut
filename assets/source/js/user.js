@@ -46,19 +46,20 @@ if (isTouchDevice()) {
 for (let i = 0; i < userTableRows.length; ++i) {
     let userItem = userTableRows[i];
 
-    userItem.addEventListener("click", function () {
-        userTableRows.forEach((f) => f.classList.remove("is-selected"));
-        userItem.classList.add("is-selected");
+    // userItem.addEventListener("click", function () {
+    //     userTableRows.forEach((f) => f.classList.remove("is-selected"));
+    //     userItem.classList.add("is-selected");
+    // });
 
+    //    userItem.addEventListener("dblclick", showUserEditingPanelNew, false);
 
-    });
-
-    userItem.addEventListener("dblclick", showUserEditingPanelNew, false);
-
-    function showUserEditingPanelNew()
-    {
-        document.querySelector('[data-action=edit]').click();
-    }
+    // function showUserEditingPanelNew() {
+    //     let editItem = document.querySelector("[data-action=edit]");
+    //     if (editItem) {
+    //         editItem.click();
+    //     }
+    //     //  document.querySelector('[data-action=edit]').click();
+    // }
 
     /* detect double tap event */
     let timeout;
