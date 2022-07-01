@@ -40,7 +40,8 @@ class ProgramController extends AbstractController
         $count = $count['count_program'] ?? 0;
 
         $tc = $this->managerRegistry->getRepository(TrainingCenters::class)->findAll();
-        $category = $this->managerRegistry->getRepository(Category::class)->findAll();
+
+        $category = $this->managerRegistry->getRepository(Category::class)->getList();
 
         $tpl = $request->get('ajax') ? '/program/program_table.html.twig' : '/program/index.html.twig' ;
 

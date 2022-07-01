@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\Discipline;
 use App\Entity\FederalStandart;
 use App\Entity\FederalStandartCompetencies;
@@ -24,6 +25,28 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class TeleportController extends AbstractController
 {
+
+    #[Route('/teleport/cat', name: 'app_teleport_catt')]
+//    public function add_category(ManagerRegistry $doctrine)
+//    {
+//        $file = $_SERVER['DOCUMENT_ROOT'] . '/tmp/category.txt';
+//        $file = file($file);
+//        $file = array_unique($file);
+//        foreach ($file as $item) {
+//            $item  = trim($item);
+//            if(empty($item)) {
+//                continue;
+//            }
+//            $cat = new Category();
+//            $cat->setName($item);
+//
+//
+//            $entityManager = $doctrine->getManager();
+//            $entityManager->persist($cat);
+//            $entityManager->flush();
+//        }
+//    }
+
     /**
      * @param ManagerRegistry $doctrine
      *
