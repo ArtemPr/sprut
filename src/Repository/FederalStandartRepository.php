@@ -97,4 +97,30 @@ class FederalStandartRepository extends ServiceEntityRepository
 
         return $result;
     }
+
+    public function getListAll(int|null $page = 0, int|null $on_page = 25, string|null $sort = null, string|null $search = null)
+    {
+        $entityManager = $this->getEntityManager();
+
+        if (!empty($search)) {
+            $sql = "SELECT op
+                FROM App\Entity\FederalStandart op
+                WHERE op.name LIKE :search";
+
+            $result = $entityManager->createQuery(
+                $sql
+            )->setParameter('search', '%' . $search . '%')
+                ->getResult(Query::HYDRATE_ARRAY);
+        } else {
+            $sql = 'SELECT op
+                FROM App\Entity\FederalStandart op';
+
+            $result = $entityManager->createQuery(
+                $sql
+            )->getResult(Query::HYDRATE_ARRAY);
+        }
+
+
+        return $result;
+    }
 }
