@@ -1,5 +1,5 @@
 <div class="card-footer d-flex align-items-center">
-    <p class="m-0 text-muted"><b>{{ pager.count_all_position }}</b> результатов</p>
+    <p class="m-0 text-muted">Всего результатов: <b>{{ pager.count_all_position }}</b></p>
     {% if pager.count_page|default(false) and pager.count_page > 1 %}
         <ul class="pagination m-0 ms-auto">
             <li class="page-item">
