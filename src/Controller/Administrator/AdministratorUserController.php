@@ -6,6 +6,7 @@
 namespace App\Controller\Administrator;
 
 use App\Entity\City;
+use App\Entity\Roles;
 use App\Entity\User;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -29,13 +30,16 @@ class AdministratorUserController extends AbstractController
 
         $city = $this->managerRegistry->getRepository(City::class)->getList();
 
+        $roles = $this->managerRegistry->getRepository(Roles::class)->getList();
+
         $tpl = $request->get('ajax') ? 'administrator/user/user_table.html.twig' : 'administrator/user/list.html.twig' ;
 
         return $this->render($tpl,
             [
                 'controller' => 'AdminUser',
                 'user_list' => $user_list,
-                'city_list' => $city
+                'city_list' => $city,
+                'roles' => $roles
             ]
         );
     }
@@ -45,11 +49,15 @@ class AdministratorUserController extends AbstractController
         $data = $this->managerRegistry->getRepository(User::class)->getUser($id);
 
         $city = $this->managerRegistry->getRepository(City::class)->getList();
+
+        $roles = $this->managerRegistry->getRepository(Roles::class)->getList();
+
         return $this->render(
             'administrator/user/form/update_form.html.twig',
             [
                 'data' => $data[0] ?? [],
-                'city_list' => $city
+                'city_list' => $city,
+                'roles' => $roles
             ]
         );
     }
