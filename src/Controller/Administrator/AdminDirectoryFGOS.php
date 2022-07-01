@@ -28,8 +28,9 @@ class AdminDirectoryFGOS extends AbstractController
         $page = $request->get('page') ?? null;
         $on_page = $request->get('on_page') ?? 25;
         $sort = $request->get('sort') ?? null;
+        $search = $request->get('search') ?? null;
 
-        $result = $this->managerRegistry->getRepository(FederalStandart::class)->getList($page, $on_page, $sort);
+        $result = $this->managerRegistry->getRepository(FederalStandart::class)->getList($page, $on_page, $sort, $search);
         $count = $this->managerRegistry->getRepository(FederalStandart::class)->findAll();
         $count = count($count);
 
