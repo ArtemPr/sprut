@@ -17,8 +17,6 @@
                 <span class="th-name">Почта</span></th>
             <th><a class="sort-icon is-both" href="#"></a>
                 <span class="th-name">Телефон</span></th>
-            <th><a class="sort-icon is-both" href="#"></a>
-                <span class="th-name">Город</span></th>
             <th class="hidden-cell"></th>
         </tr>
         </thead>
@@ -72,9 +70,6 @@
                         {% else %}
                             -
                         {% endif %}
-                    </td>
-                    <td>
-                        {{ ul.city.name|default('-') }}
                     </td>
                 </tr>
             {% endfor %}

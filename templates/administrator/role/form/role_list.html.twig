@@ -8,7 +8,7 @@
                        {% endif %}
                    {% endif %}
                    class="form-check-input js-checkbox-scope parent-checkbox-scope"
-                   data-selected-by="workflow">Рабочий стол
+                   data-selected-by="workflow">{{ operations.auth_desktop }}
         </label>
     </li>
     <li class="hierarchy__group-item" data-scope-for="desktop">
@@ -20,7 +20,7 @@
                             checked
                         {% endif %}
                     {% endif %}
-                   data-selected-by="workflow">Курсы
+                   data-selected-by="workflow">{{ operations.auth_program }}
         </label>
         <ul class="hierarchy__child-scopes">
             <li class="js-check-scope-container" data-scope-for="repo:status">
@@ -69,7 +69,7 @@
                         checked
                     {% endif %}
                 {% endif %}
-                   data-selected-by="workflow"> Панель управления
+                   data-selected-by="workflow"> {{ operations.auth_admin }}
         </label>
         <ul class="hierarchy__child-scopes">
             <li class="js-check-scope-container" data-scope-for="repo:status">
@@ -92,7 +92,7 @@
                                     {% endif %}
                                 {% endif %}
                                    class="form-check-input js-checkbox-scope"/>
-                            Пользователи
+                            {{ operations.auth_user }}
                         </label>
                         <ul class="hierarchy__child-scopes">
                             <li class="js-check-scope-container" data-scope-for="repo:status">
@@ -142,7 +142,7 @@
                                     {% endif %}
                                 {% endif %}
                                    class="form-check-input js-checkbox-scope" data-selected-by>
-                            Роли
+                            {{ operations.auth_role }}
                         </label>
                         <ul class="hierarchy__child-scopes">
                             <li class="js-check-scope-container" data-scope-for="repo:status">
@@ -179,7 +179,7 @@
                                     {% endif %}
                                 {% endif %}
                                    class="form-check-input js-checkbox-scope">
-                            Операции
+                            {{ operations.auth_operations }}
                         </label>
 
                         <ul class="hierarchy__child-scopes">
@@ -207,7 +207,7 @@
                             {% endif %}
                         {% endif %}
                            class="form-check-input js-checkbox-scope" data-selected-by>
-                    Справочники
+                    {{ operations.auth_directory }}
                 </label>
                 <ul class="hierarchy__child-scopes">
                     <li class="js-check-scope-container" data-scope-for="repo:status">
@@ -254,7 +254,7 @@
                             {% endif %}
                         {% endif %}
                            class="form-check-input js-checkbox-scope">
-                    Журнал
+                    {{ operations.auth_log }}
                 </label>
             </li>
             <li class="js-check-scope-container" data-scope-for="repo_deployment">
@@ -277,8 +277,7 @@
                                         checked
                                     {% endif %}
                                 {% endif %}
-                                   class="form-check-input js-checkbox-scope"/>
-                            чтение
+                                   class="form-check-input js-checkbox-scope"/>{{ operations.api_view }}
                         </label>
                     </li>
                     <li class="js-check-scope-container" data-scope-for="repo:status">
@@ -289,8 +288,7 @@
                                         checked
                                     {% endif %}
                                 {% endif %}
-                                   class="form-check-input js-checkbox-scope"/>
-                            запись
+                                   class="form-check-input js-checkbox-scope"/>{{ operations.api_edit }}
                         </label>
                     </li>
                 </ul>
