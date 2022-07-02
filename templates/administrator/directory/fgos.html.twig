@@ -29,7 +29,13 @@
                     <div class="row row-deck row-cards">
                         <div class="col-12">
                             <div class="card">
-                                    {% include 'block/search_panel.html.twig' with {'close_delete': true, 'close_edit': true, 'close_create': true, 'add_csv': path('administrator_directory_fgos') ~ '_csv'} %}
+                                    {% include 'block/search_panel.html.twig' with {
+                                        'close_delete': true,
+                                        'close_edit': true,
+                                        'close_create': true,
+                                        'path': path('administrator_directory_fgos'),
+                                        'add_csv': path('administrator_directory_fgos') ~ '_csv'
+                                    } %}
                                 <div class="ajax-table">
                                     {{ include('administrator/directory/fgos_table.html.twig') }}
                                 </div>

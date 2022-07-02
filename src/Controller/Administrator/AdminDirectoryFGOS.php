@@ -21,13 +21,15 @@ class AdminDirectoryFGOS extends AbstractController
 
     public function __construct(
         private ManagerRegistry $managerRegistry
-    ) {
+    )
+    {
         $this->request = new Request($_GET);
     }
 
     public function getList(): Response
     {
-        $tpl = $this->request->get('ajax') ? 'administrator/directory/fgos_table.html.twig' : 'administrator/directory/fgos.html.twig' ;
+        $tpl = $this->request->get('ajax') ? 'administrator/directory/fgos_table.html.twig' : 'administrator/directory/fgos.html.twig';
+
         return $this->render($tpl,
             $this->get()
         );
@@ -46,7 +48,7 @@ class AdminDirectoryFGOS extends AbstractController
         $data = $result['data'];
 
         foreach ($data as $val) {
-            $table .= '"' . $val['short_name'] . '";"'.$val['name'].'"' . "\n";
+            $table .= '"' . ( $val['active'] ? 'да' : 'нет') . '";"' . $val['short_name'] . '";"' . $val['name'] . '"' . "\n";
         }
 
         $response = new Response($table);
@@ -57,11 +59,11 @@ class AdminDirectoryFGOS extends AbstractController
 
     private function setTable()
     {
-        return  [
-                ['', '', 'bool', true],
-                ['short_name', 'Код', 'string', true],
-                ['name', 'Название', 'string', true]
-            ];
+        return [
+            ['', 'Активность', 'bool', true],
+            ['short_name', 'Код', 'string', true],
+            ['name', 'Название', 'string', true]
+        ];
     }
 
     private function get(bool $full = false)
@@ -79,23 +81,24 @@ class AdminDirectoryFGOS extends AbstractController
             $count = $this->managerRegistry->getRepository(FederalStandart::class)->getListAll(0, 9999999999, $sort, $search);
         }
 
-        $page = $page ?? 1 ;
+        $page = $page ?? 1;
 
         return [
-                'data' => $result,
-                'search' => strip_tags($search) ?? '',
-                'pager' => [
-                    'count_all_position' => $count,
-                    'current_page' => $page,
-                    'count_page' => (int)ceil($count / $on_page),
-                    'paginator_link' => $this->getParinatorLink(),
-                    'on_page' => $on_page
-                ],
-                'sort' => [
-                    'sort_link' => $this->getSortLink(),
-                    'current_sort' => $this->request->get('sort') ?? null,
-                ],
-                'table' => $this->setTable()
-            ];
+            'data' => $result,
+            'search' => strip_tags($search) ?? '',
+            'pager' => [
+                'count_all_position' => $count,
+                'current_page' => $page,
+                'count_page' => (int)ceil($count / $on_page),
+                'paginator_link' => $this->getParinatorLink(),
+                'on_page' => $on_page
+            ],
+            'sort' => [
+                'sort_link' => $this->getSortLink(),
+                'current_sort' => $this->request->get('sort') ?? null,
+            ],
+            'search_link' => $this->getSearchLink(),
+            'table' => $this->setTable()
+        ];
     }
 }
