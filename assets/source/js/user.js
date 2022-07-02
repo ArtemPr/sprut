@@ -192,7 +192,7 @@ window.addEventListener("load", function () {
     }
 });
 
-const dualControlsSelects = document.querySelectorAll(".dual-controls-select");
+const dualControlsSelects = document.querySelectorAll(".dual-controls-select_create");
 for (let i = 0; i < dualControlsSelects.length; ++i) {
     let dualControlsSelect = dualControlsSelects[i];
     new DualListbox(dualControlsSelect, {

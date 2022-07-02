@@ -138,8 +138,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             hydrationMode: Query::HYDRATE_ARRAY
         );
 
-        dump($result);
-
         return $result;
     }
 

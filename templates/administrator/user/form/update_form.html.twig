@@ -88,7 +88,7 @@
                                 <div class="dual-controls-box col-8">
                                     <div class="dual-listbox">
                                         <div class="dual-listbox__container">
-                                            <select class="dual-controls-select dual-listbox__available" name="roles[]" multiple>
+                                            <select class="dual-controls-select dual-controls-select_update dual-listbox__available" name="roles[]" multiple>
                                                 {% if roles|default(false) %}
                                                     {% for rol in roles %}
                                                         {% if data.roles|default(false) and (rol.roles_alt in data.roles) %}
