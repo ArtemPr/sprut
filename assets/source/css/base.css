@@ -120,11 +120,6 @@ body {
 	background-color: #fff;
 }
 
-.dual-listbox .dual-listbox__available:last-child,
-.dual-listbox .dual-listbox__selected:last-child {
-	border: none;
-}
-
 .dual-listbox .dual-listbox__buttons {
 	display: -webkit-box;
 	display: -ms-flexbox;

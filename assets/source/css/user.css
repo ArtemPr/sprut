@@ -182,12 +182,11 @@ body.user-editing-panel-opened {
 .user-form-panel .dual-listbox__available,
 .user-form-panel .dual-listbox__selected {
 	width: auto;
-	height: 186px !important;
+	height: 222px !important;
 }
 
 .user-form-panel .dual-listbox__buttons {
 	position: relative;
-	top: 20px;
 }
 
 #userEditingPanel.show {

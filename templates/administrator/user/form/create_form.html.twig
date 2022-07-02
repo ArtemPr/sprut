@@ -18,6 +18,9 @@
                     <a href="#tabs-ex1" class="nav-link active" data-bs-toggle="tab">Основное</a>
                 </li>
                 <li class="nav-item">
+                    <a href="#tabs-ex2" class="nav-link" data-bs-toggle="tab">Роли и подразделения</a>
+                </li>
+                <li class="nav-item">
                     <a href="#tabs-ex3" class="nav-link" data-bs-toggle="tab">Контактные данные</a>
                 </li>
             </ul>
@@ -60,38 +63,6 @@
                                 <input type="text" class="form-control" placeholder="Должность" name="position">
                             </div>
                         </div>
-
-{#                        <div class="form-group mb-3 row">#}
-{#                            <label class="form-label col-3 col-form-label">Подразделение</label>#}
-{#                            <div class="col">#}
-{#                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"#}
-{#                                        data-bs-target="#managingDepartmentsModal">Изменить#}
-{#                                </button>#}
-{#                            </div>#}
-{#                        </div>#}
-
-{#                        <div class="form-group mb-3 row">#}
-{#                            <label class="form-label col-3 col-form-label">Роли</label>#}
-{#                            <div class="col">#}
-{#                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"#}
-{#                                        data-bs-target="#managingRolesModal">Изменить#}
-{#                                </button>#}
-{#                            </div>#}
-{#                        </div>#}
-                        <div class="form-group mb-3 row">
-                            <label class="form-label col-3 col-form-label">Роль</label>
-                            <div class="col">
-                                <select name="roles" class="form-control" required>
-                                    <option disabled>Выберите роль</option>
-                                    {% if roles|default(false) %}
-                                        {% for rol in roles %}
-                                            <option {% if data.roles|default(false) and (data.roles in rol.roles_alt) %}selected{% endif %} value="{{ rol.roles_alt }}">{{ rol.name }}</option>
-                                        {% endfor %}
-                                    {% endif %}
-                                </select>
-                            </div>
-                        </div>
-
                         <div class="form-group mb-3 row">
                             <label class="form-label col-3 col-form-label">E-mail</label>
                             <div class="col">
@@ -108,6 +79,29 @@
                             <label class="form-label col-3 col-form-label">Повторите пароль</label>
                             <div class="col">
                                 <input type="password" class="form-control" placeholder="Повторение пароля" name="password2" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="tabs-ex2">
+                        <div class="dual-controls-wrap mb-4">
+                            <div class="dual-controls-label mb-3"><b>Выберите роль</b></div>
+                            <div class="dual-controls-box col-8">
+                                <div class="dual-listbox">
+                                    <div class="dual-listbox__container">
+                                        <select class="dual-controls-select dual-listbox__available" name="roles[]" multiple>
+                                            {% if roles|default(false) %}
+                                                {% for rol in roles %}
+                                                    {% if data.roles|default(false) and (rol.roles_alt in data.roles) %}
+                                                        <option class="dual-listbox__item" value="{{ rol.roles_alt }}" selected>{{ rol.name }}</option>
+                                                    {% else %}
+                                                        <option class="dual-listbox__item" value="{{ rol.roles_alt }}">{{ rol.name }}</option>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% endif %}
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
