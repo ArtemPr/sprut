@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         if (box !== null && data !== null) {
             box.innerHTML = data;
 
-            const dualControlsSelects = document.querySelectorAll(".dual-controls-select");
+            const dualControlsSelects = document.querySelectorAll(".dual-controls-select_update");
             for (let i = 0; i < dualControlsSelects.length; ++i) {
                 let dualControlsSelect = dualControlsSelects[i];
                 new DualListbox(dualControlsSelect, {
