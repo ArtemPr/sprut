@@ -20,15 +20,19 @@
             <div class="">
                 <ul class="nav nav-tabs" data-bs-toggle="tabs">
                     <li class="nav-item">
-                        <a href="#tabs-ex1" class="nav-link active" data-bs-toggle="tab">Основное</a>
+                        <a href="#tabs-ex4" class="nav-link active" data-bs-toggle="tab">Основное</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#tabs-ex3" class="nav-link" data-bs-toggle="tab">Контактные данные</a>
+                        <a href="#tabs-ex5" class="nav-link" data-bs-toggle="tab">Роли и подразделения</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#tabs-ex6" class="nav-link" data-bs-toggle="tab">Контактные данные</a>
                     </li>
                 </ul>
                 <div class="card-body">
                     <div class="tab-content">
-                        <div class="tab-pane active show" id="tabs-ex1">
+
+                        <div class="tab-pane active " id="tabs-ex4">
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group mb-3 row">
@@ -50,57 +54,11 @@
                                         </div>
                                     </div>
                                 </div>
-    {#                            <div class="col user-photo-col">#}
-    {#                                <div class="user-photo-box">#}
-    {#                                    <input class="user-photo-input" name="user-photo" type="file" accept="image/png, image/jpg, image/jpeg, image/gif">#}
-    {#                                    <img class="user-photo-img" src="/assets/images/user.png" alt="">#}
-    {#                                </div>#}
-    {#                            </div>#}
                             </div>
                             <div class="form-group mb-3 row">
                                 <label class="form-label col-3 col-form-label">Должность</label>
                                 <div class="col">
                                     <input type="text" class="form-control" placeholder="Должность" value="{{ data.position|default('') }}" name="position">
-                                </div>
-                            </div>
-
-{#                            <div class="form-group mb-3 row">#}
-{#                                <label class="form-label col-3 col-form-label">Подразделение</label>#}
-{#                                <div class="col">#}
-{#                                    {% if data.roles|default(false) %}#}
-{#                                        <u>{{ data.departament.name|default('') }}</u>#}
-{#                                        <br /><br />#}
-{#                                    {% endif %}#}
-{#                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"#}
-{#                                            data-bs-target="#managingDepartmentsModal">Изменить#}
-{#                                    </button>#}
-{#                                </div>#}
-{#                            </div>#}
-    {#                        <div class="form-group mb-3 row">#}
-    {#                            <label class="form-label col-3 col-form-label">Роль</label>#}
-    {#                            <div class="col">#}
-    {#                                {% if data.roles|default(false) %}#}
-    {#                                    {% for role in data.roles %}#}
-    {#                                        <u>{{ role.name }}</u>#}
-    {#                                    {% endfor %}#}
-    {#                                    <br /><br />#}
-    {#                                {% endif %}#}
-    {#                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"#}
-    {#                                        data-bs-target="#managingRolesModal">Изменить#}
-    {#                                </button>#}
-    {#                            </div>#}
-    {#                        </div>#}
-                            <div class="form-group mb-3 row">
-                                <label class="form-label col-3 col-form-label">Роль</label>
-                                <div class="col">
-                                    <select name="roles" class="form-control" required>
-                                        <option disabled>Выберите роль</option>
-                                        {% if roles|default(false) %}
-                                            {% for rol in roles %}
-                                                <option {% if data.roles|default(false) and (rol.roles_alt in data.roles) %}selected{% endif %} value="{{ rol.roles_alt }}">{{ rol.name }}</option>
-                                            {% endfor %}
-                                        {% endif %}
-                                    </select>
                                 </div>
                             </div>
 
@@ -124,7 +82,30 @@
                             </div>
                         </div>
 
-                        <div class="tab-pane" id="tabs-ex3">
+                        <div class="tab-pane" id="tabs-ex5">
+                            <div class="dual-controls-wrap mb-4">
+                                <div class="dual-controls-label mb-3"><b>Выберите роль</b></div>
+                                <div class="dual-controls-box col-8">
+                                    <div class="dual-listbox">
+                                        <div class="dual-listbox__container">
+                                            <select class="dual-controls-select dual-listbox__available" name="roles[]" multiple>
+                                                {% if roles|default(false) %}
+                                                    {% for rol in roles %}
+                                                        {% if data.roles|default(false) and (rol.roles_alt in data.roles) %}
+                                                            <option class="dual-listbox__item" value="{{ rol.roles_alt }}" selected>{{ rol.name }}</option>
+                                                        {% else %}
+                                                            <option class="dual-listbox__item" value="{{ rol.roles_alt }}">{{ rol.name }}</option>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                {% endif %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane" id="tabs-ex6">
                             <div class="form-group mb-3 row">
                                 <label class="form-label col-3 col-form-label">Скайп</label>
                                 <div class="col">
@@ -153,6 +134,9 @@
                                 </div>
                             </div>
                         </div>
+
+
+
                     </div>
                 </div>
 

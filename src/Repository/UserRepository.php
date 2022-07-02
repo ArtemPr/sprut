@@ -64,22 +64,34 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
      */
     public function getUser(int $id)
     {
-        $entityManager = $this->getEntityManager();
+        $qb = $this->createQueryBuilder('user')
+            ->leftJoin("user.departament", "departament")->addSelect("departament")
+            ->leftJoin("user.city", "city")->addSelect("city")
+            ->where('user.delete = :delete AND user.id = :id')
+            ->setParameters(
+                [
+                    'delete'=>false,
+                    'id' => $id
+                ]
+            );
+        $query = $qb->getQuery();
+        $result = $query->execute(
+            hydrationMode: Query::HYDRATE_ARRAY
+        );
 
-        $result = $entityManager->createQuery(
-            'SELECT user, dep, city
-                FROM App\Entity\User user
-                LEFT JOIN user.departament dep
-                LEFT JOIN user.city city
-                WHERE user.id = :id'
-        )->setParameter('id', $id)->setMaxResults(self::PER_PAGE)->getResult(Query::HYDRATE_ARRAY);
 
         $roles = "'".implode("','", $result['0']['roles'])."'";
-        $role_result = $entityManager->createQuery(
-            "SELECT role
-            FROM App\Entity\Roles role
-            WHERE role.roles_alt IN (:roles)"
-        )->setParameter('roles', $result['0']['roles'])->getResult(Query::HYDRATE_ARRAY);
+
+        $qb = $this->createQueryBuilder('user')
+            ->from('App:Roles', 'role')
+            ->where('role.roles_alt IN (:roles)')
+            ->setParameter('roles', $roles);
+
+        $query = $qb->getQuery();
+        $role_result = $query->execute(
+            hydrationMode: Query::HYDRATE_ARRAY
+        );
+
 
         $result[0]['role'] = $role_result;
 

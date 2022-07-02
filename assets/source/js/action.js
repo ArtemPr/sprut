@@ -34,6 +34,25 @@ document.addEventListener("DOMContentLoaded", function (event) {
         let box = document.querySelector('#' + container);
         if (box !== null && data !== null) {
             box.innerHTML = data;
+
+            const dualControlsSelects = document.querySelectorAll(".dual-controls-select");
+            for (let i = 0; i < dualControlsSelects.length; ++i) {
+                let dualControlsSelect = dualControlsSelects[i];
+                new DualListbox(dualControlsSelect, {
+                    availableTitle: "Available numbers",
+                    selectedTitle: "Selected numbers",
+                    addButtonText: ">",
+                    removeButtonText: "<",
+                    addAllButtonText: ">>",
+                    removeAllButtonText: "<<",
+                    searchPlaceholder: "Поиск",
+                });
+            }
+
+            let tabs = document.querySelector('.nav-tabs');
+            if(tabs !== null) {
+            }
+
         }
     }
 
