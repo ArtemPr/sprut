@@ -80,6 +80,8 @@ class FederalStandartRepository extends ServiceEntityRepository
         if(!empty($search)) {
             $qb->select('COUNT(fs.id)')->where("LOWER(fs.name) LIKE :search ESCAPE '!'")
                 ->setParameter('search', $this->makeLikeParam($search));
+        } else {
+            $qb->select('COUNT(fs.id)');
         }
 
         $query = $qb->getQuery();
