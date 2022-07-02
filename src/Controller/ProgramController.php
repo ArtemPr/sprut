@@ -6,6 +6,7 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Entity\FederalStandart;
 use App\Entity\MasterProgram;
 use App\Entity\ProgramType;
 use App\Entity\TrainingCenters;
@@ -43,11 +44,16 @@ class ProgramController extends AbstractController
 
         $category = $this->managerRegistry->getRepository(Category::class)->getList();
 
+        $fgos = $this->managerRegistry->getRepository(FederalStandart::class)->findAll();
+
+        $type = $this->managerRegistry->getRepository(ProgramType::class)->findAll();
+
         $tpl = $request->get('ajax') ? '/program/program_table.html.twig' : '/program/index.html.twig' ;
 
         $table = [
             ['', '', 'bool', true],
             ['id', 'ID', 'string', true],
+            ['history', 'Ист. данные', 'string', true],
             ['pt.id', 'Тип', 'string', true],
             ['name', 'Название', 'string', true],
             ['fs.id', 'ФГОС', 'string', true],
@@ -61,6 +67,8 @@ class ProgramController extends AbstractController
                 'program_type' => $program_type,
                 'training_centre' => $tc,
                 'category' => $category,
+                'fgos' => $fgos,
+                'type' => $type,
                 'pager' => [
                     'count_all_position' => $count,
                     'current_page' => $page,

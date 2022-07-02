@@ -43,6 +43,9 @@ class MasterProgram
     #[ORM\ManyToMany(targetEntity: ProfStandarts::class)]
     private $prof_standarts;
 
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    private $history;
+
     public function __construct()
     {
         $this->federal_standart = new ArrayCollection();
@@ -219,6 +222,18 @@ class MasterProgram
     public function removeProfStandart(ProfStandarts $profStandart): self
     {
         $this->prof_standarts->removeElement($profStandart);
+
+        return $this;
+    }
+
+    public function isHistory(): ?bool
+    {
+        return $this->history;
+    }
+
+    public function setHistory(?bool $history): self
+    {
+        $this->history = $history;
 
         return $this;
     }

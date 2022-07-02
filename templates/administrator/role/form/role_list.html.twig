@@ -1,3 +1,4 @@
+<i>Назначьте нужные права доступа:</i>
 <ul class="hierarchy__group-list">
     <li class="hierarchy__group-item" data-scope-for="desktop">
         <label class="hierarchy__scope">
@@ -257,41 +258,27 @@
                     {{ operations.auth_log }}
                 </label>
             </li>
-            <li class="js-check-scope-container" data-scope-for="repo_deployment">
-                <label class="hierarchy__scope hierarchy__scope--parent">
-                    <input type="checkbox" name="role[api]" value="1"
+            <li class="js-check-scope-container" data-scope-for="repo:status">
+                <label class="hierarchy__scope">
+                    <input type="checkbox" name="role[api][view]" value="1"
                         {% if data.auth_list|default(false) %}
-                            {% if data.auth_list['api']|default(false) %}
+                            {% if data.auth_list['api']['view']|default(false) %}
                                 checked
                             {% endif %}
                         {% endif %}
-                           class="form-check-input js-checkbox-scope parent-checkbox-scope"
-                           data-selected-by="workflow"> API
+                           class="form-check-input js-checkbox-scope"/>{{ operations.api_view }}
                 </label>
-                <ul class="hierarchy__child-scopes">
-                    <li class="js-check-scope-container" data-scope-for="repo:status">
-                        <label class="hierarchy__scope">
-                            <input type="checkbox" name="role[api][view]" value="1"
-                                {% if data.auth_list|default(false) %}
-                                    {% if data.auth_list['api']['view']|default(false) %}
-                                        checked
-                                    {% endif %}
-                                {% endif %}
-                                   class="form-check-input js-checkbox-scope"/>{{ operations.api_view }}
-                        </label>
-                    </li>
-                    <li class="js-check-scope-container" data-scope-for="repo:status">
-                        <label class="hierarchy__scope">
-                            <input type="checkbox" name="role[api][add]" value="1"
-                                {% if data.auth_list|default(false) %}
-                                    {% if data.auth_list['api']['add']|default(false) %}
-                                        checked
-                                    {% endif %}
-                                {% endif %}
-                                   class="form-check-input js-checkbox-scope"/>{{ operations.api_edit }}
-                        </label>
-                    </li>
-                </ul>
+            </li>
+            <li class="js-check-scope-container" data-scope-for="repo:status">
+                <label class="hierarchy__scope">
+                    <input type="checkbox" name="role[api][add]" value="1"
+                        {% if data.auth_list|default(false) %}
+                            {% if data.auth_list['api']['add']|default(false) %}
+                                checked
+                            {% endif %}
+                        {% endif %}
+                           class="form-check-input js-checkbox-scope"/>{{ operations.api_edit }}
+                </label>
             </li>
         </ul>
     </li>

@@ -50,6 +50,13 @@
                 <td>
                     {{ program.id }}
                 </td>
+                <td>
+                    {% if program.history == true %}
+                        да
+                    {% else %}
+                        нет
+                    {% endif %}
+                </td>
                 <td style="text-align: center">
                     {{ program.program_type.short_name_type|default(false) }}
                 </td>

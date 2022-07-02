@@ -19,15 +19,13 @@
                 <div class="collapse navbar-collapse" id="navbar-header-menu">
                     <div class="mt-2 mb-3">
                         <select class="form-select" id="select-tags">
-                            <option value="0" disabled selected>Учебный центр</option>
-                            {% if training_centre|default(false) %}
-                                {% for tc in training_centre %}
-                                    <option value="{{ tc.id }}">{{ tc.name }}</option>
-                                {% endfor %}
-                            {% endif %}
+                            <option value="0" disabled selected>Тип программы</option>
+                            <option value="1">Повышение квалификации</option>
+                            <option value="2">Профессиональная переподготовка</option>
+                            <option value="3">Профессиональное обучение</option>
                         </select>
                     </div>
-                    <div class="regular-tree-wrap">
+                    {# <div class="regular-tree-wrap">
                         <div class="regular-tree">
                             {% if category|default(false) %}
                                 <ul style="padding: 0; margin: 0">
@@ -41,7 +39,7 @@
                                 </ul>
                             {% endif %}
                         </div>
-                    </div>
+                    </div> #}
                 </div>
             </div>
         </aside>
@@ -182,72 +180,18 @@
                                                     </div>
                                                     <div class="tab-pane fgos-tab" id="tabs-profile-ex1">
 
-                                                        <!--FGOS-ITEM-->
-                                                        <div class="fgos-item">
-                                                            <div class="mb-3 fgos-datalist">
-                                                                <label class="form-label">Выберите ФГОС</label>
-                                                                <input class="form-control" list="datalistOptions"
-                                                                       placeholder="Поиск"/>
-                                                                <datalist id="datalistOptions" class="fgos-datalist">
-                                                                    <option value="Aruba"/>
-                                                                    <option value="Afghanistan"/>
-                                                                    <option value="Angola"/>
-                                                                    <option value="Anguilla"/>
-                                                                    <option value="Albania"/>
-                                                                    <option value="Andorra"/>
-                                                                    <option value="United Arab Emirates"/>
-                                                                    <option value="Argentina"/>
-                                                                    <option value="Armenia"/>
-                                                                    <option value="American Samoa"/>
-                                                                </datalist>
-                                                            </div>
-
-                                                            <p class="competence__title">Выберите компетенции</p>
-                                                            <div class="mb-3 competence__list">
-                                                                <label class="form-check">
-                                                                    <input class="form-check-input" type="checkbox">
-                                                                    <span class="form-check-label">компетенция 1</span>
-                                                                </label>
-                                                                <label class="form-check">
-                                                                    <input class="form-check-input" type="checkbox">
-                                                                    <span class="form-check-label">компетенция 1</span>
-                                                                </label>
-                                                                <label class="form-check">
-                                                                    <input class="form-check-input" type="checkbox">
-                                                                    <span class="form-check-label">компетенция 1</span>
-                                                                </label>
-                                                                <label class="form-check">
-                                                                    <input class="form-check-input" type="checkbox">
-                                                                    <span class="form-check-label">компетенция 2</span>
-                                                                </label>
-                                                                <label class="form-check">
-                                                                    <input class="form-check-input" type="checkbox">
-                                                                    <span class="form-check-label">компетенция 3</span>
-                                                                </label>
-                                                                <label class="form-check">
-                                                                    <input class="form-check-input" type="checkbox">
-                                                                    <span class="form-check-label">компетенция 4</span>
-                                                                </label>
-                                                                <label class="form-check">
-                                                                    <input class="form-check-input" type="checkbox">
-                                                                    <span class="form-check-label">компетенция 5</span>
-                                                                </label>
-                                                                <label class="form-check">
-                                                                    <input class="form-check-input" type="checkbox">
-                                                                    <span class="form-check-label">компетенция 5</span>
-                                                                </label>
-                                                                <label class="form-check">
-                                                                    <input class="form-check-input" type="checkbox">
-                                                                    <span class="form-check-label">компетенция 5</span>
-                                                                </label>
-                                                            </div>
-
-
-                                                        </div>
-                                                        <button id="add-fgos" class="btn btn-primary add-fgos">
-                                                            Добавить ФГОС
-                                                        </button>
-                                                        <!--FGOS-ITEM-->
+                                                     <div class="fgos-item">
+                                                         <div class="mb-3 fgos-datalist">
+                                                             <label class="form-label">Выберите ФГОС</label>
+                                                             <select name="fgos" class="form-control">
+                                                                 {% if fgos|default(false) %}
+                                                                     {% for fg in fgos %}
+                                                                         <option value="{{ fg.id }}">{{ fg.name }}</option>
+                                                                     {% endfor %}
+                                                                 {% endif %}
+                                                             </select>
+                                                         </div>
+                                                     </div>
 
                                                     </div>
                                                     <div class="d-flex mb-4">
@@ -388,14 +332,13 @@
                                                     <tbody>
                                                     <tr class="editable-table-row">
                                                         <td>
-                                                            <span class="badge bg-success" title="утвержден"
-                                                                  data-bs-toggle="tooltip"></span>
+                                                            <span class="badge bg-success" title="утвержден" data-bs-toggle="tooltip"></span>
                                                         </td>
                                                         <td>
                                                             Настройка
                                                         </td>
                                                         <td>
-                                                            ФИО / Роль
+                                                            Исторические данные
                                                         </td>
                                                         <td>
                                                             Назначение исполнителей
@@ -408,17 +351,17 @@
                                                             <input class="selected-checkbox" type="checkbox" name="#">
                                                         </td>
                                                     </tr>
+
                                                     <tr class="editable-table-row" data-target-panel="#FGOSEditingPanel"
                                                         data-target-overlay=".custom-overlay">
                                                         <td>
-                                                            <span class="badge bg-warning" title="в работе"
-                                                                  data-bs-toggle="tooltip"></span>
+                                                            <span class="badge bg-success" title="утвержден" data-bs-toggle="tooltip"></span>
                                                         </td>
                                                         <td>
                                                             ФГОС и компетенции
                                                         </td>
                                                         <td>
-                                                            ФИО / Роль
+                                                            Исторические данные
                                                         </td>
                                                         <td>
                                                             Привязка программы к ФГОС, назначение компетенций
@@ -427,7 +370,7 @@
 
                                                         </td>
                                                         <td>
-                                                            <a class="btn btn-icon" data-bs-toggle="offcanvas"
+<!--                                                            <a class="btn btn-icon" data-bs-toggle="offcanvas"
                                                                href="#FGOSEditingPanel" role="button"
                                                                aria-controls="offcanvasEnd">
                                                                 <svg xmlns="http://www.w3.org/2000/svg"
@@ -442,28 +385,27 @@
                                                                     <path
                                                                         d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5"/>
                                                                 </svg>
-                                                            </a>
+                                                            </a>-->
                                                         </td>
                                                         <td class="hidden-cell">
                                                             <input class="selected-checkbox" type="checkbox" name="#">
                                                         </td>
                                                     </tr>
-                                                    <tr class="editable-table-row">
+
+                                                    {# <tr class="editable-table-row">
                                                         <td>
-                                                            <span class="badge bg-danger" title="создан, но не в работе"
-                                                                  data-bs-toggle="tooltip"></span>
+                                                            <span class="badge bg-success" title="утвержден" data-bs-toggle="tooltip"></span>
                                                         </td>
                                                         <td>
                                                             Учебный план
                                                         </td>
                                                         <td>
-                                                            ФИО / Роль
+                                                            Исторические данные
                                                         </td>
                                                         <td>
                                                             Формирование учебного плана из дисциплин
                                                         </td>
                                                         <td>
-                                                            Не согласован этап &laquo;Настройка&raquo;
                                                         </td>
                                                         <td></td>
                                                         <td class="hidden-cell">
@@ -472,40 +414,38 @@
                                                     </tr>
                                                     <tr class="editable-table-row">
                                                         <td>
-                                                            <span class="badge bg-danger" title="создан, но не в работе"
-                                                                  data-bs-toggle="tooltip"></span>
+                                                            <span class="badge bg-success" title="утвержден" data-bs-toggle="tooltip"></span>
                                                         </td>
                                                         <td>
                                                             Календарный план
                                                         </td>
                                                         <td>
-                                                            ФИО / Роль
+                                                            Исторические данные
                                                         </td>
                                                         <td>
                                                             Формирование календарного плана на основе учебного
                                                         </td>
                                                         <td>
-                                                            Не согласован этап &laquo;Учебный план&raquo;
                                                         </td>
                                                         <td></td>
                                                         <td class="hidden-cell">
                                                             <input class="selected-checkbox" type="checkbox" name="#">
                                                         </td>
-                                                    </tr>
+                                                    </tr> #}
                                                     </tbody>
                                                 </table>
                                             </div>
                                         </div>
 
                                         <div class="tab-pane" id="programs-tab-2" role="tabpanel">
-                                            <div class="p-3">Fringilla egestas nunc quis tellus diam rhoncus ultricies
-                                                tristique enim at diam, sem nunc amet, pellentesque id egestas velit sed
+                                            <div class="p-3">
+                                                Раздел находится в разработке
                                             </div>
                                         </div>
 
                                         <div class="tab-pane" id="programs-tab-3" role="tabpanel">
-                                            <div class="p-3">Donec ac vitae diam amet vel leo egestas consequat rhoncus
-                                                in luctus amet, facilisi sit mauris accumsan nibh habitant senectus
+                                            <div class="p-3">
+                                                Раздел находится в разработке
                                             </div>
                                         </div>
 
