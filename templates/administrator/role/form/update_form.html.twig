@@ -4,11 +4,6 @@
 </div>
 <div class="offcanvas-body">
 
-
-    {% if ("ROLE_ADMIN" == data.roles_alt) or ("ROLE_USER" == data.roles_alt) or ("ROLE_API_SERVICE" == data.roles_alt) or ("ROLE_API_FRONT" == data.roles_alt) %}
-        Редактирование системной роли запрещено
-    {% else %}
-
     <form action="#" name="role-update" id="role_update-create" class="form-update">
 
         <input type="hidden" name="id" value="{{ data.id|default(false) }}">
@@ -63,5 +58,4 @@
             </button>
         </div>
     </form>
-    {% endif %}
 </div>
