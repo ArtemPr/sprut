@@ -100,22 +100,75 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     /**
      * @return float|int|mixed|string
      */
-    public function getList()
+    public function getList(int|null $page = 0, int|null $on_page = 25, string|null $sort = null, string|null $search = null)
     {
-        $entityManager = $this->getEntityManager();
+        $page = (empty($page) || $page === 1 || $page === 0) ? 0 : $page - 1;
+        $first_result = (int)$page * (int)$on_page;
 
-        $result = $entityManager->createQuery(
-            'SELECT user, dep, city
-                FROM App\Entity\User user
-                LEFT JOIN user.departament dep
-                LEFT JOIN user.city city
-                WHERE user.delete = :delete
-                ORDER BY user.id DESC'
-        )
+        $order = $this->setSort($sort, 'user');
+
+        $qb = $this->createQueryBuilder('user')
+            ->orderBy($order[0], $order[1])
+            ->leftJoin("user.departament", "departament")->addSelect("departament")
+            ->leftJoin("user.city", "city")->addSelect("city")
+            ->where('user.delete = :delete')
             ->setParameter('delete', false)
-            ->setMaxResults(self::PER_PAGE)
-            ->getResult(Query::HYDRATE_ARRAY);
+            ->setFirstResult($first_result)
+            ->setMaxResults($on_page);
+
+        if(!empty($search)) {
+            $qb->where("LOWER(us.name) LIKE :search ESCAPE '!'")
+                ->setParameter('search', $this->makeLikeParam($search));
+        }
+
+        $query = $qb->getQuery();
+        $result = $query->execute(
+            hydrationMode: Query::HYDRATE_ARRAY
+        );
+
+        dump($result);
 
         return $result;
+    }
+
+
+    public function getCount(int|null $page = 0, int|null $on_page = 25, string|null $sort = null, string|null $search = null)
+    {
+        $qb = $this->createQueryBuilder('user');
+
+        if(!empty($search)) {
+            $qb->select('COUNT(user.id)')->where("LOWER(user.username) LIKE :search ESCAPE '!'")
+                ->setParameter('search', $this->makeLikeParam($search));
+        } else {
+            $qb->select('COUNT(user.id)');
+        }
+
+        $query = $qb->getQuery();
+        $result = $query->execute(
+            hydrationMode: Query::HYDRATE_ARRAY
+        );
+
+        return $result[0][1] ?? 0 ;
+    }
+
+    private function setSort($sort, $prefix)
+    {
+        if (!is_null($sort)) {
+            if (strstr($sort, '__up')) {
+                $sort = str_replace('__up', ' DESC', $sort);
+            } else {
+                $sort .= " ASC";
+            }
+
+            if (!strstr($sort, '.')) {
+                $order = $prefix . '.' . $sort;
+            } else {
+                $order = $sort;
+            }
+        } else {
+            $order = $prefix . '.username DESC';
+        }
+
+        return explode(' ', $order);
     }
 }
