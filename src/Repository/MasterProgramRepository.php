@@ -152,4 +152,20 @@ class MasterProgramRepository extends ServiceEntityRepository
     {
         return $this->getProgramList($page, $max_result, $param);
     }
+
+    public function get($id)
+    {
+        $entityManager = $this->getEntityManager();
+
+        $result = $entityManager->createQuery(
+            'SELECT program, type, fgos
+                FROM App\Entity\MasterProgram program
+                LEFT JOIN program.program_type type
+                LEFT JOIN program.federal_standart fgos
+                WHERE program.id = :id'
+        )->setParameter('id', $id)
+            ->getResult(Query::HYDRATE_ARRAY);
+
+        return $result[0] ?? [];
+    }
 }

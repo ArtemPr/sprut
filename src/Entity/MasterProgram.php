@@ -13,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class MasterProgram
 {
     #[ORM\Id]
+    #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private $id;
 
@@ -49,8 +50,6 @@ class MasterProgram
     public function __construct()
     {
         $this->federal_standart = new ArrayCollection();
-        $this->federal_standart_competencies = new ArrayCollection();
-        $this->prof_standarts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -150,22 +149,6 @@ class MasterProgram
         return $this->federal_standart;
     }
 
-    public function addFederalStandart(FederalStandart $federalStandart): self
-    {
-        if (!$this->federal_standart->contains($federalStandart)) {
-            $this->federal_standart[] = $federalStandart;
-        }
-
-        return $this;
-    }
-
-    public function removeFederalStandart(FederalStandart $federalStandart): self
-    {
-        $this->federal_standart->removeElement($federalStandart);
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, FederalStandartCompetencies>
      */
@@ -210,22 +193,6 @@ class MasterProgram
         return $this->prof_standarts;
     }
 
-    public function addProfStandart(ProfStandarts $profStandart): self
-    {
-        if (!$this->prof_standarts->contains($profStandart)) {
-            $this->prof_standarts[] = $profStandart;
-        }
-
-        return $this;
-    }
-
-    public function removeProfStandart(ProfStandarts $profStandart): self
-    {
-        $this->prof_standarts->removeElement($profStandart);
-
-        return $this;
-    }
-
     public function isHistory(): ?bool
     {
         return $this->history;
@@ -237,4 +204,33 @@ class MasterProgram
 
         return $this;
     }
+
+    /**
+     * @param $federal_standart
+     */
+    public function addFederalStandart(FederalStandart $federalStandart): self
+    {
+    if (!$this->federal_standart->contains($federalStandart)) {
+        $this->federal_standart[] = $federalStandart;
+    }
+
+    return $this;
+}
+
+    /**
+     * @param $federal_standart_competencies
+     */
+    public function setFederalStandartCompetencies($federal_standart_competencies): void
+    {
+        $this->federal_standart_competencies = $federal_standart_competencies;
+    }
+
+    /**
+     * @param $prof_standarts
+     */
+    public function setProfStandarts($prof_standarts): void
+    {
+        $this->prof_standarts = $prof_standarts;
+    }
+
 }

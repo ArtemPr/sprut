@@ -84,4 +84,22 @@ class ProgramController extends AbstractController
             ]
         );
     }
+
+    public function getProgramForm($id)
+    {
+        $data = $this->managerRegistry->getRepository(MasterProgram::class)->get($id);
+
+        $fgos = $this->managerRegistry->getRepository(FederalStandart::class)->findAll();
+
+        $type = $this->managerRegistry->getRepository(ProgramType::class)->findAll();
+
+        return $this->render(
+            'program/form/update_form.html.twig',
+            [
+                'data' => $data,
+                'type' => $type,
+                'fgos' => $fgos
+            ]
+        );
+    }
 }
