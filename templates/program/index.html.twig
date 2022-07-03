@@ -18,12 +18,11 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbar-header-menu">
                     <div class="mt-2 mb-3">
-                        <select class="form-select" id="select-tags">
-                            <option value="0" disabled selected>Тип программы</option>
-                            <option value="1">Повышение квалификации</option>
-                            <option value="2">Профессиональная переподготовка</option>
-                            <option value="3">Профессиональное обучение</option>
-                        </select>
+                        <ul>
+                            <li style="list-style: none; margin-bottom: 15px;"><a href="{{ path('program') }}?type=1" style="color: #333333; {% if select_type|default(false) and select_type == 1 %}font-weight:bold;{% endif %}">Повышение квалификации</a></li>
+                            <li style="list-style: none; margin-bottom: 15px;"><a href="{{ path('program') }}?type=2" style="color: #333333; {% if select_type|default(false) and select_type == 2 %}font-weight:bold;{% endif %}">Профессиональная переподготовка</a></li>
+                            <li style="list-style: none; margin-bottom: 15px;"><a href="{{ path('program') }}?type=3" style="color: #333333; {% if select_type|default(false) and select_type == 3 %}font-weight:bold;{% endif %}">Профессиональное обучение</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -57,7 +56,7 @@
                                 {% include 'program/form/create_form.html.twig' %}
                             </div>
 
-                            <div id="programEditingPanel" data-action="edit" class="user-form-panel offcanvas offcanvas-end" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                            <div id="programEditingPanel" data-action="edit" class="user-form-panel offcanvas offcanvas-end modal-large" tabindex="-1" aria-labelledby="offcanvasEndLabel">
                                 <img src="{{ absolute_url('/assets/images/loading--big.gif') }}" style="position: absolute; top: 10%; left: 50%; margin-left: -75px;">
                             </div>
 

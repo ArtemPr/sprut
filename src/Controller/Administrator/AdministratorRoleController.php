@@ -7,6 +7,7 @@ namespace App\Controller\Administrator;
 
 use App\Entity\Operations;
 use App\Entity\Roles;
+use App\Service\AuthService;
 use App\Service\LinkService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,12 +17,20 @@ use Symfony\Component\HttpFoundation\Response;
 class AdministratorRoleController extends AbstractController
 {
     use LinkService;
+    use AuthService;
+
     public function __construct(private ManagerRegistry $managerRegistry)
     {
     }
 
     public function getRoleList(): Response
-    {$request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
+    {
+        $auth = $this->getAuthValue($this->getUser(), 'auth_role', $this->managerRegistry);
+        if(!empty($auth)) {
+            return $auth;
+        }
+
+        $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
         $page = $request->get('page') ?? null;
         $on_page = $request->get('on_page') ?? 25;
         $sort = $request->get('sort') ?? null;

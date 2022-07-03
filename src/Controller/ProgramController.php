@@ -10,6 +10,7 @@ use App\Entity\FederalStandart;
 use App\Entity\MasterProgram;
 use App\Entity\ProgramType;
 use App\Entity\TrainingCenters;
+use App\Service\AuthService;
 use App\Service\LinkService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,6 +22,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProgramController extends AbstractController
 {
     use LinkService;
+    use AuthService;
     public function __construct(
         private ManagerRegistry $managerRegistry
     )
@@ -30,13 +32,19 @@ class ProgramController extends AbstractController
     #[Route('/program', name: 'program')]
     public function program(): Response
     {
+        $auth = $this->getAuthValue($this->getUser(), 'auth_program', $this->managerRegistry);
+        if(!empty($auth)) {
+            return $auth;
+        }
+
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
         $page = $request->get('page') ?? null;
         $on_page = $request->get('on_page') ?? 25;
         $sort = $request->get('sort') ?? null;
+        $select_type = $request->get('type') ?? null;
 
         $program_type = $this->managerRegistry->getRepository(ProgramType::class)->findAll();
-        $program_list = $this->managerRegistry->getRepository(MasterProgram::class)->getList((int)$page, (int)$on_page, $sort);
+        $program_list = $this->managerRegistry->getRepository(MasterProgram::class)->getList((int)$page, (int)$on_page, $sort, $select_type);
         $count = $this->managerRegistry->getRepository(MasterProgram::class)->getApiProgramInfo();
         $count = $count['count_program'] ?? 0;
 
@@ -69,6 +77,7 @@ class ProgramController extends AbstractController
                 'category' => $category,
                 'fgos' => $fgos,
                 'type' => $type,
+                'select_type' => $select_type,
                 'pager' => [
                     'count_all_position' => $count,
                     'current_page' => $page,
