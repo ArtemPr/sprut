@@ -147,4 +147,16 @@ class ApiController extends AbstractController
     {
         return $apiUserController->update();
     }
+
+    #[Route('/add_program', name: 'add_program', methods: ['POST'])]
+    public function add_program(ApiProgramController $apiProgramController): Response
+    {
+        return $apiProgramController->add();
+    }
+
+    #[Route('/update_program', name: 'update_program', methods: ['POST'])]
+    public function update_program(ApiProgramController $apiProgramController): Response
+    {
+        return $apiProgramController->update();
+    }
 }

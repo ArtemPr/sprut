@@ -62,4 +62,10 @@ class FormController extends AbstractController
     {
         return $administratorRoleController->getRoleForm((int)$id);
     }
+
+    #[Route('/program_edit/{id}', name: 'program_edit')]
+    public function getProgramForm($id, ProgramController $programController): Response
+    {
+        return $programController->getProgramForm($id);
+    }
 }
