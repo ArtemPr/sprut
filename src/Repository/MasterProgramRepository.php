@@ -92,7 +92,7 @@ class MasterProgramRepository extends ServiceEntityRepository
     }
 
 
-    public function getList(int|null $page = 0, int|null $on_page = 25, string|null $sort = null): array|null
+    public function getList(int|null $page = 0, int|null $on_page = 25, string|null $sort = null, string|null $type=null): array|null
     {
         $entityManager = $this->getEntityManager();
 
@@ -114,19 +114,30 @@ class MasterProgramRepository extends ServiceEntityRepository
         } else {
             $order = 'pr.id DESC';
         }
-
-        $result = $entityManager->createQuery(
-            'SELECT pr, pt, fs, fsc, ps
+        $sql = 'SELECT pr, pt, fs, fsc, ps
                 FROM App\Entity\MasterProgram pr
                 LEFT JOIN pr.program_type pt
                 LEFT JOIN pr.federal_standart fs
                 LEFT JOIN pr.federal_standart_competencies fsc
-                LEFT JOIN pr.prof_standarts ps
-                ORDER BY ' . $order
-        )
-            ->setFirstResult($first_result)
-            ->setMaxResults($on_page)
-            ->getResult(Query::HYDRATE_ARRAY);
+                LEFT JOIN pr.prof_standarts ps';
+
+        if(!empty($type)) {
+            $sql .= " WHERE pt.id = :type";
+        }
+        $sql .= ' ORDER BY ' . $order;
+
+        if (empty($type)) {
+            $result = $entityManager->createQuery($sql)
+                ->setFirstResult($first_result)
+                ->setMaxResults($on_page)
+                ->getResult(Query::HYDRATE_ARRAY);
+        } else {
+            $result = $entityManager->createQuery($sql)
+                ->setParameter(':type', $type)
+                ->setFirstResult($first_result)
+                ->setMaxResults($on_page)
+                ->getResult(Query::HYDRATE_ARRAY);
+        }
 
         return $result;
     }

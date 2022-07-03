@@ -7,6 +7,7 @@ namespace App\Controller\Administrator;
 
 use App\Entity\Operations;
 use App\Entity\TrainingCenters;
+use App\Service\AuthService;
 use App\Service\LinkService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,6 +17,8 @@ use Symfony\Component\HttpFoundation\Response;
 class AdministratorOperationsController extends AbstractController
 {
     use LinkService;
+    use AuthService;
+
     public function __construct(
         private ManagerRegistry $managerRegistry
     ) {
@@ -23,6 +26,11 @@ class AdministratorOperationsController extends AbstractController
 
     public function getOperationsList(): Response
     {
+        $auth = $this->getAuthValue($this->getUser(), 'auth_operations', $this->managerRegistry);
+        if(!empty($auth)) {
+            return $auth;
+        }
+
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
         $page = $request->get('page') ?? null;
         $on_page = $request->get('on_page') ?? 25;

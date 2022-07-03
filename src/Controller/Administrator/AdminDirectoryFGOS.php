@@ -7,6 +7,7 @@ namespace App\Controller\Administrator;
 
 use App\Entity\FederalStandart;
 use App\Entity\ProfStandarts;
+use App\Service\AuthService;
 use App\Service\LinkService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,6 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
 class AdminDirectoryFGOS extends AbstractController
 {
     use LinkService;
+    use AuthService;
 
     private $request;
 
@@ -28,6 +30,11 @@ class AdminDirectoryFGOS extends AbstractController
 
     public function getList(): Response
     {
+        $auth = $this->getAuthValue($this->getUser(), 'auth_directory', $this->managerRegistry);
+        if(!empty($auth)) {
+            return $auth;
+        }
+
         $tpl = $this->request->get('ajax') ? 'administrator/directory/fgos_table.html.twig' : 'administrator/directory/fgos.html.twig';
 
         return $this->render($tpl,

@@ -14,7 +14,7 @@
                        data-bs-toggle="tab">Основное</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#tabs-profile-ex1" class="nav-link" data-bs-toggle="tab">ФГОС</a>
+                    <a href="#tabs-home-ex2" class="nav-link" data-bs-toggle="tab">ФГОС</a>
                 </li>
             </ul>
 
@@ -32,10 +32,9 @@
                             <div class="col">
                                 <select class="form-select" name="type" required>
                                     <option value="">Выберите из списка </option>
-                                    <option value="1">Повышение квалификации (ПК) </option>
-                                    <option value="2">Профессиональная переподготовка (ПП) </option>
-                                    <option value="3">Профессиональное обучение (ПО) </option>
-                                    <option value="4">Дополнительное образование (ДО) </option>
+                                    <option value="1" {% if select_type|default(false) and select_type == 1 %}selected{% endif %}>Повышение квалификации (ПК) </option>
+                                    <option value="2" {% if select_type|default(false) and select_type == 2 %}selected{% endif %}>Профессиональная переподготовка (ПП) </option>
+                                    <option value="3" {% if select_type|default(false) and select_type == 3 %}selected{% endif %}>Профессиональное обучение (ПО) </option>
                                 </select>
                             </div>
                         </div>
@@ -48,7 +47,7 @@
                     </div>
 
 
-                    <div class="tab-pane fgos-tab" id="tabs-profile-ex1">
+                    <div class="tab-pane fgos-tab" id="tabs-home-ex2">
 
                         <div class="fgos-item">
                             <div class="mb-3 fgos-datalist">

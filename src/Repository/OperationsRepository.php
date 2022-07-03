@@ -65,7 +65,7 @@ class OperationsRepository extends ServiceEntityRepository
                 $order = $sort;
             }
         } else {
-            $order = 'op.id DESC';
+            $order = 'op.group DESC';
         }
 
         $result = $entityManager->createQuery(

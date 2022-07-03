@@ -8,6 +8,7 @@ namespace App\Controller\Administrator;
 use App\Entity\City;
 use App\Entity\Roles;
 use App\Entity\User;
+use App\Service\AuthService;
 use App\Service\LinkService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,6 +18,8 @@ use Symfony\Component\HttpFoundation\Response;
 class AdministratorUserController extends AbstractController
 {
     use LinkService;
+
+    use AuthService;
 
     private $request;
 
@@ -29,6 +32,11 @@ class AdministratorUserController extends AbstractController
 
     public function getUserList(): Response
     {
+        $auth = $this->getAuthValue($this->getUser(), 'auth_user', $this->managerRegistry);
+        if(!empty($auth)) {
+            return $auth;
+        }
+
         $page = $this->request->get('page') ?? null;
         $on_page = $this->request->get('on_page') ?? 25;
         $sort = $this->request->get('sort') ?? null;

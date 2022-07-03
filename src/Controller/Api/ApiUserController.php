@@ -208,11 +208,11 @@ class ApiUserController extends AbstractController
 
         $loger = new Loger();
         $loger->setTime(new \DateTime());
-        $loger->setAction('add_user');
+        $loger->setAction('update_user');
         $loger->setUserLoger($this->getUser());
         $loger->setIp($request->server->get('REMOTE_ADDR'));
         $loger->setChapter('Пользователи');
-        $loger->setComment('Добавлен пользователь ' . $data['id'] . ' ' . $data['username']);
+        $loger->setComment('Обновлены данные пользователя ' . $data['id'] . ' ' . $data['username']);
         $entityManager = $this->doctrine->getManager();
         $entityManager->persist($loger);
         $entityManager->flush();
