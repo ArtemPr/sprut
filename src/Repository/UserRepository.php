@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\User;
+use App\Service\QueryHelper;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
@@ -21,6 +22,8 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
     public const PER_PAGE = 25;
+
+    use QueryHelper;
 
     public function __construct(ManagerRegistry $registry)
     {
@@ -64,22 +67,34 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
      */
     public function getUser(int $id)
     {
-        $entityManager = $this->getEntityManager();
+        $qb = $this->createQueryBuilder('user')
+            ->leftJoin("user.departament", "departament")->addSelect("departament")
+            ->leftJoin("user.city", "city")->addSelect("city")
+            ->where('user.delete = :delete AND user.id = :id')
+            ->setParameters(
+                [
+                    'delete'=>false,
+                    'id' => $id
+                ]
+            );
+        $query = $qb->getQuery();
+        $result = $query->execute(
+            hydrationMode: Query::HYDRATE_ARRAY
+        );
 
-        $result = $entityManager->createQuery(
-            'SELECT user, dep, city
-                FROM App\Entity\User user
-                LEFT JOIN user.departament dep
-                LEFT JOIN user.city city
-                WHERE user.id = :id'
-        )->setParameter('id', $id)->setMaxResults(self::PER_PAGE)->getResult(Query::HYDRATE_ARRAY);
 
         $roles = "'".implode("','", $result['0']['roles'])."'";
-        $role_result = $entityManager->createQuery(
-            "SELECT role
-            FROM App\Entity\Roles role
-            WHERE role.roles_alt IN (:roles)"
-        )->setParameter('roles', $result['0']['roles'])->getResult(Query::HYDRATE_ARRAY);
+
+        $qb = $this->createQueryBuilder('user')
+            ->from('App:Roles', 'role')
+            ->where('role.roles_alt IN (:roles)')
+            ->setParameter('roles', $roles);
+
+        $query = $qb->getQuery();
+        $role_result = $query->execute(
+            hydrationMode: Query::HYDRATE_ARRAY
+        );
+
 
         $result[0]['role'] = $role_result;
 
@@ -100,22 +115,80 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     /**
      * @return float|int|mixed|string
      */
-    public function getList()
+    public function getList(int|null $page = 0, int|null $on_page = 25, string|null $sort = null, string|null $search = null)
     {
-        $entityManager = $this->getEntityManager();
+        $page = (empty($page) || $page === 1 || $page === 0) ? 0 : $page - 1;
+        $first_result = (int)$page * (int)$on_page;
+        $search = !empty($search) ? strtolower($search) : null;
 
-        $result = $entityManager->createQuery(
-            'SELECT user, dep, city
-                FROM App\Entity\User user
-                LEFT JOIN user.departament dep
-                LEFT JOIN user.city city
-                WHERE user.delete = :delete
-                ORDER BY user.id DESC'
-        )
-            ->setParameter('delete', false)
-            ->setMaxResults(self::PER_PAGE)
-            ->getResult(Query::HYDRATE_ARRAY);
+        $order = $this->setSort($sort, 'user');
+
+        $qb = $this->createQueryBuilder('user')
+            ->orderBy($order[0], $order[1])
+            ->leftJoin("user.departament", "departament")->addSelect("departament")
+            ->leftJoin("user.city", "city")->addSelect("city")
+            ->where('user.delete = :delete')
+            ->setFirstResult($first_result)
+            ->setMaxResults($on_page);
+
+        if(!empty($search)) {
+            $qb->andWhere("LOWER(user.fullname) LIKE :search ESCAPE '!'")
+                ->setParameters(
+                    [
+                        'search' => $this->makeLikeParam($search),
+                        'delete' => false
+                    ]
+                );
+        } else {
+            $qb->setParameter('delete', false);
+        }
+
+        $query = $qb->getQuery();
+        $result = $query->execute(
+            hydrationMode: Query::HYDRATE_ARRAY
+        );
 
         return $result;
+    }
+
+
+    public function getCount(int|null $page = 0, int|null $on_page = 25, string|null $sort = null, string|null $search = null)
+    {
+        $qb = $this->createQueryBuilder('user');
+
+        if(!empty($search)) {
+            $qb->select('COUNT(user.id)')->where("LOWER(user.fullname) LIKE :search ESCAPE '!'")
+                ->setParameter('search', $this->makeLikeParam($search));
+        } else {
+            $qb->select('COUNT(user.id)');
+        }
+
+        $query = $qb->getQuery();
+        $result = $query->execute(
+            hydrationMode: Query::HYDRATE_ARRAY
+        );
+
+        return $result[0][1] ?? 0 ;
+    }
+
+    private function setSort($sort, $prefix)
+    {
+        if (!is_null($sort)) {
+            if (strstr($sort, '__up')) {
+                $sort = str_replace('__up', ' DESC', $sort);
+            } else {
+                $sort .= " ASC";
+            }
+
+            if (!strstr($sort, '.')) {
+                $order = $prefix . '.' . $sort;
+            } else {
+                $order = $sort;
+            }
+        } else {
+            $order = $prefix . '.username DESC';
+        }
+
+        return explode(' ', $order);
     }
 }

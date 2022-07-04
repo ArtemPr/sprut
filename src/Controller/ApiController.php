@@ -130,6 +130,12 @@ class ApiController extends AbstractController
         return $apiRole->update();
     }
 
+    #[Route('/role_hide/{id}', name: 'role_hide')]
+    public function role_hide($id, ApiRole $apiRole): Response
+    {
+        return $apiRole->hide($id);
+    }
+
     #[Route('/user_add', name: 'user_add', methods: ['POST'])]
     public function add_user(ApiUserController $apiUserController): Response
     {
@@ -146,5 +152,17 @@ class ApiController extends AbstractController
     public function user_update(ApiUserController $apiUserController): Response
     {
         return $apiUserController->update();
+    }
+
+    #[Route('/add_program', name: 'add_program', methods: ['POST'])]
+    public function add_program(ApiProgramController $apiProgramController): Response
+    {
+        return $apiProgramController->add();
+    }
+
+    #[Route('/update_program', name: 'update_program', methods: ['POST'])]
+    public function update_program(ApiProgramController $apiProgramController): Response
+    {
+        return $apiProgramController->update();
     }
 }

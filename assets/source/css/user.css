@@ -161,7 +161,7 @@ body.user-editing-panel-opened {
 }
 
 .user-form-panel .form-label {
-	width: 130px;
+	width: 166px;
 }
 
 .user-form-panel .dual-listbox__search {
@@ -182,12 +182,11 @@ body.user-editing-panel-opened {
 .user-form-panel .dual-listbox__available,
 .user-form-panel .dual-listbox__selected {
 	width: auto;
-	height: 186px !important;
+	height: 222px !important;
 }
 
 .user-form-panel .dual-listbox__buttons {
 	position: relative;
-	top: 20px;
 }
 
 #userEditingPanel.show {
@@ -286,5 +285,16 @@ body.user-editing-panel-opened {
 @media(max-width: 820px) {
   .modal-large {
       width: 90%;
+  }
+}
+
+.modal-middle {
+  width: 60%;
+  max-width: 863px;
+}
+
+@media(max-width: 820px) {
+  .modal-middle {
+    width: 695px;
   }
 }

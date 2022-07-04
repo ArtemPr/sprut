@@ -1,0 +1,81 @@
+<div class="offcanvas-header">
+    <h2 class="offcanvas-title">Создание программы</h2>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+            aria-label="Close"></button>
+</div>
+<div class="offcanvas-body">
+    <form action="#" name="program-create" id="add_program-create" class="form-create">
+
+        <div class="card">
+
+            <ul class="nav nav-tabs" data-bs-toggle="tabs">
+                <li class="nav-item">
+                    <a href="#tabs-home-ex1" class="nav-link active"
+                       data-bs-toggle="tab">Основное</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#tabs-home-ex2" class="nav-link" data-bs-toggle="tab">ФГОС</a>
+                </li>
+            </ul>
+
+            <div class="card-body">
+                <div class="tab-content">
+                    <div class="tab-pane active show" id="tabs-home-ex1">
+                        <div class="form-group mb-3 row">
+                            <label class="form-label col-3 col-form-label">Название*</label>
+                            <div class="col">
+                                <input type="text" class="form-control" name="name" placeholder="Название программы" required>
+                            </div>
+                        </div>
+                        <div class="form-group mb-3 row">
+                            <label class="form-label col-3 col-form-label">Тип программы</label>
+                            <div class="col">
+                                <select class="form-select" name="type" required>
+                                    <option value="">Выберите из списка </option>
+                                    <option value="1" {% if select_type|default(false) and select_type == 1 %}selected{% endif %}>Повышение квалификации (ПК) </option>
+                                    <option value="2" {% if select_type|default(false) and select_type == 2 %}selected{% endif %}>Профессиональная переподготовка (ПП) </option>
+                                    <option value="3" {% if select_type|default(false) and select_type == 3 %}selected{% endif %}>Профессиональное обучение (ПО) </option>
+                                </select>
+                            </div>
+                        </div>
+                        {#<div class="form-group mb-3 row align-items-center">
+                            <label class="form-label col-3 col-form-label">Направление</label>
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="Название выбранного направления">
+                            </div>
+                        </div>#}
+                    </div>
+
+
+                    <div class="tab-pane fgos-tab" id="tabs-home-ex2">
+
+                        <div class="fgos-item">
+                            <div class="mb-3 fgos-datalist">
+                                <label class="form-label">Выберите ФГОС</label>
+                                <select name="fgos" class="form-control">
+                                    <option value="">Выберите из списка</option>
+                                    {% if fgos|default(false) %}
+                                        {% for fg in fgos %}
+                                            <option value="{{ fg.id }}">{{ fg.name }}</option>
+                                        {% endfor %}
+                                    {% endif %}
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="d-flex mb-4">
+                        <button data-form-id="add_program-create" data-action="send-form" type="submit"
+                                class="btn btn-primary ms-auto"
+                                aria-label="Close"
+                        >Сохранить
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>

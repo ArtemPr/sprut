@@ -47,7 +47,6 @@ select {
     height: 285px;
     overflow-y: auto;
     padding: 0;
-    width: 300px;
     margin-top: 0;
     -webkit-margin-before: 0;
   }
@@ -56,6 +55,7 @@ select {
     display: flex;
     flex-direction: column;
     margin: 0 10px;
+    padding-top: 30px;
   }
 
   .dual-listbox__button {

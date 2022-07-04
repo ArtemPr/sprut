@@ -3,21 +3,38 @@
            class="users-table table card-table table-vcenter text-nowrap datatable">
         <thead>
         <tr>
-            <th></th>
-            <th></th>
-            <th><a class="sort-icon is-desc" href="#"></a>
-                <span class="th-name">ФИО</span></th>
-            <th><a class="sort-icon is-both" href="#"></a>
-                <span class="th-name">Роль</span></th>
-            <th><a class="sort-icon is-both" href="#"></a>
-                <span class="th-name"> Должность</span></th>
-            <th><a class="sort-icon is-both" href="#"></a>
-                <span class="th-name">Подразделение</span></th>
-            <th><a class="sort-icon is-both" href="#"></a>
-                <span class="th-name">Почта</span></th>
-            <th><a class="sort-icon is-both" href="#"></a>
-                <span class="th-name">Телефон</span></th>
-            <th class="hidden-cell"></th>
+            {% if table|default(false) %}
+                {% for tbl in table %}
+                    {% if tbl.3 == true %}
+                        {% if tbl.1 == '' %}
+                            <th></th>
+                        {% elseif tbl.1 != '' and tbl.0 == '' %}
+                            <th>{{ tbl.1 }}</th>
+                        {% else %}
+                            {% if loop.first == 1 %}
+                                <th>
+                                    <a
+                                        class="sort-icon is-{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}desc{% elseif sort.current_sort|default(false) and sort.current_sort == (tbl.0~'__up') %}asc{% elseif sort.current_sort|default(false) == false %}asc{% else %}both{% endif %}"
+                                        href="{{ path('administrator_user') ~ sort.sort_link ~ tbl.0 }}{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}__up{% endif %}"></a>
+                                    {% if  tbl.1  == 'ID' %}
+                                        <p class="th-name id-name">{{ tbl.1 }}</p>
+                                    {% else %}
+                                        <p class="th-name">{{ tbl.1 }}</p>
+                                    {% endif %}
+                                </th>
+                            {% else %}
+                                <th>
+                                    <a
+                                        class="sort-icon is-{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}desc{% elseif sort.current_sort|default(false) and sort.current_sort == (tbl.0~'__up') %}asc{% else %}both{% endif %}"
+                                        href="{{ path('administrator_user') ~ sort.sort_link ~ tbl.0 }}{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}__up{% endif %}"
+                                    ></a>
+                                    <p class="th-name"> {{ tbl.1 }}</p>
+                                </th>
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
         </tr>
         </thead>
         <tbody>
@@ -25,13 +42,7 @@
             {% for ul in user_list %}
                 <tr data-string="{{ ul.id }}" data-type="user"
                     class="user-table-row {% if loop.first %}is-selected{% endif %}">
-                    <td><span class="badge
-                                                    {% if ul.activity|default(false) %}
-                                                        bg-success
-                                                    {% else %}
-                                                        bg-danger
-                                                    {% endif %}
-                                                    "></span></td>
+                    <td><span class="badge {% if ul.activity|default(false) %}bg-success{% else %}bg-danger{% endif %}"></span></td>
                     <td>
                         Локальный
                     </td>
@@ -78,38 +89,7 @@
     </table>
 </div>
 
-<div class="card-footer d-flex align-items-center">
-    <p class="m-0 text-muted"><b>{{ user_list|length }}</b> результатов</p>
-    {% if user_list|length > 25 %}
-        <ul class="pagination m-0 ms-auto">
-            <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
-                    <!-- Download SVG icon from http://tabler-icons.io/i/chevron-left -->
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24"
-                         height="24" viewBox="0 0 24 24" stroke-width="2"
-                         stroke="currentColor" fill="none" stroke-linecap="round"
-                         stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                        <polyline points="15 6 9 12 15 18"/>
-                    </svg>
-                </a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item active"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">4</a></li>
-            <li class="page-item"><a class="page-link" href="#">5</a></li>
-            <li class="page-item">
-                <a class="page-link" href="#">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24"
-                         height="24" viewBox="0 0 24 24" stroke-width="2"
-                         stroke="currentColor" fill="none" stroke-linecap="round"
-                         stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                        <polyline points="9 6 15 12 9 18"/>
-                    </svg>
-                </a>
-            </li>
-        </ul>
-    {% endif %}
-</div>
+{% include 'block/paginator.html.twig' with {
+    'path': path('administrator_user')
+}  %}
+

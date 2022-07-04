@@ -9,17 +9,13 @@
                 <div class="dual-controls-wrap mb-4">
                     <div class="dual-controls-label mb-3"><b>Выберите роль</b></div>
                     <div class="dual-controls-box">
-                        <select class="dual-controls-select" name="roles[]" multiple>
-                            <option value="role-1">Роль 1</option>
-                            <option value="role-2">Роль 2</option>
-                            <option selected value="role-3">Роль 3</option>
-                            <option selected value="role-4">Роль 4</option>
-                            <option selected value="role-5">Роль 5</option>
-                            <option value="role-6">Роль 6</option>
-                            <option value="role-7">Роль 7</option>
-                            <option value="role-8">Роль 8</option>
-                            <option value="role-9">Роль 9</option>
-                            <option value="role-10">Роль 10</option>
+                        <select name="roles[]" class="dual-controls-select" required>
+                            <option disabled>Выберите роль</option>
+                            {% if roles|default(false) %}
+                                {% for rol in roles %}
+                                    <option {% if data.roles|default(false) and (rol.roles_alt in data.roles) %}selected{% endif %} value="{{ rol.roles_alt }}">{{ rol.name }}</option>
+                                {% endfor %}
+                            {% endif %}
                         </select>
                     </div>
                 </div>

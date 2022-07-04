@@ -4,11 +4,6 @@
 </div>
 <div class="offcanvas-body">
 
-
-    {% if ("ROLE_ADMIN" == data.roles_alt) or ("ROLE_USER" == data.roles_alt) or ("ROLE_API_SERVICE" == data.roles_alt) or ("ROLE_API_FRONT" == data.roles_alt) %}
-        Редактирование системной роли запрещено
-    {% else %}
-
     <form action="#" name="role-update" id="role_update-create" class="form-update">
 
         <input type="hidden" name="id" value="{{ data.id|default(false) }}">
@@ -19,7 +14,7 @@
                     <a href="#tabs-ex3" class="nav-link active" data-bs-toggle="tab">Основное</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#tabs-ex4" class="nav-link" data-bs-toggle="tab">Права</a>
+                    <a href="#tabs-ex4" class="nav-link" data-bs-toggle="tab">Операции</a>
                 </li>
             </ul>
             <div class="card-body">
@@ -63,5 +58,4 @@
             </button>
         </div>
     </form>
-    {% endif %}
 </div>

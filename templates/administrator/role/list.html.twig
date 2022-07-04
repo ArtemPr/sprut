@@ -32,8 +32,8 @@
                             <div class="card">
 
                                 {% include 'block/search_panel.html.twig' with {
-                                    'close_delete': true,
-                                    'controller': 'role'
+                                    'controller': 'role',
+                                    'path': path('administrator_role'),
                                 } %}
 
                                 <div class="ajax-table">
@@ -50,6 +50,8 @@
                             <div id="roleEditingPanel" data-action="edit" class="user-form-panel offcanvas offcanvas-end" tabindex="-1" aria-labelledby="offcanvasEndLabel">
                                 <img src="{{ absolute_url('/assets/images/loading--big.gif') }}" style="position: absolute; top: 10%; left: 50%; margin-left: -75px;">
                             </div>
+
+                            {% include 'modal/delete.html.twig' %}
 
                         </div>
                     </div>

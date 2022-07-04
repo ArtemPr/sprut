@@ -6,6 +6,7 @@
 namespace App\Controller;
 
 use App\Entity\Discipline;
+use App\Service\AuthService;
 use App\Service\LinkService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,6 +18,8 @@ class DisciplineController extends AbstractController
 {
     use LinkService;
 
+    use AuthService;
+
     public function __construct(
         private ManagerRegistry $managerRegistry
     )
@@ -26,6 +29,11 @@ class DisciplineController extends AbstractController
     #[Route('/discipline', name: 'discipline')]
     public function getList(): Response
     {
+        $auth = $this->getAuthValue($this->getUser(), 'auth_desktop', $this->managerRegistry);
+        if (!is_array($auth)) {
+            return $auth;
+        }
+
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
         $page = $request->get('page') ?? null;
         $on_page = $request->get('on_page') ?? 25;
@@ -60,7 +68,8 @@ class DisciplineController extends AbstractController
                     'sort_link' => $this->getSortLink(),
                     'current_sort' => $request->get('sort') ?? null,
                 ],
-                'table' => $table
+                'table' => $table,
+                'auth' => $auth
             ]
         );
     }

@@ -6,6 +6,7 @@
 namespace App\Controller\Administrator;
 
 use App\Entity\Loger;
+use App\Service\AuthService;
 use App\Service\LinkService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,6 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 class AdminLog extends AbstractController
 {
     use LinkService;
+    use AuthService;
 
     public function __construct(
         private ManagerRegistry $managerRegistry
@@ -24,12 +26,18 @@ class AdminLog extends AbstractController
 
     public function getList(): Response
     {
+        $auth = $this->getAuthValue($this->getUser(), 'auth_log', $this->managerRegistry);
+        if (!is_array($auth)) {
+            return $auth;
+        }
+
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
         $page = $request->get('page') ?? null;
         $on_page = $request->get('on_page') ?? 25;
         $sort = $request->get('sort') ?? null;
+        $search = $request->get('search') ?? null;
 
-        $data = $this->managerRegistry->getRepository(Loger::class)->getList($page, $on_page, $sort);
+        $data = $this->managerRegistry->getRepository(Loger::class)->getList($page, $on_page, $sort, $search);
 
         foreach ($data as $key=>$value) {
             $data[$key]['time'] =$data[$key]['time']->format(
@@ -78,7 +86,8 @@ class AdminLog extends AbstractController
                 'current_sort' => $request->get('sort') ?? null,
             ],
 
-            'table' => $table
+            'table' => $table,
+            'auth' => $auth
         ]
         );
     }

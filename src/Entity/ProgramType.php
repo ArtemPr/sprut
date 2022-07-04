@@ -26,19 +26,20 @@ class ProgramType
         return $this->id;
     }
 
-    public function getNameType(): ?string
+    /**
+     * @return mixed
+     */
+    public function getNameType()
     {
         return $this->name_type;
     }
 
     /**
-     * @return $this
+     * @param mixed $name_type
      */
-    public function setNameType(string $name_type): self
+    public function setNameType($name_type): void
     {
         $this->name_type = $name_type;
-
-        return $this;
     }
 
     /**

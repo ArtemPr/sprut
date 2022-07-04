@@ -192,25 +192,19 @@ window.addEventListener("load", function () {
     }
 });
 
-/**
- * User Dual Controls
- */
-
-// Удаляем плагин DUAL
-
-// const dualControlsSelects = document.querySelectorAll(".dual-controls-select");
-// for (let i = 0; i < dualControlsSelects.length; ++i) {
-//     let dualControlsSelect = dualControlsSelects[i];
-//     new DualListbox(dualControlsSelect, {
-//         availableTitle: "Available numbers",
-//         selectedTitle: "Selected numbers",
-//         addButtonText: ">",
-//         removeButtonText: "<",
-//         addAllButtonText: ">>",
-//         removeAllButtonText: "<<",
-//         searchPlaceholder: "Поиск",
-//     });
-// }
+const dualControlsSelects = document.querySelectorAll(".dual-controls-select_create");
+for (let i = 0; i < dualControlsSelects.length; ++i) {
+    let dualControlsSelect = dualControlsSelects[i];
+    new DualListbox(dualControlsSelect, {
+        availableTitle: "Available numbers",
+        selectedTitle: "Selected numbers",
+        addButtonText: ">",
+        removeButtonText: "<",
+        addAllButtonText: ">>",
+        removeAllButtonText: "<<",
+        searchPlaceholder: "Поиск",
+    });
+}
 
 /**
  * Search Clear
@@ -225,7 +219,7 @@ window.addEventListener("load", function () {
     //console.log('jsClearSearch');
     if (clearSearchBtn !== undefined && clearSearchBtn !== null) {
         clearSearchBtn.addEventListener("click", function (e) {
-            e.preventDefault();
+            //e.preventDefault();
             // const closestForm = clearSearchBtn.closest("form");
             // console.log(closestForm);
             // const thisSearchInput = closestForm.querySelector('.search-input');
@@ -233,6 +227,16 @@ window.addEventListener("load", function () {
             if (searchInput) {
                 searchInput.value = "";
             }
+        });
+    }
+
+
+    const submitSearch = document.querySelector('#submitSearch');
+    const searchForm = document.querySelector('#searchForm');
+    if (submitSearch !== undefined && submitSearch !== null) {
+        submitSearch.addEventListener("click", function (e) {
+            e.preventDefault();
+            searchForm.submit();
         });
     }
 });

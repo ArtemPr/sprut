@@ -83,6 +83,12 @@ class ApiUserController extends AbstractController
             $user->setPatronymic($data['patronymic'] ? trim($data['patronymic']) : '');
             $user->setSurname($data['surname'] ? trim($data['surname']) : '');
 
+            $username = $data['username'] ? trim($data['username']) : '';
+            $patronymic = $data['patronymic'] ? trim($data['patronymic']) : '';
+            $surname = $data['surname'] ? trim($data['surname']) : '';
+
+            $user->setFullname("$username $surname $patronymic");
+
             $user->setEmail($data['email'] ? trim($data['email']) : '');
             $user->setPhone($data['phone'] ? trim($data['phone']) : '');
             $user->setActivity(!empty($data['activity']) ? true : false);
@@ -90,11 +96,6 @@ class ApiUserController extends AbstractController
             $user->setApiHash(md5($data['email'] . $data['username']));
             $user->setSkype($data['skype'] ? trim($data['skype']) : '');
             $user->setPosition($data['position'] ? trim($data['position']) : '');
-            if (!empty($data['roles'])) {
-                $data['roles'] = [$data['roles'], 'ROLE_USER'];
-            } else {
-                $data['roles'] = ['ROLE_USER'];
-            }
             $user->setRoles($data['roles']);
 
             $user->setDelete(false);
@@ -176,6 +177,12 @@ class ApiUserController extends AbstractController
         $user->setPatronymic($data['patronymic'] ? trim($data['patronymic']) : '');
         $user->setSurname($data['surname'] ? trim($data['surname']) : '');
 
+        $username = $data['username'] ? trim($data['username']) : '';
+        $patronymic = $data['patronymic'] ? trim($data['patronymic']) : '';
+        $surname = $data['surname'] ? trim($data['surname']) : '';
+
+        $user->setFullname("$username $surname $patronymic");
+
         $user->setEmail($data['email'] ? trim($data['email']) : '');
         $user->setPhone($data['phone'] ? trim($data['phone']) : '');
         $user->setActivity(!empty($data['activity']) ? true : false);
@@ -183,11 +190,7 @@ class ApiUserController extends AbstractController
         $user->setApiHash(md5($data['email'] . $data['username']));
         $user->setSkype($data['skype'] ? trim($data['skype']) : '');
         $user->setPosition($data['position'] ? trim($data['position']) : '');
-        if (!empty($data['roles'])) {
-            $data['roles'] = [$data['roles'], 'ROLE_USER'];
-        } else {
-            $data['roles'] = ['ROLE_USER'];
-        }
+
         $user->setRoles($data['roles']);
 
         $user->setDelete(false);
@@ -217,11 +220,11 @@ class ApiUserController extends AbstractController
 
         $loger = new Loger();
         $loger->setTime(new \DateTime());
-        $loger->setAction('add_user');
+        $loger->setAction('update_user');
         $loger->setUserLoger($this->getUser());
         $loger->setIp($request->server->get('REMOTE_ADDR'));
         $loger->setChapter('Пользователи');
-        $loger->setComment('Добавлен пользователь ' . $data['id'] . ' ' . $data['username']);
+        $loger->setComment('Обновлены данные пользователя ' . $data['id'] . ' ' . $data['username']);
         $entityManager = $this->doctrine->getManager();
         $entityManager->persist($loger);
         $entityManager->flush();

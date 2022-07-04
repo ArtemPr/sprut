@@ -34,7 +34,8 @@
                                 {% include 'block/search_panel.html.twig' with {
                                     'close_create': true,
                                     'close_delete': true,
-                                    'controller': 'operations'
+                                    'controller': 'operations',
+                                    'path': path('administrator_operations')
                                 } %}
 
                                 <div class="ajax-table">

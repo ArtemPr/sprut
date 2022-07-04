@@ -29,7 +29,10 @@
                     <div class="row row-deck row-cards">
                         <div class="col-12">
                             <div class="card">
-                                {% include 'block/search_panel.html.twig' with {'controller': 'user'} %}
+                                {% include 'block/search_panel.html.twig' with {
+                                    'controller': 'user',
+                                    'path': path('administrator_user')
+                                } %}
 
                                 <div class="ajax-table">
                                     {{ include('administrator/user/user_table.html.twig') }}
@@ -39,27 +42,15 @@
 
                             <div id="userEditingOverlay" class="offcanvas-backdrop fade"></div>
 
-                            <div id="userEditingPanel" class="user-form-panel offcanvas offcanvas-end" tabindex="-1"
-                                 aria-labelledby="offcanvasEndLabel">
-                                <div class="offcanvas-header">
-                                    <h2 class="offcanvas-title">Редактирование пользователя</h2>
-                                    <button id="jsEditingPanelCloser" type="button" class="btn-close text-reset"
-                                            data-bs-dismiss="offcanvas"
-                                            aria-label="Close"></button>
-                                </div>
-                            </div>
-
-                            <div id="userCreationPanel" data-action="add"  class="user-form-panel offcanvas offcanvas-end" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                            <div id="userCreationPanel" data-action="add"  class="user-form-panel offcanvas offcanvas-end modal-middle" tabindex="-1" aria-labelledby="offcanvasEndLabel">
                             {% include 'administrator/user/form/create_form.html.twig' %}
                             </div>
 
-                            <div id="userEditingPanel" data-action="edit" class="user-form-panel offcanvas offcanvas-end" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                            <div id="userEditingPanel" data-action="edit" class="user-form-panel offcanvas offcanvas-end modal-middle" tabindex="-1" aria-labelledby="offcanvasEndLabel">
                                 <img src="{{ absolute_url('/assets/images/loading--big.gif') }}" style="position: absolute; top: 10%; left: 50%; margin-left: -75px;">
                             </div>
 
                             {% include 'modal/delete.html.twig' %}
-                            {% include 'administrator/user/modal/departament.html.twig' %}
-                            {% include 'administrator/user/modal/role.html.twig' %}
 
                         </div>
                     </div>

@@ -13,6 +13,9 @@ class Roles
     #[ORM\Column(type: 'integer')]
     private $id;
 
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    private $activity = false;
+
     #[ORM\Column(type: 'string', length: 255, unique: true)]
     private $name;
 
@@ -21,6 +24,9 @@ class Roles
 
     #[ORM\Column(type: 'text', nullable: true)]
     private $auth_list;
+
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    private $delete;
 
     public function getId(): ?int
     {
@@ -55,8 +61,6 @@ class Roles
         $this->roles_alt = $roles_alt;
     }
 
-
-
     public function getAuthList(): ?string
     {
         return $this->auth_list;
@@ -68,4 +72,37 @@ class Roles
 
         return $this;
     }
+
+    /**
+     * @return bool
+     */
+    public function isActivity(): bool
+    {
+        return $this->activity;
+    }
+
+    /**
+     * @param bool $activity
+     */
+    public function setActivity(bool $activity): void
+    {
+        $this->activity = $activity;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDelete()
+    {
+        return $this->delete;
+    }
+
+    /**
+     * @param mixed $delete
+     */
+    public function setDelete($delete): void
+    {
+        $this->delete = $delete;
+    }
+
 }

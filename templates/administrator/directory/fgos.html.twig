@@ -21,19 +21,21 @@
             </div>
         </aside>
         <div class="page-wrapper">
-            <div class="container-xl">
+            <div class="container-fluid">
                 {% include 'block/header_list.html.twig' with {'header': 'Справочник - Федеральные государственные образовательные стандарты', 'onpage_link': path('administrator_directory_fgos')} %}
             </div>
             <div class="page-body">
-                <div class="container-xl">
+                <div class="container-fluid">
                     <div class="row row-deck row-cards">
                         <div class="col-12">
                             <div class="card">
-                                {% if app.user.roles|default(false) and ("ROLE_TEST" in  app.user.roles) %}
-                                    {% include 'block/search_panel.html.twig' with {'close_delete': true, 'close_edit': true, 'close_delete': true, 'close_create': true} %}
-                                {% else %}
-                                    {% include 'block/search_panel.html.twig' with {'close_delete': true, 'close_edit': true, 'close_create': true} %}
-                                {% endif %}
+                                    {% include 'block/search_panel.html.twig' with {
+                                        'close_delete': true,
+                                        'close_edit': true,
+                                        'close_create': true,
+                                        'path': path('administrator_directory_fgos'),
+                                        'add_csv': path('administrator_directory_fgos') ~ '_csv' ~ csv_link
+                                    } %}
                                 <div class="ajax-table">
                                     {{ include('administrator/directory/fgos_table.html.twig') }}
                                 </div>
