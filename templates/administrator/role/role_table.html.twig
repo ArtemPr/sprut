@@ -4,25 +4,25 @@
         <thead>
         <tr>
             <th></th>
+            <th>Идентификатор</th>
             <th>Название</th>
             <th>Комментарий</th>
-            <th>Идентификатор</th>
         </tr>
         </thead>
         <tbody>
         {% if role_list|default(false) %}
             {% for ul in role_list %}
-                <tr data-string="{{ ul.id }}"
+                <tr data-string="{{ ul.id }}" data-type="role"
                     class="user-table-row {% if loop.first %}is-selected{% endif %}">
                     <td><span class="badge bg-success"></span></td>
+                    <td>
+                        {{ ul.roles_alt|default(false) }}
+                    </td>
                     <td>
                         {{ ul.name|default(false) }}
                     </td>
                     <td>
                         {{ ul.comment|default(false) }}
-                    </td>
-                    <td>
-                        {{ ul.roles_alt|default(false) }}
                     </td>
                 </tr>
             {% endfor %}

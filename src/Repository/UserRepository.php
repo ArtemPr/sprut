@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\User;
+use App\Service\QueryHelper;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
@@ -21,6 +22,8 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
     public const PER_PAGE = 25;
+
+    use QueryHelper;
 
     public function __construct(ManagerRegistry $registry)
     {
@@ -116,6 +119,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     {
         $page = (empty($page) || $page === 1 || $page === 0) ? 0 : $page - 1;
         $first_result = (int)$page * (int)$on_page;
+        $search = !empty($search) ? strtolower($search) : null;
 
         $order = $this->setSort($sort, 'user');
 
@@ -124,13 +128,19 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->leftJoin("user.departament", "departament")->addSelect("departament")
             ->leftJoin("user.city", "city")->addSelect("city")
             ->where('user.delete = :delete')
-            ->setParameter('delete', false)
             ->setFirstResult($first_result)
             ->setMaxResults($on_page);
 
         if(!empty($search)) {
-            $qb->where("LOWER(us.name) LIKE :search ESCAPE '!'")
-                ->setParameter('search', $this->makeLikeParam($search));
+            $qb->andWhere("LOWER(user.fullname) LIKE :search ESCAPE '!'")
+                ->setParameters(
+                    [
+                        'search' => $this->makeLikeParam($search),
+                        'delete' => false
+                    ]
+                );
+        } else {
+            $qb->setParameter('delete', false);
         }
 
         $query = $qb->getQuery();
@@ -147,7 +157,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $qb = $this->createQueryBuilder('user');
 
         if(!empty($search)) {
-            $qb->select('COUNT(user.id)')->where("LOWER(user.username) LIKE :search ESCAPE '!'")
+            $qb->select('COUNT(user.id)')->where("LOWER(user.fullname) LIKE :search ESCAPE '!'")
                 ->setParameter('search', $this->makeLikeParam($search));
         } else {
             $qb->select('COUNT(user.id)');

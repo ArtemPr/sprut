@@ -43,13 +43,13 @@
         {% for operations in data %}
             <tr data-string="{{ operations.id }}" class="user-table-row {% if loop.first %}is-selected{% endif %}">
                 <td>
+                    {{ operations.group|default(false)}}
+                </td>
+                <td>
                     {{ operations.name|default(false)}}
                 </td>
                 <td>
                     {{ operations.comment|default(false)}}
-                </td>
-                <td>
-                    {{ operations.group|default(false)}}
                 </td>
                 <td>
                     {{ operations.code|default(false)}}

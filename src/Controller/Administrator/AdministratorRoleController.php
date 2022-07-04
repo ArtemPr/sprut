@@ -34,16 +34,17 @@ class AdministratorRoleController extends AbstractController
         $page = $request->get('page') ?? null;
         $on_page = $request->get('on_page') ?? 25;
         $sort = $request->get('sort') ?? null;
+        $search = $request->get('search') ?? null;
 
-        $result = $this->managerRegistry->getRepository(Roles::class)->getList($page, $on_page, $sort);
+        $result = $this->managerRegistry->getRepository(Roles::class)->getList($page, $on_page, $sort, $search);
         $count = $this->managerRegistry->getRepository(Operations::class)->findAll();
         $count = count($count);
 
 
         $table = [
+            ['roles_alt', 'Идентификатор', 'string', true],
             ['name', 'Название', 'string', true],
             ['comment', 'Комментарий', 'string', true],
-            ['roles_alt', 'Идентификатор', 'string', true]
         ];
 
         $page = $page ?? 1;
@@ -54,6 +55,7 @@ class AdministratorRoleController extends AbstractController
             $tpl,
             [
                 'role_list' => $result,
+                'search' => $search,
                 'pager' => [
                 'count_all_position' => $count,
                 'current_page' => $page,

@@ -35,8 +35,9 @@ class AdministratorOperationsController extends AbstractController
         $page = $request->get('page') ?? null;
         $on_page = $request->get('on_page') ?? 25;
         $sort = $request->get('sort') ?? null;
+        $search = $request->get('search') ?? null;
 
-        $result = $this->managerRegistry->getRepository(Operations::class)->getList($page, $on_page, $sort);
+        $result = $this->managerRegistry->getRepository(Operations::class)->getList($page, $on_page, $sort,$search);
 
 
         $count = $this->managerRegistry->getRepository(Operations::class)->findAll();
@@ -44,9 +45,9 @@ class AdministratorOperationsController extends AbstractController
 
 
         $table = [
+            ['group', 'Группа', 'string', true],
             ['name', 'Название', 'string', true],
             ['comment', 'Комментарий', 'string', true],
-            ['group', 'Группа', 'string', true],
             ['code', 'Код операции', 'string', true]
         ];
 
@@ -58,6 +59,7 @@ class AdministratorOperationsController extends AbstractController
         return $this->render($tpl,
             [
                 'data' => $result,
+                'search' => $search,
                 'pager' => [
                     'count_all_position' => $count,
                     'current_page' => $page,

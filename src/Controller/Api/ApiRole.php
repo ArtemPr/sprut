@@ -100,4 +100,31 @@ class ApiRole extends \Symfony\Bundle\FrameworkBundle\Controller\AbstractControl
 
         return $this->json(['result' => 'success', 'id'=>$lastId]);
     }
+
+    public function hide($id)
+    {
+        $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
+        $data = $request->request->all();
+
+        $kafedra = $this->doctrine->getRepository(Roles::class)->find((int)$id);
+        $kafedra->setDelete(true);
+        $entityManager = $this->doctrine->getManager();
+        $entityManager->persist($kafedra);
+        $entityManager->flush();
+
+        $data = $this->doctrine->getRepository(Roles::class)->find((int)$id);
+
+        $loger = new Loger();
+        $loger->setTime(new \DateTime());
+        $loger->setAction('delete_role');
+        $loger->setUserLoger($this->getUser());
+        $loger->setIp($request->server->get('REMOTE_ADDR'));
+        $loger->setChapter('Роли');
+        $loger->setComment($id . ' ' . $data->getName());
+        $entityManager = $this->doctrine->getManager();
+        $entityManager->persist($loger);
+        $entityManager->flush();
+
+        return $this->json(['result' => 'success', 'id'=>$id]);
+    }
 }
