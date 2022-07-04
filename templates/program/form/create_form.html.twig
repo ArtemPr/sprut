@@ -24,26 +24,36 @@
                         <div class="form-group mb-3 row">
                             <label class="form-label col-3 col-form-label">Название*</label>
                             <div class="col">
-                                <input type="text" class="form-control" name="name" placeholder="Название программы" required>
+                                <input type="text" class="form-control" name="name" placeholder="Название программы"
+                                       required>
                             </div>
                         </div>
                         <div class="form-group mb-3 row">
                             <label class="form-label col-3 col-form-label">Тип программы</label>
                             <div class="col">
                                 <select class="form-select" name="type" required>
-                                    <option value="">Выберите из списка </option>
-                                    <option value="1" {% if select_type|default(false) and select_type == 1 %}selected{% endif %}>Повышение квалификации (ПК) </option>
-                                    <option value="2" {% if select_type|default(false) and select_type == 2 %}selected{% endif %}>Профессиональная переподготовка (ПП) </option>
-                                    <option value="3" {% if select_type|default(false) and select_type == 3 %}selected{% endif %}>Профессиональное обучение (ПО) </option>
+                                    <option value="">Выберите из списка</option>
+                                    <option value="1"
+                                            {% if select_type|default(false) and select_type == 1 %}selected{% endif %}>
+                                        Повышение квалификации (ПК)
+                                    </option>
+                                    <option value="2"
+                                            {% if select_type|default(false) and select_type == 2 %}selected{% endif %}>
+                                        Профессиональная переподготовка (ПП)
+                                    </option>
+                                    <option value="3"
+                                            {% if select_type|default(false) and select_type == 3 %}selected{% endif %}>
+                                        Профессиональное обучение (ПО)
+                                    </option>
                                 </select>
                             </div>
                         </div>
-                        {#<div class="form-group mb-3 row align-items-center">
+                        {# <div class="form-group mb-3 row align-items-center">
                             <label class="form-label col-3 col-form-label">Направление</label>
                             <div class="col">
                                 <input type="text" class="form-control" placeholder="Название выбранного направления">
                             </div>
-                        </div>#}
+                        </div> #}
                     </div>
 
 
@@ -61,6 +71,33 @@
                                     {% endif %}
                                 </select>
                             </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="form-label fgos-label">Выберите тип образования</div>
+                            <select class="form-select fgos-type-select">
+                                <option value="1">Выберите из списка</option>
+                                <option value="2">Среднее</option>
+                                <option value="3">Высшее</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3 fgos-education">
+                            <!--поле с поиском-->
+                            <label class="form-label">Выберите образование</label>
+                            <div class="input-icon mb-3">
+                                <input type="text" value="" class="form-control fgos-filter" placeholder="Выберите образование">
+                                <span class="input-icon-addon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search"
+                                     width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                 fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <circle cx="10" cy="10" r="7"></circle>
+                                <line x1="21" y1="21" x2="15" y2="15"></line>
+                            </svg>
+                            </span>
+                            </div>
+                          <ul class="fgos-education__list"></ul>
                         </div>
 
                     </div>

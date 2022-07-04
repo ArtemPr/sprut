@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     if (selectOnPage !== null && sectionName !== null) {
         var tableUrl = `${location.protocol}//${location.host}${sectionName}?ajax=true&&on_page=${selectValue}`;
     }
-    console.log(tableUrl);
+//    console.log(tableUrl);
 
     // функции обработки кликов
     function paginationClicker(event) {
