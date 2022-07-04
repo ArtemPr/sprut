@@ -1,4 +1,4 @@
-// правки для перебивания таблера и основных стилей
+// правки для перебивания таблера и основных стилей, мелкие изменения
 
 .ajax-table--program {
   .users-table-wrap {
@@ -15,4 +15,10 @@
   z-index: 1035;
   width: 100%;
   /*min-height: 50px !important;*/
+}
+
+.search__panel-search-btn {
+  background-color: transparent;
+  outline: none;
+  border: none;
 }
