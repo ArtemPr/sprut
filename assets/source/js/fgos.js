@@ -39,72 +39,72 @@ document.addEventListener("DOMContentLoaded", function (event) {
         const fgosEducation = document.querySelector('.fgos-education');
 
         if (fgosTypeSelect && fgosEducation) {
+            // выбираем тип образования
             fgosTypeSelect.addEventListener('change', async function () {
-            //    console.log('fgosTypeSelect change');
                 const value = fgosTypeSelect.options[fgosTypeSelect.selectedIndex].value;
-            //    console.log('value ', value);
                 if (value === '1') {
                     fgosEducation.classList.remove('fgos-education--show');
                 } else {
-                    const fgosFilter = document.querySelector('.fgos-filter');
                     fgosEducation.classList.add('fgos-education--show');
+                    const fgosFilter = document.querySelector('.fgos-filter');
                     const fgosEducationList = document.querySelector('.fgos-education__list');
                     let fgosEducationUrl = `${location.protocol}//${location.host}/tmp/${value}.json`;
-                 //   console.log(fgosEducationUrl);
+                    // получаем файл по ajax
                     let response = await fetch(fgosEducationUrl);
                     let result = await response.json();
-                //    console.log(result);
+                    // console.log(result);
+
+                    // поля для таблицы и массив для фильтрации
                     let tableLis = '';
                     let resultArr = [];
-                    result.forEach(item=>{
-                        tableLis += `<li class="fgos-education__item">${item.value}</li>`;
-                        resultArr.push(item.value);
-                    })
-                    fgosEducationList.innerHTML=tableLis;
-
-                    let liItems = document.querySelectorAll('.fgos-education__item');
-                    console.log('liItems ', liItems);
-                    liItems.forEach(liItem => {
-                        liItem.addEventListener('click', function(){
-                            console.log('1 liItem textContent ', liItem.textContent);
-                            fgosFilter.value = liItem.textContent;
+                    if (result.length > 0) {
+                        result.forEach(item=>{
+                            tableLis += `<li class="fgos-education__item">${item.value}</li>`;
+                            resultArr.push(item.value);
                         })
-                    })
+                        fgosEducationList.innerHTML=tableLis;
+                        let liItems = document.querySelectorAll('.fgos-education__item');
 
-
-                    fgosFilter.addEventListener('input', function(){
-                        let fgosFilterValue = fgosFilter.value;
-                        console.log('fgosFilterValue ', fgosFilterValue);
-
-                        function filterItems(fgosFilterValue) {
-                            return resultArr.filter(function(el) {
-                                return el.toLowerCase().indexOf(fgosFilterValue.toLowerCase()) > -1;
-                            })
-                        }
-
-                        let filteredItems = filterItems(fgosFilterValue);
-
-                        if(filteredItems.length > 0) {
-                            tableLis = '';
-                            filteredItems.forEach(
-                                item=>{
-                                    tableLis += `<li class="fgos-education__item">${item}</li>`;
-                                }
-                            )
-                            fgosEducationList.innerHTML=tableLis;
-
-                            let liItems = document.querySelectorAll('.fgos-education__item');
-                            console.log('liItems ', liItems);
+                        if(liItems.length > 0) {
                             liItems.forEach(liItem => {
                                 liItem.addEventListener('click', function(){
-                                    console.log('2 liItem textContent ', liItem.textContent);
                                     fgosFilter.value = liItem.textContent;
                                 })
                             })
-                        } else {
-                            fgosEducationList.innerHTML = '<p>Ничего не найдено</p>';
                         }
-                    })
+                    }
+
+                    if(fgosFilter){
+                        fgosFilter.addEventListener('input', function(){
+                            let fgosFilterValue = fgosFilter.value;
+                            // фильтруем массив по содержимому инпута
+                            function filterItems(fgosFilterValue) {
+                                return resultArr.filter(function(el) {
+                                    return el.toLowerCase().indexOf(fgosFilterValue.toLowerCase()) > -1;
+                                })
+                            }
+                            let filteredItems = filterItems(fgosFilterValue);
+                            // заново набиваем таблицу
+                            if(filteredItems.length > 0) {
+                                tableLis = '';
+                                filteredItems.forEach(
+                                    item=>{
+                                        tableLis += `<li class="fgos-education__item">${item}</li>`;
+                                    }
+                                )
+                                fgosEducationList.innerHTML=tableLis;
+                                let liItems = document.querySelectorAll('.fgos-education__item');
+                                liItems.forEach(liItem => {
+                                    liItem.addEventListener('click', function(){
+                                        fgosFilter.value = liItem.textContent;
+                                    })
+                                })
+                            } else {
+                                fgosEducationList.innerHTML = '<p>Ничего не найдено</p>';
+                            }
+                        })
+                    }
+
                 }
             })
         }
