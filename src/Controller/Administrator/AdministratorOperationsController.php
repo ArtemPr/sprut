@@ -27,7 +27,7 @@ class AdministratorOperationsController extends AbstractController
     public function getOperationsList(): Response
     {
         $auth = $this->getAuthValue($this->getUser(), 'auth_operations', $this->managerRegistry);
-        if(!empty($auth)) {
+        if (!is_array($auth)) {
             return $auth;
         }
 
@@ -71,7 +71,8 @@ class AdministratorOperationsController extends AbstractController
                     'sort_link' => $this->getSortLink(),
                     'current_sort' => $request->get('sort') ?? null,
                 ],
-                'table' => $table
+                'table' => $table,
+                'auth' => $auth
             ]
         );
     }

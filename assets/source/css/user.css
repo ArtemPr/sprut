@@ -287,3 +287,14 @@ body.user-editing-panel-opened {
       width: 90%;
   }
 }
+
+.modal-middle {
+  width: 60%;
+  max-width: 863px;
+}
+
+@media(max-width: 820px) {
+  .modal-middle {
+    width: 695px;
+  }
+}

@@ -27,7 +27,7 @@ class AdminLog extends AbstractController
     public function getList(): Response
     {
         $auth = $this->getAuthValue($this->getUser(), 'auth_log', $this->managerRegistry);
-        if(!empty($auth)) {
+        if (!is_array($auth)) {
             return $auth;
         }
 
@@ -86,7 +86,8 @@ class AdminLog extends AbstractController
                 'current_sort' => $request->get('sort') ?? null,
             ],
 
-            'table' => $table
+            'table' => $table,
+            'auth' => $auth
         ]
         );
     }
