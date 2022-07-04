@@ -56,6 +56,7 @@ class AdministratorUserController extends AbstractController
                 'city_list' => $city,
                 'roles' => $roles,
                 'table' => $this->setTable(),
+                'search' => strip_tags($search) ?? '',
                 'pager' => [
                     'count_all_position' => $count,
                     'current_page' => $page,

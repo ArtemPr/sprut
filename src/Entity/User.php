@@ -30,6 +30,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $patronymic;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $fullname;
+
     #[ORM\ManyToOne(inversedBy: 'user_city', targetEntity: City::class)]
     private $city;
 
@@ -386,6 +389,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setDelete($delete): void
     {
         $this->delete = $delete;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFullname()
+    {
+        return $this->fullname;
+    }
+
+    /**
+     * @param mixed $fullname
+     */
+    public function setFullname($fullname): void
+    {
+        $this->fullname = $fullname;
     }
 
 }

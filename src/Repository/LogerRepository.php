@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Loger;
+use App\Service\QueryHelper;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
@@ -18,6 +19,8 @@ use Doctrine\Persistence\ManagerRegistry;
 class LogerRepository extends ServiceEntityRepository
 {
     const PER_PAGE = 25;
+
+    use QueryHelper;
 
     public function __construct(ManagerRegistry $registry)
     {
@@ -46,37 +49,34 @@ class LogerRepository extends ServiceEntityRepository
     /**
      * @return float|int|mixed|string
      */
-    public function getList(int|null $page = 0, int|null $on_page = 25, string|null $sort = null)
+    public function getList(int|null $page = 0, int|null $on_page = 25, string|null $sort = null, string|null $search = null)
     {
         $entityManager = $this->getEntityManager();
         $page = (empty($page) || $page === 1 || $page === 0) ? 0 : $page - 1;
         $first_result = (int)$page * (int)$on_page;
+        $search = !empty($search) ? strtolower($search) : null;
 
-        if (!is_null($sort)) {
-            if (strstr($sort, '__up')) {
-                $sort = str_replace('__up', ' DESC', $sort);
-            } else {
-                $sort .= " ASC";
-            }
+        $order = $this->setSort($sort, 'log');
 
-            if (!strstr($sort, '.')) {
-                $order = 'log.' . $sort;
-            } else {
-                $order = $sort;
-            }
-        } else {
-            $order = 'log.time DESC';
+        $qb = $this->createQueryBuilder('log')
+            ->leftJoin("log.user_loger", "user_loger")->addSelect("user_loger")
+            ->orderBy($order[0], $order[1])
+            ->setFirstResult($first_result)
+            ->setMaxResults($on_page);
+
+        if (!empty($search)) {
+            $qb->andWhere("LOWER(log.comment) LIKE :search ESCAPE '!'")
+                ->setParameters(
+                    [
+                        'search' => $this->makeLikeParam($search)
+                    ]
+                );
         }
 
-        $result = $entityManager->createQuery(
-            'SELECT log, us
-                FROM App\Entity\Loger log
-                JOIN log.user_loger us
-                ORDER BY ' . $order
-        )
-            ->setFirstResult($first_result)
-            ->setMaxResults($on_page)
-            ->getResult(Query::HYDRATE_ARRAY);
+        $query = $qb->getQuery();
+        $result = $query->execute(
+            hydrationMode: Query::HYDRATE_ARRAY
+        );
 
         return $result;
     }
@@ -93,4 +93,24 @@ class LogerRepository extends ServiceEntityRepository
         return $result_log;
     }
 
+    private function setSort($sort, $prefix)
+    {
+        if (!is_null($sort)) {
+            if (strstr($sort, '__up')) {
+                $sort = str_replace('__up', ' DESC', $sort);
+            } else {
+                $sort .= " ASC";
+            }
+
+            if (!strstr($sort, '.')) {
+                $order = $prefix . '.' . $sort;
+            } else {
+                $order = $sort;
+            }
+        } else {
+            $order = $prefix . '.time DESC';
+        }
+
+        return explode(' ', $order);
+    }
 }

@@ -83,6 +83,12 @@ class ApiUserController extends AbstractController
             $user->setPatronymic($data['patronymic'] ? trim($data['patronymic']) : '');
             $user->setSurname($data['surname'] ? trim($data['surname']) : '');
 
+            $username = $data['username'] ? trim($data['username']) : '';
+            $patronymic = $data['patronymic'] ? trim($data['patronymic']) : '';
+            $surname = $data['surname'] ? trim($data['surname']) : '';
+
+            $user->setFullname("$username $surname $patronymic");
+
             $user->setEmail($data['email'] ? trim($data['email']) : '');
             $user->setPhone($data['phone'] ? trim($data['phone']) : '');
             $user->setActivity(!empty($data['activity']) ? true : false);
@@ -170,6 +176,12 @@ class ApiUserController extends AbstractController
         $user->setUsername($data['username'] ? trim($data['username']) : '');
         $user->setPatronymic($data['patronymic'] ? trim($data['patronymic']) : '');
         $user->setSurname($data['surname'] ? trim($data['surname']) : '');
+
+        $username = $data['username'] ? trim($data['username']) : '';
+        $patronymic = $data['patronymic'] ? trim($data['patronymic']) : '';
+        $surname = $data['surname'] ? trim($data['surname']) : '';
+
+        $user->setFullname("$username $surname $patronymic");
 
         $user->setEmail($data['email'] ? trim($data['email']) : '');
         $user->setPhone($data['phone'] ? trim($data['phone']) : '');

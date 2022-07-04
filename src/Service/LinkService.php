@@ -31,6 +31,16 @@ trait LinkService
         return $this->createLinkString($query_data) . 'sort=';
     }
 
+    public function getCSVLink()
+    {
+        $query_data = $this->getLinkParam();
+
+        if (!empty($query_data['page'])) {
+            unset($query_data['page']);
+        }
+        return $this->createLinkString($query_data);
+    }
+
     public function getSearchLink()
     {
         $query_data = $this->getLinkParam();

@@ -58,8 +58,12 @@ class AdminDirectoryFGOS extends AbstractController
             $table .= '"' . ( $val['active'] ? 'да' : 'нет') . '";"' . $val['short_name'] . '";"' . $val['name'] . '"' . "\n";
         }
 
+        $table = mb_convert_encoding($table, 'utf8');
+        $table = htmlspecialchars_decode($table);
+
         $response = new Response($table);
         $response->headers->set('Content-Type', 'text/csv');
+        $response->headers->set('Content-Disposition', 'attachment; filename="fgos.csv"');
 
         return $response;
     }
@@ -105,7 +109,8 @@ class AdminDirectoryFGOS extends AbstractController
                 'current_sort' => $this->request->get('sort') ?? null,
             ],
             'search_link' => $this->getSearchLink(),
-            'table' => $this->setTable()
+            'table' => $this->setTable(),
+            'csv_link' => $this->getCSVLink()
         ];
     }
 }
