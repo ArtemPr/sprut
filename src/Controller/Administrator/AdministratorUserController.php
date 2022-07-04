@@ -33,7 +33,7 @@ class AdministratorUserController extends AbstractController
     public function getUserList(): Response
     {
         $auth = $this->getAuthValue($this->getUser(), 'auth_user', $this->managerRegistry);
-        if(!empty($auth)) {
+        if (!is_array($auth)) {
             return $auth;
         }
 
@@ -68,6 +68,7 @@ class AdministratorUserController extends AbstractController
                     'sort_link' => $this->getSortLink(),
                     'current_sort' => $this->request->get('sort') ?? null,
                 ],
+                'auth' => $auth,
             ]
         );
     }

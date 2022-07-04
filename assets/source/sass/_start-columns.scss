@@ -34,7 +34,7 @@
     font-size: 20px;
     display: flex;
     flex-direction: column;
-    flex-basis: 30%;
+    flex-basis: 23%;
     text-align: center;
     color: rgba(30,41,59,.7);
     transition: color .3s;
@@ -56,7 +56,7 @@
     align-content: center;
     justify-content: center;
     box-sizing: border-box;
-    padding: 110px 30px;
+    padding: 30px 30px;
 
     &:hover {
       outline: 2px solid rgba(30,41,59,1);

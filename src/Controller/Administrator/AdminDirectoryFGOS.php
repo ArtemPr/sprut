@@ -31,14 +31,16 @@ class AdminDirectoryFGOS extends AbstractController
     public function getList(): Response
     {
         $auth = $this->getAuthValue($this->getUser(), 'auth_directory', $this->managerRegistry);
-        if(!empty($auth)) {
+        if(!is_array($auth)) {
             return $auth;
         }
 
         $tpl = $this->request->get('ajax') ? 'administrator/directory/fgos_table.html.twig' : 'administrator/directory/fgos.html.twig';
+        $result = $this->get();
+        $result['auth'] = $auth;
 
         return $this->render($tpl,
-            $this->get()
+            $result
         );
     }
 

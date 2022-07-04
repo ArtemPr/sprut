@@ -26,7 +26,7 @@ class AdministratorRoleController extends AbstractController
     public function getRoleList(): Response
     {
         $auth = $this->getAuthValue($this->getUser(), 'auth_role', $this->managerRegistry);
-        if(!empty($auth)) {
+        if (!is_array($auth)) {
             return $auth;
         }
 
@@ -49,7 +49,7 @@ class AdministratorRoleController extends AbstractController
 
         $page = $page ?? 1;
 
-        $tpl = $request->get('ajax') ? 'administrator/role/role_table.html.twig' : 'administrator/role/list.html.twig' ;
+        $tpl = $request->get('ajax') ? 'administrator/role/role_table.html.twig' : 'administrator/role/list.html.twig';
 
         return $this->render(
             $tpl,
@@ -57,18 +57,19 @@ class AdministratorRoleController extends AbstractController
                 'role_list' => $result,
                 'search' => $search,
                 'pager' => [
-                'count_all_position' => $count,
-                'current_page' => $page,
-                'count_page' => (int)ceil($count / $on_page),
-                'paginator_link' => $this->getParinatorLink(),
-                'on_page' => $on_page
-            ],
+                    'count_all_position' => $count,
+                    'current_page' => $page,
+                    'count_page' => (int)ceil($count / $on_page),
+                    'paginator_link' => $this->getParinatorLink(),
+                    'on_page' => $on_page
+                ],
                 'sort' => [
                     'sort_link' => $this->getSortLink(),
                     'current_sort' => $request->get('sort') ?? null,
                 ],
                 'table' => $table,
-                'operations' => $this->getOperations()
+                'operations' => $this->getOperations(),
+                'auth' => $auth
             ]
         );
     }
@@ -78,7 +79,7 @@ class AdministratorRoleController extends AbstractController
         $data = $this->managerRegistry->getRepository(Roles::class)->get($id);
 
         $auth_list = $data['auth_list'];
-        if(!empty($auth_list)) {
+        if (!empty($auth_list)) {
             $data['auth_list'] = (unserialize($auth_list));
         }
 

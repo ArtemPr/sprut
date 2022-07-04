@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 trait AuthService
 {
-    public function getAuthValue($user, string $value, ManagerRegistry $managerRegistry)
+    public function getAuthValue($user, string $value, ManagerRegistry $managerRegistry): mixed
     {
         $roles = $user->getRoles();
 
@@ -29,6 +29,8 @@ trait AuthService
             $response = new Response('Доступ запрещен');
             $response->headers->set('HTTP/1.1 403', 'Forbidden');
             return $response;
+        } else {
+            return $auth_value;
         }
     }
 }

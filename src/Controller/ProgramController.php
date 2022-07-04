@@ -33,7 +33,7 @@ class ProgramController extends AbstractController
     public function program(): Response
     {
         $auth = $this->getAuthValue($this->getUser(), 'auth_program', $this->managerRegistry);
-        if(!empty($auth)) {
+        if (!is_array($auth)) {
             return $auth;
         }
 
@@ -90,6 +90,7 @@ class ProgramController extends AbstractController
                     'sort_link' => $this->getSortLink(),
                     'current_sort' => $request->get('sort') ?? null,
                 ],
+                'auth' => $auth
             ]
         );
     }
