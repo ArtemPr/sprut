@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\MasterProgram;
+
 use App\Entity\ProgramType;
 use App\Service\QueryHelper;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -47,6 +48,7 @@ class MasterProgramRepository extends ServiceEntityRepository
     }
 
     /**
+     * Применяется для API запросов
      * @return array
      */
     public function getApiProgramInfo(): array|null
@@ -63,35 +65,78 @@ class MasterProgramRepository extends ServiceEntityRepository
     }
 
     /**
+     * Применяется для API запросов
      * @param string|null $param
      *
      * @return array
      */
     public function getProgramList(int $page = 0, int|null $max_result = 0, array|null $param = null): array|null
     {
-        $entityManager = $this->getEntityManager();
+        return $this->getList([
+            'page' => $page,
+            'on_page' => $max_result,
 
-        $max_result = (!empty($max_result) && $max_result > 1) ? $max_result : self::ON_PAGE;
+        ]);
+    }
 
+    /**
+     * Вывод списка программ
+     */
+    public function getList(array $param = []): ?array
+    {
+        $page = !empty($param['page']) ? (int) $param['page'] : 0;
+        $on_page = !empty($param['on_page']) ? (int) $param['on_page'] : null;
+        $sort = !empty($param['sort']) ? (string) $param['sort'] : null;
+        $type = !empty($param['type']) ? (string) $param['type'] : null;
 
-        $sql = 'SELECT pr, pt
-                FROM App\Entity\MasterProgram pr
-                LEFT JOIN pr.program_type pt
-                ';
+        $page = (empty($page) || 1 === $page || 0 === $page) ? 0 : $page - 1;
+        $first_result = (int) $page * (int) $on_page;
 
-        if (!empty($param['order'])) {
-            $col = array_key_first($param['order']);
-            $type_sort = ucfirst($param['order'][$col]);
-            $sql .= 'ORDER BY pr.'.$col.' '.$type_sort;
-        } else {
-            $sql .= 'ORDER BY pr.id DESC';
+        $order = $this->setSort($sort, 'program');
+
+        $qb = $this->createQueryBuilder('program')
+            ->leftJoin('program.program_type', 'program_type')->addSelect('program_type')
+            ->leftJoin('program.federal_standart', 'federal_standart')->addSelect('federal_standart')
+            ->leftJoin('program.federal_standart_competencies', 'federal_standart_competencies')->addSelect(
+                'federal_standart_competencies'
+            )
+            ->leftJoin('program.prof_standarts', 'prof_standarts')->addSelect('prof_standarts')
+            ->orderBy($order[0], $order[1])
+            ->setFirstResult($first_result)
+            ->setMaxResults($on_page);<<<<<<< admhome
+
+        if (!empty($type)) {
+            $qb->where('program.program_type = :type')
+                ->setParameter(':type', $type);
         }
 
-        $query_item = $entityManager->createQuery($sql)
-            ->setMaxResults($max_result)
-            ->setFirstResult($page * $max_result);
+        $query = $qb->getQuery();
+        $result = $query->execute(
+            hydrationMode: Query::HYDRATE_ARRAY
+        );
 
-        return $query_item->getResult(Query::HYDRATE_ARRAY) ?? [];
+        return $result;
+    }
+
+    /**
+     * @return array|mixed
+     */
+    public function get(int $id)
+    {
+        $qb = $this->createQueryBuilder('program')
+            ->where('program.id = :id')
+            ->leftJoin('program.program_type', 'program_type')->addSelect('program_type')
+            ->leftJoin('program.federal_standart', 'federal_standart')->addSelect('federal_standart')
+            ->setParameters([
+                'id' => $id,
+            ]);
+
+        $query = $qb->getQuery();
+        $result = $query->execute(
+            hydrationMode: Query::HYDRATE_ARRAY
+        );
+
+        return $result[0] ?? [];
     }
 
 
@@ -126,10 +171,11 @@ class MasterProgramRepository extends ServiceEntityRepository
             } else {
                 $sort = str_replace('__down', '', $sort);
                 $sortDir = 'ASC';
+
             }
 
             if (!strstr($sort, '.')) {
-                $order = 'pr.' . $sort;
+                $order = $prefix.'.'.$sort;
             } else {
                 $order = $sort;
             }
@@ -157,31 +203,7 @@ class MasterProgramRepository extends ServiceEntityRepository
                 WHERE pr.id = :id'
         )->setParameter('id', $id);
 
-        return $query_item->getResult(Query::HYDRATE_ARRAY)[0] ?? null;
+        return explode(' ', $order);
     }
 
-    /**
-     * @param string|null $param
-     * @TODO УДАЛИТЬ после залива не сервер всей локали
-     */
-    public function getApiList(int $page = 0, int|null $max_result = 0, string|null $param = null): array
-    {
-        return $this->getProgramList($page, $max_result, $param);
-    }
-
-    public function get($id)
-    {
-        $entityManager = $this->getEntityManager();
-
-        $result = $entityManager->createQuery(
-            'SELECT program, type, fgos
-                FROM App\Entity\MasterProgram program
-                LEFT JOIN program.program_type type
-                LEFT JOIN program.federal_standart fgos
-                WHERE program.id = :id'
-        )->setParameter('id', $id)
-            ->getResult(Query::HYDRATE_ARRAY);
-
-        return $result[0] ?? [];
-    }
 }
