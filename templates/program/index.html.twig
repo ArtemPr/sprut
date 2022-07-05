@@ -40,10 +40,12 @@
                         <div class="col-12">
 
                             <div class="card">
-
                                 {% include 'block/search_panel.html.twig' with {
                                     'close_delete': true,
-                                    'controller': 'program'
+                                    'close_edit': true,
+                                    'close_create': true,
+                                    'path': path('program'),
+                                    'add_csv': path('program') ~ '_csv' ~ csv_link
                                 } %}
 
                                 <div class="ajax-table ajax-table--program">

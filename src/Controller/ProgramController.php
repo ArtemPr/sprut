@@ -44,10 +44,11 @@ class ProgramController extends AbstractController
         $on_page = $request->get('on_page') ?? 25;
         $sort = $request->get('sort') ?? null;
         $select_type = $request->get('type') ?? null;
+        $search = $request->get('search') ?? null;
 
-        $program_list = $this->managerRegistry
-            ->getRepository(MasterProgram::class)
-            ->getList($param);
+
+        $program_type = $this->managerRegistry->getRepository(ProgramType::class)->findAll();
+        $program_list = $this->managerRegistry->getRepository(MasterProgram::class)->getList((int)$page, (int)$on_page, $sort, $select_type, $search);
 
         $count = $this->managerRegistry->getRepository(MasterProgram::class)->getApiProgramInfo();
         $count = $count['count_program'] ?? 0;
@@ -73,6 +74,7 @@ class ProgramController extends AbstractController
             $tpl,
             [
                 'data' => $program_list,
+                'search' => strip_tags($search) ?? '',
                 'program_type' => $program_type,
                 'training_centre' => $tc,
                 'fgos' => $fgos,
@@ -90,7 +92,9 @@ class ProgramController extends AbstractController
                     'sort_link' => $this->getSortLink(),
                     'current_sort' => $request->get('sort') ?? null,
                 ],
-                'auth' => $auth
+                'auth' => $auth,
+
+                'csv_link' => $this->getCSVLink()
             ]
         );
     }
