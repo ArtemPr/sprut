@@ -56,15 +56,6 @@ class ProfStandartsRepository extends ServiceEntityRepository
         $first_result = (int)$page * (int)$on_page;
         $order = $this->setSort($sort, 'op');
 
-//        $result = $entityManager->createQuery(
-//            'SELECT op
-//                FROM App\Entity\ProfStandarts op
-//                ORDER BY ' . implode(' ', $order)
-//        )
-//            ->setFirstResult($first_result)
-//            ->setMaxResults($on_page)
-//            ->getResult(Query::HYDRATE_ARRAY);
-
         $qb = $this->createQueryBuilder('op')
             ->orderBy($order[0], $order[1])
             ->setFirstResult($first_result)
