@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Kaferda;
+use App\Service\QueryHelper;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
@@ -17,6 +18,8 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class KaferdaRepository extends ServiceEntityRepository
 {
+    use QueryHelper;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Kaferda::class);
@@ -40,37 +43,27 @@ class KaferdaRepository extends ServiceEntityRepository
         }
     }
 
-    public function getList(int|null $page = 0, int|null $on_page = 25, string|null $sort = null)
+    public function getList(int|null $page = 0, int|null $on_page = 25, string|null $sort = null, string|null $search = null)
     {
-        $entityManager = $this->getEntityManager();
-
         $page = (empty($page) || $page === 1 || $page === 0) ? 0 : $page - 1;
         $first_result = (int)$page * (int)$on_page;
 
-        if (!is_null($sort)) {
-            if (strstr($sort, '__up')) {
-                $sort = str_replace('__up', ' DESC', $sort);
-            } else {
-                $sort .= " ASC";
-            }
+        $order = $this->setSort($sort, 'kf');
 
-            if (!strstr($sort, '.')) {
-                $order = 'kafedra.' . $sort;
-            } else {
-                $order = $sort;
-            }
-        } else {
-            $order = 'kafedra.id DESC';
+        $qb = $this->createQueryBuilder('kf')
+            ->leftJoin('kf.director', 'director')->addSelect('director')
+            ->leftJoin('kf.training_centre', 'training_centre')->addSelect('training_centre')
+            ->where('kf.delete = :delete')
+            ->setParameter('delete', false)
+            ->orderBy($order[0], $order[1])
+            ;
+
+        if(!empty($search)) {
+            $qb->andWhere("LOWER(kf.name) LIKE :search ESCAPE '!'")
+                ->setParameter('search', $this->makeLikeParam(mb_strtolower($search)));
         }
-        $result = $entityManager->createQuery(
-            'SELECT kafedra, director, training_centre
-                FROM App\Entity\Kaferda kafedra
-                LEFT JOIN kafedra.director director
-                LEFT JOIN kafedra.training_centre training_centre
-                WHERE kafedra.delete = :delete
-                ORDER BY ' . $order
-        )->
-            setParameter('delete', false)
+
+        $result = $qb->getQuery()
             ->setFirstResult($first_result)
             ->setMaxResults($on_page)
             ->getResult(Query::HYDRATE_ARRAY);
@@ -92,5 +85,26 @@ class KaferdaRepository extends ServiceEntityRepository
             ->getResult(Query::HYDRATE_ARRAY);
 
         return $result;
+    }
+
+    private function setSort($sort, $prefix)
+    {
+        if (!is_null($sort)) {
+            if (strstr($sort, '__up')) {
+                $sort = str_replace('__up', ' DESC', $sort);
+            } else {
+                $sort .= " ASC";
+            }
+
+            if (!strstr($sort, '.')) {
+                $order = $prefix . '.' . $sort;
+            } else {
+                $order = $sort;
+            }
+        } else {
+            $order = $prefix . '.id DESC';
+        }
+
+        return explode(' ', $order);
     }
 }

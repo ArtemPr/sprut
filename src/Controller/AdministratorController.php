@@ -46,6 +46,12 @@ class AdministratorController extends AbstractController
         return $adminDirectoryKafedra->getList();
     }
 
+    #[Route('/administrator/kafedra_csv', name: 'administrator_kafedra_csv')]
+    public function getKafedraListCSV(AdminDirectoryKafedra $adminDirectoryKafedra): Response
+    {
+        return $adminDirectoryKafedra->getCSV();
+    }
+
     #[Route('/administrator/log', name: 'administrator_log')]
     public function getLog(AdminLog $adminLog): Response
     {
