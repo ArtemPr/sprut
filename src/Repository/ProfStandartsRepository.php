@@ -63,7 +63,7 @@ class ProfStandartsRepository extends ServiceEntityRepository
 
         if(!empty($search)) {
             $qb->where("LOWER(op.name) LIKE :search ESCAPE '!'")
-                ->setParameter('search', $this->makeLikeParam($search));
+                ->setParameter('search', $this->makeLikeParam(mb_strtolower($search)));
         }
 
         $query = $qb->getQuery();

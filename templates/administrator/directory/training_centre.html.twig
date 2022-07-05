@@ -31,12 +31,11 @@
                         <div class="col-12">
 
                             <div class="card">
-
-                                {% if app.user.roles|default(false) and ("ROLE_TEST" in  app.user.roles) %}
-                                    {% include 'block/search_panel.html.twig' with {'controller': 'training_centre', 'close_delete': true, 'close_edit': true, 'close_create': true} %}
-                                {% else %}
-                                    {% include 'block/search_panel.html.twig' with {'controller': 'training_centre', 'close_delete': true} %}
-                                {% endif %}
+                                {% include 'block/search_panel.html.twig' with {
+                                    'controller': 'training_centre',
+                                    'close_delete': true,
+                                    'add_csv': path('administrator_directory_tc') ~ '_csv' ~ csv_link
+                                } %}
 
                                 <div class="ajax-table">
                                     {{ include('administrator/directory/training_centre_table.html.twig') }}

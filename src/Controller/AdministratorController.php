@@ -81,4 +81,10 @@ class AdministratorController extends AbstractController
     {
         return $adminDirectoryTrainingCentre->getList();
     }
+
+    #[Route('/administrator/directory/tc_csv', name: 'administrator_directory_tc_csv')]
+    public function getDirectoryTrainingCentreCSV(AdminDirectoryTrainingCentre $adminDirectoryTrainingCentre): Response
+    {
+        return $adminDirectoryTrainingCentre->getCSV();
+    }
 }
