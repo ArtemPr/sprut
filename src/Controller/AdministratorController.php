@@ -70,6 +70,12 @@ class AdministratorController extends AbstractController
         return $adminDirectoryPS->getList();
     }
 
+    #[Route('/administrator/directory/ps_csv', name: 'administrator_directory_ps_csv')]
+    public function getDirectoryPSCSV(AdminDirectoryPS $adminDirectoryPS): Response
+    {
+        return $adminDirectoryPS->getCSV();
+    }
+
     #[Route('/administrator/directory/tc', name: 'administrator_directory_tc')]
     public function getDirectoryTrainingCentre(AdminDirectoryTrainingCentre $adminDirectoryTrainingCentre): Response
     {
