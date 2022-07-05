@@ -35,6 +35,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
         // }
         // для заготовки datalist из tabler
 
+    function chooseFgos(){
+        
+    }
+
         const fgosTypeSelect = document.querySelector('.fgos-type-select');
         const fgosEducation = document.querySelector('.fgos-education');
 
@@ -47,6 +51,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 } else {
                     fgosEducation.classList.add('fgos-education--show');
                     const fgosFilter = document.querySelector('.fgos-filter');
+                    const fgosHiddenInput = document.querySelector('.fgos-hidden');
                     const fgosEducationList = document.querySelector('.fgos-education__list');
                     let fgosEducationUrl = `${location.protocol}//${location.host}/tmp/${value}.json`;
                     // получаем файл по ajax
@@ -56,11 +61,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
                     // поля для таблицы и массив для фильтрации
                     let tableLis = '';
-                    let resultArr = [];
+                 //   let resultArr = [];
                     if (result.length > 0) {
                         result.forEach(item=>{
-                            tableLis += `<li class="fgos-education__item">${item.value}</li>`;
-                            resultArr.push(item.value);
+                            tableLis += `<li data-id="${item.id}" class="fgos-education__item">${item.value}</li>`;
+                        //    resultArr.push(item.value);
                         })
                         fgosEducationList.innerHTML=tableLis;
                         let liItems = document.querySelectorAll('.fgos-education__item');
@@ -69,6 +74,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
                             liItems.forEach(liItem => {
                                 liItem.addEventListener('click', function(){
                                     fgosFilter.value = liItem.textContent;
+                                    fgosHiddenInput.value = liItem.getAttribute('data-id');
+                                    console.log('gosHiddenInput.value ', fgosHiddenInput.value);
                                 })
                             })
                         }
@@ -79,9 +86,14 @@ document.addEventListener("DOMContentLoaded", function (event) {
                             let fgosFilterValue = fgosFilter.value;
                             // фильтруем массив по содержимому инпута
                             function filterItems(fgosFilterValue) {
-                                return resultArr.filter(function(el) {
-                                    return el.toLowerCase().indexOf(fgosFilterValue.toLowerCase()) > -1;
-                                })
+                                // return resultArr.filter(function(el) {
+                                //     return el.toLowerCase().indexOf(fgosFilterValue.toLowerCase()) > -1;
+                                // })
+
+                                let filtered =  result.filter(function(fgosFilterValue) {
+                                    return result.value.toLowerCase().indexOf(fgosFilterValue.toLowerCase()) > -1;
+                                });
+                                console.log(filtered);
                             }
                             let filteredItems = filterItems(fgosFilterValue);
                             // заново набиваем таблицу
@@ -89,7 +101,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                                 tableLis = '';
                                 filteredItems.forEach(
                                     item=>{
-                                        tableLis += `<li class="fgos-education__item">${item}</li>`;
+                                        tableLis += `<li data-id="${item.id}" class="fgos-education__item">${item.value}</li>`;
                                     }
                                 )
                                 fgosEducationList.innerHTML=tableLis;
@@ -97,6 +109,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
                                 liItems.forEach(liItem => {
                                     liItem.addEventListener('click', function(){
                                         fgosFilter.value = liItem.textContent;
+                                        fgosHiddenInput.value = liItem.getAttribute('data-id');
+                                        console.log('gosHiddenInput.value ', fgosHiddenInput.value);
                                     })
                                 })
                             } else {
@@ -104,7 +118,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
                             }
                         })
                     }
-
                 }
             })
         }
