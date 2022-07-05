@@ -1,5 +1,6 @@
 "use strict";
 
+// получаем из npm пакета
 require('imask');
 
 let userControls = document.querySelectorAll('[data-controller="user"]');
