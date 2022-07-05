@@ -13,26 +13,30 @@ if (userControls) {
             editUserBtn = userControl;
         }
     })
+
+    let addTel = document.querySelector("[name='phone']");
+    if(addTel) {
+        let addMaskOptions = {
+            mask: '+{7}(000)000-00-00'
+        };
+        let addMask = IMask(addTel, addMaskOptions);
+    }
+
+    if (editUserBtn !== null) {
+        editUserBtn.addEventListener('click', function () {
+            setTimeout(() => {
+                let editTel = document.querySelector(".form-update [name='phone']");
+           //     console.log(editTel);
+                let editMaskOptions = {
+                    mask: '+{7}(000)000-00-00'
+                };
+                let editMask = IMask(editTel, editMaskOptions);
+            }, 1000);
+        })
+    }
 }
 
-let addTel = document.querySelector("[name='phone']");
-let addMaskOptions = {
-    mask: '+{7}(000)000-00-00'
-};
-let addMask = IMask(addTel, addMaskOptions);
 
-if (editUserBtn !== null) {
-    editUserBtn.addEventListener('click', function () {
-        setTimeout(() => {
-            let editTel = document.querySelector(".form-update [name='phone']");
-            console.log(editTel);
-            let editMaskOptions = {
-                mask: '+{7}(000)000-00-00'
-            };
-            let editMask = IMask(editTel, editMaskOptions);
-        }, 1000);
-    })
-}
 
 // заготовка под плитки на стартовой странице
 
