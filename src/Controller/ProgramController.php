@@ -38,24 +38,23 @@ class ProgramController extends AbstractController
         }
 
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
-        $param = $request->query->all();
-
         $page = $request->get('page') ?? null;
         $on_page = $request->get('on_page') ?? 25;
         $sort = $request->get('sort') ?? null;
         $select_type = $request->get('type') ?? null;
         $search = $request->get('search') ?? null;
 
-
         $program_type = $this->managerRegistry->getRepository(ProgramType::class)->findAll();
         $program_list = $this->managerRegistry->getRepository(MasterProgram::class)->getList((int)$page, (int)$on_page, $sort, $select_type, $search);
-
         $count = $this->managerRegistry->getRepository(MasterProgram::class)->getApiProgramInfo();
         $count = $count['count_program'] ?? 0;
 
-        $program_type = $this->managerRegistry->getRepository(ProgramType::class)->findAll();
         $tc = $this->managerRegistry->getRepository(TrainingCenters::class)->findAll();
+
+        $category = $this->managerRegistry->getRepository(Category::class)->getList();
+
         $fgos = $this->managerRegistry->getRepository(FederalStandart::class)->findAll();
+
         $type = $this->managerRegistry->getRepository(ProgramType::class)->findAll();
 
         $tpl = $request->get('ajax') ? '/program/program_table.html.twig' : '/program/index.html.twig' ;
@@ -77,6 +76,7 @@ class ProgramController extends AbstractController
                 'search' => strip_tags($search) ?? '',
                 'program_type' => $program_type,
                 'training_centre' => $tc,
+                'category' => $category,
                 'fgos' => $fgos,
                 'type' => $type,
                 'select_type' => $select_type,
