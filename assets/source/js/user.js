@@ -1,5 +1,43 @@
 "use strict";
 
+require('imask');
+
+let userControls = document.querySelectorAll('[data-controller="user"]');
+let addUserBtn = null;
+let editUserBtn = null;
+if (userControls) {
+    userControls.forEach(userControl => {
+        if (userControl.getAttribute('data-action') === 'add') {
+            addUserBtn = userControl;
+        } else if ((userControl.getAttribute('data-action') === 'edit')) {
+            editUserBtn = userControl;
+        }
+    })
+
+    let addTel = document.querySelector("[name='phone']");
+    if(addTel) {
+        let addMaskOptions = {
+            mask: '+{7}(000)000-00-00'
+        };
+        let addMask = IMask(addTel, addMaskOptions);
+    }
+
+    if (editUserBtn !== null) {
+        editUserBtn.addEventListener('click', function () {
+            setTimeout(() => {
+                let editTel = document.querySelector(".form-update [name='phone']");
+           //     console.log(editTel);
+                let editMaskOptions = {
+                    mask: '+{7}(000)000-00-00'
+                };
+                let editMask = IMask(editTel, editMaskOptions);
+            }, 1000);
+        })
+    }
+}
+
+
+
 // заготовка под плитки на стартовой странице
 
 // import Masonry from 'masonry-layout';
@@ -13,6 +51,8 @@
 /**
  * Check on Touch Device
  */
+
+
 
 function isTouchDevice() {
     return (
@@ -45,21 +85,6 @@ if (isTouchDevice()) {
 
 for (let i = 0; i < userTableRows.length; ++i) {
     let userItem = userTableRows[i];
-
-    // userItem.addEventListener("click", function () {
-    //     userTableRows.forEach((f) => f.classList.remove("is-selected"));
-    //     userItem.classList.add("is-selected");
-    // });
-
-    //    userItem.addEventListener("dblclick", showUserEditingPanelNew, false);
-
-    // function showUserEditingPanelNew() {
-    //     let editItem = document.querySelector("[data-action=edit]");
-    //     if (editItem) {
-    //         editItem.click();
-    //     }
-    //     //  document.querySelector('[data-action=edit]').click();
-    // }
 
     /* detect double tap event */
     let timeout;
@@ -103,6 +128,7 @@ function showEditableRowPanel(panel, overlay) {
         overlay.classList.add("show");
     }
 }
+
 const editableTables = document.querySelectorAll(".editable-table");
 const customAsidePanels = document.querySelectorAll(".custom-aside-panel");
 const customOverlay = document.querySelector(".custom-overlay");
@@ -513,13 +539,13 @@ function addTableDragNDrop() {
                     const cells = [].slice.call(row.querySelectorAll("th, td"));
                     draggingColumnIndex > endColumnIndex
                         ? cells[endColumnIndex].parentNode.insertBefore(
-                              cells[draggingColumnIndex],
-                              cells[endColumnIndex]
-                          )
+                            cells[draggingColumnIndex],
+                            cells[endColumnIndex]
+                        )
                         : cells[endColumnIndex].parentNode.insertBefore(
-                              cells[draggingColumnIndex],
-                              cells[endColumnIndex].nextSibling
-                          );
+                            cells[draggingColumnIndex],
+                            cells[endColumnIndex].nextSibling
+                        );
                 });
 
                 // Bring back the table
