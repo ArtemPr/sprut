@@ -36,10 +36,6 @@ class ApiProgramController extends AbstractController
      */
     public function getProgramInfo()
     {
-        if (false === $this->getAuth('ROLE_API_USER', 'api_get_program_info')) {
-            return $this->json(['error' => 'error auth']);
-        }
-
         $result = $this->master_programm->getApiProgramInfo();
 
         return $this->render('api/index.html.twig', [
@@ -50,10 +46,6 @@ class ApiProgramController extends AbstractController
 
     public function getProgramsList(): Response
     {
-        if (false === $this->getAuth('ROLE_API_USER', 'api_get_programs_list')) {
-            return $this->json(['error' => 'error auth']);
-        }
-
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
 
         $page = (int)($request->get('page') ?? 1);
@@ -67,7 +59,6 @@ class ApiProgramController extends AbstractController
         $param = $request->get('param') ?? null;
 
         $result = $this->master_programm->getProgramList((int)$page, $max_result, $param);
-
 
         foreach ($result as $key => $value) {
             $result[$key]['program_type'] = $result[$key]['program_type']['id'];

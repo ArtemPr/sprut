@@ -3,7 +3,6 @@
 namespace App\Repository;
 
 use App\Entity\MasterProgram;
-use App\Entity\ProgramType;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
@@ -44,6 +43,7 @@ class MasterProgramRepository extends ServiceEntityRepository
     }
 
     /**
+     * Применяется для API запросов
      * @return array
      */
     public function getApiProgramInfo(): array|null
@@ -60,123 +60,115 @@ class MasterProgramRepository extends ServiceEntityRepository
     }
 
     /**
+     * Применяется для API запросов
      * @param string|null $param
      *
      * @return array
      */
     public function getProgramList(int $page = 0, int|null $max_result = 0, array|null $param = null): array|null
     {
-        $entityManager = $this->getEntityManager();
+        return $this->getList([
+            'page' => $page,
+            'on_page' => $max_result,
 
-        $max_result = (!empty($max_result) && $max_result > 1) ? $max_result : self::ON_PAGE;
-
-
-        $sql = 'SELECT pr, pt
-                FROM App\Entity\MasterProgram pr
-                LEFT JOIN pr.program_type pt
-                ';
-
-        if (!empty($param['order'])) {
-            $col = array_key_first($param['order']);
-            $type_sort = ucfirst($param['order'][$col]);
-            $sql .= 'ORDER BY pr.'.$col.' '.$type_sort;
-        } else {
-            $sql .= 'ORDER BY pr.id DESC';
-        }
-
-        $query_item = $entityManager->createQuery($sql)
-            ->setMaxResults($max_result)
-            ->setFirstResult($page * $max_result);
-
-        return $query_item->getResult(Query::HYDRATE_ARRAY) ?? [];
+        ]);
     }
 
-
-    public function getList(int|null $page = 0, int|null $on_page = 25, string|null $sort = null, string|null $type=null): array|null
+    /**
+     * Вывод списка программ
+     */
+    public function getList(array $param = []): ?array
     {
-        $entityManager = $this->getEntityManager();
+        $page = !empty($param['page']) ? (int) $param['page'] : 0;
+        $on_page = !empty($param['on_page']) ? (int) $param['on_page'] : null;
+        $sort = !empty($param['sort']) ? (string) $param['sort'] : null;
+        $type = !empty($param['type']) ? (string) $param['type'] : null;
 
-        $page = (empty($page) || $page === 1 || $page === 0) ? 0 : $page - 1;
-        $first_result = (int)$page * (int)$on_page;
+        $page = (empty($page) || 1 === $page || 0 === $page) ? 0 : $page - 1;
+        $first_result = (int) $page * (int) $on_page;
 
-        if (!is_null($sort)) {
-            if (strstr($sort, '__up')) {
-                $sort = str_replace('__up', ' DESC', $sort);
-            } else {
-                $sort .= " ASC";
-            }
+        $order = $this->setSort($sort, 'program');
 
-            if (!strstr($sort, '.')) {
-                $order = 'pr.' . $sort;
-            } else {
-                $order = $sort;
-            }
-        } else {
-            $order = 'pr.id DESC';
+        $qb = $this->createQueryBuilder('program')
+            ->leftJoin('program.program_type', 'program_type')->addSelect('program_type')
+            ->leftJoin('program.federal_standart', 'federal_standart')->addSelect('federal_standart')
+            ->leftJoin('program.federal_standart_competencies', 'federal_standart_competencies')->addSelect(
+                'federal_standart_competencies'
+            )
+            ->leftJoin('program.prof_standarts', 'prof_standarts')->addSelect('prof_standarts')
+            ->orderBy($order[0], $order[1])
+            ->setFirstResult($first_result)
+            ->setMaxResults($on_page);
+
+        if (!empty($type)) {
+            $qb->where('program.program_type = :type')
+                ->setParameter(':type', $type);
         }
-        $sql = 'SELECT pr, pt, fs, fsc, ps
-                FROM App\Entity\MasterProgram pr
-                LEFT JOIN pr.program_type pt
-                LEFT JOIN pr.federal_standart fs
-                LEFT JOIN pr.federal_standart_competencies fsc
-                LEFT JOIN pr.prof_standarts ps';
 
-        if(!empty($type)) {
-            $sql .= " WHERE pt.id = :type";
-        }
-        $sql .= ' ORDER BY ' . $order;
-
-        if (empty($type)) {
-            $result = $entityManager->createQuery($sql)
-                ->setFirstResult($first_result)
-                ->setMaxResults($on_page)
-                ->getResult(Query::HYDRATE_ARRAY);
-        } else {
-            $result = $entityManager->createQuery($sql)
-                ->setParameter(':type', $type)
-                ->setFirstResult($first_result)
-                ->setMaxResults($on_page)
-                ->getResult(Query::HYDRATE_ARRAY);
-        }
+        $query = $qb->getQuery();
+        $result = $query->execute(
+            hydrationMode: Query::HYDRATE_ARRAY
+        );
 
         return $result;
     }
 
-    public function getProgram(int $id): array|null
-    {
-        $entityManager = $this->getEntityManager();
-        $query_item = $entityManager->createQuery(
-            'SELECT pr, pt
-                FROM App\Entity\MasterProgram pr
-                INNER JOIN pr.program_type pt
-                WHERE pr.id = :id'
-        )->setParameter('id', $id);
-
-        return $query_item->getResult(Query::HYDRATE_ARRAY)[0] ?? null;
-    }
-
     /**
-     * @param string|null $param
-     * @TODO УДАЛИТЬ после залива не сервер всей локали
+     * @return array|mixed
      */
-    public function getApiList(int $page = 0, int|null $max_result = 0, string|null $param = null): array
+    public function get(int $id)
     {
-        return $this->getProgramList($page, $max_result, $param);
-    }
+        $qb = $this->createQueryBuilder('program')
+            ->where('program.id = :id')
+            ->leftJoin('program.program_type', 'program_type')->addSelect('program_type')
+            ->leftJoin('program.federal_standart', 'federal_standart')->addSelect('federal_standart')
+            ->setParameters([
+                'id' => $id,
+            ]);
 
-    public function get($id)
-    {
-        $entityManager = $this->getEntityManager();
-
-        $result = $entityManager->createQuery(
-            'SELECT program, type, fgos
-                FROM App\Entity\MasterProgram program
-                LEFT JOIN program.program_type type
-                LEFT JOIN program.federal_standart fgos
-                WHERE program.id = :id'
-        )->setParameter('id', $id)
-            ->getResult(Query::HYDRATE_ARRAY);
+        $query = $qb->getQuery();
+        $result = $query->execute(
+            hydrationMode: Query::HYDRATE_ARRAY
+        );
 
         return $result[0] ?? [];
     }
+
+    /**
+     * @param int $id
+     * @return array|null
+     */
+    public function getProgram(int $id): array|null
+    {
+        return $this->get($id);
+    }
+
+
+    /**
+     * @param $sort
+     * @param $prefix
+     *
+     * @return array
+     */
+    private function setSort(?string $sort, string $prefix): array
+    {
+        if (!is_null($sort)) {
+            if (strstr($sort, '__up')) {
+                $sort = str_replace('__up', ' DESC', $sort);
+            } else {
+                $sort .= ' ASC';
+            }
+
+            if (!strstr($sort, '.')) {
+                $order = $prefix.'.'.$sort;
+            } else {
+                $order = $sort;
+            }
+        } else {
+            $order = $prefix.'.id DESC';
+        }
+
+        return explode(' ', $order);
+    }
+
 }
