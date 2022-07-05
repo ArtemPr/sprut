@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\MasterProgram;
 use App\Entity\ProgramType;
+use App\Service\QueryHelper;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
@@ -18,6 +19,8 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class MasterProgramRepository extends ServiceEntityRepository
 {
+    use QueryHelper;
+
     public const ON_PAGE = 25;
 
     public function __construct(ManagerRegistry $registry)
@@ -92,18 +95,37 @@ class MasterProgramRepository extends ServiceEntityRepository
     }
 
 
-    public function getList(int|null $page = 0, int|null $on_page = 25, string|null $sort = null, string|null $type=null): array|null
+    public function getList(int|null $page = 0, int|null $on_page = 25, string|null $sort = null, string|null $type=null, string|null $search = null): array|null
     {
-        $entityManager = $this->getEntityManager();
-
         $page = (empty($page) || $page === 1 || $page === 0) ? 0 : $page - 1;
         $first_result = (int)$page * (int)$on_page;
 
+        $qb = $this->createQueryBuilder('pr')
+            ->addSelect(['pt', 'fs', 'fsc', 'ps'])
+            ->leftJoin('pr.program_type', 'pt')
+            ->leftJoin('pr.federal_standart', 'fs')
+            ->leftJoin('pr.federal_standart_competencies', 'fsc')
+            ->leftJoin('pr.prof_standarts', 'ps')
+        ;
+
+        if (!empty($type)) {
+            $qb->andWhere('pt.id = :type')
+                ->setParameter('type', $type);
+        }
+
+        if(!empty($search)) {
+            $qb->where("LOWER(pr.name) LIKE :search ESCAPE '!'")
+                ->setParameter('search', $this->makeLikeParam($search));
+        }
+
+        $sortDir = 'DESC';
+
         if (!is_null($sort)) {
             if (strstr($sort, '__up')) {
-                $sort = str_replace('__up', ' DESC', $sort);
+                $sort = str_replace('__up', '', $sort);
             } else {
-                $sort .= " ASC";
+                $sort = str_replace('__down', '', $sort);
+                $sortDir = 'ASC';
             }
 
             if (!strstr($sort, '.')) {
@@ -112,32 +134,15 @@ class MasterProgramRepository extends ServiceEntityRepository
                 $order = $sort;
             }
         } else {
-            $order = 'pr.id DESC';
+            $order = 'pr.id';
         }
-        $sql = 'SELECT pr, pt, fs, fsc, ps
-                FROM App\Entity\MasterProgram pr
-                LEFT JOIN pr.program_type pt
-                LEFT JOIN pr.federal_standart fs
-                LEFT JOIN pr.federal_standart_competencies fsc
-                LEFT JOIN pr.prof_standarts ps';
 
-        if(!empty($type)) {
-            $sql .= " WHERE pt.id = :type";
-        }
-        $sql .= ' ORDER BY ' . $order;
+        $qb->orderBy($order, $sortDir);
 
-        if (empty($type)) {
-            $result = $entityManager->createQuery($sql)
-                ->setFirstResult($first_result)
-                ->setMaxResults($on_page)
-                ->getResult(Query::HYDRATE_ARRAY);
-        } else {
-            $result = $entityManager->createQuery($sql)
-                ->setParameter(':type', $type)
-                ->setFirstResult($first_result)
-                ->setMaxResults($on_page)
-                ->getResult(Query::HYDRATE_ARRAY);
-        }
+        $result = $qb->getQuery()
+            ->setFirstResult($first_result)
+            ->setMaxResults($on_page)
+            ->getResult(Query::HYDRATE_ARRAY);
 
         return $result;
     }

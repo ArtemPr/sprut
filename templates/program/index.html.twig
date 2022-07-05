@@ -19,6 +19,7 @@
                 <div class="collapse navbar-collapse" id="navbar-header-menu">
                     <div class="mt-2 mb-3">
                         <ul>
+                            <li style="list-style: none; margin-bottom: 15px;"><a href="{{ path('program') }}" style="color: #333333; {% if select_type|default(false) == false %}font-weight:bold;{% endif %}">Все</a></li>
                             <li style="list-style: none; margin-bottom: 15px;"><a href="{{ path('program') }}?type=1" style="color: #333333; {% if select_type|default(false) and select_type == 1 %}font-weight:bold;{% endif %}">Повышение квалификации</a></li>
                             <li style="list-style: none; margin-bottom: 15px;"><a href="{{ path('program') }}?type=2" style="color: #333333; {% if select_type|default(false) and select_type == 2 %}font-weight:bold;{% endif %}">Профессиональная переподготовка</a></li>
                             <li style="list-style: none; margin-bottom: 15px;"><a href="{{ path('program') }}?type=3" style="color: #333333; {% if select_type|default(false) and select_type == 3 %}font-weight:bold;{% endif %}">Профессиональное обучение</a></li>
@@ -39,10 +40,12 @@
                         <div class="col-12">
 
                             <div class="card">
-
                                 {% include 'block/search_panel.html.twig' with {
                                     'close_delete': true,
-                                    'controller': 'program'
+                                    'close_edit': true,
+                                    'close_create': true,
+                                    'path': path('program'),
+                                    'add_csv': path('program') ~ '_csv' ~ csv_link
                                 } %}
 
                                 <div class="ajax-table ajax-table--program">
