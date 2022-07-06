@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}СПРУТ 1.0{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+{% block body %}
+    {{ include('block/header.html.twig') }}
+
+    <div class="page page-layout">
+        <aside class="navbar navbar-vertical navbar-expand-lg navbar-light">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbar-menu">
+                    {% include 'administrator/block/nav_directory.html.twig' with {'controller': 'antiplagiat'} %}
+                </div>
+            </div>
+        </aside>
+        <div class="page-wrapper">
+            <div class="container-fluid">
+                {% include 'block/header_list.html.twig' with {'header': 'Антиплагиат', 'onpage_link': path('service_antiplagiat')} %}
+            </div>
+            <div class="page-body">
+                <div class="container-fluid">
+                    <div class="row row-deck row-cards">
+                        <div class="col-12">
+                            <div class="card">
+                                {% include 'block/search_panel.html.twig' with {
+                                    'close_delete': true,
+                                    'close_edit': true,
+                                    'close_create': true
+                                } %}
+                                <div class="ajax-table">
+                                    {% include 'services/antiplagiat/table.html.twig' %}
+                                </div>
+
+                            </div>
+
+                            <div id="userEditingOverlay" class="offcanvas-backdrop fade"></div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
