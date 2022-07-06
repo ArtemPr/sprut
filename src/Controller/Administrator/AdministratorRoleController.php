@@ -8,6 +8,7 @@ namespace App\Controller\Administrator;
 use App\Entity\Operations;
 use App\Entity\Roles;
 use App\Service\AuthService;
+use App\Service\CSVHelper;
 use App\Service\LinkService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,6 +19,7 @@ class AdministratorRoleController extends AbstractController
 {
     use LinkService;
     use AuthService;
+    use CSVHelper;
 
     private $request;
 
@@ -109,14 +111,7 @@ class AdministratorRoleController extends AbstractController
                 '""' . "\n";
         }
 
-        $table = mb_convert_encoding($table, 'utf8');
-        $table = htmlspecialchars_decode($table);
-
-        $response = new Response($table);
-        $response->headers->set('Content-Type', 'text/csv');
-        $response->headers->set('Content-Disposition', 'attachment; filename="roles.csv"');
-
-        return $response;
+        return $this->getCSVFile($table, 'roles.csv');
     }
 
     public function getRoleForm(int $id)

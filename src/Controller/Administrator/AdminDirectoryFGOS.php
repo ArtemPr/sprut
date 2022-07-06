@@ -8,6 +8,7 @@ namespace App\Controller\Administrator;
 use App\Entity\FederalStandart;
 use App\Entity\ProfStandarts;
 use App\Service\AuthService;
+use App\Service\CSVHelper;
 use App\Service\LinkService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,6 +19,7 @@ class AdminDirectoryFGOS extends AbstractController
 {
     use LinkService;
     use AuthService;
+    use CSVHelper;
 
     private $request;
 
@@ -60,14 +62,7 @@ class AdminDirectoryFGOS extends AbstractController
             $table .= '"' . ( $val['active'] ? 'да' : 'нет') . '";"' . $val['short_name'] . '";"' . $val['name'] . '"' . "\n";
         }
 
-        $table = mb_convert_encoding($table, 'utf8');
-        $table = htmlspecialchars_decode($table);
-
-        $response = new Response($table);
-        $response->headers->set('Content-Type', 'text/csv');
-        $response->headers->set('Content-Disposition', 'attachment; filename="fgos.csv"');
-
-        return $response;
+        return $this->getCSVFile($table, 'fgos.csv');
     }
 
     private function setTable()

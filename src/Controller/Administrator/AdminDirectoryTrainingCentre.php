@@ -7,6 +7,7 @@ namespace App\Controller\Administrator;
 
 use App\Entity\TrainingCenters;
 use App\Service\AuthService;
+use App\Service\CSVHelper;
 use App\Service\LinkService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,6 +18,7 @@ class AdminDirectoryTrainingCentre extends AbstractController
 {
     use LinkService;
     use AuthService;
+    use CSVHelper;
 
     private $request;
 
@@ -109,14 +111,7 @@ class AdminDirectoryTrainingCentre extends AbstractController
             $table .= '"' . $val['id'] . '";"' . $val['name'] . '";"' . $val['phone'] . '";"' . $val['email'] . '";"' . $val['url'] . '"' . "\n";
         }
 
-        $table = mb_convert_encoding($table, 'utf8');
-        $table = htmlspecialchars_decode($table);
-
-        $response = new Response($table);
-        $response->headers->set('Content-Type', 'text/csv');
-        $response->headers->set('Content-Disposition', 'attachment; filename="tc.csv"');
-
-        return $response;
+        return $this->getCSVFile($table, 'tc.csv');
     }
 
     public function getTrainingCentreForm($id)

@@ -7,6 +7,7 @@ namespace App\Controller\Administrator;
 
 use App\Entity\ProfStandarts;
 use App\Service\AuthService;
+use App\Service\CSVHelper;
 use App\Service\LinkService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,6 +18,7 @@ class AdminDirectoryPS extends AbstractController
 {
     use LinkService;
     use AuthService;
+    use CSVHelper;
 
     private $request;
 
@@ -108,14 +110,7 @@ class AdminDirectoryPS extends AbstractController
             $table .= '"' . ( $val['archive_flag'] ? 'да' : 'нет') . '";"' . $val['name'] . '";"' . $val['short_name'] . '"' . "\n";
         }
 
-        $table = mb_convert_encoding($table, 'utf8');
-        $table = htmlspecialchars_decode($table);
-
-        $response = new Response($table);
-        $response->headers->set('Content-Type', 'text/csv');
-        $response->headers->set('Content-Disposition', 'attachment; filename="ps.csv"');
-
-        return $response;
+        return $this->getCSVFile($table, 'ps.csv');
     }
 
     public function getPSForm($id)

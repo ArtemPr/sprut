@@ -9,6 +9,7 @@ use App\Entity\Kaferda;
 use App\Entity\TrainingCenters;
 use App\Entity\User;
 use App\Service\AuthService;
+use App\Service\CSVHelper;
 use \App\Service\LinkService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,6 +20,7 @@ class AdminDirectoryKafedra extends AbstractController
 {
     use LinkService;
     use AuthService;
+    use CSVHelper;
 
     private $request;
 
@@ -123,14 +125,7 @@ class AdminDirectoryKafedra extends AbstractController
             $table .= '"' . $val['id'] . '";"' . $val['training_centre']['name'] . '";"' . $val['name'] . '";"' . $val['director']['username'] . '";""' . "\n";
         }
 
-        $table = mb_convert_encoding($table, 'utf8');
-        $table = htmlspecialchars_decode($table);
-
-        $response = new Response($table);
-        $response->headers->set('Content-Type', 'text/csv');
-        $response->headers->set('Content-Disposition', 'attachment; filename="kafedra.csv"');
-
-        return $response;
+        return $this->getCSVFile($table, 'kafedra.csv');
     }
 
     public function getKafedraForm($id)
