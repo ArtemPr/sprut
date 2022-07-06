@@ -30,6 +30,12 @@
             <div class="btn-group w-100">
                 {% set set_title = 'Данная операция недоступна, обратитесь к администратору системы.' %}
 
+                {% if close_view|default(false) %}
+                <a class="btn disabled-btn" role="button" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ set_title }}">
+                    {% else %}
+                    <a class="btn" data-action="view" data-bs-toggle="offcanvas" href="#{{ controller|default(false) }}ViewPanel" data-controller="{{ controller|default(false) }}" role="button" aria-controls="offcanvasEnd">
+                        {% endif %}Просмотр</a>
+
                 {% if close_create|default(false) %}
                     <a class="btn disabled-btn" role="button" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ set_title }}">
                 {% else %}
