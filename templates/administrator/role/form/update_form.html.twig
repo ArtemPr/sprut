@@ -28,13 +28,19 @@
                                        value="{{ data.name|default(false) }}" required>
                             </div>
                         </div>
+
                         <div class="form-group mb-3 row">
                             <label class="form-label col-3 col-form-label">Идентификатор</label>
                             <div class="col">
-                                <input type="text" class="form-control" name="roles_alt" placeholder="ROLE_XXXXXXXXX"
-                                       value="{{ data.roles_alt|default(false) }}" required>
+                                {% if data.roles_alt|default(false) and (data.roles_alt == 'ROLE_USER' or data.roles_alt == 'ROLE_ADMIN') %}
+                                    <input type="hidden" name="roles_alt" value="{{ data.roles_alt|default(false) }}">
+                                    <input disabled type="text" class="form-control" name="roles_alt" placeholder="ROLE_XXXXXXXXX" value="{{ data.roles_alt|default(false) }}" required>
+                                {% else %}
+                                    <input type="text" class="form-control" name="roles_alt" placeholder="ROLE_XXXXXXXXX" value="{{ data.roles_alt|default(false) }}" required>
+                                {% endif %}
                             </div>
                         </div>
+
                         <div class="form-group mb-3 row">
                             <label class="form-label col-3 col-form-label">Комментарий</label>
                             <div class="col">
