@@ -9,6 +9,7 @@ use App\Entity\City;
 use App\Entity\Roles;
 use App\Entity\User;
 use App\Service\AuthService;
+use App\Service\CSVHelper;
 use App\Service\LinkService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,6 +20,7 @@ class AdministratorUserController extends AbstractController
 {
     use LinkService;
     use AuthService;
+    use CSVHelper;
 
     private $request;
     private $roles;
@@ -48,15 +50,15 @@ class AdministratorUserController extends AbstractController
 
         if ($full === false) {
             $user_list = $this->managerRegistry->getRepository(User::class)->getList($page, $on_page, $sort, $search);
+            $count = $this->managerRegistry->getRepository(User::class)->getListAll($page, $on_page, $sort, $search);
         } else {
             $user_list = $this->managerRegistry->getRepository(User::class)->getList(0, 9999999999, $sort, $search);
+            $count = $this->managerRegistry->getRepository(User::class)->getListAll(0, 9999999999, $sort, $search);
         }
 
         $city = $this->managerRegistry->getRepository(City::class)->getList();
         $roles = $this->managerRegistry->getRepository(Roles::class)->getList();
         $this->processRoles($roles);
-//        $count = $this->managerRegistry->getRepository(User::class)->getCount();
-        $count = count($user_list);
 
         $page = $page ?? 1;
 
@@ -130,14 +132,7 @@ class AdministratorUserController extends AbstractController
                         "\n";
         }
 
-        $table = mb_convert_encoding($table, 'utf8');
-        $table = htmlspecialchars_decode($table);
-
-        $response = new Response($table);
-        $response->headers->set('Content-Type', 'text/csv');
-        $response->headers->set('Content-Disposition', 'attachment; filename="userlist.csv"');
-
-        return $response;
+        return $this->getCSVFile($table, 'userlist.csv');
     }
 
     public function getUserForm($id)
