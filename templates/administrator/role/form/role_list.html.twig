@@ -7,6 +7,9 @@
                         checked
                     {% endif %}
                 {% endif %}
+                {% if check_desctop|default(false) %}
+                    checked
+                {% endif %}
                    class="form-check-input js-checkbox-scope parent-checkbox-scope"
                    data-selected-by="workflow">{{ operations.auth_desktop }}
         </label>

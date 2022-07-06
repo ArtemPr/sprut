@@ -157,10 +157,23 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $qb = $this->createQueryBuilder('user');
 
         if(!empty($search)) {
-            $qb->select('COUNT(user.id)')->where("LOWER(user.fullname) LIKE :search ESCAPE '!'")
-                ->setParameter('search', $this->makeLikeParam(mb_strtolower($search)));
+            $qb->select('COUNT(user.id)')
+                ->where("LOWER(user.fullname) LIKE :search ESCAPE '!'")
+                ->andWhere('user.delete = :delete')
+                ->setParameters(
+                    [
+                            'search' => $this->makeLikeParam(mb_strtolower($search)),
+                            'delete' => false
+                    ]
+                );
         } else {
-            $qb->select('COUNT(user.id)');
+            $qb->select('COUNT(user.id)')
+                ->where('user.delete = :delete')
+                ->setParameters(
+                    [
+                        'delete' => false
+                    ]
+                );
         }
 
         $query = $qb->getQuery();

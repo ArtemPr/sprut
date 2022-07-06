@@ -105,7 +105,9 @@ class RolesRepository extends ServiceEntityRepository
                 ->andWhere("LOWER(role.name) LIKE :search ESCAPE '!'")
                 ->setParameter('search', $this->makeLikeParam(mb_strtolower($search)));
         } else {
-            $qb->select('COUNT(role.id)');
+            $qb->select('COUNT(role.id)')
+                ->where('role.delete = :delete')
+                ->setParameter('delete', false);
         }
 
         $query = $qb->getQuery();

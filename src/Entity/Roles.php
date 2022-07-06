@@ -26,7 +26,7 @@ class Roles
     private $auth_list;
 
     #[ORM\Column(type: 'boolean', nullable: true)]
-    private $delete;
+    private $delete = false;
 
     public function getId(): ?int
     {

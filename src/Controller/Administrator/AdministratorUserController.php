@@ -55,8 +55,8 @@ class AdministratorUserController extends AbstractController
         $city = $this->managerRegistry->getRepository(City::class)->getList();
         $roles = $this->managerRegistry->getRepository(Roles::class)->getList();
         $this->processRoles($roles);
-//        $count = $this->managerRegistry->getRepository(User::class)->getCount();
-        $count = count($user_list);
+
+        $count = $this->managerRegistry->getRepository(User::class)->getCount();
 
         $page = $page ?? 1;
 
