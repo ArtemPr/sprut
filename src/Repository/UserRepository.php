@@ -82,7 +82,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             hydrationMode: Query::HYDRATE_ARRAY
         );
 
-
         $roles = "'".implode("','", $result['0']['roles'])."'";
 
         $qb = $this->createQueryBuilder('user')
@@ -94,7 +93,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $role_result = $query->execute(
             hydrationMode: Query::HYDRATE_ARRAY
         );
-
 
         $result[0]['role'] = $role_result;
 
@@ -128,19 +126,13 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->leftJoin("user.departament", "departament")->addSelect("departament")
             ->leftJoin("user.city", "city")->addSelect("city")
             ->where('user.delete = :delete')
+            ->setParameter('delete', false)
             ->setFirstResult($first_result)
             ->setMaxResults($on_page);
 
         if(!empty($search)) {
             $qb->andWhere("LOWER(user.fullname) LIKE :search ESCAPE '!'")
-                ->setParameters(
-                    [
-                        'search' => $this->makeLikeParam(mb_strtolower($search)),
-                        'delete' => false
-                    ]
-                );
-        } else {
-            $qb->setParameter('delete', false);
+                ->setParameter('search', $this->makeLikeParam(mb_strtolower($search)));
         }
 
         $query = $qb->getQuery();
@@ -151,6 +143,28 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         return $result;
     }
 
+    public function getListAll(int|null $page = 0, int|null $on_page = 25, string|null $sort = null, string|null $search = null)
+    {
+        $qb = $this->createQueryBuilder('user');
+
+        $qb->select('COUNT(user.id)')
+            ->leftJoin("user.departament", "departament")
+            ->leftJoin("user.city", "city")
+            ->where('user.delete = :delete')
+            ->setParameter('delete', false);
+
+        if (!empty($search)) {
+            $qb->andWhere("LOWER(user.fullname) LIKE :search ESCAPE '!'")
+                ->setParameter('search', $this->makeLikeParam(mb_strtolower($search)));
+        }
+
+        $result = $qb->getQuery()
+            ->execute(
+                hydrationMode: Query::HYDRATE_ARRAY
+            );
+
+        return $result[0][1] ?? 0 ;
+    }
 
     public function getCount(int|null $page = 0, int|null $on_page = 25, string|null $sort = null, string|null $search = null)
     {

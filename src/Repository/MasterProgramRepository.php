@@ -118,26 +118,8 @@ class MasterProgramRepository extends ServiceEntityRepository
                 ->setParameter('search', $this->makeLikeParam(mb_strtolower($search)));
         }
 
-        $sortDir = 'DESC';
-
-        if (!is_null($sort)) {
-            if (strstr($sort, '__up')) {
-                $sort = str_replace('__up', '', $sort);
-            } else {
-                $sort = str_replace('__down', '', $sort);
-                $sortDir = 'ASC';
-            }
-
-            if (!strstr($sort, '.')) {
-                $order = 'pr.' . $sort;
-            } else {
-                $order = $sort;
-            }
-        } else {
-            $order = 'pr.id';
-        }
-
-        $qb->orderBy($order, $sortDir);
+        $order = $this->setSort($sort, 'pr');
+        $qb->orderBy($order[0], $order[1]);
 
         $result = $qb->getQuery()
             ->setFirstResult($first_result)
@@ -183,5 +165,26 @@ class MasterProgramRepository extends ServiceEntityRepository
             ->getResult(Query::HYDRATE_ARRAY);
 
         return $result[0] ?? [];
+    }
+
+    private function setSort($sort, $prefix)
+    {
+        if (!is_null($sort)) {
+            if (strstr($sort, '__up')) {
+                $sort = str_replace('__up', ' DESC', $sort);
+            } else {
+                $sort .= " ASC";
+            }
+
+            if (!strstr($sort, '.')) {
+                $order = $prefix . '.' . $sort;
+            } else {
+                $order = $sort;
+            }
+        } else {
+            $order = $prefix . '.name DESC';
+        }
+
+        return explode(' ', $order);
     }
 }
