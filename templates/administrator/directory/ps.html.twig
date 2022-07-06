@@ -30,7 +30,12 @@
                     <div class="row row-deck row-cards">
                         <div class="col-12">
                             <div class="card">
-                                {% include 'block/search_panel.html.twig' with {'close_delete': true, 'close_edit': true, 'close_create': true} %}
+                                {% include 'block/search_panel.html.twig' with {
+                                    'close_delete': true,
+                                    'close_edit': true,
+                                    'close_create': true,
+                                    'add_csv': path('administrator_directory_ps') ~ '_csv' ~ csv_link
+                                } %}
 
                                 <div class="ajax-table">
                                     {{ include('administrator/directory/ps_table.html.twig') }}

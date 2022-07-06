@@ -28,6 +28,12 @@ class AdministratorController extends AbstractController
         return $administratorUserController->getUserList();
     }
 
+    #[Route('/administrator/user_csv', name: 'administrator_user_csv')]
+    public function getUserListCSV(AdministratorUserController $administratorUserController): Response
+    {
+        return $administratorUserController->getUserListCSV();
+    }
+
     #[Route('/administrator/role', name: 'administrator_role')]
     public function getRoleList(AdministratorRoleController $administratorRoleController): Response
     {
@@ -44,6 +50,12 @@ class AdministratorController extends AbstractController
     public function getKafedraList(AdminDirectoryKafedra $adminDirectoryKafedra): Response
     {
         return $adminDirectoryKafedra->getList();
+    }
+
+    #[Route('/administrator/kafedra_csv', name: 'administrator_kafedra_csv')]
+    public function getKafedraListCSV(AdminDirectoryKafedra $adminDirectoryKafedra): Response
+    {
+        return $adminDirectoryKafedra->getCSV();
     }
 
     #[Route('/administrator/log', name: 'administrator_log')]
@@ -70,9 +82,21 @@ class AdministratorController extends AbstractController
         return $adminDirectoryPS->getList();
     }
 
+    #[Route('/administrator/directory/ps_csv', name: 'administrator_directory_ps_csv')]
+    public function getDirectoryPSCSV(AdminDirectoryPS $adminDirectoryPS): Response
+    {
+        return $adminDirectoryPS->getCSV();
+    }
+
     #[Route('/administrator/directory/tc', name: 'administrator_directory_tc')]
     public function getDirectoryTrainingCentre(AdminDirectoryTrainingCentre $adminDirectoryTrainingCentre): Response
     {
         return $adminDirectoryTrainingCentre->getList();
+    }
+
+    #[Route('/administrator/directory/tc_csv', name: 'administrator_directory_tc_csv')]
+    public function getDirectoryTrainingCentreCSV(AdminDirectoryTrainingCentre $adminDirectoryTrainingCentre): Response
+    {
+        return $adminDirectoryTrainingCentre->getCSV();
     }
 }

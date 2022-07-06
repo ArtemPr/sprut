@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\ProfStandarts;
+use App\Service\QueryHelper;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
@@ -18,6 +19,8 @@ use Doctrine\Persistence\ManagerRegistry;
 class ProfStandartsRepository extends ServiceEntityRepository
 {
     public const PER_PAGE = 500;
+
+    use QueryHelper;
 
     public function __construct(ManagerRegistry $registry)
     {
@@ -45,37 +48,28 @@ class ProfStandartsRepository extends ServiceEntityRepository
     /**
      * @return float|int|mixed|string
      */
-    public function getList(int|null $page = 0, int|null $on_page = 25, string|null $sort = null)
+    public function getList(int|null $page = 0, int|null $on_page = 25, string|null $sort = null, ?string $search = null)
     {
         $entityManager = $this->getEntityManager();
 
         $page = (empty($page) || $page === 1 || $page === 0) ? 0 : $page - 1;
         $first_result = (int)$page * (int)$on_page;
+        $order = $this->setSort($sort, 'op');
 
-        if (!is_null($sort)) {
-            if (strstr($sort, '__up')) {
-                $sort = str_replace('__up', ' DESC', $sort);
-            } else {
-                $sort .= " ASC";
-            }
+        $qb = $this->createQueryBuilder('op')
+            ->orderBy($order[0], $order[1])
+            ->setFirstResult($first_result)
+            ->setMaxResults($on_page);
 
-            if (!strstr($sort, '.')) {
-                $order = 'op.' . $sort;
-            } else {
-                $order = $sort;
-            }
-        } else {
-            $order = 'op.id DESC';
+        if(!empty($search)) {
+            $qb->where("LOWER(op.name) LIKE :search ESCAPE '!'")
+                ->setParameter('search', $this->makeLikeParam(mb_strtolower($search)));
         }
 
-        $result = $entityManager->createQuery(
-            'SELECT op
-                FROM App\Entity\ProfStandarts op
-                ORDER BY ' . $order
-        )
-            ->setFirstResult($first_result)
-            ->setMaxResults($on_page)
-            ->getResult(Query::HYDRATE_ARRAY);
+        $query = $qb->getQuery();
+        $result = $query->execute(
+            hydrationMode: Query::HYDRATE_ARRAY
+        );
 
         return $result;
     }
@@ -92,5 +86,26 @@ class ProfStandartsRepository extends ServiceEntityRepository
             ->getResult(Query::HYDRATE_ARRAY);
 
         return $result;
+    }
+
+    private function setSort($sort, $prefix)
+    {
+        if (!is_null($sort)) {
+            if (strstr($sort, '__up')) {
+                $sort = str_replace('__up', ' DESC', $sort);
+            } else {
+                $sort .= " ASC";
+            }
+
+            if (!strstr($sort, '.')) {
+                $order = $prefix . '.' . $sort;
+            } else {
+                $order = $sort;
+            }
+        } else {
+            $order = $prefix . '.id DESC';
+        }
+
+        return explode(' ', $order);
     }
 }
