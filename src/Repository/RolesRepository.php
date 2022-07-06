@@ -94,17 +94,37 @@ class RolesRepository extends ServiceEntityRepository
         return $result;
     }
 
+    public function getListAll(int|null $page = 0, int|null $on_page = 25, string|null $sort = null, string|null $search = null)
+    {
+        $qb = $this->createQueryBuilder('role');
+
+        if(!empty($search)) {
+            $qb->select('COUNT(role.id)')
+                ->where('role.delete = :delete')
+                ->setParameter('delete', false)
+                ->andWhere("LOWER(role.name) LIKE :search ESCAPE '!'")
+                ->setParameter('search', $this->makeLikeParam(mb_strtolower($search)));
+        } else {
+            $qb->select('COUNT(role.id)');
+        }
+
+        $query = $qb->getQuery();
+        $result = $query->execute(
+            hydrationMode: Query::HYDRATE_ARRAY
+        );
+
+        return $result[0][1] ?? 0 ;
+    }
+
     public function get($id)
     {
-        $entityManager = $this->getEntityManager();
-
-        $result = $entityManager->createQuery(
-        'SELECT role
-                FROM App\Entity\Roles role
-                WHERE role.id = :id'
-        )
+        $result = $this->createQueryBuilder('role')
+            ->where('role.id = :id')
             ->setParameter('id', $id)
-            ->getResult(Query::HYDRATE_ARRAY);
+            ->getQuery()
+            ->execute(
+                hydrationMode: Query::HYDRATE_ARRAY
+            );
 
         return $result[0] ?? [];
     }

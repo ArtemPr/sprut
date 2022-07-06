@@ -34,6 +34,7 @@
                                 {% include 'block/search_panel.html.twig' with {
                                     'controller': 'role',
                                     'path': path('administrator_role'),
+                                    'add_csv': path('administrator_role') ~ '_csv' ~ csv_link
                                 } %}
 
                                 <div class="ajax-table">

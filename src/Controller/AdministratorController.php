@@ -40,6 +40,12 @@ class AdministratorController extends AbstractController
         return $administratorRoleController->getRoleList();
     }
 
+    #[Route('/administrator/role_csv', name: 'administrator_role_csv')]
+    public function getRoleListCSV(AdministratorRoleController $administratorRoleController): Response
+    {
+        return $administratorRoleController->getRoleListCSV();
+    }
+
     #[Route('/administrator/operation', name: 'administrator_operations')]
     public function getOperationsList(AdministratorOperationsController $administratorOperationsController): Response
     {
