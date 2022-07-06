@@ -140,9 +140,9 @@ class AdministratorRoleController extends AbstractController
     private function getOperations(): array
     {
         $out = [];
-        $operations = $this->managerRegistry->getRepository(Operations::class)->getList();
+        $operations = $this->managerRegistry->getRepository(Operations::class)->findAll();
         foreach ($operations as $op) {
-            $out[$op['code']] = $op['name'];
+            $out[$op->getCode()] = $op->getName();
         }
         return $out;
     }

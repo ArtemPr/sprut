@@ -228,6 +228,55 @@
                     </li>
                 </ul>
             </li>
+
+            <li class="js-check-scope-container" data-level="2" data-scope-for="repo_deployment">
+                <label class="hierarchy__scope">
+                    <input type="checkbox" name="role[auth_services]" value="1"
+                        {% if data.auth_list|default(false) %}
+                            {% if data.auth_list['auth_log']|default(false) %}
+                                checked
+                            {% endif %}
+                        {% endif %} class="form-check-input js-checkbox-scope">
+                    {{ operations.auth_services }}
+
+                </label>
+                <ul class="hierarchy__child-scopes">
+                    <li class="js-check-scope-container" data-level="2" data-scope-for="repo_deployment">
+                        <label class="hierarchy__scope">
+                            <input type="checkbox" name="role[auth_antiplagiat]" value="1"
+                                {% if data.auth_list|default(false) %}
+                                    {% if data.auth_list['auth_antiplagiat']|default(false) %}
+                                        checked
+                                    {% endif %}
+                                {% endif %} class="form-check-input js-checkbox-scope">
+                            {{ operations.auth_antiplagiat }}
+                        </label>
+                    </li>
+                    <li class="js-check-scope-container" data-level="2" data-scope-for="repo_deployment">
+                        <label class="hierarchy__scope">
+                            <input type="checkbox" name="role[auth_litera]" value="1"
+                                {% if data.auth_list|default(false) %}
+                                    {% if data.auth_list['auth_litera']|default(false) %}
+                                        checked
+                                    {% endif %}
+                                {% endif %}class="form-check-input js-checkbox-scope">
+                            {{ operations.auth_litera }}
+                        </label>
+                    </li>
+                    <li class="js-check-scope-container" data-level="2" data-scope-for="repo_deployment">
+                        <label class="hierarchy__scope">
+                            <input type="checkbox" name="role[auth_legalregister]" value="1"
+                                {% if data.auth_list|default(false) %}
+                                    {% if data.auth_list['auth_legalregister']|default(false) %}
+                                        checked
+                                    {% endif %}
+                                {% endif %} class="form-check-input js-checkbox-scope">
+                            {{ operations.auth_legalregister }}
+                        </label>
+                    </li>
+                </ul>
+            </li>
+
             <li class="js-check-scope-container" data-level="2" data-scope-for="repo_deployment">
                 <label class="hierarchy__scope">
                     <input type="checkbox" name="role[auth_log]" value="1"

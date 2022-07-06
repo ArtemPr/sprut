@@ -7,12 +7,25 @@ namespace App\Controller\Services;
 
 use App\Controller\BaseController;
 use App\Controller\BaseInterface;
+use App\Service\AuthService;
 
 class AntiplagiatController extends BaseController implements BaseInterface
 {
+    use AuthService;
+
     public function getList()
     {
-        return $this->render('services/antiplagiat/index.html.twig');
+        $auth = $this->getAuthValue($this->getUser(), 'auth_antiplagiat', $this->managerRegistry);
+        if(!is_array($auth)) {
+            return $auth;
+        }
+
+        return $this->render(
+            'services/antiplagiat/index.html.twig',
+            [
+                'auth' => $auth
+            ]
+        );
     }
 
     public function get()
