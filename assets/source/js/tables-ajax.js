@@ -276,6 +276,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                             method: "POST",
                             body: data,
                         });
+                        console.log(data);
                         let result = await response.json();
 
                         let panel = document.querySelectorAll(".offcanvas");
