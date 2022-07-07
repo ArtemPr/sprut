@@ -20,10 +20,15 @@ class LegalRegisterController extends BaseController implements BaseInterface
             return $auth;
         }
 
-        return $this->render(
-            'services/antiplagiat/index.html.twig',
+        $tpl = !empty($this->get_data['ajax'])
+            ?
+            'services/legal_register/table.html.twig'
+            :
+            'services/legal_register/index.html.twig';
+
+        return $this->render($tpl,
             [
-                'auth' => $auth
+                'auth' => $auth,
             ]
         );
     }

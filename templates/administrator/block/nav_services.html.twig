@@ -1,0 +1,17 @@
+<ul class="navbar-nav pt-lg-3">
+    <li class="nav-item {% if controller|default(false) and controller == 'antiplagiat' %}active{% endif %}">
+        <a class="nav-link" href="{{ path('service_antiplagiat') }}">
+            <span class="nav-link-title">Антиплагиат</span>
+        </a>
+    </li>
+    <li class="nav-item {% if controller|default(false) and controller == 'litera' %}active{% endif %}">
+        <a class="nav-link" href="{{ path('service_literra') }}">
+            <span class="nav-link-title">Литера 5</span>
+        </a>
+    </li>
+    <li class="nav-item {% if controller|default(false) and controller == 'legalregister' %}active{% endif %}">
+        <a class="nav-link" href="{{ path('service_legalregister') }}">
+            <span class="nav-link-title">Реестр прав</span>
+        </a>
+    </li>
+</ul>
