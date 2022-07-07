@@ -98,16 +98,13 @@ class RolesRepository extends ServiceEntityRepository
     {
         $qb = $this->createQueryBuilder('role');
 
+        $qb->select('COUNT(role.id)')
+            ->where('role.delete = :delete')
+            ->setParameter('delete', false);
+
         if(!empty($search)) {
-            $qb->select('COUNT(role.id)')
-                ->where('role.delete = :delete')
-                ->setParameter('delete', false)
-                ->andWhere("LOWER(role.name) LIKE :search ESCAPE '!'")
+            $qb->andWhere("LOWER(role.name) LIKE :search ESCAPE '!'")
                 ->setParameter('search', $this->makeLikeParam(mb_strtolower($search)));
-        } else {
-            $qb->select('COUNT(role.id)')
-                ->where('role.delete = :delete')
-                ->setParameter('delete', false);
         }
 
         $query = $qb->getQuery();
