@@ -16,13 +16,13 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbar-menu">
-                    {% include 'administrator/block/nav_directory.html.twig' with {'controller': 'antiplagiat'} %}
+                    {% include 'administrator/block/nav_directory.html.twig' with {'controller': 'legalregister'} %}
                 </div>
             </div>
         </aside>
         <div class="page-wrapper">
             <div class="container-fluid">
-                {% include 'block/header_list.html.twig' with {'header': 'Реестр прав', 'onpage_link': path('service_antiplagiat')} %}
+                {% include 'block/header_list.html.twig' with {'header': 'Реестр прав', 'onpage_link': path('service_legalregister')} %}
             </div>
             <div class="page-body">
                 <div class="container-fluid">

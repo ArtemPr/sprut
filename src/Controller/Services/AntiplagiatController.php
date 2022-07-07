@@ -16,14 +16,19 @@ class AntiplagiatController extends BaseController implements BaseInterface
     public function getList()
     {
         $auth = $this->getAuthValue($this->getUser(), 'auth_antiplagiat', $this->managerRegistry);
-        if(!is_array($auth)) {
+        if (!is_array($auth)) {
             return $auth;
         }
 
-        return $this->render(
-            'services/antiplagiat/index.html.twig',
+        $tpl = !empty($this->get_data['ajax'])
+            ?
+            'services/antiplagiat/table.html.twig'
+            :
+            'services/antiplagiat/index.html.twig';
+
+        return $this->render($tpl,
             [
-                'auth' => $auth
+                'auth' => $auth,
             ]
         );
     }

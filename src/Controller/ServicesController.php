@@ -15,19 +15,19 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/service', name: 'service')]
 class ServicesController extends AbstractController
 {
-    #[Route('antiplagiat', name: '_antiplagiat')]
+    #[Route('/antiplagiat', name: '_antiplagiat')]
     public function getAntiplagiat(AntiplagiatController $antiplagiatController): Response
     {
         return $antiplagiatController->getList();
     }
 
-    #[Route('literra', name: '_literra')]
+    #[Route('/litera', name: '_literra')]
     public function getLitera(LiterraController $literraController): Response
     {
         return $literraController->getList();
     }
 
-    #[Route('legalregister', name: '_legalregister')]
+    #[Route('/legalregister', name: '_legalregister')]
     public function getLegalRegister(LegalRegisterController $legalRegisterController): Response
     {
         return $legalRegisterController->getList();
