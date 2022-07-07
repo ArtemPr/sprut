@@ -82,7 +82,7 @@ class OperationsRepository extends ServiceEntityRepository
             $qb->andWhere("LOWER(op.name) LIKE :search ESCAPE '!'")
                 ->setParameters(
                     [
-                        'search' => $this->makeLikeParam($search)
+                        'search' => $this->makeLikeParam(mb_strtolower($search))
                     ]
                 );
         }
@@ -92,6 +92,25 @@ class OperationsRepository extends ServiceEntityRepository
             hydrationMode: Query::HYDRATE_ARRAY
         );
         return $result;
+    }
+
+    public function getAll(int|null $page = 0, int|null $on_page = 25, string|null $sort = null, string|null $search = null)
+    {
+        $qb = $this->createQueryBuilder('op');
+
+        $qb->select('COUNT(op.id)');
+
+        if (!empty($search)) {
+            $qb->where("LOWER(op.name) LIKE :search ESCAPE '!'")
+                ->setParameter('search', $this->makeLikeParam(mb_strtolower($search)));
+        }
+
+        $query = $qb->getQuery();
+        $result = $query->execute(
+            hydrationMode: Query::HYDRATE_ARRAY
+        );
+
+        return $result[0][1] ?? 0 ;
     }
 
     /**

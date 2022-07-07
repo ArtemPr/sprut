@@ -35,7 +35,8 @@
                                     'close_create': true,
                                     'close_delete': true,
                                     'controller': 'operations',
-                                    'path': path('administrator_operations')
+                                    'path': path('administrator_operations'),
+                                    'add_csv': path('administrator_operations') ~ '_csv' ~ csv_link
                                 } %}
 
                                 <div class="ajax-table">
