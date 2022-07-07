@@ -8,6 +8,7 @@ namespace App\Controller\Administrator;
 use App\Entity\Operations;
 use App\Entity\TrainingCenters;
 use App\Service\AuthService;
+use App\Service\CSVHelper;
 use App\Service\LinkService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,10 +19,61 @@ class AdministratorOperationsController extends AbstractController
 {
     use LinkService;
     use AuthService;
+    use CSVHelper;
+
+    private $request;
 
     public function __construct(
         private ManagerRegistry $managerRegistry
-    ) {
+    )
+    {
+        $this->request = new Request($_GET);
+    }
+
+    private function setTable()
+    {
+        return [
+            ['group', 'Группа', 'string', true],
+            ['name', 'Название', 'string', true],
+            ['comment', 'Комментарий', 'string', true],
+            ['code', 'Код операции', 'string', true]
+        ];
+    }
+
+    private function get(bool $full = false)
+    {
+        $page = $this->request->get('page') ?? null;
+        $on_page = $this->request->get('on_page') ?? 25;
+        $sort = $this->request->get('sort') ?? null;
+        $search = $this->request->get('search') ?? null;
+
+        if ($full === false) {
+            $result = $this->managerRegistry->getRepository(Operations::class)->getList($page, $on_page, $sort,$search);
+            $count = $this->managerRegistry->getRepository(Operations::class)->getAll($page, $on_page, $sort,$search);
+        } else {
+            $result = $this->managerRegistry->getRepository(Operations::class)->getList(0, 9999999999, $sort,$search);
+            $count = $this->managerRegistry->getRepository(Operations::class)->getAll(0, 9999999999, $sort,$search);
+        }
+
+        $page = $page ?? 1;
+
+        return [
+            'data' => $result,
+            'search' => $search,
+            'pager' => [
+                'count_all_position' => $count,
+                'current_page' => $page,
+                'count_page' => (int)ceil($count / $on_page),
+                'paginator_link' => $this->getParinatorLink(),
+                'on_page' => $on_page
+            ],
+            'sort' => [
+                'sort_link' => $this->getSortLink(),
+                'current_sort' => $this->request->get('sort') ?? null,
+            ],
+            'table' => $this->setTable(),
+            'csv_link' => $this->getCSVLink()
+        ];
     }
 
     public function getOperationsList(): Response
@@ -31,50 +83,43 @@ class AdministratorOperationsController extends AbstractController
             return $auth;
         }
 
-        $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
-        $page = $request->get('page') ?? null;
-        $on_page = $request->get('on_page') ?? 25;
-        $sort = $request->get('sort') ?? null;
-        $search = $request->get('search') ?? null;
+        $tpl = $this->request->get('ajax') ? 'administrator/operations/operation_table.html.twig' : 'administrator/operations/index.html.twig' ;
+        $result = $this->get();
+        $result['auth'] = $auth;
 
-        $result = $this->managerRegistry->getRepository(Operations::class)->getList($page, $on_page, $sort,$search);
-
-
-        $count = $this->managerRegistry->getRepository(Operations::class)->findAll();
-        $count = count($count);
-
-
-        $table = [
-            ['group', 'Группа', 'string', true],
-            ['name', 'Название', 'string', true],
-            ['comment', 'Комментарий', 'string', true],
-            ['code', 'Код операции', 'string', true]
-        ];
-
-        $page = $page ?? 1;
-
-        $tpl = $request->get('ajax') ? 'administrator/operations/operation_table.html.twig' : 'administrator/operations/index.html.twig' ;
-
-
-        return $this->render($tpl,
-            [
-                'data' => $result,
-                'search' => $search,
-                'pager' => [
-                    'count_all_position' => $count,
-                    'current_page' => $page,
-                    'count_page' => (int)ceil($count / $on_page),
-                    'paginator_link' => $this->getParinatorLink(),
-                    'on_page' => $on_page
-                ],
-                'sort' => [
-                    'sort_link' => $this->getSortLink(),
-                    'current_sort' => $request->get('sort') ?? null,
-                ],
-                'table' => $table,
-                'auth' => $auth
-            ]
+        return $this->render(
+            $tpl,
+            $result,
         );
+    }
+
+    public function getOperationsCSV()
+    {
+        $result = $this->get(true);
+        $table = '';
+
+        foreach ($this->setTable() as $tbl) {
+            $table .= '"' . $tbl[1] . '";';
+        }
+
+        $table = substr($table, 0, -1) . "\n";
+        $data = $result['data'];
+
+        foreach ($data as $val) {
+            $table .= '"' . $val['group'] . '";' .
+                '"' . $val['name'] . '";' .
+                '"' . $val['comment'] . '";' .
+                '"' . $val['code'] . '";' . "\n";
+        }
+
+        $table = mb_convert_encoding($table, 'utf8');
+        $table = htmlspecialchars_decode($table);
+
+        $response = new Response($table);
+        $response->headers->set('Content-Type', 'text/csv');
+        $response->headers->set('Content-Disposition', 'attachment; filename="operations.csv"');
+
+        return $response;
     }
 
     public function getOperationsForm($id)

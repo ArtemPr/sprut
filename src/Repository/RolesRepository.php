@@ -78,7 +78,7 @@ class RolesRepository extends ServiceEntityRepository
             $qb->andWhere("LOWER(role.name) LIKE :search ESCAPE '!'")
                 ->setParameters(
                     [
-                        'search' => $this->makeLikeParam($search),
+                        'search' => $this->makeLikeParam(mb_strtolower($search)),
                         'delete' => false
                     ]
                 );
