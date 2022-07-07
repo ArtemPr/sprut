@@ -50,8 +50,6 @@ class ProfStandartsRepository extends ServiceEntityRepository
      */
     public function getList(int|null $page = 0, int|null $on_page = 25, string|null $sort = null, ?string $search = null)
     {
-        $entityManager = $this->getEntityManager();
-
         $page = (empty($page) || $page === 1 || $page === 0) ? 0 : $page - 1;
         $first_result = (int)$page * (int)$on_page;
         $order = $this->setSort($sort, 'op');
@@ -72,6 +70,25 @@ class ProfStandartsRepository extends ServiceEntityRepository
         );
 
         return $result;
+    }
+
+    public function getListAll(int|null $page = 0, int|null $on_page = 25, string|null $sort = null, string|null $search = null)
+    {
+        $qb = $this->createQueryBuilder('op');
+
+        $qb->select('COUNT(op.id)');
+
+        if(!empty($search)) {
+            $qb->andWhere("LOWER(op.name) LIKE :search ESCAPE '!'")
+                ->setParameter('search', $this->makeLikeParam(mb_strtolower($search)));
+        }
+
+        $query = $qb->getQuery();
+        $result = $query->execute(
+            hydrationMode: Query::HYDRATE_ARRAY
+        );
+
+        return $result[0][1] ?? 0 ;
     }
 
     public function get($id)
