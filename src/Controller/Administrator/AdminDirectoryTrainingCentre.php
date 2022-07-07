@@ -49,13 +49,11 @@ class AdminDirectoryTrainingCentre extends AbstractController
 
         if ($full === false) {
             $result = $this->managerRegistry->getRepository(TrainingCenters::class)->getList($page, $on_page, $sort, $search);
-            $count = $this->managerRegistry->getRepository(TrainingCenters::class)->findAll();
+            $count = $this->managerRegistry->getRepository(TrainingCenters::class)->getListAll($page, $on_page, $sort, $search);
         } else {
             $result = $this->managerRegistry->getRepository(TrainingCenters::class)->getList(0, 9999999999, $sort, $search);
-            $count = $this->managerRegistry->getRepository(TrainingCenters::class)->findAll();
+            $count = $this->managerRegistry->getRepository(TrainingCenters::class)->getListAll(0, 9999999999, $sort, $search);
         }
-
-        $count = count($count);
 
         $page = $page ?? 1;
 

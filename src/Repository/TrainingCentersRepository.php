@@ -76,6 +76,26 @@ class TrainingCentersRepository extends ServiceEntityRepository
         return $result;
     }
 
+    public function getListAll(int|null $page = 0, int|null $on_page = 25, string|null $sort = null, string|null $search = null)
+    {
+        $qb = $this->createQueryBuilder('tc');
+
+        $qb->select('COUNT(tc.id)')
+            ->where('tc.delete = :delete')
+            ->setParameter('delete', false);
+
+        if(!empty($search)) {
+            $qb->andWhere("LOWER(tc.name) LIKE :search ESCAPE '!'")
+                ->setParameter('search', $this->makeLikeParam(mb_strtolower($search)));
+        }
+
+        $query = $qb->getQuery();
+        $result = $query->execute(
+            hydrationMode: Query::HYDRATE_ARRAY
+        );
+
+        return $result[0][1] ?? 0 ;
+    }
 
     public function get($id)
     {
