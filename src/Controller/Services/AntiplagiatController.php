@@ -22,10 +22,10 @@ class AntiplagiatController extends BaseController implements BaseInterface
             return $auth;
         }
 
-        $page = $this->request->get('page') ?? null;
-        $on_page = $this->request->get('on_page') ?? 25;
-        $sort = $this->request->get('sort') ?? null;
-        $search = $this->request->get('search') ?? null;
+        $page = $this->get_data['page'] ?? null;
+        $on_page = $this->get_data['on_page'] ?? 25;
+        $sort = $this->get_data['sort'] ?? null;
+        $search = $this->get_data['search'] ?? null;
 
         $data = [];
 
@@ -51,7 +51,7 @@ class AntiplagiatController extends BaseController implements BaseInterface
                 ],
                 'sort' => [
                     'sort_link' => $this->getSortLink(),
-                    'current_sort' => $this->request->get('sort') ?? null,
+                    'current_sort' => $this->get_data['sort'] ?? null,
                 ],
                 'search_link' => $this->getSearchLink(),
                 'table' => $this->setTable(),
