@@ -71,6 +71,28 @@ class KaferdaRepository extends ServiceEntityRepository
         return $result;
     }
 
+    public function getListAll(int|null $page = 0, int|null $on_page = 25, string|null $sort = null, string|null $search = null)
+    {
+        $qb = $this->createQueryBuilder('kafedra')
+            ->select('COUNT(kafedra.id)')
+            ->leftJoin('kafedra.director', 'director')
+            ->leftJoin('kafedra.training_centre', 'training_centre')
+            ->where('kafedra.delete = :delete')
+            ->setParameter('delete', false);
+
+        if(!empty($search)) {
+            $qb->andWhere("LOWER(kafedra.name) LIKE :search ESCAPE '!'")
+                ->setParameter('search', $this->makeLikeParam(mb_strtolower($search)));
+        }
+
+        $query = $qb->getQuery();
+        $result = $query->execute(
+            hydrationMode: Query::HYDRATE_ARRAY
+        );
+
+        return $result[0][1] ?? 0 ;
+    }
+
     public function get($id)
     {
         $entityManager = $this->getEntityManager();

@@ -51,14 +51,11 @@ class AdminDirectoryKafedra extends AbstractController
 
         if ($full === false) {
             $result = $this->managerRegistry->getRepository(Kaferda::class)->getList($page, $on_page, $sort, $search);
+            $count = $this->managerRegistry->getRepository(Kaferda::class)->getListAll($page, $on_page, $sort, $search);
         } else {
             $result = $this->managerRegistry->getRepository(Kaferda::class)->getList(0, 9999999999, $sort, $search);
+            $count = $this->managerRegistry->getRepository(Kaferda::class)->getListAll(0, 9999999999, $sort, $search);
         }
-
-        // Считаем кол-во позиций всего
-        // @TODO перенести findAll в метод репозитория
-        $count = $this->managerRegistry->getRepository(Kaferda::class)->findAll();
-        $count = count($count);
 
         $training_centre = $this->managerRegistry->getRepository(TrainingCenters::class)->getList();
         $user = $this->managerRegistry->getRepository(User::class)->getList();
