@@ -1,0 +1,60 @@
+<div class="users-table-wrap table-responsive">
+    <table id="usersTable"
+           class="users-table table card-table table-vcenter text-nowrap datatable">
+        <thead>
+        <tr>
+            <th class="hidden-cell"></th>
+            {% if table|default(false) %}
+                {% for tbl in table %}
+                    {% if tbl.3 == true %}
+                        {% if tbl.1 == '' %}
+                            <th></th>
+                        {% else %}
+                            {% if loop.first == 1 %}
+                                <th>
+                                    <a
+                                        class="sort-icon is-{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}desc{% elseif sort.current_sort|default(false) and sort.current_sort == (tbl.0~'__up') %}asc{% elseif sort.current_sort|default(false) == false %}asc{% else %}both{% endif %}"
+                                        href="{{ path('service_antiplagiat') ~ sort.sort_link ~ tbl.0 }}{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}__up{% endif %}"></a>
+                                    {% if  tbl.1  == 'ID' %}
+                                        <p class="th-name id-name">{{ tbl.1 }}</p>
+                                    {% else %}
+                                        <p class="th-name">{{ tbl.1 }}</p>
+                                    {% endif %}
+                                </th>
+                            {% else %}
+                                <th>
+                                    <a
+                                        class="sort-icon is-{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}desc{% elseif sort.current_sort|default(false) and sort.current_sort == (tbl.0~'__up') %}asc{% else %}both{% endif %}"
+                                        href="{{ path('service_antiplagiat') ~ sort.sort_link ~ tbl.0 }}{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}__up{% endif %}"
+                                    ></a>
+                                    <p class="th-name"> {{ tbl.1 }}</p>
+                                </th>
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </tr>
+        </thead>
+        <tbody>
+        {% if data|default(false) %}
+            {% for dat in data %}
+                <tr data-string="{{ dat.id }}"
+                    class="user-table-row {% if loop.first %}is-selected{% endif %}">
+                    <td><span class="badge {% if dat.active|default(false) %} bg-success {% else %} bg-danger {% endif %} "></span></td>
+                    <td>
+                        {{ dat.short_name|default(false)|raw }}
+                    </td>
+                    <td style="max-width: 550px; white-space: normal;">
+                        {{ dat.name|default(false)|raw }}
+                    </td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+        </tbody>
+    </table>
+</div>
+
+{% include 'block/paginator.html.twig' with {
+    'path': path('service_antiplagiat')
+}  %}
