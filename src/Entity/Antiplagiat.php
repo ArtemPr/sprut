@@ -23,7 +23,7 @@ class Antiplagiat
     private $discipline;
 
     #[ORM\Column(type: 'integer')]
-    private $ыsize;
+    private $size;
 
     #[ORM\ManyToOne(targetEntity: User::class)]
     private $author;
@@ -84,14 +84,14 @@ class Antiplagiat
         return $this;
     }
 
-    public function getыsize(): ?int
+    public function getSize(): ?int
     {
-        return $this->ыsize;
+        return $this->size;
     }
 
-    public function setыsize(int $ыsize): self
+    public function setSize(int $size): self
     {
-        $this->ыsize = $ыsize;
+        $this->size = $size;
 
         return $this;
     }
