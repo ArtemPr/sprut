@@ -99,14 +99,20 @@ class TrainingCentersRepository extends ServiceEntityRepository
 
     public function get($id)
     {
-        $entityManager = $this->getEntityManager();
 
-        $result = $entityManager->createQuery(
-            'SELECT tc
-                FROM App\Entity\TrainingCenters tc
-                WHERE tc.id = :id'
-        )->setParameter('id', $id)
-            ->getResult(Query::HYDRATE_ARRAY);
+        $qb = $this->createQueryBuilder('training_centers')
+            ->where('training_centers.id = :id')
+            ->leftJoin('training_centers.trainingCentersRequisites', 'training_centers_requisites')->addSelect('training_centers_requisites')
+            ->setParameter('id', $id);
+
+        $query = $qb->getQuery();
+        $result = $query->execute(
+            hydrationMode: Query::HYDRATE_ARRAY
+        );
+
+        if (!empty($result['trainingCentersRequisites'])) {
+
+        }
 
         return $result;
     }
