@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Antiplagiat;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -39,28 +40,73 @@ class AntiplagiatRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Antiplagiat[] Returns an array of Antiplagiat objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('a')
-//            ->andWhere('a.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('a.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function getList(int|null $page = 0, int|null $on_page = 25, string|null $sort = null, string|null $search = null)
+    {
+        $page = (empty($page) || $page === 1 || $page === 0) ? 0 : $page - 1;
+        $first_result = (int)$page * (int)$on_page;
 
-//    public function findOneBySomeField($value): ?Antiplagiat
-//    {
-//        return $this->createQueryBuilder('a')
-//            ->andWhere('a.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        $order = $this->setSort($sort, 'antiplagiat');
+
+        $qb = $this->createQueryBuilder('antiplagiat')
+            ->leftJoin('antiplagiat.discipline', 'discipline')
+            ->leftJoin('antiplagiat.author', 'user')
+            ->orderBy($order[0], $order[1])
+        ;
+
+        // комментарий
+        if(!empty($search)) {
+            $qb->andWhere("LOWER(antiplagiat.comment) LIKE :search ESCAPE '!'")
+                ->setParameter('search', $this->makeLikeParam(mb_strtolower($search)));
+        }
+
+        $result = $qb->getQuery()
+            ->setFirstResult($first_result)
+            ->setMaxResults($on_page)
+            ->getResult(Query::HYDRATE_ARRAY);
+
+        return $result;
+    }
+
+    public function getListAll(int|null $page = 0, int|null $on_page = 25, string|null $sort = null, string|null $search = null)
+    {
+        $qb = $this->createQueryBuilder('antiplagiat');
+
+        $qb->select('COUNT(antiplagiat.id)')
+            ->leftJoin('antiplagiat.discipline', 'discipline')
+            ->leftJoin('antiplagiat.author', 'user')
+        ;
+
+        if(!empty($search)) {
+            $qb->andWhere("LOWER(antiplagiat.comment) LIKE :search ESCAPE '!'")
+                ->setParameter('search', $this->makeLikeParam(mb_strtolower($search)));
+        }
+
+        $query = $qb->getQuery();
+        $result = $query->execute(
+            hydrationMode: Query::HYDRATE_ARRAY
+        );
+
+        return $result[0][1] ?? 0 ;
+    }
+
+    private function setSort($sort, $prefix)
+    {
+        if (!is_null($sort)) {
+            if (strstr($sort, '__up')) {
+                $sort = str_replace('__up', ' DESC', $sort);
+            } else {
+                $sort .= " ASC";
+            }
+
+            if (!strstr($sort, '.')) {
+                $order = $prefix . '.' . $sort;
+            } else {
+                $order = $sort;
+            }
+        } else {
+            $order = $prefix . '.id DESC';
+        }
+
+        return explode(' ', $order);
+    }
 }
