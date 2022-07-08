@@ -59,19 +59,19 @@
 
                     <div class="tab-pane fgos-tab fgos-tab--add" id="tabs-home-ex2">
 
-                        <div class="fgos-item">
-                            <div class="mb-3 fgos-datalist">
-                                <label class="form-label">Выберите ФГОС</label>
-                                <select name="fgos" class="form-control">
-                                    <option value="">Выберите из списка</option>
-                                    {% if fgos|default(false) %}
-                                        {% for fg in fgos %}
-                                            <option value="{{ fg.id }}">{{ fg.name }}</option>
-                                        {% endfor %}
-                                    {% endif %}
-                                </select>
-                            </div>
-                        </div>
+{#                        <div class="fgos-item">#}
+{#                            <div class="mb-3 fgos-datalist">#}
+{#                                <label class="form-label">Выберите ФГОС</label>#}
+{#                                <select name="fgos" class="form-control">#}
+{#                                    <option value="">Выберите из списка</option>#}
+{#                                    {% if fgos|default(false) %}#}
+{#                                        {% for fg in fgos %}#}
+{#                                            <option value="{{ fg.id }}">{{ fg.name }}</option>#}
+{#                                        {% endfor %}#}
+{#                                    {% endif %}#}
+{#                                </select>#}
+{#                            </div>#}
+{#                        </div>#}
 
                         <div class="mb-3">
                             <div class="form-label fgos-label">Выберите тип образования</div>
