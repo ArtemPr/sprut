@@ -5,46 +5,130 @@
 </div>
 <div class="offcanvas-body">
     <form action="#" name="training_centre-create" id="training_centre_add-create" class="form-create">
+        <style>
+            textarea.form-control {
+                height: 72px;
+            }
+        </style>
+        <div class="card">
 
-        <div class="form-group mb-3 row">
-            <label class="form-label col-3 col-form-label">Название *</label>
-            <div class="col">
-                <input name="name" type="text" class="form-control" placeholder="Название УЦ" required>
-            </div>
+            <ul class="nav nav-tabs" data-bs-toggle="tabs">
+                <li class="nav-item">
+                    <a href="#uc_create_tab1" class="nav-link control-tab active" data-bs-toggle="tab">Основное</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#uc_create_tab3" class="nav-link control-tab" data-bs-toggle="tab">Настройки</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#uc_create_tab2" class="nav-link control-tab" data-bs-toggle="tab">Реквизиты</a>
+                </li>
+            </ul>
+
         </div>
 
-        <div class="form-group mb-3 row">
-            <label class="form-label col-3 col-form-label">Телефон</label>
-            <div class="col">
-                <input name="phone" type="text" class="form-control" placeholder="телефон">
-            </div>
-        </div>
+        <div class="card-body">
+            <div class="tab-content">
+                <div class="tab-pane active show" id="uc_create_tab1">
+                    <div class="form-group mb-3 row">
+                        <label class="form-label col-3 col-form-label">Название *</label>
+                        <div class="col">
+                            <input name="name" type="text" class="form-control" placeholder="Название УЦ" required>
+                        </div>
+                    </div>
 
-        <div class="form-group mb-3 row">
-            <label class="form-label col-3 col-form-label">E-mail</label>
-            <div class="col">
-                <input name="email" type="text" class="form-control" placeholder="email">
-            </div>
-        </div>
+                    <div class="form-group mb-3 row">
+                        <label class="form-label col-3 col-form-label">Телефон</label>
+                        <div class="col">
+                            <input name="phone" type="text" class="form-control" placeholder="телефон">
+                        </div>
+                    </div>
 
-        <div class="form-group mb-3 row">
-            <label class="form-label col-3 col-form-label">URL</label>
-            <div class="col">
-                <input name="url" type="text" class="form-control" placeholder="email">
-            </div>
-        </div>
+                    <div class="form-group mb-3 row">
+                        <label class="form-label col-3 col-form-label">E-mail</label>
+                        <div class="col">
+                            <input name="email" type="text" class="form-control" placeholder="email">
+                        </div>
+                    </div>
 
-        <div class="form-group mb-3 row">
-            <label class="form-label col-3 col-form-label">Идентификатор в бакалавр-магистр</label>
-            <div class="col">
-                <input name="external_upload_bakalavrmagistr_id" type="text" class="form-control" placeholder="email">
-            </div>
-        </div>
+                    <div class="form-group mb-3 row">
+                        <label class="form-label col-3 col-form-label">URL</label>
+                        <div class="col">
+                            <input name="url" type="text" class="form-control" placeholder="email">
+                        </div>
+                    </div>
+                </div>
 
-        <div class="form-group mb-3 row">
-            <label class="form-label col-3 col-form-label">Идентификатор в сдо</label>
-            <div class="col">
-                <input name="external_upload_sdo_id" type="text" class="form-control" placeholder="email">
+                <div class="tab-pane" id="uc_create_tab3">
+                    <div class="form-group mb-3 row">
+                        <label class="form-label col-3 col-form-label">Идентификатор в бакалавр-магистр</label>
+                        <div class="col">
+                            <input name="external_upload_bakalavrmagistr_id" type="text" class="form-control" placeholder="id">
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-3 row">
+                        <label class="form-label col-3 col-form-label">Идентификатор в сдо</label>
+                        <div class="col">
+                            <input name="external_upload_sdo_id" type="text" class="form-control" placeholder="id">
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="tab-pane row" id="uc_create_tab2">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group mb-3 row">
+                                <div>Директор</div>
+                                <div class="col">
+                                    <input type="text" name="director" value="" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group mb-3 row">
+                                <div>Позиция директора</div>
+                                <div class="col">
+                                    <input type="text" name="director_position" value="" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group mb-3 row">
+                                <div>Дата изменения</div>
+                                <div class="col">
+                                    <input type="date" name="from_date" value="" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group mb-3 row">
+                                <div>Город</div>
+                                <div class="col">
+                                    <input type="text" name="city" value="" class="form-control" />
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group mb-3 row">
+                                <div>Сокращенное название</div>
+                                <div class="col">
+                                    <input type="text" name="short_name" class="form-control" value="" />
+                                </div>
+                            </div>
+                            <div class="form-group mb-3 row">
+                                <div>Полное название</div>
+                                <div class="col">
+                                    <textarea name="full_name" class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group mb-3 row">
+                                <div>Адрес</div>
+                                <div class="col">
+                                    <textarea name="address" class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
 
