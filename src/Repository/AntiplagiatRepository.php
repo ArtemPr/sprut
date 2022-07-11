@@ -48,8 +48,8 @@ class AntiplagiatRepository extends ServiceEntityRepository
         $order = $this->setSort($sort, 'antiplagiat');
 
         $qb = $this->createQueryBuilder('antiplagiat')
-            ->leftJoin('antiplagiat.discipline', 'discipline')
-            ->leftJoin('antiplagiat.author', 'user')
+            ->leftJoin('antiplagiat.discipline', 'discipline')->addSelect('discipline')
+            ->leftJoin('antiplagiat.author', 'user')->addSelect('user')
             ->orderBy($order[0], $order[1])
         ;
 
@@ -87,6 +87,18 @@ class AntiplagiatRepository extends ServiceEntityRepository
         );
 
         return $result[0][1] ?? 0 ;
+    }
+
+    public function get($id)
+    {
+        $qb = $this->createQueryBuilder('antiplagiat')
+            ->leftJoin('antiplagiat.discipline', 'discipline')
+            ->leftJoin('antiplagiat.author', 'user')
+            ->where('antiplagiat.id = :id')->setParameter('id', $id)
+        ;
+
+        return $qb->getQuery()
+            ->getResult(Query::HYDRATE_ARRAY);
     }
 
     private function setSort($sort, $prefix)

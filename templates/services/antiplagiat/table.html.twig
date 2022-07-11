@@ -1,4 +1,7 @@
 <div class="users-table-wrap table-responsive">
+
+    {# dump(data) #}
+
     <table id="usersTable"
            class="users-table table card-table table-vcenter text-nowrap datatable">
         <thead>
@@ -8,7 +11,7 @@
                 {% for tbl in table %}
                     {% if tbl.3 == true %}
                         {% if tbl.1 == '' %}
-                            <th></th>
+                            <!-- th></th -->
                         {% else %}
                             {% if loop.first == 1 %}
                                 <th>
@@ -38,16 +41,19 @@
         </thead>
         <tbody>
         {% if data|default(false) %}
-            {% for dat in data %}
-                <tr data-string="{{ dat.id }}"
+            {% for data_item in data %}
+                <tr data-string="{{ data_item.id }}"
                     class="user-table-row {% if loop.first %}is-selected{% endif %}">
-                    <td><span class="badge {% if dat.active|default(false) %} bg-success {% else %} bg-danger {% endif %} "></span></td>
-                    <td>
-                        {{ dat.short_name|default(false)|raw }}
-                    </td>
-                    <td style="max-width: 550px; white-space: normal;">
-                        {{ dat.name|default(false)|raw }}
-                    </td>
+
+                    <td>{{ data_item.file }}</td>
+                    <td>{% if data_item.discipline %}{{ data_item.discipline.name | raw }}{% else %}&mdash;{% endif %}</td>
+                    <td>{{ data_item.size }}</td>
+                    <td>{% if data_item.author %}{{ data_item.author.fullname }}{% else %}&mdash;{% endif %}</td>
+                    <td>{{ data_item.data_create | date('d/m/Y H:i') }}</td>
+                    <td>{{ data_item.comment }}</td>
+                    <td>{{ data_item.plagiat_percent }}</td>
+                    <td>{{ data_item.result_file }}</td>
+                    <td>{{ data_item.result_date | date('d/m/Y H:i') }}</td>
                 </tr>
             {% endfor %}
         {% endif %}

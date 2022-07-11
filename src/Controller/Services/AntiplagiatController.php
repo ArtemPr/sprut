@@ -76,11 +76,20 @@ class AntiplagiatController extends BaseController implements BaseInterface
         );
     }
 
+    #[Route('/form/antiplagiat_edit/{id}', name: 'antiplagiat_edit')]
     public function getItemForm($id)
     {
-        // edit
+        $disciplines = $this->managerRegistry->getRepository(Discipline::class)->getList(0, 9999999999);
+        $data_out = $this->managerRegistry->getRepository(Antiplagiat::class)->get($id);
 
-        $data = '';
+        return $this->render(
+            'services/antiplagiat/form/update_form.html.twig.html',
+            [
+                'data' => $data_out[0] ?? null,
+                'controller' => 'Antiplagiat',
+                'disciplines' => $disciplines,
+            ]
+        );
     }
 
     private function setTable(): array
