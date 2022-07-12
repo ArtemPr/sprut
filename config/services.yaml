@@ -30,3 +30,13 @@ services:
 
   # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    # openssl и soap должны быть включены
+    App\Service\AntiplagiatAPI:
+        autowire: true
+        arguments:
+            $url: 'https://testapi.antiplagiat.ru'
+            $login: 'testapi@antiplagiat.ru'
+            $password: 'testapi'
+            $company_name: 'testapi'
+            $api_address: 'api.antiplagiat.ru:44902'

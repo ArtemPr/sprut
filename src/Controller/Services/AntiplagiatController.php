@@ -5,6 +5,8 @@
 
 namespace App\Controller\Services;
 
+use App\Service\AntiplagiatAPI;
+
 use App\Controller\BaseController;
 use App\Controller\BaseInterface;
 use App\Entity\Antiplagiat;
@@ -12,8 +14,6 @@ use App\Entity\Discipline;
 use App\Service\AuthService;
 use App\Service\CSVHelper;
 use App\Service\LinkService;
-use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AntiplagiatController extends BaseController implements BaseInterface
@@ -79,10 +79,15 @@ class AntiplagiatController extends BaseController implements BaseInterface
     }
 
     #[Route('/form/antiplagiat_edit/{id}', name: 'antiplagiat_edit')]
-    public function getItemForm($id)
+    public function getItemForm($id, AntiplagiatAPI $antiplagiatAPI)
     {
         $disciplines = $this->managerRegistry->getRepository(Discipline::class)->getList(0, 9999999999);
         $data_out = $this->managerRegistry->getRepository(Antiplagiat::class)->get($id);
+
+        dd([
+            '1' => $antiplagiatAPI->soapDebug(),
+            '2' => $this->getUser(),
+        ]);
 
         return $this->render(
             'services/antiplagiat/form/update_form.html.twig',
