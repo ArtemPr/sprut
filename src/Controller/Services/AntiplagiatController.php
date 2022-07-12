@@ -83,7 +83,7 @@ class AntiplagiatController extends BaseController implements BaseInterface
         $data_out = $this->managerRegistry->getRepository(Antiplagiat::class)->get($id);
 
         return $this->render(
-            'services/antiplagiat/form/update_form.html.twig.html',
+            'services/antiplagiat/form/update_form.html.twig',
             [
                 'data' => $data_out[0] ?? null,
                 'controller' => 'Antiplagiat',

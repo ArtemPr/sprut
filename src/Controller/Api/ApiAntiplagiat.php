@@ -32,7 +32,7 @@ class ApiAntiplagiat extends AbstractController
     {
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
         $data = $request->request->all();
-        $files = $request->files->all();
+//        $files = $request->files->all();
 
         $discipline = null;
 
@@ -76,9 +76,11 @@ class ApiAntiplagiat extends AbstractController
 
     public function update()
     {
+        //
+        // файл не обновляем
+        //
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
         $data = $request->request->all();
-        $files = $request->files->all();
 
         $discipline = null;
 
@@ -86,10 +88,19 @@ class ApiAntiplagiat extends AbstractController
             $discipline = $this->doctrine->getRepository(Discipline::class)->find($data['discipline']);
         }
 
-        dd($this->json([
-            '$data' => $data,
-            '$files' => $files,
-        ]));
+//        dd($this->json([
+//            '$data' => $data,
+//        ]));
+
+        $antiplagiat = $this->doctrine->getRepository(Antiplagiat::class)->find($data['id']);
+
+        $antiplagiat->setAuthor($this->getUser());
+        $antiplagiat->setDiscipline($discipline);
+        $antiplagiat->setComment($data['comment']);
+
+        $entityManager = $this->doctrine->getManager();
+        $entityManager->persist($antiplagiat);
+        $entityManager->flush();
 
         $loger = new Loger();
         $loger->setTime(new \DateTime());
@@ -97,11 +108,11 @@ class ApiAntiplagiat extends AbstractController
         $loger->setUserLoger($this->getUser());
         $loger->setIp($request->server->get('REMOTE_ADDR'));
         $loger->setChapter('Антиплагиат');
-        $loger->setComment('Обновление запроса '.$lastId);
+        $loger->setComment('Обновление запроса '.$data['id']);
         $entityManager = $this->doctrine->getManager();
         $entityManager->persist($loger);
         $entityManager->flush();
 
-        return $this->json(['result' => 'success', 'id' => $lastId]);
+        return $this->json(['result' => 'success', 'id' => $data['id']]);
     }
 }

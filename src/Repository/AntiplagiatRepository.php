@@ -92,8 +92,8 @@ class AntiplagiatRepository extends ServiceEntityRepository
     public function get($id)
     {
         $qb = $this->createQueryBuilder('antiplagiat')
-            ->leftJoin('antiplagiat.discipline', 'discipline')
-            ->leftJoin('antiplagiat.author', 'user')
+            ->leftJoin('antiplagiat.discipline', 'discipline')->addSelect('discipline')
+            ->leftJoin('antiplagiat.author', 'user')->addSelect('user')
             ->where('antiplagiat.id = :id')->setParameter('id', $id)
         ;
 
