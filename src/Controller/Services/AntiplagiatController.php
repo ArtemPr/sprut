@@ -12,6 +12,8 @@ use App\Entity\Discipline;
 use App\Service\AuthService;
 use App\Service\CSVHelper;
 use App\Service\LinkService;
+use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AntiplagiatController extends BaseController implements BaseInterface
@@ -59,12 +61,12 @@ class AntiplagiatController extends BaseController implements BaseInterface
     #[Route('/service/antiplagiat', name: 'antiplagiat')]
     public function getList()
     {
-        $auth = $this->getAuthValue($this->getUser(), 'auth_litera', $this->managerRegistry);
+        $auth = $this->getAuthValue($this->getUser(), 'auth_antiplagiat', $this->managerRegistry);
         if (!is_array($auth)) {
             return $auth;
         }
 
-        $tpl = !empty($this->get_data['ajax'])
+        $tpl = !empty($this->request->get('ajax'))
             ? 'services/antiplagiat/table.html.twig'
             : 'services/antiplagiat/index.html.twig';
 

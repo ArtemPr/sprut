@@ -20,7 +20,7 @@ class BaseController extends AbstractController
     /**
      * @var Request
      */
-    protected $request;
+    public $request;
 
     /**
      * @var array
@@ -36,9 +36,15 @@ class BaseController extends AbstractController
     {
         $this->managerRegistry = $managerRegistry;
 
-        $this->request = new Request($_GET);
+        $this->request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
 
-        $this->get_data = $this->request->request->all();
+        $this->get_data = $this->request->query->all();
+
+//        dd([
+//            '$request' => $request ?? '-',
+//            '$this->request' => $this->request ?? '-',
+//            'get_data' => $this->get_data ?? '-',
+//        ]);
     }
 
 }
