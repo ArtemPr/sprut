@@ -97,7 +97,7 @@ class AdminDirectoryKafedra extends AbstractController
             return $auth;
         }
 
-        $tpl = $this->request->get('ajax') ? 'administrator/directory/kafedra_table.html.twig' : 'administrator/directory/kafedra.html.twig' ;
+        $tpl = $this->request->get('ajax') ? 'administrator/directory/kafedra/kafedra_table.html.twig' : 'administrator/directory/kafedra/kafedra.html.twig' ;
         $result = $this->get();
         $result['auth'] = $auth;
 
@@ -133,7 +133,7 @@ class AdminDirectoryKafedra extends AbstractController
         $data_out = $this->managerRegistry->getRepository(Kaferda::class)->get($id);
 
         return $this->render(
-            'administrator/directory/form/kafedra_update.html.twig',
+            'administrator/directory/kafedra/form/kafedra_update.html.twig',
             [
                 'data' => $data_out[0] ?? null,
                 'controller' => 'AdminKafedra',

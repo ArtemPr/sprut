@@ -84,7 +84,7 @@ class AdminDirectoryTrainingCentre extends AbstractController
             return $auth;
         }
 
-        $tpl = $this->request->get('ajax') ? 'administrator/directory/training_centre_table.html.twig' : 'administrator/directory/training_centre.html.twig' ;
+        $tpl = $this->request->get('ajax') ? 'administrator/directory/training_centre/training_centre_table.html.twig' : 'administrator/directory/training_centre/training_centre.html.twig' ;
         $result = $this->get();
         $result['auth'] = $auth;
 
@@ -117,7 +117,7 @@ class AdminDirectoryTrainingCentre extends AbstractController
         $data_out = $this->managerRegistry->getRepository(TrainingCenters::class)->get($id);
 
         return $this->render(
-            'administrator/directory/form/training_centre_update.html.twig',
+            'administrator/directory/training_centre/form/training_centre_update.html.twig',
             [
                 'data' => $data_out[0] ?? null,
                 'controller' => 'AdminTrainingCentre',

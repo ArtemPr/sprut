@@ -26,62 +26,37 @@
                         <div class="form-group mb-3 row">
                             <label class="form-label col-3 col-form-label">Название*</label>
                             <div class="col">
-                                <input type="text" class="form-control"  name="name" value="{{ data.name|default(false) }}" placeholder="Название программы" required>
+                                <input type="text" class="form-control" name="name"
+                                       value="{{ data.name|default(false) }}" placeholder="Название программы" required>
                             </div>
                         </div>
                         <div class="form-group mb-3 row">
                             <label class="form-label col-3 col-form-label">Тип программы</label>
                             <div class="col">
                                 <select class="form-select" name="type" required>
-                                    <option value="">Выберите из списка </option>
-                                    <option value="1" {% if data.program_type.id|default(false) and data.program_type.id == '1' %}selected{% endif %}>Повышение квалификации (ПК) </option>
-                                    <option value="2" {% if data.program_type.id|default(false) and data.program_type.id == '2' %}selected{% endif %}>Профессиональная переподготовка (ПП) </option>
-                                    <option value="3" {% if data.program_type.id|default(false) and data.program_type.id == '3' %}selected{% endif %}>Профессиональное обучение (ПО) </option>
-                                    <option value="4" {% if data.program_type.id|default(false) and data.program_type.id == '4' %}selected{% endif %}>Дополнительное образование (ДО) </option>
+                                    <option value="">Выберите из списка</option>
+                                    <option value="1"
+                                            {% if data.program_type.id|default(false) and data.program_type.id == '1' %}selected{% endif %}>
+                                        Повышение квалификации (ПК)
+                                    </option>
+                                    <option value="2"
+                                            {% if data.program_type.id|default(false) and data.program_type.id == '2' %}selected{% endif %}>
+                                        Профессиональная переподготовка (ПП)
+                                    </option>
+                                    <option value="3"
+                                            {% if data.program_type.id|default(false) and data.program_type.id == '3' %}selected{% endif %}>
+                                        Профессиональное обучение (ПО)
+                                    </option>
+                                    <option value="4"
+                                            {% if data.program_type.id|default(false) and data.program_type.id == '4' %}selected{% endif %}>
+                                        Дополнительное образование (ДО)
+                                    </option>
                                 </select>
                             </div>
                         </div>
-                        {#<div class="form-group mb-3 row align-items-center">
-                            <label class="form-label col-3 col-form-label">Направление</label>
-                            <div class="col">
-                                <input type="text" class="form-control" placeholder="Название выбранного направления">
-                            </div>
-                        </div>#}
                     </div>
 
-
                     <div class="tab-pane fgos-tab fgos-tab--edit" id="tabs-home-ex11">
-                        <div class="fgos-item">
-                            <div class="mb-3 fgos-datalist">
-                                <label class="form-label">Выберите ФГОС</label>
-                                <select name="fgos" class="form-control">
-                                    <option value="">Выберите из списка</option>
-                                    {% if fgos|default(false) %}
-                                        {% for fg in fgos %}
-                                            <option  {% if data.federal_standart[0]['id']|default(false) and data.federal_standart[0]['id'] ==  fg.id %}selected{% endif %} value="{{ fg.id }}">{{ fg.name }}</option>
-                                        {% endfor %}
-                                    {% endif %}
-                                </select>
-                            </div>
-                        </div>
-
-{#                    </div>#}
-
-{#                    <div class="tab-pane fgos-tab fgos-tab--update" id="tabs-home-ex2">#}
-
-{#                        <div class="fgos-item">#}
-{#                            <div class="mb-3 fgos-datalist">#}
-{#                                <label class="form-label">Выберите ФГОС</label>#}
-{#                                <select name="fgos" class="form-control">#}
-{#                                    <option value="">Выберите из списка</option>#}
-{#                                    {% if fgos|default(false) %}#}
-{#                                        {% for fg in fgos %}#}
-{#                                            <option value="{{ fg.id }}">{{ fg.name }}</option>#}
-{#                                        {% endfor %}#}
-{#                                    {% endif %}#}
-{#                                </select>#}
-{#                            </div>#}
-{#                        </div>#}
 
                         <div class="mb-3">
                             <div class="form-label fgos-label">Выберите тип образования</div>
@@ -95,8 +70,17 @@
                         <div class="mb-3 fgos-education">
                             <label class="form-label">Выберите образование</label>
                             <div class="input-icon mb-3">
-                                <input type="text" value="" class="form-control fgos-filter"
-                                       placeholder="Выберите образование">
+                                {% if fgos|default(false) and data.federal_standart[0]['id']|default(false) %}
+                                      {% for fg in fgos %}
+                                          {% if data.federal_standart[0]['id'] == fg.id %}
+                                          <input type="hidden" class="fgos-hidden" name="fgos" value="{{ fg.id }}">
+                                          <input type="text" value="" class="form-control fgos-filter" value="{{ fg.name }}" placeholder="Выберите образование">
+                                          {% endif %}
+                                     {% endfor %}
+                                 {% else %}
+                                     <input type="hidden" class="fgos-hidden" name="fgos">
+                                     <input type="text" value="" class="form-control fgos-filter" placeholder="Выберите образование">
+                                {% endif %}
                                 <span class="input-icon-addon">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search"
                                          width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
@@ -108,7 +92,6 @@
                             </svg>
                             </span>
                             </div>
-                            <input type="hidden" class="fgos-hidden">
                             <ul class="fgos-education__list"></ul>
                         </div>
 

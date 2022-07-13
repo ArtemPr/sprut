@@ -1,0 +1,155 @@
+<div class="offcanvas-header">
+    <h2 class="offcanvas-title">Редактирование ФГОС</h2>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+</div>
+<div class="offcanvas-body">
+    <form action="#" name="fgos-update" id="fgos_update-form" class="form-update">
+
+        <input type="hidden" name="id" value="{{ data.id|default(false) }}">
+
+        <div class="form-group mb-3 row flex-nowrap align-items-center">
+            <label for="cb-activity" class="form-label col-4 col-form-label">ФГОС активен</label>
+            <div class="form-check form-switch mb-0 ms-2">
+                <input id="cb-activity" class="form-check-input" type="checkbox" name="active"
+                    {% if data.active|default(false) %}
+                checked
+                    {% endif %}>
+            </div>
+        </div>
+        <div class="">
+            <ul class="nav nav-tabs" data-bs-toggle="tabs">
+                <li class="nav-item">
+                    <a href="#tabs-ex3" class="nav-link active" data-bs-toggle="tab">Основное</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#tabs-ex4" class="nav-link" data-bs-toggle="tab">Компетенции</a>
+                </li>
+            </ul>
+
+            <div class="card-body">
+                <div class="tab-content">
+                    <div class="tab-pane active show" id="tabs-ex3">
+                        <div class="form-group mb-3 row">
+                            <label class="form-label col-3 col-form-label">Тип *</label>
+                            <div class="col">
+                                <select name="type" class="form-control" required>
+                                    <option disabled {% if data.type|default(false) == false %}selected{% endif %}>Выберите тип</option>
+                                    <option name="type" value="1"
+                                            {% if data.type|default(false) and data.type == '1' %}selected{% endif %}>
+                                        Высшее образование
+                                    </option>
+                                    <option name="type" value="2"
+                                            {% if data.type|default(false) and data.type == '2' %}selected{% endif %}>
+                                        Высшее образование бакалавриат
+                                    </option>
+                                    <option name="type" value="3"
+                                            {% if data.type|default(false) and data.type == '3' %}selected{% endif %}>
+                                        Высшее образование специалитет
+                                    </option>
+                                    <option name="type" value="4"
+                                            {% if data.type|default(false) and data.type == '4' %}selected{% endif %}>
+                                        Среднее профессиональное образование
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3 row">
+                            <label class="form-label col-3 col-form-label">Старое название *</label>
+                            <div class="col">
+                                <textarea name="old_name" class="form-control" disabled
+                                          style="min-height: 100px;">{{ data.old_name|default(false) }}</textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3 row">
+                            <label class="form-label col-3 col-form-label">Название *</label>
+                            <div class="col">
+                                <textarea name="name" class="form-control"
+                                          style="min-height: 100px;">{{ data.name|default(false) }}</textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3 row">
+                            <label class="form-label col-3 col-form-label">Название короткое *</label>
+                            <div class="col">
+                                <input name="short_name" type="text" class="form-control" placeholder="Название ФГОС"
+                                       required value="{{ data.short_name|default(false) }}">
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3 row">
+                            <label class="form-label col-3 col-form-label">Код *</label>
+                            <div class="col">
+                                <input name="code" type="text" class="form-control" placeholder="Код ФГОС"
+                                       required value="{{ data.code|default(false) }}">
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3 row">
+                            <label class="form-label col-3 col-form-label">Дата *</label>
+                            <div class="col">
+                                <input name="data_create" type="date" class="form-control"
+                                       required value="{{ data.date_create|default(false) }}">
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3 row">
+                            <label class="form-label col-3 col-form-label">Номер приказа *</label>
+                            <div class="col">
+                                <input name="pr_num" type="number" class="form-control"
+                                       required value="{{ data.pr_num|default(false) }}">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="tabs-ex4">
+                        <div class="d-flex mb-4">
+                            <button name="add_string_add" type="button" class="btn btn-primary ms-auto btn-green" id="add_string_create_add">Добавить</button>
+                        </div>
+                        <table class="users-table table card-table table-vcenter datatable" id="add_string_table_add">
+                            <thead>
+                            <tr>
+                                <th style="width: 5%">ID</th>
+                                <th>Название</th>
+                                <th style="width: 5%">Удалить</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                    <tr>
+                                        <td>-</td>
+                                        <td>
+                                            <input type="text" name="comp_name[]" class="form-control" value="" />
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="#" class="delete_string">X</a>
+                                        </td>
+                                    </tr>
+                                {% if data.compenencions|default(false) %}
+                                    {% for comp in data.compenencions %}
+                                        <tr>
+                                            <td>{{ comp.id }}</td>
+                                            <td>
+                                                <input type="text" name="comp_name[{{ comp.id }}]" class="form-control" value="{{ comp.name }}" />
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="checkbox" name="comp_delete" value="{{ comp.id }}">
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex mb-4">
+                <button data-form-id="fgos_update-form" data-action="send-form" type="submit"
+                        class="btn btn-primary ms-auto"
+                        aria-label="Close"
+                >Сохранить
+                </button>
+            </div>
+    </form>
+</div>
