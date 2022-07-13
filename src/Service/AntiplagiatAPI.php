@@ -5,6 +5,7 @@
 
 namespace App\Service;
 
+use App\Repository\AntiplagiatRepository;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Translation\Exception\NotFoundResourceException;
 
@@ -15,7 +16,7 @@ class AntiplagiatAPI
     /**
      * Идентификатор реального пользователя во внешней системе.
      */
-    protected int $extUserId;
+    protected string $extUserId;
 
     /**
      * Системный пользователь.
@@ -79,7 +80,7 @@ class AntiplagiatAPI
     /**
      * @param mixed $extUserId
      */
-    public function setExtUserId(int $extUserId): void
+    public function setExtUserId(string $extUserId): void
     {
         $this->extUserId = $extUserId;
     }
@@ -144,25 +145,53 @@ class AntiplagiatAPI
         ];
     }
 
-    public function checkFile()
+    /**
+     * Преобразовать int $docId из таблицы антиплагиата в объект для использования в сервисе антиплагиата.
+     */
+    public function getDocIdObject(int $docId): \stdClass
     {
-        //
+        $docIdClass = new \stdClass();
+
+        $docIdClass->Id = $docId;
+        $docIdClass->External = null;
+
+        return $docIdClass;
     }
 
     /**
-     * Проверить документ, получить ссылку на отчет на сайте "Antiplagiat"
-     *
-     * @param string $filename
-     * @return array
+     * Преобразовать статус для записи его в таблицу на нашей стороне.
      */
-    public function getFileReport(string $filename): array
+    public function getNumericStatus(string $status): int
+    {
+        return match ($status) {
+            'None' => AntiplagiatRepository::CHECK_STATUS_NONE,
+            'InProgress' => AntiplagiatRepository::CHECK_STATUS_INPROGRESS,
+            'Ready' => AntiplagiatRepository::CHECK_STATUS_READY,
+            'Failed' => AntiplagiatRepository::CHECK_STATUS_FAILED,
+            default => 0,
+        };
+    }
+
+    /**
+     * Загрузить файл в сервис антиплагиат.
+     */
+    public function uploadFile(string $filename): \stdClass
     {
         $data = $this->getDocData($filename);
-        $uploadResilt = $this->client->UploadDocument([
+        $uploadResult = $this->client->UploadDocument([
             'data' => $data,
         ]);
         // Идентификатор документа.
-        $docID = $uploadResilt->UploadDocumentResult->Uploaded[0]->Id;
+        $docID = $uploadResult->UploadDocumentResult->Uploaded[0]->Id;
+
+        return $docID;
+    }
+
+    /**
+     * Проверить документ в сервисе антиплагиат
+     */
+    public function checkDocument(\stdClass $docID): array
+    {
         $this->client->CheckDocument([
             'docId' => $docID,
         ]);
@@ -172,7 +201,7 @@ class AntiplagiatAPI
         ]);
 
         // Получить текущий статус последней проверки
-        while ($docStatus->GetCheckStatusResult->Status === 'InProgress') {
+        while ('InProgress' === $docStatus->GetCheckStatusResult->Status) {
             sleep($docStatus->GetCheckStatusResult->EstimatedWaitTime * 0.1);
             $docStatus = $this->client->GetCheckStatus([
                 'docId' => $docID,
@@ -180,31 +209,42 @@ class AntiplagiatAPI
         }
 
         $result = [
-            'status' => false,
+            'status' => $docStatus->GetCheckStatusResult->Status,
         ];
 
-        if ($docStatus->GetCheckStatusResult->Status === 'Failed') {
-            $result = [
-                'status' => false,
-                'error' => $docStatus->GetCheckStatusResult->FailDetails,
-            ];
-
-            return $result;
+        if ('Failed' === $docStatus->GetCheckStatusResult->Status) {
+            $result['error'] = $docStatus->GetCheckStatusResult->FailDetails;
         }
 
-        // Запросить формирование последнего полного отчета в формат PDF.
+        return $result;
+    }
+
+    public function getShortReport(\stdClass $docID): \stdClass
+    {
+        $shortReport = $this->client->GetReportView([
+            'docId' => $docID,
+        ]);
+
+        return $shortReport->GetReportViewResult->Summary;
+    }
+
+    /**
+     * Проверить документ, получить ссылку на отчет на сайте "Antiplagiat".
+     */
+    public function getFileReport(\stdClass $docID): array
+    {
         $pdfReport = $this->client->ExportReportToPdf([
             'docId' => $docID,
         ]);
 
-        while ($pdfReport->ExportReportToPdfResult->Status === 'InProgress') {
+        while ('InProgress' === $pdfReport->ExportReportToPdfResult->Status) {
             sleep(max($pdfReport->ExportReportToPdfResult->EstimatedWaitTime, 10) * 0.1);
             $pdfReport = $this->client->ExportReportToPdf([
                 'docId' => $docID,
             ]);
         }
 
-        if ($pdfReport->ExportReportToPdfResult->Status === 'Failed') {
+        if ('Failed' === $pdfReport->ExportReportToPdfResult->Status) {
             $result = [
                 'status' => false,
                 'error' => $pdfReport->ExportReportToPdfResult->FailDetails,
@@ -229,5 +269,16 @@ class AntiplagiatAPI
         ];
 
         return $result;
+    }
+
+    /**
+     * Получить содержимое pdf-файла с отчётом.
+     */
+    public function downloadPdfReport(string $remoteFilename): string
+    {
+        $ch = curl_init($remoteFilename);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        return curl_exec($ch);
     }
 }

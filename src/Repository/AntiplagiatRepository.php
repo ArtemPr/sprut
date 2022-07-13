@@ -17,6 +17,12 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class AntiplagiatRepository extends ServiceEntityRepository
 {
+    public const CHECK_STATUS_NEW = 1;
+    public const CHECK_STATUS_NONE = 2;
+    public const CHECK_STATUS_INPROGRESS = 3;
+    public const CHECK_STATUS_READY = 4;
+    public const CHECK_STATUS_FAILED = 5;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Antiplagiat::class);
@@ -42,8 +48,8 @@ class AntiplagiatRepository extends ServiceEntityRepository
 
     public function getList(int|null $page = 0, int|null $on_page = 25, string|null $sort = null, string|null $search = null)
     {
-        $page = (empty($page) || $page === 1 || $page === 0) ? 0 : $page - 1;
-        $first_result = (int)$page * (int)$on_page;
+        $page = (empty($page) || 1 === $page || 0 === $page) ? 0 : $page - 1;
+        $first_result = (int) $page * (int) $on_page;
 
         $order = $this->setSort($sort, 'antiplagiat');
 
@@ -54,7 +60,7 @@ class AntiplagiatRepository extends ServiceEntityRepository
         ;
 
         // комментарий
-        if(!empty($search)) {
+        if (!empty($search)) {
             $qb->andWhere("LOWER(antiplagiat.comment) LIKE :search ESCAPE '!'")
                 ->setParameter('search', $this->makeLikeParam(mb_strtolower($search)));
         }
@@ -76,7 +82,7 @@ class AntiplagiatRepository extends ServiceEntityRepository
             ->leftJoin('antiplagiat.author', 'user')
         ;
 
-        if(!empty($search)) {
+        if (!empty($search)) {
             $qb->andWhere("LOWER(antiplagiat.comment) LIKE :search ESCAPE '!'")
                 ->setParameter('search', $this->makeLikeParam(mb_strtolower($search)));
         }
@@ -86,7 +92,7 @@ class AntiplagiatRepository extends ServiceEntityRepository
             hydrationMode: Query::HYDRATE_ARRAY
         );
 
-        return $result[0][1] ?? 0 ;
+        return $result[0][1] ?? 0;
     }
 
     public function get($id)
@@ -107,16 +113,16 @@ class AntiplagiatRepository extends ServiceEntityRepository
             if (strstr($sort, '__up')) {
                 $sort = str_replace('__up', ' DESC', $sort);
             } else {
-                $sort .= " ASC";
+                $sort .= ' ASC';
             }
 
             if (!strstr($sort, '.')) {
-                $order = $prefix . '.' . $sort;
+                $order = $prefix.'.'.$sort;
             } else {
                 $order = $sort;
             }
         } else {
-            $order = $prefix . '.id DESC';
+            $order = $prefix.'.id DESC';
         }
 
         return explode(' ', $order);

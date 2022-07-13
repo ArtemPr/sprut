@@ -11,9 +11,6 @@ trait UploadedFilesService
 {
     /**
      * Предполагаемый обработчик и загрузчик файлов для различных модулей.
-     * @param string $fileFieldName
-     * @param string $moduleName
-     * @return string|null
      */
     protected function uploadFile(string $fileFieldName, string $moduleName): string|null
     {
@@ -41,8 +38,19 @@ trait UploadedFilesService
                 $originalName = uniqid($originalBaseName.'_').'.'.$originalExtName;
             }
 
+            /*
+             * @var $checkedFile array будет доступна из класса, который захочет использовать этот трейт
+             */
             if ($file->move($currSavePlace, $originalName)) {
                 $this->checkedFile = pathinfo($currSavePlace.'/'.$originalName);
+
+                if ('array' != gettype($this->checkedFile)) {
+                    $this->checkedFile = [
+                        'pathinfo' => $this->checkedFile,
+                    ];
+                }
+
+                $this->checkedFile['path'] = $currDownloadPlace.'/'.$originalName;
                 $this->checkedFile['filesize'] = filesize($currSavePlace.'/'.$originalName);
                 $this->checkedFile['filetype'] = filetype($currSavePlace.'/'.$originalName);
                 $this->checkedFile['mime'] = mime_content_type($currSavePlace.'/'.$originalName);
@@ -54,5 +62,25 @@ trait UploadedFilesService
         }
 
         return null;
+    }
+
+    /**
+     * Предполагаемый обработчик сохранения файла в локальном хранилище.
+     */
+    protected function downloadFile(string $remoteFile, string $moduleName, int $docId): string|null
+    {
+        if (str_contains($moduleName, '\\')) {
+            $moduleName = strtolower(substr($moduleName, strrpos($moduleName, '\\') + 1));
+        }
+
+        $currSavePlace = $_SERVER['DOCUMENT_ROOT'].'uplfile/'.$moduleName;
+        $currDownloadPlace = '/uplfile/'.$moduleName;
+        $currFileName = 'Report_'.$docId.'_'.date('Ymd').'.pdf';
+
+        if (false !== file_put_contents($currSavePlace.'/'.$currFileName, $remoteFile)) {
+            return $currDownloadPlace.'/'.$currFileName;
+        }
+
+        return false;
     }
 }
