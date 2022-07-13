@@ -80,7 +80,7 @@ class AntiplagiatProcessCommand extends Command
         $output->writeln('[ ] Start processing item');
 
         /**
-         * @todo Необходимо подумать над тем, что тот кусок кода из API контроллера обособить в отдельный метод и вызвать метод тут!  
+         * @todo Необходимо подумать над тем, что тот кусок кода из API контроллера обособить в отдельный метод и вызвать метод тут!
          */
 
         $docId = $this->antiplagiatAPI->uploadFile($this->projectDir.'/'.$itemRow['file']);
