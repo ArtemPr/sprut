@@ -29,6 +29,7 @@ class AntiplagiatAPI
      * @param string $password
      * @param string $company_name
      * @param string $api_address
+     * @param string $ext_user
      *
      * @throws \SoapFault
      */
@@ -37,7 +38,8 @@ class AntiplagiatAPI
         protected string $login,
         protected string $password,
         protected string $company_name,
-        protected string $api_address
+        protected string $api_address,
+        protected string $ext_user
     ) {
         $xmlEntityLoader = libxml_disable_entity_loader(false);
 
@@ -55,6 +57,8 @@ class AntiplagiatAPI
         ]);
 
         libxml_disable_entity_loader($xmlEntityLoader);
+
+        $this->setExtUserId($this->ext_user);
     }
 
     /**

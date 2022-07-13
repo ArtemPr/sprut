@@ -40,3 +40,4 @@ services:
             $password: 'testapi'
             $company_name: 'testapi'
             $api_address: 'api.antiplagiat.ru:44902'
+            $ext_user: 'testapi'

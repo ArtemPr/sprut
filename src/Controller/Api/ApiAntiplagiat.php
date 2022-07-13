@@ -76,7 +76,6 @@ class ApiAntiplagiat extends AbstractController
         $entityManager->flush();
 
         // попробуем отдать документ антиплагиату и посмотреть, что из этого таки получится
-        $this->antiplagiatAPI->setExtUserId('testapi');
         $docID = $this->antiplagiatAPI->uploadFile($this->checkedFile['dirname'].'/'.$this->checkedFile['basename']);
         $intDocId = $docID->Id ?? 0;
 
@@ -120,7 +119,7 @@ class ApiAntiplagiat extends AbstractController
         $entityManager->persist($antiplagiat);
         $entityManager->flush();
 
-        // logger?
+        // logger? add_antiplagiat update_antiplagiat
 
         return $this->json(['result' => 'success', 'id' => $lastId]);
     }
