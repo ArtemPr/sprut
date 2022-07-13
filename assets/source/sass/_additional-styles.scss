@@ -61,6 +61,11 @@
   outline: none;
   border: none;
   background-color: transparent;
+
+  .icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
 }
 
 .delete_string:disabled {
