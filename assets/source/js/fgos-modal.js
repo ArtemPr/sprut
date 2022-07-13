@@ -19,7 +19,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     if (changeFgosBtn !== null) {
         changeFgosBtn.addEventListener('click', function () {
-            //  console.log('changeFgosBtn click');
 
             const firstRow = '<tr>' +
                 '<td>-</td>' +
@@ -27,7 +26,17 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 '<input type="text" name="comp_name[]" class="form-control" value="">' +
                 '</td>' +
                 '<td class="text-center">' +
-                '<button class="delete_string">X</button>' +
+                '<button class="delete_string">'+
+
+                '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#d63939" fill="none" stroke-linecap="round" stroke-linejoin="round">' +
+               '<path stroke="none" d="M0 0h24v24H0z" fill="none"/>' +
+             '<line x1="4" y1="7" x2="20" y2="7" />' +
+               '<line x1="10" y1="11" x2="10" y2="17" />' +
+                '<line x1="14" y1="11" x2="14" y2="17" />' +
+               '<path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />' +
+             '<path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />' +
+                '</svg>'+
+                '</button>' +
                 '</td>' +
                 '</tr>'
 
@@ -67,29 +76,29 @@ document.addEventListener("DOMContentLoaded", function (event) {
         '<input type="text" name="comp_name[]" class="form-control" value="">' +
         '</td>' +
         '<td class="text-center">' +
-        '<button class="delete_string">X</button>' +
+        '<button class="delete_string">'+
+        '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#d63939" fill="none" stroke-linecap="round" stroke-linejoin="round">' +
+        '<path stroke="none" d="M0 0h24v24H0z" fill="none"/>' +
+        '<line x1="4" y1="7" x2="20" y2="7" />' +
+        '<line x1="10" y1="11" x2="10" y2="17" />' +
+        '<line x1="14" y1="11" x2="14" y2="17" />' +
+        '<path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />' +
+        '<path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />' +
+        '</svg>'+
+        '</button>' +
         '</td>' +
         '</tr>'
 
     if (add_string_table && btn_add_line_create) {
-    //    const first_tr = add_string_table.querySelector('tbody tr')
-    //     let first_close = first_tr.querySelector('.delete_string');
-    //     first_close.disabled = true;
-
         function removeRow(el) {
             this.removeEventListener('click', () => removeRow(el))
             el.remove();
         }
-
         btn_add_line_create.addEventListener('click', function () {
-
             add_string_table.querySelector('tbody').insertAdjacentHTML('afterbegin', firstRow);
             let rowElement = add_string_table.querySelector('tbody tr');
-            //   console.log('rowElement ', rowElement);
             let rowCross = rowElement.querySelector('tbody tr .delete_string');
-            //    console.log('rowCross ', rowCross);
             rowCross.addEventListener('click', () => removeRow(rowElement))
-
         });
     }
 });
