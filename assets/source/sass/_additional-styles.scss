@@ -55,3 +55,19 @@
 .fgos-education--show {
   display: block;
 }
+
+.delete_string {
+  color: #206bc4;
+  outline: none;
+  border: none;
+  background-color: transparent;
+
+  .icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}
+
+.delete_string:disabled {
+  opacity: 0.2;
+}

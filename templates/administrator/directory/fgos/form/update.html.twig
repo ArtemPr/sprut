@@ -116,15 +116,17 @@
                             </tr>
                             </thead>
                             <tbody>
-                                    <tr>
-                                        <td>-</td>
-                                        <td>
-                                            <input type="text" name="comp_name[]" class="form-control" value="" />
-                                        </td>
-                                        <td class="text-center">
-                                            <a href="#" class="delete_string">X</a>
-                                        </td>
-                                    </tr>
+
+{#                                    <tr>#}
+{#                                        <td>-</td>#}
+{#                                        <td>#}
+{#                                            <input type="text" name="comp_name[]" class="form-control" value="" />#}
+{#                                        </td>#}
+{#                                        <td class="text-center">#}
+{#                                            <a href="#" class="delete_string">X</a>#}
+{#                                        </td>#}
+{#                                    </tr>#}
+
                                 {% if data.compenencions|default(false) %}
                                     {% for comp in data.compenencions %}
                                         <tr>

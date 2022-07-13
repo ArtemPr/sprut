@@ -3,38 +3,6 @@
  */
 
 document.addEventListener("DOMContentLoaded", function (event) {
-    // для заготовки datalist из tabler
-    // const addFgosBtn = document.querySelector("#add-fgos");
-    // const fgosItem = document.querySelector(".fgos-item");
-    // let datalistId = 2;
-    //
-    // if (addFgosBtn && fgosItem) {
-    //     addFgosBtn.addEventListener("click", createFgosItem);
-    // }
-    //
-    // function createFgosItem() {
-    //     event.preventDefault();
-    //     event.stopPropagation(); // внезапно закрывал форму
-    //     //    console.log('addFgosBtn click');
-    //     let fgosClone = fgosItem.cloneNode(true);
-    //     let input = fgosClone.querySelector(".form-control");
-    //     let datalist = fgosClone.querySelector(".fgos-datalist");
-    //     // console.log(input);
-    //     // console.log(datalist);
-    //     input.setAttribute("list", `datalistOptions${datalistId}`);
-    //     datalist.setAttribute("id", `datalistOptions${datalistId}`);
-    //     //    let cloneAddBtn = fgosClone.querySelector('.add-fgos');
-    //     //    cloneAddBtn.addEventListener('click', createFgosItem);
-    //     let allFgosItems = document.querySelectorAll(".fgos-item");
-    //     if (allFgosItems.length > 1) {
-    //         allFgosItems[allFgosItems.length - 1].after(fgosClone);
-    //     } else {
-    //         fgosItem.after(fgosClone);
-    //     }
-    //     datalistId++;
-    // }
-    // для заготовки datalist из tabler
-
     let fgosBtns = document.querySelectorAll("[data-controller='program']");
     let fgosBtnCreate = null;
     let fgosBtnUpdate = null;
@@ -148,4 +116,40 @@ document.addEventListener("DOMContentLoaded", function (event) {
             })
         }
     }
+
+    // создание фгос
+
+    // console.log('where создание фгос');
+    // var btn_add_line_create = document.querySelector('#add_string_create');
+    // var add_string_table = document.querySelector('#add_string_table');
+    // function removeRow(el) {
+    //     el.remove();
+    // }
+    //
+    // if(btn_add_line_create) {
+    //     btn_add_line_create.addEventListener('click', function () {
+    //         first_tr = add_string_table.querySelector('tbody tr')
+    //         let new_tr = add_string_table.querySelector('tbody tr').cloneNode(true);
+    //         new_tr.querySelector('input[type=text]').value = '';
+    //         let new_tr_close = new_tr.querySelector('.delete_string');
+    //         new_tr_close.addEventListener('click', () => removeRow(new_tr));
+    //         new_tr_close.removeEventListener('click', () => removeRow(new_tr))
+    //         add_string_table.querySelector('tbody').insertBefore(new_tr, first_tr);
+    //     });
+    // }
+    //
+    // let interval_update = setInterval(function (){
+    //     let add_btn = document.querySelector("body").querySelector('#add_string_create_add');
+    //     let add_tbl = document.querySelector("body").querySelector('#add_string_table_add');
+    //     if ( add_btn !== null) {
+    //         add_btn.addEventListener('click', function () {
+    //             clearInterval(interval_update);
+    //             first_tr = add_tbl.querySelector('tbody tr')
+    //             new_tr = add_tbl.querySelector('tbody tr').cloneNode(true);
+    //             new_tr.querySelector('input[type=text]').value = '';
+    //             add_tbl.querySelector('tbody').insertBefore(new_tr, first_tr);
+    //         });
+    //     }
+    // }, 3000);
+
 });
