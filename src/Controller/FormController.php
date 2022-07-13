@@ -9,11 +9,13 @@
 
 namespace App\Controller;
 
+use App\Controller\Administrator\AdminDirectoryFGOS;
 use App\Controller\Administrator\AdminDirectoryKafedra;
 use App\Controller\Administrator\AdminDirectoryTrainingCentre;
 use App\Controller\Administrator\AdministratorOperationsController;
 use App\Controller\Administrator\AdministratorRoleController;
 use App\Controller\Administrator\AdministratorUserController;
+use App\Entity\FederalStandart;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -67,5 +69,11 @@ class FormController extends AbstractController
     public function getProgramForm($id, ProgramController $programController): Response
     {
         return $programController->getProgramForm($id);
+    }
+
+    #[Route('/fgos_edit/{id}', name: 'fgos_edit')]
+    public function getFgosForm($id, AdminDirectoryFGOS $adminDirectoryFGOS): Response
+    {
+        return $adminDirectoryFGOS->getFgosForm($id);
     }
 }

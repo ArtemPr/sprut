@@ -18,11 +18,26 @@ class FederalStandart
     #[ORM\Column(type: 'string', length: 255)]
     private $short_name;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $code;
+
     #[ORM\Column(type: 'boolean', nullable: true)]
     private $active;
 
     #[ORM\OneToMany(targetEntity: FederalStandartCompetencies::class, mappedBy: 'federal_standart')]
     private $federalStandartCompetencies;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $type;
+
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private $date_create;
+
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private $pr_num;
+
+    #[ORM\Column(type: 'text', nullable: true)]
+    private $old_name;
 
     public function getId(): ?int
     {
@@ -56,6 +71,16 @@ class FederalStandart
         $this->short_name = $short_name;
     }
 
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    public function setCode($code): void
+    {
+        $this->code = $code;
+    }
+
     public function isActive(): ?bool
     {
         return $this->active;
@@ -79,4 +104,61 @@ class FederalStandart
 
         return $this;
     }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(?string $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getDateCreate(): ?\DateTimeInterface
+    {
+        return $this->date_create;
+    }
+
+    public function setDateCreate(?\DateTimeInterface $date_create): self
+    {
+        $this->date_create = $date_create;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPrNum()
+    {
+        return $this->pr_num;
+    }
+
+    /**
+     * @param mixed $pr_num
+     */
+    public function setPrNum($pr_num): void
+    {
+        $this->pr_num = $pr_num;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOldName()
+    {
+        return $this->old_name;
+    }
+
+    /**
+     * @param mixed $old_name
+     */
+    public function setOldName($old_name): void
+    {
+        $this->old_name = $old_name;
+    }
+
 }
