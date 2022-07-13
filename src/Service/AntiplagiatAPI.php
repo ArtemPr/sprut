@@ -143,4 +143,91 @@ class AntiplagiatAPI
             ],
         ];
     }
+
+    public function checkFile()
+    {
+        //
+    }
+
+    /**
+     * Проверить документ, получить ссылку на отчет на сайте "Antiplagiat"
+     *
+     * @param string $filename
+     * @return array
+     */
+    public function getFileReport(string $filename): array
+    {
+        $data = $this->getDocData($filename);
+        $uploadResilt = $this->client->UploadDocument([
+            'data' => $data,
+        ]);
+        // Идентификатор документа.
+        $docID = $uploadResilt->UploadDocumentResult->Uploaded[0]->Id;
+        $this->client->CheckDocument([
+            'docId' => $docID,
+        ]);
+        // Получить текущий статус последней проверки
+        $docStatus = $this->client->GetCheckStatus([
+            'docId' => $docID,
+        ]);
+
+        // Получить текущий статус последней проверки
+        while ($docStatus->GetCheckStatusResult->Status === 'InProgress') {
+            sleep($docStatus->GetCheckStatusResult->EstimatedWaitTime * 0.1);
+            $docStatus = $this->client->GetCheckStatus([
+                'docId' => $docID,
+            ]);
+        }
+
+        $result = [
+            'status' => false,
+        ];
+
+        if ($docStatus->GetCheckStatusResult->Status === 'Failed') {
+            $result = [
+                'status' => false,
+                'error' => $docStatus->GetCheckStatusResult->FailDetails,
+            ];
+
+            return $result;
+        }
+
+        // Запросить формирование последнего полного отчета в формат PDF.
+        $pdfReport = $this->client->ExportReportToPdf([
+            'docId' => $docID,
+        ]);
+
+        while ($pdfReport->ExportReportToPdfResult->Status === 'InProgress') {
+            sleep(max($pdfReport->ExportReportToPdfResult->EstimatedWaitTime, 10) * 0.1);
+            $pdfReport = $this->client->ExportReportToPdf([
+                'docId' => $docID,
+            ]);
+        }
+
+        if ($pdfReport->ExportReportToPdfResult->Status === 'Failed') {
+            $result = [
+                'status' => false,
+                'error' => $pdfReport->ExportReportToPdfResult->FailDetails,
+            ];
+
+            return $result;
+        }
+
+        // Из образца кода, представленного системой "Антиплагиат":
+        //
+        // Получить ссылку на отчет на сайте "Антиплагиат"
+        // ВНИМАНИЕ! Не гарантируется что данная ссылка будет работать вечно, она может перестать работать в любой момент,
+        // поэтому нельзя давать ее пользователю. Нужно скачивать pdf себе и дальше уже управлять его временем жизни
+        $result = [
+            'status' => true,
+            'reports' => [
+                'pdf' => [
+                    'number' => $pdfReport->ExportReportToPdfResult->ReportNum,
+                    'link' => $this->url.$pdfReport->ExportReportToPdfResult->DownloadLink,
+                ],
+            ],
+        ];
+
+        return $result;
+    }
 }

@@ -84,11 +84,6 @@ class AntiplagiatController extends BaseController implements BaseInterface
         $disciplines = $this->managerRegistry->getRepository(Discipline::class)->getList(0, 9999999999);
         $data_out = $this->managerRegistry->getRepository(Antiplagiat::class)->get($id);
 
-        dd([
-            '1' => $antiplagiatAPI->soapDebug(),
-            '2' => $this->getUser(),
-        ]);
-
         return $this->render(
             'services/antiplagiat/form/update_form.html.twig',
             [
