@@ -34,17 +34,23 @@
                                     'close_delete': true,
                                     'close_edit': true,
                                     'close_create': true,
+                                    'controller': 'ps',
                                     'path': path('administrator_directory_ps'),
                                     'add_csv': path('administrator_directory_ps') ~ '_csv' ~ csv_link
                                 } %}
 
                                 <div class="ajax-table">
-                                    {{ include('administrator/directory/ps_table.html.twig') }}
+                                    {{ include('administrator/directory/ps/ps_table.html.twig') }}
                                 </div>
 
                             </div>
 
                             <div id="userEditingOverlay" class="offcanvas-backdrop fade"></div>
+
+
+                            <div id="psViewPanel" data-action="view" class="user-form-panel offcanvas offcanvas-end modal-middle" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                                <img src="{{ absolute_url('/assets/images/loading--big.gif') }}" style="position: absolute; top: 10%; left: 50%; margin-left: -75px;">
+                            </div>
 
                         </div>
                     </div>
