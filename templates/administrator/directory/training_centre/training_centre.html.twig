@@ -38,15 +38,20 @@
                                 } %}
 
                                 <div class="ajax-table">
-                                    {{ include('administrator/directory/training_centre_table.html.twig') }}
+                                    {{ include('administrator/directory/training_centre/training_centre_table.html.twig') }}
                                 </div>
 
                             </div>
 
                             <div id="userEditingOverlay" class="offcanvas-backdrop fade"></div>
 
+
+                            <div id="training_centreViewPanel" data-action="view" class="user-form-panel offcanvas offcanvas-end modal-middle" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                                <img src="{{ absolute_url('/assets/images/loading--big.gif') }}" style="position: absolute; top: 10%; left: 50%; margin-left: -75px;">
+                            </div>
+
                             <div id="training_centreCreationPanel" data-action="add" class="user-form-panel offcanvas offcanvas-end modal-middle" tabindex="-1" aria-labelledby="offcanvasEndLabel">
-                                {% include 'administrator/directory/form/training_centre_add.html.twig'  %}
+                                {% include 'administrator/directory/training_centre/form/training_centre_add.html.twig'  %}
                             </div>
                             <div id="training_centreEditingPanel" data-action="edit" class="user-form-panel offcanvas offcanvas-end modal-large" tabindex="-1" aria-labelledby="offcanvasEndLabel">
                                 <img src="{{ absolute_url('/assets/images/loading--big.gif') }}" style="position: absolute; top: 10%; left: 50%; margin-left: -75px;">

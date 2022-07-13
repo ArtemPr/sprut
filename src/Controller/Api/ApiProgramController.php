@@ -80,10 +80,6 @@ class ApiProgramController extends AbstractController
 
     public function getProgram(int $id): Response
     {
-        if (false === $this->getAuth('ROLE_API_USER', 'api_get_program')) {
-            return $this->json(['error' => 'error auth']);
-        }
-
         $out = $this->master_programm->getProgram($id);
         return $this->json($out ?? []);
     }
@@ -130,14 +126,15 @@ class ApiProgramController extends AbstractController
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
         $data = $request->request->all();
 
+
         $type = !empty($data['type']) ? $this->doctrine->getRepository(ProgramType::class)->find($data['type']) : null;
-        $fgos = !empty($data['fgos']) ? $this->doctrine->getRepository(FederalStandart::class)->find($data['fgos']) : null;
+        //$fgos = !empty($data['fgos']) ? $this->doctrine->getRepository(FederalStandart::class)->find($data['fgos']) : null;
 
         $program = $this->doctrine->getRepository(MasterProgram::class)->find($data['id']);
         $program->setName(trim($data['name']));
         $program->setProgramType($type);
 
-        $program->addFederalStandart($fgos);
+        //$program->addFederalStandart($fgos);
 
         $program->setLengthHour(0);
         $program->setLengthWeekShort(0);

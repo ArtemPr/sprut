@@ -5,6 +5,7 @@
 
 namespace App\Controller;
 
+use App\Controller\Api\ApiFgosController;
 use App\Controller\Api\ApiKafedra;
 use App\Controller\Api\ApiOperations;
 use App\Controller\Api\ApiProgramController;
@@ -164,5 +165,11 @@ class ApiController extends AbstractController
     public function update_program(ApiProgramController $apiProgramController): Response
     {
         return $apiProgramController->update();
+    }
+
+    #[Route('/fgos_update', name: 'update_fgos', methods: ['POST'])]
+    public function update_fgos(ApiFgosController $apiFgosController): Response
+    {
+        return $apiFgosController->update();
     }
 }
