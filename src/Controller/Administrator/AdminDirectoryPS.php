@@ -79,7 +79,7 @@ class AdminDirectoryPS extends AbstractController
             return $auth;
         }
 
-        $tpl = $this->request->get('ajax') ? 'administrator/directory/ps_table.html.twig' : 'administrator/directory/ps.html.twig';
+        $tpl = $this->request->get('ajax') ? 'administrator/directory/ps/ps_table.html.twig' : 'administrator/directory/ps/ps.html.twig';
         $result = $this->get();
         $result['auth'] = $auth;
 

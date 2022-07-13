@@ -36,15 +36,19 @@
                                 } %}
 
                                 <div class="ajax-table">
-                                    {{ include('administrator/directory/kafedra_table.html.twig') }}
+                                    {{ include('administrator/directory/kafedra/kafedra_table.html.twig') }}
                                 </div>
 
                             </div>
 
                             <div id="userEditingOverlay" class="offcanvas-backdrop fade"></div>
 
+                            <div id="kafedraViewPanel" data-action="view" class="user-form-panel offcanvas offcanvas-end modal-middle" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                                <img src="{{ absolute_url('/assets/images/loading--big.gif') }}" style="position: absolute; top: 10%; left: 50%; margin-left: -75px;">
+                            </div>
+
                             <div id="kafedraCreationPanel" data-action="add" class="user-form-panel offcanvas offcanvas-end" tabindex="-1" aria-labelledby="offcanvasEndLabel">
-                                {% include 'administrator/directory/form/kafedra_add.html.twig'  %}
+                                {% include 'administrator/directory/kafedra/form/kafedra_add.html.twig'  %}
                             </div>
                             <div id="kafedraEditingPanel" data-action="edit" class="user-form-panel offcanvas offcanvas-end" tabindex="-1" aria-labelledby="offcanvasEndLabel">
                                 <img src="{{ absolute_url('/assets/images/loading--big.gif') }}" style="position: absolute; top: 10%; left: 50%; margin-left: -75px;">

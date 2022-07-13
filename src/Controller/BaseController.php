@@ -38,7 +38,7 @@ class BaseController extends AbstractController
 
         $this->request = new Request($_GET);
 
-        $this->get_data = $this->request->request->all();
+        $this->get_data = $this->request->query->all();
     }
 
 }
