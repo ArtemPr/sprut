@@ -92,6 +92,24 @@ class FederalStandartRepository extends ServiceEntityRepository
         return $result[0][1] ?? 0 ;
     }
 
+    public function get(int $id)
+    {
+        $qb = $this->createQueryBuilder('fs');
+        $qb->where('fs.id = :id')
+            ->setParameters(
+                [
+                    'id' => $id
+                ]
+            );
+
+        $query = $qb->getQuery();
+        $result = $query->execute(
+            hydrationMode: Query::HYDRATE_ARRAY
+        );
+
+        return $result[0] ?? [];
+    }
+
     private function setSort($sort, $prefix)
     {
         if (!is_null($sort)) {

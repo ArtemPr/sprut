@@ -1,6 +1,6 @@
 <div class="users-table-wrap table-responsive">
     <table id="usersTable"
-           class="users-table table card-table table-vcenter text-nowrap datatable">
+           class="users-table table card-table table-vcenter datatable">
         <thead>
         <tr>
             <th class="hidden-cell"></th>
@@ -45,9 +45,12 @@
                     <td>
                         {{ dat.short_name|default(false)|raw }}
                     </td>
-                    <td style="max-width: 550px; white-space: normal;">
+                    <td>
                         {{ dat.name|default(false)|raw }}
                     </td>
+                    <td>{{ dat.code }}</td>
+                    <td>{{ dat.date_create|date("d.m.Y") }}</td>
+                    <td>{{ dat.pr_num }}</td>
                 </tr>
             {% endfor %}
         {% endif %}
