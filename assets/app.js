@@ -21,3 +21,4 @@ import './source/js/action'
 import './source/js/tables-ajax'
 import './source/js/hierarchy-form';
 import './source/js/fgos';
+import './source/js/fgos-modal';
