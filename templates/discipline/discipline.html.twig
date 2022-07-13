@@ -21,8 +21,8 @@
                             <div class="card">
                                 {% include 'block/search_panel.html.twig' with {
                                     'close_delete': true,
-                                    'close_edit': true,
-                                    'close_create': true,
+                                    'close_edit': false,
+                                    'close_create': false,
                                     'controller': 'discipline',
                                     'add_csv': path('discipline') ~ '_csv' ~ csv_link
                                 } %}
