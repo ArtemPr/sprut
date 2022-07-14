@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Antiplagiat;
+use App\Service\QueryHelper;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
@@ -17,6 +18,8 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class AntiplagiatRepository extends ServiceEntityRepository
 {
+    use QueryHelper;
+
     public const CHECK_STATUS_NEW = 1;
     public const CHECK_STATUS_NONE = 2;
     public const CHECK_STATUS_INPROGRESS = 3;

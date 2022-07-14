@@ -148,7 +148,7 @@ class ApiAntiplagiat extends AbstractController
 
         $discipline = null;
 
-        if (!empty($data['discipline'])) {
+        if (empty($data['unique_discipline']) && !empty($data['discipline'])) {
             $discipline = $this->doctrine->getRepository(Discipline::class)->find($data['discipline']);
         }
 
