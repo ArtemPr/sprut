@@ -43,6 +43,9 @@ class Antiplagiat
     #[ORM\Column(type: 'datetime', nullable: true)]
     private $result_date;
 
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private $doc_id;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -164,6 +167,18 @@ class Antiplagiat
     public function setResultDate(?\DateTimeInterface $result_date): self
     {
         $this->result_date = $result_date;
+
+        return $this;
+    }
+
+    public function getDocId(): ?int
+    {
+        return $this->doc_id;
+    }
+
+    public function setDocId(?int $doc_id): self
+    {
+        $this->doc_id = $doc_id;
 
         return $this;
     }
