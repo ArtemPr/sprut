@@ -24,13 +24,17 @@
 
                     <div class="form-group mb-3 row">
                         <div class="col">
-                            <label class="form-check">
+                            <label class="form-check mb-2">
                                 <input
                                     class="form-check-input"
                                     type="checkbox"
+                                    name="unique_discipline"
+                                    value="1"
                                     onclick="var curr_accept = (this.checked == true) ? 'application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/rtf, application/pdf, text/plain, htext/tml, application/vnd.oasis.opendocument.text, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation' : 'application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/rtf'; document.getElementById('input_ap_doc').setAttribute('accept', curr_accept)"
                                 >
                                 <span class="form-check-label">Универсальная дисциплина</span>
+                                <span class="form-check-description">Выберите этот пункт для документа,
+                                    который не нужно привязывать к какой-либо дисциплине</span>
                             </label>
                         </div>
                     </div>
