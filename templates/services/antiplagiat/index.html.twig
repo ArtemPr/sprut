@@ -35,6 +35,7 @@
                                     'close_create': false,
                                     'controller': 'antiplagiat',
                                     'path': path('antiplagiat'),
+                                    'add_csv': path('antiplagiat') ~ '_csv' ~ csv_link
                                 } %}
                                 <div class="ajax-table">
                                     {% include 'services/antiplagiat/table.html.twig' %}

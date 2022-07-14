@@ -5,8 +5,6 @@
 
 namespace App\Controller\Services;
 
-use App\Service\AntiplagiatAPI;
-
 use App\Controller\BaseController;
 use App\Controller\BaseInterface;
 use App\Entity\Antiplagiat;
@@ -29,7 +27,7 @@ class AntiplagiatController extends BaseController implements BaseInterface
         $sort = $this->get_data['sort'] ?? null;
         $search = $this->get_data['search'] ?? null;
 
-        if ($full === false) {
+        if (false === $full) {
             $data = $this->managerRegistry->getRepository(Antiplagiat::class)->getList($page, $on_page, $sort, $search);
             $count = $this->managerRegistry->getRepository(Antiplagiat::class)->getListAll($page, $on_page, $sort, $search);
         } else {
@@ -44,9 +42,9 @@ class AntiplagiatController extends BaseController implements BaseInterface
             'pager' => [
                 'count_all_position' => $count,
                 'current_page' => $page,
-                'count_page' => (int)ceil($count / $on_page),
+                'count_page' => (int) ceil($count / $on_page),
                 'paginator_link' => $this->getParinatorLink(),
-                'on_page' => $on_page
+                'on_page' => $on_page,
             ],
             'sort' => [
                 'sort_link' => $this->getSortLink(),
@@ -54,7 +52,7 @@ class AntiplagiatController extends BaseController implements BaseInterface
             ],
             'search_link' => $this->getSearchLink(),
             'table' => $this->setTable(),
-            'csv_link' => $this->getCSVLink()
+            'csv_link' => $this->getCSVLink(),
         ];
     }
 
@@ -76,6 +74,40 @@ class AntiplagiatController extends BaseController implements BaseInterface
         return $this->render($tpl,
             $result,
         );
+    }
+
+    #[Route('/service/antiplagiat_csv', name: 'antiplagiat_csv')]
+    public function getCSV()
+    {
+        $result = $this->get(true);
+        $table = '';
+
+        foreach ($this->setTable() as $tbl) {
+            $table .= '"'.$tbl[1].'";';
+        }
+        $table = substr($table, 0, -1)."\n";
+
+        $data = $result['data'];
+
+//        dd([
+//            'table' => $table,
+//            'data' => $data,
+//        ]);
+
+        foreach ($data as $val) {
+            $table .= '"'.$val['id'].'";'.
+                '"'.$val['file'].'";'.
+                '"'.(!empty($val['discipline']) ? $val['discipline']['name'] : '-').'";'.
+                '"'.(!empty($val['size']) ? $val['size'] : '-').'";'.
+                '"'.(!empty($val['author']) ? $val['author']['fullname'] : '-').'";'.
+                '"'.date_format($val['data_create'], 'd/m/Y H:i').'";'.
+                '"'.(!empty($val['comment']) ? $val['comment'] : '-').'";'.
+                '"'.(null !== $val['plagiat_percent'] ? $val['plagiat_percent'] : '-').'";'.
+                '"'.(!empty($val['result_file']) ? $val['result_file'] : '-').'";'.
+                '"'.(!empty($val['result_date']) ? date_format($val['result_date'], 'd/m/Y H:i') : '-').'"'."\n";
+        }
+
+        return $this->getCSVFile($table, 'antiplagiat.csv');
     }
 
     #[Route('/form/antiplagiat_edit/{id}', name: 'antiplagiat_edit')]
@@ -106,7 +138,7 @@ class AntiplagiatController extends BaseController implements BaseInterface
             ['comment', 'Комментарий', 'string', true],
             ['plagiat_percent', 'Заимствования', 'string', true],
             ['result_file', 'PDF', 'string', true],
-            ['result_date', 'Проверено', 'string', true]
+            ['result_date', 'Проверено', 'string', true],
         ];
     }
 }
