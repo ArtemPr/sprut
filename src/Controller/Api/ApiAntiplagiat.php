@@ -69,6 +69,12 @@ class ApiAntiplagiat extends AbstractController
         $antiplagiatEntity->setStatus($intStatus);
         $antiplagiatEntity->setDocId($intDocId);
 
+        if (AntiplagiatRepository::CHECK_STATUS_NEW != $intStatus
+            && AntiplagiatRepository::CHECK_STATUS_FAILED != $intStatus
+        ) {
+            $antiplagiatEntity->setResultDate(new \DateTime());
+        }
+
         if (!empty($pdfReport)) {
             $antiplagiatEntity->setResultFile($pdfReport);
         }
@@ -126,7 +132,8 @@ class ApiAntiplagiat extends AbstractController
             'Создание запроса '.$lastId
         );
 
-        $this->processItem($antiplagiat, $_SERVER['DOCUMENT_ROOT']);
+        // сразу обработать файлы для Антиплагиата
+//        $this->processItem($antiplagiat, $_SERVER['DOCUMENT_ROOT']);
 
         return $this->json(['result' => 'success', 'id' => $lastId]);
     }

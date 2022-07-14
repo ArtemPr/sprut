@@ -79,7 +79,13 @@
                             &mdash;
                         {% endif %}
                     </td>
-                    <td>{{ data_item.result_date | date('d/m/Y H:i') }}</td>
+                    <td>
+                        {% if data_item.result_date %}
+                            {{ data_item.result_date | date('d/m/Y H:i') }}
+                        {% else %}
+                            &mdash;
+                        {% endif %}
+                    </td>
                 </tr>
             {% endfor %}
         {% endif %}
