@@ -31,7 +31,6 @@
                     {% endif %}
                 {% endfor %}
             {% endif %}
-            <th class="hidden-cell"></th>
         </tr>
         </thead>
         <tbody>
@@ -76,9 +75,6 @@
                             {{ ps.short_name|raw }}
                         {% endfor %}
                     {% endif %}
-                </td>
-                <td class="hidden-cell">
-                    <input class="selected-checkbox" type="checkbox" name="#" checked>
                 </td>
             </tr>
         {% endfor %}
