@@ -5,6 +5,7 @@
 
 namespace App\Controller;
 
+use App\Controller\Api\ApiAntiplagiat;
 use App\Controller\Api\ApiFgosController;
 use App\Controller\Api\ApiKafedra;
 use App\Controller\Api\ApiOperations;
@@ -171,5 +172,17 @@ class ApiController extends AbstractController
     public function update_fgos(ApiFgosController $apiFgosController): Response
     {
         return $apiFgosController->update();
+    }
+
+    #[Route('/add_antiplagiat', name: 'add_antiplagiat', methods: ['POST'])]
+    public function add_antiplagiat(ApiAntiplagiat $apiAntiplagiat): Response
+    {
+        return $apiAntiplagiat->add();
+    }
+
+    #[Route('/update_antiplagiat', name: 'update_antiplagiat', methods: ['POST'])]
+    public function update_antiplagiat(ApiAntiplagiat $apiAntiplagiat): Response
+    {
+        return $apiAntiplagiat->update();
     }
 }

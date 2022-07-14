@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
   //  console.log("1 editBtn ", editBtn);
 
     if (selectOnPage !== null && sectionName !== null) {
-        var tableUrl = `${location.protocol}//${location.host}${sectionName}?ajax=true&&on_page=${selectValue}`;
+        var tableUrl = `${location.protocol}//${location.host}${sectionName}?ajax=true&on_page=${selectValue}`;
     }
 //    console.log(tableUrl);
 
