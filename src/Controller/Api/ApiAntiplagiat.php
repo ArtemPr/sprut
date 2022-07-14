@@ -7,10 +7,11 @@ namespace App\Controller\Api;
 
 use App\Entity\Antiplagiat;
 use App\Entity\Discipline;
-use App\Entity\Loger;
+use App\Entity\User;
 use App\Repository\AntiplagiatRepository;
 use App\Service\AntiplagiatAPI;
 use App\Service\ApiService;
+use App\Service\LoggerService;
 use App\Service\UploadedFilesService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,6 +22,7 @@ class ApiAntiplagiat extends AbstractController
 {
     use ApiService;
     use UploadedFilesService;
+    use LoggerService;
 
     protected $checkedFile;
 
@@ -31,17 +33,70 @@ class ApiAntiplagiat extends AbstractController
     ) {
     }
 
+    public function processItem(Antiplagiat $antiplagiatEntity, string $rootDir): bool
+    {
+        $intStatus = AntiplagiatRepository::CHECK_STATUS_NEW;
+        $pdfReport = null;
+        $plagiatPercents = null;
+
+        // попробуем отдать документ антиплагиату и посмотреть, что из этого таки получится
+        $docID = $this->antiplagiatAPI->uploadFile($rootDir.$antiplagiatEntity->getFile());
+        $intDocId = $docID->Id ?? 0;
+
+        if (!empty($docID)) {
+            $checkResult = $this->antiplagiatAPI->checkDocument($docID);
+            $intStatus = $this->antiplagiatAPI->getNumericStatus($checkResult['status']);
+        }
+
+        if (AntiplagiatRepository::CHECK_STATUS_NEW != $intStatus
+            && AntiplagiatRepository::CHECK_STATUS_FAILED != $intStatus
+        ) {
+            $shortReport = $this->antiplagiatAPI->getShortReport($docID);
+            $plagiatPercents = $shortReport->DetailedScore->Plagiarism;
+
+            $pdfReportProcess = $this->antiplagiatAPI->getFileReport($docID);
+
+            if (true == $pdfReportProcess['status']) {
+                $pdfReport = $this->downloadFile(
+                    $this->antiplagiatAPI->downloadPdfReport($pdfReportProcess['reports']['pdf']['link']),
+                    Antiplagiat::class,
+                    $intDocId,
+                    $rootDir
+                );
+            }
+        }
+
+        $antiplagiatEntity->setStatus($intStatus);
+        $antiplagiatEntity->setDocId($intDocId);
+
+        if (!empty($pdfReport)) {
+            $antiplagiatEntity->setResultFile($pdfReport);
+        }
+
+        if (null !== $plagiatPercents) {
+            $antiplagiatEntity->setPlagiatPercent($plagiatPercents);
+        }
+
+        $entityManager = $this->doctrine->getManager();
+        $entityManager->persist($antiplagiatEntity);
+        $entityManager->flush();
+
+        $this->logAction(
+            'update_data_into_antiplagiat',
+            $this->doctrine->getRepository(User::class)->find(['id' => 54]),
+            'Антиплагиат',
+            'Отправка данных в Антиплагиат, id: '.$antiplagiatEntity->getId()
+        );
+
+        return true;
+    }
+
     public function add(): JsonResponse
     {
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
         $data = $request->request->all();
-//        $files = $request->files->all();
 
         $discipline = null;
-        $intDocId = 0;
-        $intStatus = AntiplagiatRepository::CHECK_STATUS_NEW;
-        $pdfReport = null;
-        $plagiatPercents = null;
 
         if (!empty($data['discipline'])) {
             $discipline = $this->doctrine->getRepository(Discipline::class)->find($data['discipline']);
@@ -55,7 +110,7 @@ class ApiAntiplagiat extends AbstractController
         $antiplagiat->setDiscipline($discipline);
         $antiplagiat->setComment($data['comment']);
         $antiplagiat->setDataCreate(new \DateTime());
-        $antiplagiat->setStatus($intStatus);
+        $antiplagiat->setStatus(AntiplagiatRepository::CHECK_STATUS_NEW);
         $antiplagiat->setFile($fileUploadedPath);
         $antiplagiat->setSize($this->checkedFile['filesize']);
 
@@ -64,62 +119,14 @@ class ApiAntiplagiat extends AbstractController
         $entityManager->flush();
         $lastId = $antiplagiat->getId();
 
-        $loger = new Loger();
-        $loger->setTime(new \DateTime());
-        $loger->setAction('add_antiplagiat');
-        $loger->setUserLoger($this->getUser());
-        $loger->setIp($request->server->get('REMOTE_ADDR'));
-        $loger->setChapter('Антиплагиат');
-        $loger->setComment('Создание запроса '.$lastId);
-        $entityManager = $this->doctrine->getManager();
-        $entityManager->persist($loger);
-        $entityManager->flush();
+        $this->logAction(
+            'add_antiplagiat',
+            $this->getUser(),
+            'Антиплагиат',
+            'Создание запроса '.$lastId
+        );
 
-        // попробуем отдать документ антиплагиату и посмотреть, что из этого таки получится
-        $docID = $this->antiplagiatAPI->uploadFile($this->checkedFile['dirname'].'/'.$this->checkedFile['basename']);
-        $intDocId = $docID->Id ?? 0;
-
-        if (!empty($docID)) {
-            $checkResult = $this->antiplagiatAPI->checkDocument($docID);
-            $intStatus = $this->antiplagiatAPI->getNumericStatus($checkResult['status']);
-        }
-
-        if (AntiplagiatRepository::CHECK_STATUS_NEW != $intStatus
-            ?? AntiplagiatRepository::CHECK_STATUS_FAILED != $intStatus
-        ) {
-            $shortReport = $this->antiplagiatAPI->getShortReport($docID);
-            $plagiatPercents = $shortReport->DetailedScore->Plagiarism;
-
-            $pdfReportProcess = $this->antiplagiatAPI->getFileReport($docID);
-
-            if (true == $pdfReportProcess['status']) {
-                $pdfReportFileName = $pdfReportProcess['reports']['pdf']['link'];
-
-                $pdfReport = $this->downloadFile(
-                    $this->antiplagiatAPI->downloadPdfReport($pdfReportProcess['reports']['pdf']['link']),
-                    Antiplagiat::class,
-                    $intDocId
-                );
-            }
-        }
-
-        $antiplagiat = $this->doctrine->getRepository(Antiplagiat::class)->find($lastId);
-        $antiplagiat->setStatus($intStatus);
-        $antiplagiat->setDocId($intDocId);
-
-        if (!empty($pdfReport)) {
-            $antiplagiat->setResultFile($pdfReport);
-        }
-
-        if (null !== $plagiatPercents) {
-            $antiplagiat->setPlagiatPercent($plagiatPercents);
-        }
-
-        $entityManager = $this->doctrine->getManager();
-        $entityManager->persist($antiplagiat);
-        $entityManager->flush();
-
-        // logger? add_antiplagiat update_antiplagiat
+        $this->processItem($antiplagiat, $_SERVER['DOCUMENT_ROOT']);
 
         return $this->json(['result' => 'success', 'id' => $lastId]);
     }
@@ -138,10 +145,6 @@ class ApiAntiplagiat extends AbstractController
             $discipline = $this->doctrine->getRepository(Discipline::class)->find($data['discipline']);
         }
 
-//        dd($this->json([
-//            '$data' => $data,
-//        ]));
-
         $antiplagiat = $this->doctrine->getRepository(Antiplagiat::class)->find($data['id']);
 
         $antiplagiat->setAuthor($this->getUser());
@@ -152,16 +155,12 @@ class ApiAntiplagiat extends AbstractController
         $entityManager->persist($antiplagiat);
         $entityManager->flush();
 
-        $loger = new Loger();
-        $loger->setTime(new \DateTime());
-        $loger->setAction('update_antiplagiat');
-        $loger->setUserLoger($this->getUser());
-        $loger->setIp($request->server->get('REMOTE_ADDR'));
-        $loger->setChapter('Антиплагиат');
-        $loger->setComment('Обновление запроса '.$data['id']);
-        $entityManager = $this->doctrine->getManager();
-        $entityManager->persist($loger);
-        $entityManager->flush();
+        $this->logAction(
+            'update_antiplagiat',
+            $this->getUser(),
+            'Антиплагиат',
+            'Обновление запроса '.$data['id']
+        );
 
         return $this->json(['result' => 'success', 'id' => $data['id']]);
     }

@@ -67,13 +67,17 @@ trait UploadedFilesService
     /**
      * Предполагаемый обработчик сохранения файла в локальном хранилище.
      */
-    protected function downloadFile(string $remoteFile, string $moduleName, int $docId): string|null
+    protected function downloadFile(string $remoteFile, string $moduleName, int $docId, string $projectRoot): string|null
     {
         if (str_contains($moduleName, '\\')) {
             $moduleName = strtolower(substr($moduleName, strrpos($moduleName, '\\') + 1));
         }
 
-        $currSavePlace = $_SERVER['DOCUMENT_ROOT'].'uplfile/'.$moduleName;
+        if (!str_ends_with($projectRoot, '/')) {
+            $projectRoot .= '/';
+        }
+
+        $currSavePlace = $projectRoot.'uplfile/'.$moduleName;
         $currDownloadPlace = '/uplfile/'.$moduleName;
         $currFileName = 'Report_'.$docId.'_'.date('Ymd').'.pdf';
 

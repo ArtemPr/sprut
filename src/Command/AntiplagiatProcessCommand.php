@@ -5,6 +5,7 @@
 
 namespace App\Command;
 
+use App\Controller\Api\ApiAntiplagiat;
 use App\Entity\Antiplagiat;
 use App\Repository\AntiplagiatRepository;
 use App\Service\AntiplagiatAPI;
@@ -21,13 +22,14 @@ class AntiplagiatProcessCommand extends Command
     // название команды (часть после "bin/console")
     protected static $defaultName = 'antiplagiat:process';
 
-    protected $projectDir;
+    protected string $projectDir;
 
     public function __construct(
-        private readonly AntiplagiatRepository $antiplagiatRepository,
+        private AntiplagiatRepository $antiplagiatRepository,
         private readonly ManagerRegistry $doctrine,
         protected AntiplagiatAPI $antiplagiatAPI,
-        protected KernelInterface $appKernel
+        protected KernelInterface $appKernel,
+        protected ApiAntiplagiat $apiAntiplagiat
     ) {
         $this->projectDir = $this->appKernel->getProjectDir().'/public';
 
@@ -43,12 +45,12 @@ class AntiplagiatProcessCommand extends Command
         ;
     }
 
+    /**
+     * @throws \Exception
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $itemId = $input->getArgument('id');
-        $itemRow = null;
-
-        // подготовка данных
 
         if (!is_numeric($itemId)) {
             throw new \InvalidArgumentException('[E] id must be a number!', Command::INVALID);
@@ -65,35 +67,25 @@ class AntiplagiatProcessCommand extends Command
             ;
             $query = $qb->getQuery();
             $itemRow = $query->execute(
-                hydrationMode: Query::HYDRATE_ARRAY
+                hydrationMode: Query::HYDRATE_OBJECT
             );
+
+            if (!empty($itemRow)) {
+                $itemRow = $itemRow[0];
+            }
         }
 
         if (empty($itemRow)) {
             throw new \Exception('[E] Item is not found!');
         }
 
-        $itemRow = $itemRow[0];
-
         // обработка
 
-        $output->writeln('[ ] Start processing item');
+        $output->writeln('['.date('d/m/Y H:i:s').'] Start processing item');
 
-        /**
-         * @todo Необходимо подумать над тем, что тот кусок кода из API контроллера обособить в отдельный метод и вызвать метод тут!
-         */
+        $this->apiAntiplagiat->processItem($itemRow, $this->projectDir);
 
-        $docId = $this->antiplagiatAPI->uploadFile($this->projectDir.'/'.$itemRow['file']);
-        $intDocId = $docID->Id ?? 0;
-
-        //
-
-        dd([
-            '$itemRow' => $itemRow,
-            '$docId' => $docId
-        ]);
-
-        //
+        $output->writeln('['.date('d/m/Y H:i:s').'] Finish processing item');
 
         return Command::SUCCESS;
     }
