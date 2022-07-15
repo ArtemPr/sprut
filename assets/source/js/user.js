@@ -589,4 +589,4 @@ function addTableDragNDrop() {
 }
 
 // при вызове модалок 200 ошибок
-// addTableDragNDrop();
+//addTableDragNDrop();
