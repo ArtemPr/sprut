@@ -39,6 +39,7 @@ class AntiplagiatController extends BaseController implements BaseInterface
         return [
             'data' => $data,
             'statuses' => $this->getActualStatuses(),
+            'statuses_colors' => $this->getStatusesColors(),
             'disciplines' => $this->managerRegistry->getRepository(Discipline::class)->getList(0, 9999999999),
             'search' => strip_tags($search) ?? '',
             'pager' => [
@@ -82,6 +83,35 @@ class AntiplagiatController extends BaseController implements BaseInterface
     public function getCSV()
     {
         $result = $this->get(true);
+        $data = [];
+
+        $dataRow = [];
+        foreach ($this->setTable() as $tbl) {
+            $dataRow[] = $tbl[1];
+        }
+
+        $data[] = $dataRow;
+
+        foreach ($result['data'] as $val) {
+            $data[] = [
+                $this->getActualStatuses()[$val['status']],
+                $val['file'],
+                (!empty($val['discipline']) ? $val['discipline']['name'] : '-'),
+                (!empty($val['size']) ? $val['size'] : '-'),
+                (!empty($val['author']) ? $val['author']['fullname'] : '-'),
+                date_format($val['data_create'], 'd/m/Y H:i'),
+                (!empty($val['comment']) ? $val['comment'] : '-'),
+                (null !== $val['plagiat_percent'] ? $val['plagiat_percent'] : '-'),
+                (!empty($val['result_file']) ? $val['result_file'] : '-'),
+                (!empty($val['result_date']) ? date_format($val['result_date'], 'd/m/Y H:i') : '-'),
+            ];
+        }
+
+        return $this->processCSV($data, 'antiplagiat.csv');
+    }
+/*
+    {
+        $result = $this->get(true);
         $table = '';
 
         foreach ($this->setTable() as $tbl) {
@@ -97,7 +127,7 @@ class AntiplagiatController extends BaseController implements BaseInterface
 //        ]);
 
         foreach ($data as $val) {
-            $table .= '"'.$val['id'].'";'.
+            $table .= '"'.$this->getActualStatuses()[$val['status']].'";'.
                 '"'.$val['file'].'";'.
                 '"'.(!empty($val['discipline']) ? $val['discipline']['name'] : '-').'";'.
                 '"'.(!empty($val['size']) ? $val['size'] : '-').'";'.
@@ -111,6 +141,7 @@ class AntiplagiatController extends BaseController implements BaseInterface
 
         return $this->getCSVFile($table, 'antiplagiat.csv');
     }
+    */
 
     #[Route('/form/antiplagiat_edit/{id}', name: 'antiplagiat_edit')]
     public function getItemForm($id)
@@ -131,14 +162,13 @@ class AntiplagiatController extends BaseController implements BaseInterface
     private function setTable(): array
     {
         return [
-            ['status', '', 'bool', true],
+            ['status', '', 'string', true],
             ['file', 'Файл', 'string', true],
             ['discipline', 'Дисциплина', 'string', true],
             ['size', 'Размер', 'string', true],
             ['author', 'Загрузил', 'string', true],
             ['data_create', 'Создано', 'string', true],
             ['comment', 'Комментарий', 'string', true],
-            ['status', 'Статус', 'string', true],
             ['plagiat_percent', 'Заимствования', 'string', true],
             ['result_file', 'PDF', 'string', true],
             ['result_date', 'Проверено', 'string', true],
@@ -153,6 +183,17 @@ class AntiplagiatController extends BaseController implements BaseInterface
             AntiplagiatRepository::CHECK_STATUS_INPROGRESS => 'В работе',
             AntiplagiatRepository::CHECK_STATUS_READY => 'Готово',
             AntiplagiatRepository::CHECK_STATUS_FAILED => 'Ошибка',
+        ];
+    }
+
+    private function getStatusesColors(): array
+    {
+        return [
+            AntiplagiatRepository::CHECK_STATUS_NEW => 'bg-muted',
+            AntiplagiatRepository::CHECK_STATUS_NONE => 'bg-muted',
+            AntiplagiatRepository::CHECK_STATUS_INPROGRESS => 'bg-yellow',
+            AntiplagiatRepository::CHECK_STATUS_READY => 'bg-green',
+            AntiplagiatRepository::CHECK_STATUS_FAILED => 'bg-red',
         ];
     }
 }
