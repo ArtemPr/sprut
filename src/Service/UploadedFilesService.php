@@ -28,7 +28,7 @@ trait UploadedFilesService
                 $moduleName = strtolower(substr($moduleName, strrpos($moduleName, '\\') + 1));
             }
 
-            $currSavePlace = $_SERVER['DOCUMENT_ROOT'].'uplfile/'.$moduleName;
+            $currSavePlace = $_SERVER['DOCUMENT_ROOT'].'/uplfile/'.$moduleName;
             $currDownloadPlace = '/uplfile/'.$moduleName;
 
             // if exists
