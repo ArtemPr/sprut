@@ -1,60 +1,128 @@
 <div class="users-option-panel card-body border-bottom py-3">
     <form action="" method="get" id="searchForm">
-    <div class="d-flex align-items-center mb-0">
+        <div class="d-flex align-items-center mb-0">
 
             <div class="is-left-col input-group input-group-flat me-2">
-                    <input id='input-search' type="text" class="form-control" placeholder="Поиск"  autocomplete="off" name="search" value="{{ search|default(false) }}" />
-                    <span class="input-group-text">
-                        <a id="jsClearSearch" href="{{ path|default(false) ~ search_link|default(false) }}" class="link-secondary" title="Очистить Поиск" data-bs-toggle="tooltip">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+                <input id='input-search' type="text" class="form-control" placeholder="Поиск" autocomplete="off"
+                       name="search" value="{{ search|default(false) }}"/>
+                <span class="input-group-text">
+                        <a id="jsClearSearch" href="{{ path|default(false) ~ search_link|default(false) }}"
+                           class="link-secondary" title="Очистить Поиск" data-bs-toggle="tooltip">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
+                                 viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                 stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"
+                                                                                      fill="none"/><line x1="18" y1="6"
+                                                                                                         x2="6"
+                                                                                                         y2="18"/><line
+                                    x1="6" y1="6" x2="18" y2="18"/></svg>
                         </a>
 
-                        <a id="submitSearch" href="#" class="link-secondary ms-2" title="Поиск" data-bs-toggle="tooltip">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><circle cx="10" cy="10" r="7"></circle><line x1="21" y1="21" x2="15" y2="15"></line></svg>
+                        <a id="submitSearch" href="#" class="link-secondary ms-2" title="Поиск"
+                           data-bs-toggle="tooltip">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
+                                 viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                 stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"
+                                                                                      fill="none"></path><circle cx="10"
+                                                                                                                 cy="10"
+                                                                                                                 r="7"></circle><line
+                                    x1="21" y1="21" x2="15" y2="15"></line></svg>
                         </a>
                     </span>
             </div>
 
 
-        <div class="me-2">
-            <a href="{{ add_csv|default('#') }}" class="btn w-100 btn-icon" title="Экспорт в Excel" data-bs-toggle="tooltip">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-table-export" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                    <path d="M11.5 20h-5.5a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v7.5m-16 -3.5h16m-10 -6v16m4 -1h7m-3 -3l3 3l-3 3" />
-                </svg>
-            </a>
-        </div>
+            <div class="me-2">
+                <a href="{{ add_csv|default('#') }}" class="btn w-100 btn-icon" title="Экспорт в Excel"
+                   data-bs-toggle="tooltip">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-table-export" width="44"
+                         height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
+                         stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path
+                            d="M11.5 20h-5.5a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v7.5m-16 -3.5h16m-10 -6v16m4 -1h7m-3 -3l3 3l-3 3"/>
+                    </svg>
+                </a>
+            </div>
 
-        {#    Необходимо реализовать подключение нужного контекста    #}
-        <div class="is-left-col ms-auto">
-            <div class="btn-group w-100">
-                {% set set_title = 'Данная операция недоступна, обратитесь к администратору системы.' %}
+{#            title="Настройка колонок таблицы"#}
 
-                {% if close_view|default(false) %}
-                <a class="btn disabled-btn" role="button" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ set_title }}">
-                    {% else %}
-                    <a class="btn" data-action="view" data-bs-toggle="offcanvas" href="#{{ controller|default(false) }}ViewPanel" data-controller="{{ controller|default(false) }}" role="button" aria-controls="offcanvasEnd">
-                        {% endif %}Просмотр</a>
+            <div class="dropdown settings-dropdown">
+                <a class="btn" href="#" role="button" id="columns-settings-btn" data-bs-toggle="dropdown" title="Настройка колонок таблицы"
+                   aria-expanded="false" data-bs-original-title="Настройка колонок таблицы">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-settings" width="44"
+                         height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
+                         stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path
+                            d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z"/>
+                        <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                </a>
 
-                {% if close_create|default(false) %}
-                    <a class="btn disabled-btn" role="button" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ set_title }}">
-                {% else %}
-                    <a class="btn" data-action="add" data-bs-toggle="offcanvas" href="#{{ controller|default(false) }}CreationPanel" data-controller="{{ controller|default(false) }}" role="button" aria-controls="offcanvasEnd">
-                {% endif %}Создать</a>
+                <ul class="dropdown-menu" aria-labelledby="columns-settings-btn">
+                    <form class="px-4 py-3">
+                        <label class="dropdown-item"><input class="form-check-input m-0 me-2" type="checkbox"> Короткое
+                            название</label>
+                        <label class="dropdown-item"><input class="form-check-input m-0 me-2" type="checkbox"> Название</label>
+                        <label class="dropdown-item"><input class="form-check-input m-0 me-2" type="checkbox">
+                            Код</label>
+                        <label class="dropdown-item"><input class="form-check-input m-0 me-2" type="checkbox"> Дата
+                            утверждения</label>
+                        <label class="dropdown-item"><input class="form-check-input m-0 me-2" type="checkbox">Номер
+                            приказа</label>
+                        <button type="submit" class="btn btn-primary" style="display: flex; margin: 0.5rem auto;">
+                            Принять
+                        </button>
+                    </form>
+                </ul>
+            </div>
 
-                {% if close_edit|default(false) %}
-                    <a class="btn disabled-btn" role="button" data-bs-toggle="tooltip" aria-controls="offcanvasEnd" title="{{ set_title }}">
-                {% else %}
-                    <a class="btn" data-action="edit" data-bs-toggle="offcanvas" href="#{{ controller|default(false) }}EditingPanel" data-controller="{{ controller|default(false) }}" role="button" aria-controls="offcanvasEnd">
-                {% endif %}Изменить</a>
 
-                {% if close_delete|default(false) %}
-                    <a class="btn disabled-btn" data-bs-toggle="tooltip" data-bs-placement="left" title="{{ set_title }}">
-                {% else %}
-                    <a class="btn" data-action="delete" data-bs-toggle="modal" data-bs-target="#userRemoveModal" data-controller="{{ controller|default(false) }}" href="#">
-                {% endif %}Удалить</a>
+
+            {#    Необходимо реализовать подключение нужного контекста    #}
+            <div class="is-left-col ms-auto">
+                <div class="btn-group w-100">
+                    {% set set_title = 'Данная операция недоступна, обратитесь к администратору системы.' %}
+
+                    {% if close_view|default(false) %}
+                    <a class="btn disabled-btn" role="button" data-bs-toggle="tooltip" data-bs-placement="top"
+                       title="{{ set_title }}">
+                        {% else %}
+                        <a class="btn" data-action="view" data-bs-toggle="offcanvas"
+                           href="#{{ controller|default(false) }}ViewPanel"
+                           data-controller="{{ controller|default(false) }}" role="button" aria-controls="offcanvasEnd">
+                            {% endif %}Просмотр</a>
+
+                        {% if close_create|default(false) %}
+                        <a class="btn disabled-btn" role="button" data-bs-toggle="tooltip" data-bs-placement="top"
+                           title="{{ set_title }}">
+                            {% else %}
+                            <a class="btn" data-action="add" data-bs-toggle="offcanvas"
+                               href="#{{ controller|default(false) }}CreationPanel"
+                               data-controller="{{ controller|default(false) }}" role="button"
+                               aria-controls="offcanvasEnd">
+                                {% endif %}Создать</a>
+
+                            {% if close_edit|default(false) %}
+                            <a class="btn disabled-btn" role="button" data-bs-toggle="tooltip"
+                               aria-controls="offcanvasEnd" title="{{ set_title }}">
+                                {% else %}
+                                <a class="btn" data-action="edit" data-bs-toggle="offcanvas"
+                                   href="#{{ controller|default(false) }}EditingPanel"
+                                   data-controller="{{ controller|default(false) }}" role="button"
+                                   aria-controls="offcanvasEnd">
+                                    {% endif %}Изменить</a>
+
+                                {% if close_delete|default(false) %}
+                                <a class="btn disabled-btn" data-bs-toggle="tooltip" data-bs-placement="left"
+                                   title="{{ set_title }}">
+                                    {% else %}
+                                    <a class="btn" data-action="delete" data-bs-toggle="modal"
+                                       data-bs-target="#userRemoveModal"
+                                       data-controller="{{ controller|default(false) }}" href="#">
+                                        {% endif %}Удалить</a>
+                </div>
             </div>
         </div>
-    </div>
     </form>
 </div>
