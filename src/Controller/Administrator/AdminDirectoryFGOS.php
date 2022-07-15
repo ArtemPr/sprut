@@ -151,8 +151,8 @@ class AdminDirectoryFGOS extends AbstractController
             ['short_name', 'Короткое название', 'string', true],
             ['name', 'Название', 'string', true],
             ['code', 'Код', 'string', true],
-            ['date_create', 'Дата утверждения', 'string', true],
-            ['pr_num', 'Номер приказа', 'string', true]
+            ['date_create', 'Дата утверждения', 'date', true],
+            ['pr_num', 'Номер приказа', 'int', true]
         ];
     }
 
