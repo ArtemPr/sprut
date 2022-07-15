@@ -11,7 +11,6 @@ const flatpickrEnd = document.querySelector('#flatpickr-end');
 if(flatpickrStart) {
     flatpickr(document.querySelector('#flatpickr-start'), {
         "locale": Russian,
-        //dateFormat: "Y-m-d",
         wrap: true,
         altInput: true,
         altFormat: "F j, Y",
@@ -22,8 +21,10 @@ if(flatpickrStart) {
 if(flatpickrEnd) {
     flatpickr(document.querySelector('#flatpickr-end'), {
         "locale": Russian,
+        wrap: true,
+        altInput: true,
+        altFormat: "F j, Y",
         dateFormat: "Y-m-d",
-        wrap: true
     })
 }
 
