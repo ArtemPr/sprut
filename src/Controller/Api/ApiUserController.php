@@ -142,33 +142,6 @@ class ApiUserController extends AbstractController
         }
     }
 
-    public function hide(int $id)
-    {
-        $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
-        $data = $request->request->all();
-
-        $kafedra = $this->doctrine->getRepository(User::class)->find((int)$id);
-        $kafedra->setDelete(true);
-        $entityManager = $this->doctrine->getManager();
-        $entityManager->persist($kafedra);
-        $entityManager->flush();
-
-        $data = $this->doctrine->getRepository(User::class)->find((int)$id);
-
-        $loger = new Loger();
-        $loger->setTime(new \DateTime());
-        $loger->setAction('delete_user');
-        $loger->setUserLoger($this->getUser());
-        $loger->setIp($request->server->get('REMOTE_ADDR'));
-        $loger->setChapter('Пользователи');
-        $loger->setComment($id . ' ' . $data->getUsername());
-        $entityManager = $this->doctrine->getManager();
-        $entityManager->persist($loger);
-        $entityManager->flush();
-
-        return $this->json(['result' => 'success', 'id'=>$id]);
-    }
-
     public function update()
     {
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
@@ -237,5 +210,37 @@ class ApiUserController extends AbstractController
         $entityManager->flush();
 
         return $this->json(['result' => 'success', 'id' => $data['id']]);
+    }
+
+    public function hide(int $id)
+    {
+        $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
+        $data = $request->request->all();
+
+        $userEntity = $this->doctrine->getRepository(User::class)->find((int)$id);
+        $userEntity->setDelete(true);
+        $userEntity->setFixDelete($userEntity->getEmail());
+
+        $fix_user_email = time() . '_' . $userEntity->getEmail();
+        $userEntity->setEmail($fix_user_email);
+
+        $entityManager = $this->doctrine->getManager();
+        $entityManager->persist($userEntity);
+        $entityManager->flush();
+
+        $data = $this->doctrine->getRepository(User::class)->find((int)$id);
+
+        $loger = new Loger();
+        $loger->setTime(new \DateTime());
+        $loger->setAction('delete_user');
+        $loger->setUserLoger($this->getUser());
+        $loger->setIp($request->server->get('REMOTE_ADDR'));
+        $loger->setChapter('Пользователи');
+        $loger->setComment($id . ' ' . $data->getUsername());
+        $entityManager = $this->doctrine->getManager();
+        $entityManager->persist($loger);
+        $entityManager->flush();
+
+        return $this->json(['result' => 'success', 'id'=>$id]);
     }
 }
