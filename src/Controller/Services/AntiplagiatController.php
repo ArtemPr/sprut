@@ -83,6 +83,35 @@ class AntiplagiatController extends BaseController implements BaseInterface
     public function getCSV()
     {
         $result = $this->get(true);
+        $data = [];
+
+        $dataRow = [];
+        foreach ($this->setTable() as $tbl) {
+            $dataRow[] = $tbl[1];
+        }
+
+        $data[] = $dataRow;
+
+        foreach ($result['data'] as $val) {
+            $data[] = [
+                $this->getActualStatuses()[$val['status']],
+                $val['file'],
+                (!empty($val['discipline']) ? $val['discipline']['name'] : '-'),
+                (!empty($val['size']) ? $val['size'] : '-'),
+                (!empty($val['author']) ? $val['author']['fullname'] : '-'),
+                date_format($val['data_create'], 'd/m/Y H:i'),
+                (!empty($val['comment']) ? $val['comment'] : '-'),
+                (null !== $val['plagiat_percent'] ? $val['plagiat_percent'] : '-'),
+                (!empty($val['result_file']) ? $val['result_file'] : '-'),
+                (!empty($val['result_date']) ? date_format($val['result_date'], 'd/m/Y H:i') : '-'),
+            ];
+        }
+
+        return $this->processCSV($data, 'antiplagiat.csv');
+    }
+/*
+    {
+        $result = $this->get(true);
         $table = '';
 
         foreach ($this->setTable() as $tbl) {
@@ -112,6 +141,7 @@ class AntiplagiatController extends BaseController implements BaseInterface
 
         return $this->getCSVFile($table, 'antiplagiat.csv');
     }
+    */
 
     #[Route('/form/antiplagiat_edit/{id}', name: 'antiplagiat_edit')]
     public function getItemForm($id)
