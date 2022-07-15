@@ -56,7 +56,7 @@ trait CSVHelper
         $contentType = 'text/csv';
         $writer = new Csv($spreadsheet);
         $writer->setOutputEncoding('windows-1251');
-        $writer->setDelimiter(',');
+        $writer->setDelimiter(';');
 
         $response = new StreamedResponse();
         $response->headers->set('Content-Type', $contentType);
