@@ -9,6 +9,7 @@ use App\Controller\BaseController;
 use App\Controller\BaseInterface;
 use App\Entity\Antiplagiat;
 use App\Entity\Discipline;
+use App\Repository\AntiplagiatRepository;
 use App\Service\AuthService;
 use App\Service\CSVHelper;
 use App\Service\LinkService;
@@ -37,6 +38,7 @@ class AntiplagiatController extends BaseController implements BaseInterface
 
         return [
             'data' => $data,
+            'statuses' => $this->getActualStatuses(),
             'disciplines' => $this->managerRegistry->getRepository(Discipline::class)->getList(0, 9999999999),
             'search' => strip_tags($search) ?? '',
             'pager' => [
@@ -136,9 +138,21 @@ class AntiplagiatController extends BaseController implements BaseInterface
             ['author', 'Загрузил', 'string', true],
             ['data_create', 'Создано', 'string', true],
             ['comment', 'Комментарий', 'string', true],
+            ['status', 'Статус', 'string', true],
             ['plagiat_percent', 'Заимствования', 'string', true],
             ['result_file', 'PDF', 'string', true],
             ['result_date', 'Проверено', 'string', true],
+        ];
+    }
+
+    private function getActualStatuses(): array
+    {
+        return [
+            AntiplagiatRepository::CHECK_STATUS_NEW => 'Новый',
+            AntiplagiatRepository::CHECK_STATUS_NONE => 'Ожидание',
+            AntiplagiatRepository::CHECK_STATUS_INPROGRESS => 'В работе',
+            AntiplagiatRepository::CHECK_STATUS_READY => 'Готово',
+            AntiplagiatRepository::CHECK_STATUS_FAILED => 'Ошибка',
         ];
     }
 }

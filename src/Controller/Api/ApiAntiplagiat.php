@@ -110,6 +110,10 @@ class ApiAntiplagiat extends AbstractController
 
         $fileUploadedPath = $this->uploadFile('file', Antiplagiat::class);
 
+        if (empty($fileUploadedPath)) {
+            // Вернуть тут ошибку, если файл не загрузился!
+        }
+
         // документ загружен к нам в хранилище
         $antiplagiat = new Antiplagiat();
         $antiplagiat->setAuthor($this->getUser());
