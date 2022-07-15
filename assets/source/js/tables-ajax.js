@@ -2,6 +2,8 @@
  * Created AptPr <prudishew@yandex.ru> 2022.
  */
 
+import {addTableDragNDrop} from './user.js';
+
 // изменение данных в таблице при GET параметре ajax=true
 document.addEventListener("DOMContentLoaded", function (event) {
     const ajaxTable = document.querySelector(".ajax-table");
@@ -148,6 +150,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
         } else {
             history.pushState("", "", tableUrl);
         }
+
+        addTableDragNDrop();
     }
 
     // начало сценария
