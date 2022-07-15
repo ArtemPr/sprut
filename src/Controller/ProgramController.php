@@ -11,91 +11,78 @@ use App\Entity\MasterProgram;
 use App\Entity\ProgramType;
 use App\Entity\TrainingCenters;
 use App\Service\AuthService;
+use App\Service\CSVHelper;
 use App\Service\LinkService;
-use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-
-class ProgramController extends AbstractController
+class ProgramController extends BaseController implements BaseInterface
 {
-    use LinkService;
     use AuthService;
-    public function __construct(
-        private ManagerRegistry $managerRegistry
-    )
+    use LinkService;
+    use CSVHelper;
+
+    public function get(bool $full = false): array
     {
+        $page = $this->get_data['page'] ?? null;
+        $on_page = $this->get_data['on_page'] ?? 25;
+        $sort = $this->get_data['sort'] ?? null;
+        $select_type = $this->get_data['type'] ?? null;
+        $search = $this->get_data['search'] ?? null;
+
+        if (false === $full) {
+            $program_list = $this->managerRegistry->getRepository(MasterProgram::class)->getList((int) $page, (int) $on_page, $sort, $select_type, $search);
+            $count = $this->managerRegistry->getRepository(MasterProgram::class)->getApiProgramInfo();
+            $count = $count['count_program'] ?? 0;
+        } else {
+            $program_list = [];
+            $count = 0;
+        }
+
+        return [
+            'data' => $program_list,
+            'search' => strip_tags($search) ?? '',
+            'program_type' => $this->managerRegistry->getRepository(ProgramType::class)->findAll(),
+            'training_centre' => $this->managerRegistry->getRepository(TrainingCenters::class)->findAll(),
+            'category' => $this->managerRegistry->getRepository(Category::class)->getList(),
+            'fgos' => $this->managerRegistry->getRepository(FederalStandart::class)->findAll(),
+            'type' => $this->managerRegistry->getRepository(ProgramType::class)->findAll(),
+            'select_type' => $select_type,
+            'pager' => [
+                'count_all_position' => $count,
+                'current_page' => $page,
+                'count_page' => (int) ceil($count / $on_page),
+                'paginator_link' => $this->getParinatorLink(),
+                'on_page' => $on_page,
+            ],
+            'sort' => [
+                'sort_link' => $this->getSortLink(),
+                'current_sort' => $this->request->get('sort') ?? null,
+            ],
+            'search_link' => $this->getSearchLink(),
+            'table' => $this->setTable(),
+            'csv_link' => $this->getCSVLink(),
+        ];
     }
 
     #[Route('/program', name: 'program')]
-    public function program(): Response
+    public function getList(): Response
     {
         $auth = $this->getAuthValue($this->getUser(), 'auth_program', $this->managerRegistry);
         if (!is_array($auth)) {
             return $auth;
         }
 
-        $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
-        $page = $request->get('page') ?? null;
-        $on_page = $request->get('on_page') ?? 25;
-        $sort = $request->get('sort') ?? null;
-        $select_type = $request->get('type') ?? null;
-        $search = $request->get('search') ?? null;
+        $tpl = !empty($this->request->get('ajax'))
+            ? '/program/program_table.html.twig'
+            : '/program/index.html.twig';
 
-        $program_type = $this->managerRegistry->getRepository(ProgramType::class)->findAll();
-        $program_list = $this->managerRegistry->getRepository(MasterProgram::class)->getList((int)$page, (int)$on_page, $sort, $select_type, $search);
-        $count = $this->managerRegistry->getRepository(MasterProgram::class)->getApiProgramInfo();
-        $count = $count['count_program'] ?? 0;
-
-        $tc = $this->managerRegistry->getRepository(TrainingCenters::class)->findAll();
-
-        $category = $this->managerRegistry->getRepository(Category::class)->getList();
-
-        $fgos = $this->managerRegistry->getRepository(FederalStandart::class)->findAll();
-
-        $type = $this->managerRegistry->getRepository(ProgramType::class)->findAll();
-
-        $tpl = $request->get('ajax') ? '/program/program_table.html.twig' : '/program/index.html.twig' ;
-
-        $table = [
-            ['', '', 'bool', true],
-            ['id', 'ID', 'string', true],
-            ['history', 'Ист. данные', 'string', true],
-            ['pt.id', 'Тип', 'string', true],
-            ['name', 'Название', 'string', true],
-            ['fs.id', 'ФГОС', 'string', true],
-            ['ps.id', 'ПС', 'string', true],
-        ];
+        $result = $this->get();
+        $result['auth'] = $auth;
 
         return $this->render(
             $tpl,
-            [
-                'data' => $program_list,
-                'search' => strip_tags($search) ?? '',
-                'program_type' => $program_type,
-                'training_centre' => $tc,
-                'category' => $category,
-                'fgos' => $fgos,
-                'type' => $type,
-                'select_type' => $select_type,
-                'pager' => [
-                    'count_all_position' => $count,
-                    'current_page' => $page,
-                    'count_page' => (int)ceil($count / $on_page),
-                    'paginator_link' => $this->getParinatorLink(),
-                    'on_page' => $on_page
-                ],
-                'table' => $table,
-                'sort' => [
-                    'sort_link' => $this->getSortLink(),
-                    'current_sort' => $request->get('sort') ?? null,
-                ],
-                'auth' => $auth,
-
-                'csv_link' => $this->getCSVLink()
-            ]
+            $result
         );
     }
 
@@ -112,8 +99,21 @@ class ProgramController extends AbstractController
             [
                 'data' => $data,
                 'type' => $type,
-                'fgos' => $fgos
+                'fgos' => $fgos,
             ]
         );
+    }
+
+    private function setTable()
+    {
+        return [
+            ['', '', 'bool', true],
+            ['id', 'ID', 'string', true],
+            ['history', 'Ист. данные', 'string', true],
+            ['pt.id', 'Тип', 'string', true],
+            ['name', 'Название', 'string', true],
+            ['fs.id', 'ФГОС', 'string', true],
+            ['ps.id', 'ПС', 'string', true],
+        ];
     }
 }

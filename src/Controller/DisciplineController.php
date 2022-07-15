@@ -9,26 +9,14 @@ use App\Entity\Discipline;
 use App\Service\AuthService;
 use App\Service\CSVHelper;
 use App\Service\LinkService;
-use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class DisciplineController extends AbstractController
+class DisciplineController extends BaseController implements BaseInterface
 {
     use LinkService;
     use AuthService;
     use CSVHelper;
-
-    private $request;
-
-    public function __construct(
-        private ManagerRegistry $managerRegistry
-    )
-    {
-        $this->request = new Request($_GET);
-    }
 
     private function setTable()
     {
@@ -38,11 +26,11 @@ class DisciplineController extends AbstractController
             ['practicum_flag', 'Практикум', 'int', true],
             ['type', 'Название', 'string', true],
             ['comment', 'Комментарий', 'string', true],
-            ['comment', 'Цель освоения', 'string', true]
+            ['comment', 'Цель освоения', 'string', true],
         ];
     }
 
-    private function get(bool $full = false)
+    public function get(bool $full = false)
     {
         $page = $this->request->get('page') ?? null;
         $on_page = $this->request->get('on_page') ?? 25;
@@ -50,11 +38,11 @@ class DisciplineController extends AbstractController
         $search = $this->request->get('search') ?? null;
 
         if ($full === false) {
-            $result = $this->managerRegistry->getRepository(\App\Entity\Discipline::class)->getList($page, $on_page, $sort, $search);
-            $count = $this->managerRegistry->getRepository(\App\Entity\Discipline::class)->getListAll($page, $on_page, $sort, $search);
+            $result = $this->managerRegistry->getRepository(Discipline::class)->getList($page, $on_page, $sort, $search);
+            $count = $this->managerRegistry->getRepository(Discipline::class)->getListAll($page, $on_page, $sort, $search);
         } else {
-            $result = $this->managerRegistry->getRepository(\App\Entity\Discipline::class)->getList(0, 9999999999, $sort, $search);
-            $count = $this->managerRegistry->getRepository(\App\Entity\Discipline::class)->getListAll(0, 9999999999, $sort, $search);
+            $result = $this->managerRegistry->getRepository(Discipline::class)->getList(0, 9999999999, $sort, $search);
+            $count = $this->managerRegistry->getRepository(Discipline::class)->getListAll(0, 9999999999, $sort, $search);
         }
 
         $page = $page ?? 1;
@@ -64,16 +52,16 @@ class DisciplineController extends AbstractController
             'pager' => [
                 'count_all_position' => $count,
                 'current_page' => $page,
-                'count_page' => (int)ceil($count / $on_page),
+                'count_page' => (int) ceil($count / $on_page),
                 'paginator_link' => $this->getParinatorLink(),
-                'on_page' => $on_page
+                'on_page' => $on_page,
             ],
             'sort' => [
                 'sort_link' => $this->getSortLink(),
                 'current_sort' => $this->request->get('sort') ?? null,
             ],
             'table' => $this->setTable(),
-            'csv_link' => $this->getCSVLink()
+            'csv_link' => $this->getCSVLink(),
         ];
     }
 
@@ -98,32 +86,27 @@ class DisciplineController extends AbstractController
     public function getListCSV()
     {
         $result = $this->get(true);
-        $table = '';
+        $data = [];
 
+        $dataRow = [];
         foreach ($this->setTable() as $tbl) {
-            $table .= '"' . $tbl[1] . '";';
+            $dataRow[] = $tbl[1];
         }
 
-        $table = substr($table, 0, -1) . "\n";
-        $data = $result['data'];
+        $data[] = $dataRow;
 
-        foreach ($data as $val) {
-            $table .= '"' . ( $val['status'] == 'accept' ? 'да' : 'нет') . '";' .
-                '"' . $val['type'] . '";' . // надо типы
-                '"' . ($val['practice'] ? 'да' : 'нет') . '";' .
-                '"' . $val['name'] . '";' .
-                '"' . $val['comment'] . '";' .
-                '"' . $val['purpose'] . '"' . "\n";
+        foreach ($result['data'] as $val) {
+            $data[] = [
+                ($val['status'] == 'accept' ? 'да' : 'нет'),
+                $val['type'], // надо типы
+                ($val['practice'] ? 'да' : 'нет'),
+                $val['name'],
+                $val['comment'],
+                $val['purpose'],
+            ];
         }
 
-        $table = mb_convert_encoding($table, 'utf8');
-        $table = htmlspecialchars_decode($table);
-
-        $response = new Response($table);
-        $response->headers->set('Content-Type', 'text/csv');
-        $response->headers->set('Content-Disposition', 'attachment; filename="discipline.csv"');
-
-        return $response;
+        return $this->processCSV($data, 'discipline.csv');
     }
 
     public function getDisciplineForm($id)

@@ -50,20 +50,24 @@ class AdminDirectoryFGOS extends AbstractController
     public function getCSV()
     {
         $result = $this->get(true);
-        $table = '';
+        $data = [];
 
+        $dataRow = [];
         foreach ($this->setTable() as $tbl) {
-            $table .= '"' . $tbl[1] . '";';
-        }
-        $table = substr($table, 0, -1) . "\n";
-
-        $data = $result['data'];
-
-        foreach ($data as $val) {
-            $table .= '"' . ( $val['active'] ? 'да' : 'нет') . '";"' . $val['short_name'] . '";"' . $val['name'] . '"' . "\n";
+            $dataRow[] = $tbl[1];
         }
 
-        return $this->getCSVFile($table, 'fgos.csv');
+        $data[] = $dataRow;
+
+        foreach ($result['data'] as $val) {
+            $data[] = [
+                ($val['active'] ? 'да' : 'нет'),
+                $val['short_name'],
+                $val['name'],
+            ];
+        }
+
+        return $this->processCSV($data, 'fgos.csv');
     }
 
     public function getFgosForm($id): Response

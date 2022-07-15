@@ -24,6 +24,7 @@
                                     'close_create': true,
                                     'controller': 'log',
                                     'path': path('administrator_log'),
+                                    'add_csv': path('administrator_log') ~ '_csv' ~ csv_link
                                 } %}
                                 <div class="ajax-table">
                                     {% include '/administrator/log/log_table.html.twig' %}

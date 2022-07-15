@@ -12,6 +12,9 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 
 trait CSVHelper
 {
+    /**
+     * Экспорт встроенными средствами языка (не работает в вендоекселе)
+     */
     public function getCSVFile(string $table, string $filename): Response
     {
         $table = mb_convert_encoding($table, 'UTF-16LE', 'UTF-8');
@@ -35,6 +38,9 @@ trait CSVHelper
         return $response;
     }
 
+    /**
+     * Экспорт в csv через PhpSpreadsheet (на выходе windows-1251 и норм работа в вендоекселе)
+     */
     public function processCSV(array $data, string $filename): StreamedResponse
     {
         $spreadsheet = new Spreadsheet();

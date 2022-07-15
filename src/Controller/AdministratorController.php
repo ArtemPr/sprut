@@ -76,6 +76,12 @@ class AdministratorController extends AbstractController
         return $adminLog->getList();
     }
 
+    #[Route('/administrator/log_csv', name: 'administrator_log_csv')]
+    public function getLogCSV(AdminLog $adminLog): Response
+    {
+        return $adminLog->getCSV();
+    }
+
     #[Route('/administrator/directory/fros', name: 'administrator_directory_fgos')]
     public function getDirectoryFgos(AdminDirectoryFGOS $adminDirectoryFGOS): Response
     {
