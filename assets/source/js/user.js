@@ -588,4 +588,5 @@ function addTableDragNDrop() {
     });
 }
 
-addTableDragNDrop();
+// при вызове модалок 200 ошибок
+// addTableDragNDrop();
