@@ -66,6 +66,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean', nullable: true)]
     private $delete;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $last_page;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $fix_delete;
+
     public function __construct()
     {
         $this->departament = new ArrayCollection();
@@ -405,6 +411,38 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setFullname($fullname): void
     {
         $this->fullname = $fullname;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLastPage()
+    {
+        return $this->last_page;
+    }
+
+    /**
+     * @param mixed $last_page
+     */
+    public function setLastPage($last_page): void
+    {
+        $this->last_page = $last_page;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFixDelete()
+    {
+        return $this->fix_delete;
+    }
+
+    /**
+     * @param mixed $fix_delete
+     */
+    public function setFixDelete($fix_delete): void
+    {
+        $this->fix_delete = $fix_delete;
     }
 
 }
