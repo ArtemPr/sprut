@@ -2,6 +2,31 @@
 
 // получаем из npm пакета
 require('imask');
+import flatpickr from "flatpickr";
+import { Russian } from "flatpickr/dist/l10n/ru.js"
+
+const flatpickrStart = document.querySelector('#flatpickr-start');
+const flatpickrEnd = document.querySelector('#flatpickr-end');
+
+if(flatpickrStart) {
+    flatpickr(document.querySelector('#flatpickr-start'), {
+        "locale": Russian,
+        wrap: true,
+        altInput: true,
+        altFormat: "F j, Y",
+        dateFormat: "Y-m-d",
+    });
+}
+
+if(flatpickrEnd) {
+    flatpickr(document.querySelector('#flatpickr-end'), {
+        "locale": Russian,
+        wrap: true,
+        altInput: true,
+        altFormat: "F j, Y",
+        dateFormat: "Y-m-d",
+    })
+}
 
 let userControls = document.querySelectorAll('[data-controller="user"]');
 let addUserBtn = null;
@@ -16,7 +41,7 @@ if (userControls) {
     })
 
     let addTel = document.querySelector("[name='phone']");
-    if(addTel) {
+    if (addTel) {
         let addMaskOptions = {
             mask: '+{7}(000)000-00-00'
         };
@@ -27,7 +52,7 @@ if (userControls) {
         editUserBtn.addEventListener('click', function () {
             setTimeout(() => {
                 let editTel = document.querySelector(".form-update [name='phone']");
-           //     console.log(editTel);
+                //     console.log(editTel);
                 let editMaskOptions = {
                     mask: '+{7}(000)000-00-00'
                 };
@@ -472,12 +497,10 @@ function addTableDragNDrop() {
 
             // Set position for dragging element
             draggingEle.style.position = "absolute";
-            draggingEle.style.top = `${
-                draggingEle.offsetTop + e.clientY - y
-            }px`;
-            draggingEle.style.left = `${
-                draggingEle.offsetLeft + e.clientX - x
-            }px`;
+            draggingEle.style.top = `${draggingEle.offsetTop + e.clientY - y
+                }px`;
+            draggingEle.style.left = `${draggingEle.offsetLeft + e.clientX - x
+                }px`;
 
             // Reassign the position of mouse
             x = e.clientX;
@@ -566,4 +589,5 @@ function addTableDragNDrop() {
     });
 }
 
-addTableDragNDrop();
+// при вызове модалок 200 ошибок
+//addTableDragNDrop();

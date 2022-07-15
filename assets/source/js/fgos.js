@@ -116,40 +116,4 @@ document.addEventListener("DOMContentLoaded", function (event) {
             })
         }
     }
-
-    // создание фгос
-
-    // console.log('where создание фгос');
-    // var btn_add_line_create = document.querySelector('#add_string_create');
-    // var add_string_table = document.querySelector('#add_string_table');
-    // function removeRow(el) {
-    //     el.remove();
-    // }
-    //
-    // if(btn_add_line_create) {
-    //     btn_add_line_create.addEventListener('click', function () {
-    //         first_tr = add_string_table.querySelector('tbody tr')
-    //         let new_tr = add_string_table.querySelector('tbody tr').cloneNode(true);
-    //         new_tr.querySelector('input[type=text]').value = '';
-    //         let new_tr_close = new_tr.querySelector('.delete_string');
-    //         new_tr_close.addEventListener('click', () => removeRow(new_tr));
-    //         new_tr_close.removeEventListener('click', () => removeRow(new_tr))
-    //         add_string_table.querySelector('tbody').insertBefore(new_tr, first_tr);
-    //     });
-    // }
-    //
-    // let interval_update = setInterval(function (){
-    //     let add_btn = document.querySelector("body").querySelector('#add_string_create_add');
-    //     let add_tbl = document.querySelector("body").querySelector('#add_string_table_add');
-    //     if ( add_btn !== null) {
-    //         add_btn.addEventListener('click', function () {
-    //             clearInterval(interval_update);
-    //             first_tr = add_tbl.querySelector('tbody tr')
-    //             new_tr = add_tbl.querySelector('tbody tr').cloneNode(true);
-    //             new_tr.querySelector('input[type=text]').value = '';
-    //             add_tbl.querySelector('tbody').insertBefore(new_tr, first_tr);
-    //         });
-    //     }
-    // }, 3000);
-
 });
