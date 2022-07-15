@@ -66,6 +66,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean', nullable: true)]
     private $delete;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $last_page;
+
     public function __construct()
     {
         $this->departament = new ArrayCollection();
@@ -405,6 +408,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setFullname($fullname): void
     {
         $this->fullname = $fullname;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLastPage()
+    {
+        return $this->last_page;
+    }
+
+    /**
+     * @param mixed $last_page
+     */
+    public function setLastPage($last_page): void
+    {
+        $this->last_page = $last_page;
     }
 
 }
