@@ -1,18 +1,24 @@
+.filter-sort-wrap {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.name-text {
+  margin-right: 10px;
+}
+
 .th-name {
   position: relative;
-  padding-left: 1.3rem;
   margin-top: 0;
   margin-bottom: 0;
-  //pointer-events: none;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.users-table th .sort-icon {
-  left: 8px;
-  top: 50%;
-  transform: translateY(-50%);
+.sort-name-wrap {
+  display: flex;
 }
 
 .card-table tr td:first-child, .card-table tr th:first-child {
@@ -75,7 +81,19 @@
   }
 }
 
-.drag-icon:hover {
-  cursor: cell;
+.drag-icon {
+  display: block;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 14px;
+  height: 14px;
+  background-image: url("../img/drag.png");
+  margin-right: 5px;
+  cursor: url('../img/dragS.svg') 6 6, move;
+}
+
+.drag-icon:hover,  .drag-icon:active {
+  cursor: url('../img/dragS.svg') 6 6, move;
 }
 
