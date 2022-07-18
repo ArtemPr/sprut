@@ -31,6 +31,7 @@ services:
   # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
+    # Сервис Антиплагиат
     # openssl и soap должны быть включены
     App\Service\AntiplagiatAPI:
         autowire: true
@@ -41,3 +42,12 @@ services:
             $company_name: 'testapi'
             $api_address: 'api.antiplagiat.ru:44902'
             $ext_user: 'testapi'
+
+    # Сервис Литера5
+    App\Service\Litera5API:
+        autowire: true
+        arguments:
+            $apiurl: 'https://litera5.ru'
+            $apikey: ''
+            $company: ''
+            $login: ''
