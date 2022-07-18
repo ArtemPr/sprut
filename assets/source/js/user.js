@@ -5,6 +5,8 @@ require('imask');
 import flatpickr from "flatpickr";
 import { Russian } from "flatpickr/dist/l10n/ru.js"
 
+//document.addEventListener("DOMContentLoaded", function(event) {
+
 const flatpickrStart = document.querySelector('#flatpickr-start');
 const flatpickrEnd = document.querySelector('#flatpickr-end');
 
@@ -355,12 +357,14 @@ window.addEventListener("load", function () {
  */
 
 function addTableDragNDrop() {
+
+   // console.log('addTableDragNDrop works');
     if (isTouchDevice()) {
         return false;
     }
+        let table = document.getElementById("usersTable");
 
-    document.addEventListener("DOMContentLoaded", function () {
-        const table = document.getElementById("usersTable");
+     //   console.log('addTableDragNDrop table ', table);
 
         let draggingEle;
         let draggingColumnIndex;
@@ -395,6 +399,7 @@ function addTableDragNDrop() {
         };
 
         const cloneTable = function () {
+        //    console.log('cloneTable')
             const rect = table.getBoundingClientRect();
 
             list = document.createElement("div");
@@ -454,16 +459,18 @@ function addTableDragNDrop() {
         };
 
         const mouseDownHandler = function (e) {
-            if (e.button !== 0 || e.target.classList[0] === "sort-icon")
+          //  console.log('mouseDownHandler');
+            let parentTh = e.target.closest('th');
+            if (e.button !== 0 || parentTh.classList[0] === "sort-icon")
                 return false;
 
             draggingColumnIndex = [].slice
                 .call(table.querySelectorAll("th"))
-                .indexOf(e.target);
+                .indexOf(parentTh);
 
             // Determine the mouse position
-            x = e.clientX - e.target.offsetLeft;
-            y = e.clientY - e.target.offsetTop;
+            x = e.clientX - parentTh.offsetLeft;
+            y = e.clientY - parentTh.offsetTop;
 
             // Attach the listeners to `document`
             document.addEventListener("mousemove", mouseMoveHandler);
@@ -473,13 +480,13 @@ function addTableDragNDrop() {
         };
 
         const mouseMoveHandler = function (e) {
+        //    console.log('mouseMoveHandler');
             if (e.button !== 0) return false;
 
             if (!isDraggingStarted) {
                 isDraggingStarted = true;
 
                 cloneTable();
-
                 draggingEle = [].slice.call(list.children)[draggingColumnIndex];
                 draggingEle.classList.add("t-dragging");
 
@@ -581,13 +588,18 @@ function addTableDragNDrop() {
         };
 
         if (table !== undefined && table !== null) {
-            table.querySelectorAll("th").forEach(function (headerCell) {
-                headerCell.classList.add("t-draggable");
-                headerCell.addEventListener("mousedown", mouseDownHandler);
-            });
+            let allDragIcons = table.querySelectorAll(".drag-icon");
+            allDragIcons.forEach(dragIcon => {
+                dragIcon.addEventListener("mousedown", mouseDownHandler);
+            })
         }
-    });
 }
 
-// при вызове модалок 200 ошибок
-//addTableDragNDrop();
+    addTableDragNDrop();
+export {addTableDragNDrop};
+//});
+
+
+
+
+
