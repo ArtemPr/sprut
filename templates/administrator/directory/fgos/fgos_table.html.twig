@@ -23,11 +23,27 @@
                             {% else %}
                                 <th>
                                     <a
+                                        title="Сортировка по колонке {{ tbl.1 }}"
                                         class="sort-icon is-{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}desc{% elseif sort.current_sort|default(false) and sort.current_sort == (tbl.0~'__up') %}asc{% else %}both{% endif %}"
                                         href="{{ path('administrator_directory_fgos') ~ sort.sort_link ~ tbl.0 }}{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}__up{% endif %}"
                                     ></a>
                                     <div class="th-name">
                                         <span>{{ tbl.1 }}</span>
+                                        <div class="filter-drag-wrap">
+                                        <span class="drag-icon" data-bs-toggle="tooltip" data-bs-original-title="Передвинуть колонку {{ tbl.1 }}">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-drag-drop-2" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <rect x="8" y="8" width="12" height="12" rx="2" />
+  <line x1="4" y1="4" x2="4" y2="4.01" />
+  <line x1="8" y1="4" x2="8" y2="4.01" />
+  <line x1="12" y1="4" x2="12" y2="4.01" />
+  <line x1="16" y1="4" x2="16" y2="4.01" />
+  <line x1="4" y1="8" x2="4" y2="8.01" />
+  <line x1="4" y1="12" x2="4" y2="12.01" />
+  <line x1="4" y1="16" x2="4" y2="16.01" />
+</svg>
+                                        </span>
+
 
                                         {% if tbl.2 == 'string' or tbl.2 == 'date' %}
                                             <!-- Button trigger modal -->
@@ -79,86 +95,87 @@
                                                             {% elseif tbl.2 == 'date' %}
                                                                 <p style="text-align: center;">Выберите интервал</p>
                                                                 <div class="filter-date-modal">
-                                                                            <div class="flatpickr-wrap"
-                                                                                 id="flatpickr-start">
-                                                                                <input type="text"
-                                                                                       class="flatpickr-input form-control"
-                                                                                       placeholder="Начальная дата"
-                                                                                       data-input>
-                                                                                <!-- input is mandatory -->
-                                                                                <button class="btn" title="toggle"
-                                                                                        data-toggle>
-                                                                                    <i class="icon-calendar">
-                                                                                        <svg
-                                                                                            xmlns="http://www.w3.org/2000/svg"
-                                                                                            width="16" height="16"
-                                                                                            fill="#000"
-                                                                                            class="bi bi-calendar-event"
-                                                                                            viewBox="0 0 16 16">
-                                                                                            <path
-                                                                                                d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
-                                                                                            <path
-                                                                                                d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
-                                                                                        </svg>
-                                                                                    </i>
-                                                                                </button>
+                                                                    <div class="flatpickr-wrap"
+                                                                         id="flatpickr-start">
+                                                                        <input type="text"
+                                                                               class="flatpickr-input form-control"
+                                                                               placeholder="Начальная дата"
+                                                                               data-input>
+                                                                        <!-- input is mandatory -->
+                                                                        <button class="btn" title="toggle"
+                                                                                data-toggle>
+                                                                            <i class="icon-calendar">
+                                                                                <svg
+                                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                                    width="16" height="16"
+                                                                                    fill="#000"
+                                                                                    class="bi bi-calendar-event"
+                                                                                    viewBox="0 0 16 16">
+                                                                                    <path
+                                                                                        d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
+                                                                                    <path
+                                                                                        d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+                                                                                </svg>
+                                                                            </i>
+                                                                        </button>
 
-                                                                                <button class="btn" title="clear"
-                                                                                        data-clear>
-                                                                                    <i class="icon-close">
-                                                                                        <svg
-                                                                                            xmlns="http://www.w3.org/2000/svg"
-                                                                                            width="16" height="16"
-                                                                                            fill="#f64747 "
-                                                                                            class="bi bi-x-lg"
-                                                                                            viewBox="0 0 16 16">
-                                                                                            <path
-                                                                                                d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
-                                                                                        </svg>
-                                                                                    </i>
-                                                                                </button>
-                                                                            </div>
+                                                                        <button class="btn" title="clear"
+                                                                                data-clear>
+                                                                            <i class="icon-close">
+                                                                                <svg
+                                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                                    width="16" height="16"
+                                                                                    fill="#f64747 "
+                                                                                    class="bi bi-x-lg"
+                                                                                    viewBox="0 0 16 16">
+                                                                                    <path
+                                                                                        d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                                                                                </svg>
+                                                                            </i>
+                                                                        </button>
+                                                                    </div>
 
-                                                                            <div style="margin-left: 30px;" class="flatpickr-wrap"
-                                                                                 id="flatpickr-end">
-                                                                                <input type="text"
-                                                                                       class="flatpickr-input form-control"
-                                                                                       placeholder="Конечная дата"
-                                                                                       data-input>
-                                                                                <!-- input is mandatory -->
+                                                                    <div style="margin-left: 30px;"
+                                                                         class="flatpickr-wrap"
+                                                                         id="flatpickr-end">
+                                                                        <input type="text"
+                                                                               class="flatpickr-input form-control"
+                                                                               placeholder="Конечная дата"
+                                                                               data-input>
+                                                                        <!-- input is mandatory -->
 
-                                                                                <button class="btn" title="toggle"
-                                                                                        data-toggle>
-                                                                                    <i class="icon-calendar">
-                                                                                        <svg
-                                                                                            xmlns="http://www.w3.org/2000/svg"
-                                                                                            width="16" height="16"
-                                                                                            fill="#000"
-                                                                                            class="bi bi-calendar-event"
-                                                                                            viewBox="0 0 16 16">
-                                                                                            <path
-                                                                                                d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
-                                                                                            <path
-                                                                                                d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
-                                                                                        </svg>
-                                                                                    </i>
-                                                                                </button>
+                                                                        <button class="btn" title="toggle"
+                                                                                data-toggle>
+                                                                            <i class="icon-calendar">
+                                                                                <svg
+                                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                                    width="16" height="16"
+                                                                                    fill="#000"
+                                                                                    class="bi bi-calendar-event"
+                                                                                    viewBox="0 0 16 16">
+                                                                                    <path
+                                                                                        d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
+                                                                                    <path
+                                                                                        d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+                                                                                </svg>
+                                                                            </i>
+                                                                        </button>
 
-                                                                                <button class="btn" title="clear"
-                                                                                        data-clear>
-                                                                                    <i class="icon-close">
-                                                                                        <svg
-                                                                                            xmlns="http://www.w3.org/2000/svg"
-                                                                                            width="16" height="16"
-                                                                                            fill="#f64747 "
-                                                                                            class="bi bi-x-lg"
-                                                                                            viewBox="0 0 16 16">
-                                                                                            <path
-                                                                                                d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
-                                                                                        </svg>
-                                                                                    </i>
-                                                                                </button>
-                                                                            </div>
+                                                                        <button class="btn" title="clear"
+                                                                                data-clear>
+                                                                            <i class="icon-close">
+                                                                                <svg
+                                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                                    width="16" height="16"
+                                                                                    fill="#f64747 "
+                                                                                    class="bi bi-x-lg"
+                                                                                    viewBox="0 0 16 16">
+                                                                                    <path
+                                                                                        d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                                                                                </svg>
+                                                                            </i>
+                                                                        </button>
+                                                                    </div>
 
 
                                                                 </div>
@@ -175,7 +192,7 @@
                                             <!-- Modal -->
                                         {% endif %}
 
-
+                                    </div>
                                     </div>
                                 </th>
                             {% endif %}
