@@ -31,7 +31,7 @@
                                         </div>
 
                                         <div class="filter-sort-wrap">
-                                            <a title="Сортировка по {{ tbl.1 }}"
+                                            <a title="Сортировка по значению ({{ tbl.1 }})"
                                                 class="sort-icon is-{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}desc{% elseif sort.current_sort|default(false) and sort.current_sort == (tbl.0~'__up') %}asc{% else %}both{% endif %}"
                                                 href="{{ path('administrator_directory_fgos') ~ sort.sort_link ~ tbl.0 }}{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}__up{% endif %}"
                                             ></a>
@@ -39,7 +39,7 @@
                                             {% if tbl.2 == 'string' or tbl.2 == 'date' %}
                                                 <!-- Button trigger modal -->
                                                 <button type="button"
-                                                        title="Фильтрация по {{ tbl.1 }}"
+                                                        title="Фильтрация по значению ({{ tbl.1 }})"
                                                         class="table-filter-btn"
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#filterModal-{{ loop.index }}">
@@ -59,7 +59,7 @@
                                                             <div class="modal-header">
                                                                 <h5 class="filter-modal-title" id="filterModalLabel">
                                                                     Фильтрация
-                                                                    по колонке {{ tbl.1 }}</h5>
+                                                                    по значению ({{ tbl.1 }})</h5>
                                                                 <button type="button" class="btn-close"
                                                                         data-bs-dismiss="modal"
                                                                         aria-label="Close"></button>

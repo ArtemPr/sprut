@@ -2,8 +2,39 @@
  * Created AptPr <prudishew@yandex.ru> 2022.
  */
 
+import flatpickr from "flatpickr";
+import { Russian } from "flatpickr/dist/l10n/ru.js"
+
 // изменение данных в таблице при GET параметре ajax=true
 document.addEventListener("DOMContentLoaded", function (event) {
+
+    function initCalendars(){
+        const flatpickrStart = document.querySelector('#flatpickr-start');
+        const flatpickrEnd = document.querySelector('#flatpickr-end');
+
+        if (flatpickrStart) {
+            flatpickr(document.querySelector('#flatpickr-start'), {
+                "locale": Russian,
+                wrap: true,
+                altInput: true,
+                altFormat: "F j, Y",
+                dateFormat: "Y-m-d",
+            });
+        }
+
+        if (flatpickrEnd) {
+            flatpickr(document.querySelector('#flatpickr-end'), {
+                "locale": Russian,
+                wrap: true,
+                altInput: true,
+                altFormat: "F j, Y",
+                dateFormat: "Y-m-d",
+            })
+        }
+    }
+
+    initCalendars();
+
     const ajaxTable = document.querySelector(".ajax-table");
     let selectValue = 25;
     let selectOnPage = document.querySelector("#on_page_selector");
@@ -359,6 +390,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     }
 
     // получаем данные, заменяем таблицу, пишем запрос в адресную строку, заново вешаем слушатели
+    // главная функция обновления таблицы
     async function getTableData(tableUrl) {
         let data = await fetch(tableUrl).then((result) => result.text());
         if (ajaxTable) {
@@ -387,6 +419,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             history.pushState("", "", tableUrl);
         }
 
+        initCalendars();
         addTableDragNDrop();
     }
 

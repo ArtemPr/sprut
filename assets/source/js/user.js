@@ -6,30 +6,6 @@ import flatpickr from "flatpickr";
 import { Russian } from "flatpickr/dist/l10n/ru.js"
 
 document.addEventListener("DOMContentLoaded", function(event) {
-
-    const flatpickrStart = document.querySelector('#flatpickr-start');
-    const flatpickrEnd = document.querySelector('#flatpickr-end');
-
-    if (flatpickrStart) {
-        flatpickr(document.querySelector('#flatpickr-start'), {
-            "locale": Russian,
-            wrap: true,
-            altInput: true,
-            altFormat: "F j, Y",
-            dateFormat: "Y-m-d",
-        });
-    }
-
-    if (flatpickrEnd) {
-        flatpickr(document.querySelector('#flatpickr-end'), {
-            "locale": Russian,
-            wrap: true,
-            altInput: true,
-            altFormat: "F j, Y",
-            dateFormat: "Y-m-d",
-        })
-    }
-
     let userControls = document.querySelectorAll('[data-controller="user"]');
     let addUserBtn = null;
     let editUserBtn = null;
