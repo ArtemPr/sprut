@@ -91,24 +91,24 @@ class AdminDirectoryPS extends AbstractController
     public function getCSV()
     {
         $result = $this->get(true);
-        $table = '';
+        $data = [];
 
+        $dataRow = [];
         foreach ($this->setTable() as $tbl) {
-            $table .= '"' . $tbl[1] . '";';
-        }
-        $table = substr($table, 0, -1) . "\n";
-
-        $data = $result['data'];
-
-//        dd([
-//            'data' => $data ?? '-',
-//        ]);
-
-        foreach ($data as $val) {
-            $table .= '"' . ( $val['archive_flag'] ? 'да' : 'нет') . '";"' . $val['name'] . '";"' . $val['short_name'] . '"' . "\n";
+            $dataRow[] = $tbl[1];
         }
 
-        return $this->getCSVFile($table, 'ps.csv');
+        $data[] = $dataRow;
+
+        foreach ($result['data'] as $val) {
+            $data[] = [
+                ($val['archive_flag'] ? 'да' : 'нет'),
+                $val['name'],
+                $val['short_name'],
+            ];
+        }
+
+        return $this->processCSV($data, 'ps.csv');
     }
 
     public function getPSForm($id)

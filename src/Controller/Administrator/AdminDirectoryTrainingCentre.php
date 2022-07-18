@@ -96,20 +96,26 @@ class AdminDirectoryTrainingCentre extends AbstractController
     public function getCSV()
     {
         $result = $this->get(true);
-        $table = '';
+        $data = [];
 
+        $dataRow = [];
         foreach ($this->setTable() as $tbl) {
-            $table .= '"' . $tbl[1] . '";';
-        }
-        $table = substr($table, 0, -1) . "\n";
-
-        $data = $result['data'];
-
-        foreach ($data as $val) {
-            $table .= '"' . $val['id'] . '";"' . $val['name'] . '";"' . $val['phone'] . '";"' . $val['email'] . '";"' . $val['url'] . '"' . "\n";
+            $dataRow[] = $tbl[1];
         }
 
-        return $this->getCSVFile($table, 'tc.csv');
+        $data[] = $dataRow;
+
+        foreach ($result['data'] as $val) {
+            $data[] = [
+                $val['id'],
+                $val['name'],
+                $val['phone'],
+                $val['email'],
+                $val['url'],
+            ];
+        }
+
+        return $this->processCSV($data, 'tc.csv');
     }
 
     public function getTrainingCentreForm($id)

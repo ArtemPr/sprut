@@ -43,7 +43,7 @@
                 <td>{{ dat.user_loger.username}} {{dat.user_loger.surname|first}}.{{dat.user_loger.patronymic|first}}. </td>
                 <td>{{ dat.user_loger.email}}</td>
                 <td>{{ dat.ip }}</td>
-                <td>{{ dat.time }}</td>
+                <td>{{ dat.time|date('d/m/Y H:i:s') }}</td>
                 <td>{{ dat.comment }}</td>
                 <td class="hidden-cell"> <input class="selected-checkbox" type="checkbox" name="#" checked> </td> </tr>
         {% endfor %}
