@@ -9,6 +9,7 @@ body.user-editing-panel-opened {
 
 .users-table-wrap {
 	max-height: calc(100vh - 330px);
+  min-height: 300px;
 	position: relative;
 }
 
@@ -23,13 +24,15 @@ body.user-editing-panel-opened {
 .users-table th .sort-icon {
 	width: 12px;
 	height: 11px;
-	position: absolute;
+  display: block;
+	/*position: absolute;
 	left: 8px;
-	top: 50%;
+	top: 50%;  */
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: contain;
 	z-index: 30;
+  margin-right: 3px;
 }
 
 .users-table th .sort-icon.is-both {
@@ -42,15 +45,6 @@ body.user-editing-panel-opened {
 
 .users-table th .sort-icon.is-asc {
 	background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOCIgaGVpZ2h0PSI5IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik00IDIgMCA2aDh6Ii8+PC9zdmc+);
-}
-
-.users-table th .sort-icon:before {
-	content: "";
-	position: absolute;
-	left: -5px;
-	right: -5px;
-	top: -10px;
-	bottom: -10px;
 }
 
 .user-table-row, .editable-table-row {
@@ -106,7 +100,7 @@ body.user-editing-panel-opened {
 }
 
 .t-draggable {
-	cursor: move;
+	/* cursor: move; */
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;
