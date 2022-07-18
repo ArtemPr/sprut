@@ -6,6 +6,7 @@
 namespace App\Command;
 
 use App\Service\Litera5API;
+use App\Service\Litera5Helper;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;

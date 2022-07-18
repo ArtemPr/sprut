@@ -24,18 +24,25 @@ class Litera5API
     {
         $currTs = time();
 
-        array_unshift($data, $this->company);
-        array_unshift($data, $currTs);
+        array_unshift($data, [
+            'company' => $this->company,
+        ]);
+        array_unshift($data, [
+            'time' => $currTs,
+        ]);
 
-        $data[] = $this->apikey;
-        $data[] = $this->getSignature($data);
+//        $data[] = $this->apikey;
+        array_push($data, [
+            'signature' => $this->getSignature($data),
+        ]);
 
         return $data;
     }
 
     protected function getSignature(array $data): string
     {
-        return md5(implode('', $data));
+        $strForHash = implode('', $data);
+        return md5($strForHash);
     }
 
     protected function processedRequest(string $url, array $data): mixed
