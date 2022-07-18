@@ -103,16 +103,16 @@ class AdministratorUserController extends AbstractController
     public function getUserListCSV()
     {
         $result = $this->get(true);
-        $table = '';
+        $data = [];
 
+        $dataRow = [];
         foreach ($this->setTable() as $tbl) {
-            $table .= '"' . $tbl[1] . '";';
+            $dataRow[] = $tbl[1];
         }
-        $table = substr($table, 0, -1) . "\n";
 
-        $data = $result['user_list'];
+        $data[] = $dataRow;
 
-        foreach ($data as $val) {
+        foreach ($result['data'] as $val) {
             $currRoles = [];
 
             if (!empty($val['roles'])) {
@@ -121,18 +121,19 @@ class AdministratorUserController extends AbstractController
                 }
             }
 
-            $table .= '"' . ( $val['activity'] ? 'да' : 'нет') . '";' .
-                        '"' . ( $val['delete'] ? 'удалён' : 'активен') . '";' .
-                        '"' . (!empty($val['fullname']) ? $val['fullname'] : $val['username'] . ' ' . $val['surname'] . ' ' . $val['patronymic']) . '";' .
-                        '"' . implode(', ', $currRoles) . '";' .
-                        '"' . $val['position'] . '";' .
-                        '"' . $val['departament'] . '";' .
-                        '"' . $val['email'] . '";' .
-                        '"' . $val['phone'] . '";' .
-                        "\n";
+            $data[] = [
+                ($val['activity'] ? 'да' : 'нет'),
+                ($val['delete'] ? 'удалён' : 'активен'),
+                (!empty($val['fullname']) ? $val['fullname'] : $val['username'] . ' ' . $val['surname'] . ' ' . $val['patronymic']),
+                implode(', ', $currRoles),
+                $val['position'],
+                $val['departament'],
+                $val['email'],
+                $val['phone'],
+            ];
         }
 
-        return $this->getCSVFile($table, 'userlist.csv');
+        return $this->processCSV($data, 'userlist.csv');
     }
 
     public function getUserForm($id)

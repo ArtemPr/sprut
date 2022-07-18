@@ -48,6 +48,7 @@
                         <span
                             class="badge {{ statuses_colors[data_item.status]|default('bg-') }} "
                             title="{{ statuses[data_item.status]|default('-') }}"
+                            data-bs-toggle="tooltip"
                         ></span>
                     </td>
 
