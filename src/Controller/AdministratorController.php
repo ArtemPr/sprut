@@ -21,7 +21,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AdministratorController extends AbstractController
 {
-
     #[Route('/administrator/user', name: 'administrator_user')]
     public function getUserList(AdministratorUserController $administratorUserController): Response
     {

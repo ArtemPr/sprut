@@ -35,8 +35,9 @@ class ProgramController extends BaseController implements BaseInterface
             $count = $this->managerRegistry->getRepository(MasterProgram::class)->getApiProgramInfo();
             $count = $count['count_program'] ?? 0;
         } else {
-            $program_list = [];
-            $count = 0;
+            $program_list = $this->managerRegistry->getRepository(MasterProgram::class)->getList(0, 9999999999, $sort, $select_type, $search);
+            $count = $this->managerRegistry->getRepository(MasterProgram::class)->getApiProgramInfo();
+            $count = $count['count_program'] ?? 0;
         }
 
         return [
@@ -84,6 +85,49 @@ class ProgramController extends BaseController implements BaseInterface
             $tpl,
             $result
         );
+    }
+
+    #[Route('/program_csv', name: 'program_csv')]
+    public function getCSV()
+    {
+        $result = $this->get(true);
+        $data = [];
+
+        $dataRow = [];
+        foreach ($this->setTable() as $tbl) {
+            $dataRow[] = $tbl[1];
+        }
+
+        $data[] = $dataRow;
+
+        if (!empty($result['data'])) {
+            foreach ($result['data'] as $val) {
+                $program_type = !empty($val['program_type'])
+                    ? html_entity_decode($val['program_type']['short_name_type'])
+                    : '-';
+                $program_name = !empty($val['name'])
+                    ? str_replace(';', '";"', html_entity_decode($val['name']))
+                    : '-';
+                $fgos = !empty($val['federal_standart']) && !empty($val['federal_standart'][0])
+                    ? html_entity_decode($val['federal_standart'][0]['short_name'])
+                    : '-';
+                $ps = !empty($val['prof_standarts']) && !empty($val['prof_standarts'][0])
+                    ? html_entity_decode($val['prof_standarts'][0]['short_name'])
+                    : '-';
+
+                $data[] = [
+                    '',
+                    $val['id'],
+                    ($val['history'] ? 'Да' : 'Нет'),
+                    $program_type, // Тип
+                    $program_name, // Название
+                    $fgos, // ФГОС
+                    $ps, // ПС
+                ];
+            }
+        }
+
+        return $this->processCSV($data, 'programs.csv');
     }
 
     public function getProgramForm($id)

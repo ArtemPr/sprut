@@ -63,6 +63,8 @@ trait CSVHelper
         $writer = new Csv($spreadsheet);
         $writer->setOutputEncoding('windows-1251');
         $writer->setDelimiter(';');
+        $writer->setExcelCompatibility(true);
+        $writer->setUseBOM(false);
 
         $response = new StreamedResponse();
         $response->headers->set('Content-Type', $contentType);
