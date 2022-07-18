@@ -96,22 +96,23 @@ class AdministratorRoleController extends AbstractController
     public function getRoleListCSV()
     {
         $result = $this->get(true);
-        $table = '';
+        $data = [];
 
+        $dataRow = [];
         foreach ($this->setTable() as $tbl) {
-            $table .= '"' . $tbl[1] . '";';
-        }
-        $table = substr($table, 0, -1) . "\n";
-
-        $data = $result['role_list'];
-
-        foreach ($data as $val) {
-            $table .= '"' . $val['roles_alt'] . '";' .
-                '"' . $val['name'] . '";' .
-                '""' . "\n";
+            $dataRow[] = $tbl[1];
         }
 
-        return $this->getCSVFile($table, 'roles.csv');
+        $data[] = $dataRow;
+
+        foreach ($result['data'] as $val) {
+            $data[] = [
+                $val['roles_alt'],
+                $val['name'],
+            ];
+        }
+
+        return $this->processCSV($data, 'roles.csv');
     }
 
     public function getRoleForm(int $id)

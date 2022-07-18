@@ -21,7 +21,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AdministratorController extends AbstractController
 {
-
     #[Route('/administrator/user', name: 'administrator_user')]
     public function getUserList(AdministratorUserController $administratorUserController): Response
     {
@@ -74,6 +73,12 @@ class AdministratorController extends AbstractController
     public function getLog(AdminLog $adminLog): Response
     {
         return $adminLog->getList();
+    }
+
+    #[Route('/administrator/log_csv', name: 'administrator_log_csv')]
+    public function getLogCSV(AdminLog $adminLog): Response
+    {
+        return $adminLog->getCSV();
     }
 
     #[Route('/administrator/directory/fros', name: 'administrator_directory_fgos')]

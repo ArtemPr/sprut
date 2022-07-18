@@ -96,30 +96,25 @@ class AdministratorOperationsController extends AbstractController
     public function getOperationsCSV()
     {
         $result = $this->get(true);
-        $table = '';
+        $data = [];
 
+        $dataRow = [];
         foreach ($this->setTable() as $tbl) {
-            $table .= '"' . $tbl[1] . '";';
+            $dataRow[] = $tbl[1];
         }
 
-        $table = substr($table, 0, -1) . "\n";
-        $data = $result['data'];
+        $data[] = $dataRow;
 
-        foreach ($data as $val) {
-            $table .= '"' . $val['group'] . '";' .
-                '"' . $val['name'] . '";' .
-                '"' . $val['comment'] . '";' .
-                '"' . $val['code'] . '";' . "\n";
+        foreach ($result['data'] as $val) {
+            $data[] = [
+                $val['group'],
+                $val['name'],
+                $val['comment'],
+                $val['code'],
+            ];
         }
 
-        $table = mb_convert_encoding($table, 'utf8');
-        $table = htmlspecialchars_decode($table);
-
-        $response = new Response($table);
-        $response->headers->set('Content-Type', 'text/csv');
-        $response->headers->set('Content-Disposition', 'attachment; filename="operations.csv"');
-
-        return $response;
+        return $this->processCSV($data, 'operations.csv');
     }
 
     public function getOperationsForm($id)

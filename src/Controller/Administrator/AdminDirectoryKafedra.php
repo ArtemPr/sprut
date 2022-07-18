@@ -109,20 +109,25 @@ class AdminDirectoryKafedra extends AbstractController
     public function getCSV()
     {
         $result = $this->get(true);
-        $table = '';
+        $data = [];
 
+        $dataRow = [];
         foreach ($this->setTable() as $tbl) {
-            $table .= '"' . $tbl[1] . '";';
-        }
-        $table = substr($table, 0, -1) . "\n";
-
-        $data = $result['data'];
-
-        foreach ($data as $val) {
-            $table .= '"' . $val['id'] . '";"' . $val['training_centre']['name'] . '";"' . $val['name'] . '";"' . $val['director']['username'] . '";""' . "\n";
+            $dataRow[] = $tbl[1];
         }
 
-        return $this->getCSVFile($table, 'kafedra.csv');
+        $data[] = $dataRow;
+
+        foreach ($result['data'] as $val) {
+            $data[] = [
+                $val['id'],
+                $val['training_centre']['name'],
+                $val['name'],
+                $val['director']['username'],
+            ];
+        }
+
+        return $this->processCSV($data, 'kafedra.csv');
     }
 
     public function getKafedraForm($id)
