@@ -71,7 +71,7 @@ class FormController extends AbstractController
         return $programController->getProgramForm($id);
     }
 
-    #[Route('/fgos_edit/{id}', name: 'fgos_edit')]
+    #[Route('/federal_standart_edit/{id}', name: 'federal_standart_edit')]
     public function getFgosForm($id, AdminDirectoryFGOS $adminDirectoryFGOS): Response
     {
         return $adminDirectoryFGOS->getFgosForm($id);

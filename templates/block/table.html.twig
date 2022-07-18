@@ -1,0 +1,65 @@
+<div class="users-table-wrap table-responsive" id="table_container">
+
+    <table id="usersTable"
+           class="users-table table card-table table-vcenter datatable">
+        <thead>
+        <tr>
+            {% if table|default(false) %}
+                {% for tbl in table %}
+                    {% if tbl.3 == true %}
+                        {% if loop.first == 1 %}
+                            <th>
+                                <a class="sort-icon
+                                                           is-{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}desc{% elseif sort.current_sort|default(false) and sort.current_sort == (tbl.0~'__up') %}asc{% elseif sort.current_sort|default(false) == false %}asc{% else %}both{% endif %}"
+                                   href="{{ path('administrator_kafedra') ~ sort.sort_link ~ tbl.0 }}{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}__up{% endif %}"></a>
+                                {% if  tbl.1  == 'ID' %}
+                                    <p class="th-name id-name">{{ tbl.1 }}</p>
+                                {% else %}
+                                    <p class="th-name">{{ tbl.1 }}</p>
+                                {% endif %}
+                            </th>
+                        {% else %}
+                            <th>
+                                <a class="sort-icon
+                                                           is-{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}desc{% elseif sort.current_sort|default(false) and sort.current_sort == (tbl.0~'__up') %}asc{% else %}both{% endif %}"
+                                   href="{{ path('administrator_kafedra') ~ sort.sort_link ~ tbl.0 }}{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}__up{% endif %}"></a>
+                                <p class="th-name"> {{ tbl.1 }}</p>
+                            </th>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            <th class="hidden-cell"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% set id=1 %}
+        {% if data|default(false) %}
+            {% for dat in data %}
+
+                <tr data-string="{{ dat.id }}" data-type="kafedra" class="user-table-row {% if loop.first %}is-selected{% endif %}">
+                    <td>
+                        {{ dat['id']|default(false) }}
+                    </td>
+                    <td>
+                        {{ dat['training_centre']['name']|default(false) }}
+                    </td>
+                    <td>
+                        {{ dat['name']|default(false) }}
+                    </td>
+                    <td>
+                        {{ dat['director']['username']|default(false) }}
+                    </td>
+                    <td>
+                        {{ dat['director']['email']|default(false) }}
+                    </td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+        </tbody>
+    </table>
+</div>
+
+{% include 'block/paginator.html.twig' with {
+    'path': path('administrator_kafedra')
+}  %}
