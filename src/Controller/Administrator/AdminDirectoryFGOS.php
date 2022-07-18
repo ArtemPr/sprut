@@ -6,30 +6,19 @@
 namespace App\Controller\Administrator;
 
 use _PHPStan_59fb0a3b2\Nette\Utils\DateTime;
+use App\Controller\BaseController;
 use App\Entity\FederalStandart;
 use App\Entity\FederalStandartCompetencies;
 use App\Service\AuthService;
 use App\Service\CSVHelper;
 use App\Service\LinkService;
-use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class AdminDirectoryFGOS extends AbstractController
+class AdminDirectoryFGOS extends BaseController
 {
     use LinkService;
     use AuthService;
     use CSVHelper;
-
-    private $request;
-
-    public function __construct(
-        private ManagerRegistry $managerRegistry
-    )
-    {
-        $this->request = new Request($_GET);
-    }
 
     public function getList(): Response
     {
@@ -148,18 +137,6 @@ class AdminDirectoryFGOS extends AbstractController
         );
     }
 
-    private function setTable()
-    {
-        return [
-            ['', '', 'bool', true],
-            ['short_name', 'Короткое название', 'string', true],
-            ['name', 'Название', 'string', true],
-            ['code', 'Код', 'string', true],
-            ['date_create', 'Дата утверждения', 'date', true],
-            ['pr_num', 'Номер приказа', 'int', true]
-        ];
-    }
-
     private function get(bool $full = false)
     {
         $page = $this->request->get('page') ?? null;
@@ -194,6 +171,70 @@ class AdminDirectoryFGOS extends AbstractController
             'search_link' => $this->getSearchLink(),
             'table' => $this->setTable(),
             'csv_link' => $this->getCSVLink()
+        ];
+    }
+
+
+
+    private function setTable()
+    {
+        return [
+            [
+                'name' => 'active',
+                'header' => '',
+                'type' => 'bool',
+                'filter' => false,
+                'show' => true,
+                'sort' => false
+            ],
+            [
+                'name' => 'id',
+                'header' => 'ID',
+                'type' => 'int',
+                'filter' => true,
+                'show' => true,
+                'sort' => true
+            ],
+            [
+                'name' => 'short_name',
+                'header' => 'Короткое название',
+                'type' => 'string',
+                'filter' => true,
+                'show' => false,
+                'sort' => true
+            ],
+            [
+                'name' => 'name',
+                'header' => 'Название',
+                'type' => 'string',
+                'filter' => true,
+                'show' => true,
+                'sort' => true
+            ],
+            [
+                'name' => 'code',
+                'header' => 'Код',
+                'type' => 'string',
+                'filter' => true,
+                'show' => true,
+                'sort' => true
+            ],
+            [
+                'name' => 'date_create',
+                'header' => 'Дата утверждения',
+                'type' => 'date',
+                'filter' => true,
+                'show' => false,
+                'sort' => true
+            ],
+            [
+                'name' => 'pr_num',
+                'header' => 'Номер приказа',
+                'type' => 'int',
+                'filter' => true,
+                'show' => false,
+                'sort' => true
+            ],
         ];
     }
 }

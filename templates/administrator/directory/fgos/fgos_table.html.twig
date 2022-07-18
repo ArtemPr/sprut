@@ -5,41 +5,28 @@
         <tr>
             {% if table|default(false) %}
                 {% for tbl in table %}
-                    {% if tbl.3 == true %}
-                        {% if tbl.1 == '' %}
+                    {% if tbl['show'] == true %}
+                        {% if tbl['name'] == '' %}
                             <th></th>
                         {% else %}
-                            {% if loop.first == 1 %}
                                 <th>
-                                    {% if  tbl.1  == 'ID' %}
-                                        <p class="th-name id-name">{{ tbl.1 }}</p>
-                                    {% else %}
-                                        <p class="th-name">{{ tbl.1 }}</p>
-                                    {% endif %}
-                                    <a
-                                        class="sort-icon is-{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}desc{% elseif sort.current_sort|default(false) and sort.current_sort == (tbl.0~'__up') %}asc{% elseif sort.current_sort|default(false) == false %}asc{% else %}both{% endif %}"
-                                        href="{{ path('administrator_directory_fgos') ~ sort.sort_link ~ tbl.0 }}{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}__up{% endif %}">
-                                    </a>
-                                </th>
-                            {% else %}
-                                <th>
-
                                     <div class="th-name">
                                         <div class="sort-name-wrap">
-                                            <span class="drag-icon" title="Перетянуть колонку {{ tbl.1 }}"></span>
-                                            <span class="name-text">{{ tbl.1 }}</span>
+                                            <span class="drag-icon" title="Переместить колонку {{ tbl['header'] }}"></span>
+                                            <span class="name-text">{{ tbl['header'] }}</span>
                                         </div>
 
                                         <div class="filter-sort-wrap">
-                                            <a title="Сортировка по значению ({{ tbl.1 }})"
-                                                class="sort-icon is-{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}desc{% elseif sort.current_sort|default(false) and sort.current_sort == (tbl.0~'__up') %}asc{% else %}both{% endif %}"
-                                                href="{{ path('administrator_directory_fgos') ~ sort.sort_link ~ tbl.0 }}{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}__up{% endif %}"
-                                            ></a>
+                                            {% if tbl['sort'] == true %}
+                                                <a title="Сортировка по значению ({{ tbl['header'] }})"
+                                                    class="sort-icon is-{% if sort.current_sort|default(false) and sort.current_sort == tbl['name'] %}desc{% elseif sort.current_sort|default(false) and sort.current_sort == (tbl['name']~'__up') %}asc{% else %}both{% endif %}"
+                                                    href="{{ path('administrator_directory_fgos') ~ sort.sort_link ~ tbl['name'] }}{% if sort.current_sort|default(false) and sort.current_sort == tbl['name'] %}__up{% endif %}"
+                                                ></a>
+                                            {% endif %}
 
-                                            {% if tbl.2 == 'string' or tbl.2 == 'date' %}
-                                                <!-- Button trigger modal -->
+                                            {% if tbl['filter'] == true %}
                                                 <button type="button"
-                                                        title="Фильтрация по значению ({{ tbl.1 }})"
+                                                        title="Фильтрация по значению ({{ tbl['header'] }})"
                                                         class="table-filter-btn"
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#filterModal-{{ loop.index }}">
@@ -50,8 +37,6 @@
                                                             d="M349 838c0 17.7 14.2 32 31.8 32h262.4c17.6 0 31.8-14.3 31.8-32V642H349v196zm531.1-684H143.9c-24.5 0-39.8 26.7-27.5 48l221.3 376h348.8l221.3-376c12.1-21.3-3.2-48-27.7-48z"></path>
                                                     </svg>
                                                 </button>
-
-                                                <!-- Modal -->
                                                 <div class="modal fade" id="filterModal-{{ loop.index }}" tabindex="-1"
                                                      aria-labelledby="filterModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog">
@@ -59,118 +44,24 @@
                                                             <div class="modal-header">
                                                                 <h5 class="filter-modal-title" id="filterModalLabel">
                                                                     Фильтрация
-                                                                    по значению ({{ tbl.1 }})</h5>
+                                                                    по значению ({{ tbl['header'] }})</h5>
                                                                 <button type="button" class="btn-close"
                                                                         data-bs-dismiss="modal"
                                                                         aria-label="Close"></button>
                                                             </div>
                                                             <div class="modal-body">
-
-                                                                {% if tbl.2 == 'string' %}
-                                                                    <div class="input-icon mb-3">
-                                                                        <input type="text" value="" class="form-control"
-                                                                               placeholder="Введите текст...">
-                                                                        <span class="input-icon-addon">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                                                         class="icon icon-tabler icon-tabler-search"
-                                                                         width="44" height="44"
-                                                                         viewBox="0 0 24 24" stroke-width="1.5"
-                                                                         stroke="#ffffff" fill="none"
-                                                                         stroke-linecap="round"
-                                                                         stroke-linejoin="round">
-                                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                                     <circle cx="10" cy="10" r="7"/>
-                                                                    <line x1="21" y1="21" x2="15" y2="15"/>
-                                                                    </svg>
-                                                                </span>
-                                                                    </div>
-
-                                                                {% elseif tbl.2 == 'date' %}
-                                                                    <p style="text-align: center;">Выберите интервал</p>
-                                                                    <div class="filter-date-modal">
-                                                                        <div class="flatpickr-wrap"
-                                                                             id="flatpickr-start">
-                                                                            <input type="text"
-                                                                                   class="flatpickr-input form-control"
-                                                                                   placeholder="Начальная дата"
-                                                                                   data-input>
-                                                                            <!-- input is mandatory -->
-                                                                            <button class="btn" title="toggle"
-                                                                                    data-toggle>
-                                                                                <i class="icon-calendar">
-                                                                                    <svg
-                                                                                        xmlns="http://www.w3.org/2000/svg"
-                                                                                        width="16" height="16"
-                                                                                        fill="#000"
-                                                                                        class="bi bi-calendar-event"
-                                                                                        viewBox="0 0 16 16">
-                                                                                        <path
-                                                                                            d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
-                                                                                        <path
-                                                                                            d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
-                                                                                    </svg>
-                                                                                </i>
-                                                                            </button>
-
-                                                                            <button class="btn" title="clear"
-                                                                                    data-clear>
-                                                                                <i class="icon-close">
-                                                                                    <svg
-                                                                                        xmlns="http://www.w3.org/2000/svg"
-                                                                                        width="16" height="16"
-                                                                                        fill="#f64747 "
-                                                                                        class="bi bi-x-lg"
-                                                                                        viewBox="0 0 16 16">
-                                                                                        <path
-                                                                                            d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
-                                                                                    </svg>
-                                                                                </i>
-                                                                            </button>
-                                                                        </div>
-
-                                                                        <div style="margin-left: 30px;"
-                                                                             class="flatpickr-wrap"
-                                                                             id="flatpickr-end">
-                                                                            <input type="text"
-                                                                                   class="flatpickr-input form-control"
-                                                                                   placeholder="Конечная дата"
-                                                                                   data-input>
-                                                                            <!-- input is mandatory -->
-
-                                                                            <button class="btn" title="toggle"
-                                                                                    data-toggle>
-                                                                                <i class="icon-calendar">
-                                                                                    <svg
-                                                                                        xmlns="http://www.w3.org/2000/svg"
-                                                                                        width="16" height="16"
-                                                                                        fill="#000"
-                                                                                        class="bi bi-calendar-event"
-                                                                                        viewBox="0 0 16 16">
-                                                                                        <path
-                                                                                            d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
-                                                                                        <path
-                                                                                            d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
-                                                                                    </svg>
-                                                                                </i>
-                                                                            </button>
-
-                                                                            <button class="btn" title="clear"
-                                                                                    data-clear>
-                                                                                <i class="icon-close">
-                                                                                    <svg
-                                                                                        xmlns="http://www.w3.org/2000/svg"
-                                                                                        width="16" height="16"
-                                                                                        fill="#f64747 "
-                                                                                        class="bi bi-x-lg"
-                                                                                        viewBox="0 0 16 16">
-                                                                                        <path
-                                                                                            d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
-                                                                                    </svg>
-                                                                                </i>
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-
+                                                                {% if tbl['type'] == 'string' %}
+                                                                    {% include 'block/filter/table_string.html.twig' with {
+                                                                        'field': tbl['name']
+                                                                    } %}
+                                                                {% elseif tbl['type'] == 'date' %}
+                                                                    {% include 'block/filter/table_date.html.twig' with {
+                                                                        'field': tbl['name']
+                                                                    } %}
+                                                                {% elseif tbl['type'] == 'int' %}
+                                                                    {% include 'block/filter/table_int.html.twig' with {
+                                                                        'field': tbl['name']
+                                                                    } %}
                                                                 {% endif %}
                                                             </div>
                                                             <div class="modal-footer">
@@ -181,13 +72,11 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <!-- Modal -->
                                             {% endif %}
 
                                         </div>
                                     </div>
                                 </th>
-                            {% endif %}
                         {% endif %}
                     {% endif %}
                 {% endfor %}
@@ -197,27 +86,26 @@
         <tbody>
         {% if data|default(false) %}
             {% for dat in data %}
-                <tr data-string="{{ dat.id }}"
-                    class="user-table-row {% if loop.first %}is-selected{% endif %}">
-                    <td><span
-                            class="badge {% if dat.active|default(false) %} bg-success {% else %} bg-danger {% endif %} "></span>
-                    </td>
-                    <td>
-                        {{ dat.short_name|default(false)|raw }}
-                    </td>
-                    <td>
-                        {{ dat.name|default(false)|raw }}
-                    </td>
-                    <td>{{ dat.code }}</td>
-                    <td>{{ dat.date_create|date("d.m.Y") }}</td>
-                    <td>{{ dat.pr_num }}</td>
+                <tr data-string="{{ dat.id }}" class="user-table-row {% if loop.first %}is-selected{% endif %}">
+                    {% for tbl in table %}
+                        {% if tbl['show'] == true %}
+                            {% if tbl.type == 'bool' %}
+                                <td><span class="badge {% if dat[tbl.name]|default(false) %} bg-success {% else %} bg-danger {% endif %} "></span></td>
+                            {% elseif tbl.type == 'date' %}
+                                <td class="text-center">{{ dat[tbl.name]|date("d.m.Y") }}</td>
+                            {% elseif tbl.type == 'int' %}
+                                <td class="text-center">{{ dat[tbl.name]|default(false)|raw }} </td>
+                            {% else %}
+                                <td>{{ dat[tbl.name]|default(false)|raw }} </td>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
                 </tr>
             {% endfor %}
         {% endif %}
         </tbody>
     </table>
 </div>
-
 {% include 'block/paginator.html.twig' with {
     'path': path('administrator_directory_fgos')
 } %}

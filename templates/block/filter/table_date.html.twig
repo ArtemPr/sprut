@@ -1,0 +1,53 @@
+
+<div class="filter-date-modal">
+    <div class="flatpickr-wrap" id="flatpickr-start">
+        <span style="display: inline-block; padding: 12px 10px 0 0;">c</span>
+        <input type="text" class="flatpickr-input form-control" placeholder="Начальная дата" name="filter[{{ field|default(false) }}][from]" data-input>
+
+        <button class="btn" title="toggle" data-toggle>
+            <i class="icon-calendar">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16" height="16"
+                    fill="#000"
+                    class="bi bi-calendar-event"
+                    viewBox="0 0 16 16">
+                    <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
+                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+                </svg>
+            </i>
+        </button>
+
+        <button class="btn" title="clear" data-clear>
+            <i class="icon-close">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#f64747" class="bi bi-x-lg" viewBox="0 0 16 16">
+                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                </svg>
+            </i>
+        </button>
+
+    </div>
+
+    <div style="margin-left: 30px;" class="flatpickr-wrap" id="flatpickr-end">
+        <span style="display: inline-block; padding: 12px 10px 0 0;">по</span>
+        <input type="text" class="flatpickr-input form-control" placeholder="Конечная дата" name="filter[{{ field|default(false) }}][to]" data-input>
+
+        <button class="btn" title="toggle" data-toggle>
+            <i class="icon-calendar">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000" class="bi bi-calendar-event" viewBox="0 0 16 16">
+                    <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
+                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+                </svg>
+            </i>
+        </button>
+
+        <button class="btn" title="clear" data-clear>
+            <i class="icon-close">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#f64747" class="bi bi-x-lg" viewBox="0 0 16 16">
+                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                </svg>
+            </i>
+        </button>
+
+    </div>
+</div>
