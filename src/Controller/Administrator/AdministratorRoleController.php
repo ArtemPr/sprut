@@ -105,7 +105,7 @@ class AdministratorRoleController extends AbstractController
 
         $data[] = $dataRow;
 
-        foreach ($result['data'] as $val) {
+        foreach ($result['role_list'] as $val) {
             $data[] = [
                 $val['roles_alt'],
                 $val['name'],
