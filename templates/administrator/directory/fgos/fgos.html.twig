@@ -30,6 +30,7 @@
             <div class="container-fluid">
                 {% include 'block/header_list.html.twig' with {'header': 'Справочник - Федеральные государственные образовательные стандарты', 'onpage_link': path('administrator_directory_fgos')} %}
             </div>
+            {% set controller = 'federal_standart' %}
             <div class="page-body">
                 <div class="container-fluid">
                     <div class="row row-deck row-cards">
@@ -40,8 +41,9 @@
                                         'close_edit': false,
                                         'close_create': false,
                                         'path': path('administrator_directory_fgos'),
-                                        'controller': 'fgos',
-                                        'add_csv': path('administrator_directory_fgos') ~ '_csv' ~ csv_link
+                                        'controller': controller,
+                                        'add_csv': path('administrator_directory_fgos') ~ '_csv' ~ csv_link,
+                                        'table' : table
                                     } %}
                                 <div class="ajax-table">
                                     {{ include('administrator/directory/fgos/fgos_table.html.twig') }}
@@ -51,14 +53,14 @@
 
                             <div id="userEditingOverlay" class="offcanvas-backdrop fade"></div>
 
-                            <div id="fgosViewPanel" data-action="view" class="user-form-panel offcanvas offcanvas-end modal-large" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                            <div id="{{ controller }}ViewPanel" data-action="view" class="user-form-panel offcanvas offcanvas-end modal-large" tabindex="-1" aria-labelledby="offcanvasEndLabel">
                                 <img src="{{ absolute_url('/assets/images/loading--big.gif') }}" style="position: absolute; top: 10%; left: 50%; margin-left: -75px;">
                             </div>
 
-                            <div id="fgosCreationPanel" data-action="add" class="user-form-panel offcanvas offcanvas-end modal-large" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                            <div id="{{ controller }}CreationPanel" data-action="add" class="user-form-panel offcanvas offcanvas-end modal-large" tabindex="-1" aria-labelledby="offcanvasEndLabel">
                                 {% include 'administrator/directory/fgos/form/add.html.twig'  %}
                             </div>
-                            <div id="fgosEditingPanel" data-action="edit" class="user-form-panel offcanvas offcanvas-end modal-large" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                            <div id="{{ controller }}EditingPanel" data-action="edit" class="user-form-panel offcanvas offcanvas-end modal-large" tabindex="-1" aria-labelledby="offcanvasEndLabel">
                                 <img src="{{ absolute_url('/assets/images/loading--big.gif') }}" style="position: absolute; top: 10%; left: 50%; margin-left: -75px;">
                             </div>
 
