@@ -48,6 +48,6 @@ services:
         autowire: true
         arguments:
             $apiurl: 'https://litera5.ru'
-            $apikey: ''
-            $company: ''
-            $login: ''
+            $apikey: 'J5RSSkwmvl0FM4AeR9mzbUxlYg3HAPCrCOvttbRAmbvzfWGjWMZmNKaPPwDgePDI'
+            $company: 'academresource.online'
+            $login: 'admin@academresource.online'
