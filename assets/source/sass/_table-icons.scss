@@ -97,3 +97,16 @@
   cursor: url('../img/dragS.svg') 6 6, move;
 }
 
+
+.drag-list {
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: contain;
+  padding-left: 50px;
+  background-image: url("../img/drag.png");
+  cursor: url('../img/dragS.svg') 6 6, move;
+}
+
+.drag-list:hover,  .drag-icon:active {
+  cursor: url('../img/dragS.svg') 6 6, move;
+}
