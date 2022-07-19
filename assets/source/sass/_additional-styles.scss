@@ -105,6 +105,21 @@
   }
 }
 
+.interval-wrap {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+
+  .input-wrap {
+    flex-basis: 45%;
+    display: flex;
+  }
+
+  .form-control {
+    padding: 0.4375rem 0.75rem !important;
+  }
+}
+
 // модалка Настройка отображения колонок таблицы
 
 #drag-interface {
