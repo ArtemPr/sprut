@@ -7,41 +7,39 @@ namespace App\Service;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Csv;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 trait CSVHelper
 {
     /**
-     * Экспорт встроенными средствами языка (не работает в вендоекселе)
+     * Экспорт встроенными средствами языка (теперь работает и в вендоекселе, и в Linux и в MacOS).
      */
-    public function getCSVFile(string $table, string $filename): Response
+    public function processCSV(array $data, string $filename)
     {
-        $table = mb_convert_encoding($table, 'UTF-16LE', 'UTF-8');
-        $table = htmlspecialchars_decode($table);
+        header('Content-Encoding: UTF-8');
+        header('Content-Type: text/csv; charset=utf-8');
+        header('Content-Disposition: attachment; filename='.$filename);
+        header('Content-Transfer-Encoding: binary');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+        header('Pragma: public');
 
-        $response = new Response($table);
+        $df = fopen('php://output', 'w');
 
-        $response->headers->set('Content-Type', 'text/csv; charset=utf-8');
-        $response->headers->set('Content-Description', 'File Transfer');
-        $response->headers->set('Content-Type', 'application/vnd.ms-excel');
-        $response->headers->set('Content-Disposition', 'attachment; filename="'.$filename.'"');
-        $response->headers->set('Content-Transfer-Encoding', 'binary');
-        $response->headers->set('Expires', '0');
-        $response->headers->set('Cache-Control', 'must-revalidate, post-check=0, pre-check=0');
-        $response->headers->set('Pragma', 'public');
-        $response->headers->set('Content-Length', ''.strlen($table));
+        // This line is important:
+        fputs($df, "\xEF\xBB\xBF"); // UTF-8 BOM !!!!!
 
-//        $response->headers->set('Content-Type', 'text/csv; charset=utf-8');
-//        $response->headers->set('Content-Disposition', 'attachment; filename="' . $filename . '"');
-
-        return $response;
+        foreach ($data as $row) {
+            fputcsv($df, $row, ';');
+        }
+        fclose($df);
+        exit();
     }
 
     /**
-     * Экспорт в csv через PhpSpreadsheet (на выходе windows-1251 и норм работа в вендоекселе)
+     * Экспорт в csv через PhpSpreadsheet (на выходе windows-1251 и норм работа в вендоекселе, но не в Linux и не в MacOS).
      */
-    public function processCSV(array $data, string $filename): StreamedResponse
+    public function getCSVFile(array $data, string $filename): StreamedResponse
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -53,10 +51,10 @@ trait CSVHelper
 
             foreach ($dataRow as $value) {
                 $sheet->setCellValue($columnLetter.$rowNumber, $value);
-                $columnLetter++;
+                ++$columnLetter;
             }
 
-            $rowNumber++;
+            ++$rowNumber;
         }
 
         $contentType = 'text/csv';
