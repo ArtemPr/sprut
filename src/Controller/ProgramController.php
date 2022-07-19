@@ -93,10 +93,12 @@ class ProgramController extends BaseController implements BaseInterface
         $result = $this->get(true);
         $data = [];
 
-        //
+        // пустой первый столбец - дропаем
+        $headRow = $this->setTable();
+        unset($headRow[0]);
 
         $dataRow = [];
-        foreach ($this->setTable() as $tbl) {
+        foreach ($headRow as $tbl) {
             $dataRow[] = $tbl[1];
         }
 
@@ -118,7 +120,6 @@ class ProgramController extends BaseController implements BaseInterface
                     : '-';
 
                 $data[] = [
-                    '',
                     $val['id'],
                     ($val['history'] ? 'Да' : 'Нет'),
                     $program_type, // Тип
