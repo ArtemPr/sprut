@@ -8,6 +8,18 @@ import Sortable from 'sortablejs';
 
 document.addEventListener("DOMContentLoaded", function (event) {
 
+    // скрытие боковой панели
+    const hideBtn = document.querySelector('.hide-btn');
+    const asidePanel = document.querySelector('.aside-panel');
+    const pageWrapper = document.querySelector('.page-wrapper');
+    if(hideBtn && asidePanel && pageWrapper) {
+        hideBtn.addEventListener('click', function(){
+            asidePanel.classList.toggle('aside--hidden');
+            hideBtn.classList.toggle('hide-btn--hidden');
+            pageWrapper.classList.toggle('page-wrapper--full');
+        })
+    }
+
     let top_btn = document.querySelectorAll('.btn');
 
     for (var i = 0; i < top_btn.length; i++) {
