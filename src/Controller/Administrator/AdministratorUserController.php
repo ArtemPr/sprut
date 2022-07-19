@@ -112,7 +112,7 @@ class AdministratorUserController extends AbstractController
 
         $data[] = $dataRow;
 
-        foreach ($result['data'] as $val) {
+        foreach ($result['user_list'] as $val) {
             $currRoles = [];
 
             if (!empty($val['roles'])) {
