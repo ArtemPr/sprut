@@ -40,7 +40,10 @@ class ApiFgosController extends AbstractController
             $fs->setDateCreate(new \DateTime(date('r', $data_create)));
         }
 
-        dd($data['comp_name']);
+        /**
+         * @TODO
+         */
+        // dd($data['comp_name']);
 
         foreach ($data as $k=>$v) {
 

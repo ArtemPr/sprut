@@ -528,7 +528,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         .addEventListener("submit", async function (e) {
             if (e.target.closest(".form-update")) {
                 e.preventDefault();
-                form_s = e.target;
+                let form_s = e.target;
 
                 const form_id = form_s.getAttribute("id");
                 let rq_elem = form_s.querySelectorAll("[required]");
