@@ -2,8 +2,6 @@
 
 // получаем из npm пакетов
 require('imask');
-import flatpickr from "flatpickr";
-import { Russian } from "flatpickr/dist/l10n/ru.js"
 
 document.addEventListener("DOMContentLoaded", function(event) {
     let userControls = document.querySelectorAll('[data-controller="user"]');

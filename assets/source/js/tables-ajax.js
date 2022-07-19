@@ -420,7 +420,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
 
         initCalendars();
-        addTableDragNDrop();
+    //    addTableDragNDrop();
     }
 
     // начало сценария
@@ -444,7 +444,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         manageRows();
     }
 
-    addTableDragNDrop();
+   // addTableDragNDrop();
 
     // работа с формой Создать
 
