@@ -12,8 +12,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
     const hideBtn = document.querySelector('.hide-btn');
     const asidePanel = document.querySelector('.aside-panel');
     const pageWrapper = document.querySelector('.page-wrapper');
-    if(hideBtn && asidePanel && pageWrapper) {
+    const navLinkWords = document.querySelectorAll('.aside-panel .nav-link-title');
+    if(hideBtn && asidePanel && pageWrapper && navLinkWords) {
         hideBtn.addEventListener('click', function(){
+            navLinkWords.forEach( navLinkWord => {
+                navLinkWord.classList.toggle('nav-link--hidden');
+            })
             asidePanel.classList.toggle('aside--hidden');
             hideBtn.classList.toggle('hide-btn--hidden');
             pageWrapper.classList.toggle('page-wrapper--full');
