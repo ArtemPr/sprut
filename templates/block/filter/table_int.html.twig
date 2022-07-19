@@ -1,5 +1,18 @@
 <div class="input-icon mb-3">
-    <input type="string" name="filter[{{ field|default(false) }}]" class="form-control" >
+    <div class="interval-wrap">
+
+        <div class="input-wrap">
+        <label style="display: inline-block; padding: 12px 10px 0 0;">
+            от</label>
+        <input type="number" class="form-control" name="filter[{{ field|default(false) }}][from]" id="" placeholder="Начальное значение">
+        </div>
+        <div class="input-wrap">
+        <label style="display: inline-block; padding: 12px 10px 0 0;">
+            до</label>
+        <input type="number" class="form-control" name="filter[{{ field|default(false) }}][to]" id="" placeholder="Конечное значение">
+        </div>
+    </div>
+{#    <input type="string" name="filter[{{ field|default(false) }}]" class="form-control" >#}
     <span class="input-icon-addon">
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search"
                  width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none"

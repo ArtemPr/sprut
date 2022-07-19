@@ -76,3 +76,92 @@
   opacity: 0.2;
 }
 
+#aside {
+//  outline: 1px dotted darkred;
+  position: absolute;
+  top: -10px;
+  left: 0;
+  padding-top: 35px;
+}
+
+#hide-btn {
+  top: 0;
+  left: 210px;
+  position: absolute;
+  border: 1px solid transparent;
+  padding: 0.2rem;
+  //width: 15px;
+  //height: 15px;
+  background-color: #fff;
+  font-size: .875rem;
+  border-radius: 4px;
+  outline: 1px solid #e6e7e9;
+  text-align: center;
+  box-sizing: border-box;
+  z-index: 1040;
+
+  .icon {
+    margin: 0;
+  }
+}
+
+.interval-wrap {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+
+  .input-wrap {
+    flex-basis: 45%;
+    display: flex;
+  }
+
+  .form-control {
+    padding: 0.4375rem 0.75rem !important;
+  }
+}
+
+// модалка Настройка отображения колонок таблицы
+
+#drag-interface {
+  list-style: none;
+  margin: 0;
+}
+#drag-interface li {
+  display: flex;
+  align-items: center;
+  list-style-image: none;
+  margin: 10px;
+  border: 1px solid #ccc;
+  padding: 4px;
+  border-radius: 4px;
+  color: #666;
+
+  &:hover {
+    background-color: rgba(98,105,118,.04);
+  }
+
+  .drag-label {
+    padding: 0.5rem 0.75rem;
+    display: flex;
+    align-items: center;
+    min-width: 11rem;
+    margin: 0;
+    line-height: 1.4285714286;
+  }
+
+  .drag-interface-icon {
+    display: flex;
+    width: 16px;
+    height: 16px;
+    background-position: left;
+    background-repeat: no-repeat;
+    background-size: contain;
+    padding-left: 10px;
+    background-image: url("../img/drag.png");
+    cursor: url('../img/dragS.svg') 6 6, move;
+
+    &:hover, &:active {
+      cursor: url('../img/dragS.svg') 6 6, move;
+    }
+  }
+}
