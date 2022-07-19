@@ -24,15 +24,14 @@ class Litera5API
     {
         $currTs = time();
 
-        array_unshift($data, [
-            'company' => $this->company,
-        ]);
-        array_unshift($data, [
+        $authData = [
             'time' => $currTs,
-        ]);
+            'company' => $this->company,
+            'login' => $this->login,
+            'token' => $this->apikey,
+        ];
 
-//        $data[] = $this->apikey;
-        array_push($data, [
+        $data = array_merge($authData, $data, [
             'signature' => $this->getSignature($data),
         ]);
 
@@ -42,6 +41,7 @@ class Litera5API
     protected function getSignature(array $data): string
     {
         $strForHash = implode('', $data);
+
         return md5($strForHash);
     }
 
