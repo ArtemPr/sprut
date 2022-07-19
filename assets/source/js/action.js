@@ -122,9 +122,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
 
 document.addEventListener("DOMContentLoaded", function (event) {
-    let items = document.querySelector('#items-list');
-    if (items != null) {
-        var sortable = new Sortable(items, {
+    let dragItems = document.querySelector('#drag-interface');
+    if (dragItems != null) {
+        let sortable = new Sortable(dragItems, {
             animation: 150
         });
     }

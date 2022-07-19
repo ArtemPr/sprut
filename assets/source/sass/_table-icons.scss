@@ -21,7 +21,8 @@
   display: flex;
 }
 
-.card-table tr td:first-child, .card-table tr th:first-child {
+.card-table tr td:first-child,
+.card-table tr th:first-child {
   padding-left: 1rem;
 }
 
@@ -63,7 +64,8 @@
 .flatpickr-wrap {
   display: flex;
 
-  .flatpickr-input:focus, .flatpickr-input:hover {
+  .flatpickr-input:focus,
+  .flatpickr-input:hover {
     box-shadow: none;
     border-color: #e6e7e9;
   }
@@ -74,7 +76,7 @@
 
   .btn {
     outline: none;
-  //  border: none;
+    //  border: none;
     box-shadow: none;
     background-color: transparent;
     padding: 0.5rem;
@@ -93,20 +95,7 @@
   cursor: url('../img/dragS.svg') 6 6, move;
 }
 
-.drag-icon:hover,  .drag-icon:active {
-  cursor: url('../img/dragS.svg') 6 6, move;
-}
-
-
-.drag-list {
-  background-position: left;
-  background-repeat: no-repeat;
-  background-size: contain;
-  padding-left: 50px;
-  background-image: url("../img/drag.png");
-  cursor: url('../img/dragS.svg') 6 6, move;
-}
-
-.drag-list:hover,  .drag-icon:active {
+.drag-icon:hover,
+.drag-icon:active {
   cursor: url('../img/dragS.svg') 6 6, move;
 }
