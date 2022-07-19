@@ -65,11 +65,11 @@
                         </a>
                     </td>
                     <td>{% if data_item.discipline %}{{ data_item.discipline.name | raw }}{% else %}&mdash;{% endif %}</td>
-                    <td>{{ data_item.size }}</td>
+                    <td>{{ (data_item.size / 1024) | number_format(2, ',') ~ ' кб' }}</td>
                     <td>{% if data_item.author %}{{ data_item.author.fullname }}{% else %}&mdash;{% endif %}</td>
                     <td>{{ data_item.data_create | date('d/m/Y H:i') }}</td>
                     <td>{{ data_item.comment }}</td>
-                    <td>{{ data_item.plagiat_percent }}</td>
+                    <td>{{ data_item.plagiat_percent }} %</td>
                     <td>
                         {% if data_item.result_file %}
                             <a href="{{ data_item.result_file }}" target="_blank">
