@@ -79,6 +79,21 @@
 </div>
 
 {% if table|default(false) and table[0]['name']|default(false) %}
+    <style>
+        #items-list {
+            list-style: none;
+            margin: 0px;
+        }
+        #items-list li {
+            list-style-image: none;
+            margin: 10px;
+            border: 1px solid #ccc;
+            padding: 4px;
+            border-radius: 4px;
+            color: #666;
+            cursor: move;
+        }
+    </style>
     <div class="modal fade" id="columns-settings" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -89,14 +104,21 @@
                 <div class="modal-body">
                     <form action="" method="post" class="px-4 py-3">
                         <input type="hidden" name="table_name" value="{{ controller|default(false) }}" />
-                        {% for tbl in table %}
-                            {% if tbl['header'] != '' %}
-                                <label class="dropdown-item">
-                                    <input class="form-check-input m-0 me-2" type="checkbox" value="1'" {% if tbl.show == true %}checked{% endif %} name="table_cell[{{ tbl['header'] }}]">
-                                    {{ tbl['header'] }}
-                                </label>
-                            {% endif %}
-                        {% endfor %}
+                        <div>
+                            <ul id="items-list">
+                                {% for tbl in table %}
+                                    {% if tbl['header'] != '' %}
+                                        <li>
+                                            <label class="dropdown-item drag-list">
+                                                <input class="form-check-input m-0 me-2" type="checkbox" value="1'" {% if tbl.show == true %}checked{% endif %} name="table_cell[{{ tbl['header'] }}]">
+                                                {{ tbl['header'] }}
+                                            </label>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+
                         <button type="submit" class="btn btn-primary" style="display: flex; margin: 0.5rem auto;">
                             Принять
                         </button>
