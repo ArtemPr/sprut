@@ -2,6 +2,10 @@
  * Created AptPr <prudishew@yandex.ru> 2022.
  */
 
+
+require('sortablejs');
+import Sortable from 'sortablejs';
+
 document.addEventListener("DOMContentLoaded", function (event) {
 
     let top_btn = document.querySelectorAll('.btn');
@@ -114,3 +118,14 @@ document.addEventListener("DOMContentLoaded", function (event) {
         })
     }
 })
+
+
+
+document.addEventListener("DOMContentLoaded", function (event) {
+    let items = document.querySelector('#items-list');
+    if (items != null) {
+        var sortable = new Sortable(items, {
+            animation: 150
+        });
+    }
+});
