@@ -31,7 +31,7 @@
                                     type="checkbox"
                                     name="unique_discipline"
                                     value="1"
-                                    onclick="var curr_accept = (this.checked == true) ? 'application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/rtf, application/pdf, text/plain, htext/tml, application/vnd.oasis.opendocument.text, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation' : 'application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/rtf'; document.getElementById('input_ap_doc').setAttribute('accept', curr_accept)"
+                                    onclick="var curr_accept = (this.checked == true) ? 'application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/rtf, application/pdf, text/plain, htext/tml, application/vnd.oasis.opendocument.text, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation' : 'application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/rtf'; document.getElementById('input_ap_doc').setAttribute('accept', curr_accept); if (this.checked == true) { document.getElementById('ap_disciplines').setAttribute('disabled', 'disabled'); } else { document.getElementById('ap_disciplines').removeAttribute('disabled'); }"
                                 >
                                 <span class="form-check-label">Универсальная дисциплина</span>
                                 <span class="form-check-description">Выберите этот пункт для документа,
@@ -43,7 +43,7 @@
                     <div class="form-group mb-3 row">
                         <label class="form-label col-3 col-form-label">Дисциплина</label>
                         <div class="col">
-                            <select class="form-select" name="discipline">
+                            <select class="form-select" name="discipline" id="ap_disciplines">
                                 <option disabled {% if data.discipline.id|default(false) == false %}selected{% endif %}>
                                     Выберите дисциплину
                                 </option>
