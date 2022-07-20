@@ -7,7 +7,7 @@ namespace App\Controller;
 
 use App\Controller\Services\AntiplagiatController;
 use App\Controller\Services\LegalRegisterController;
-use App\Controller\Services\LiterraController;
+use App\Controller\Services\LiteraController;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,10 +21,10 @@ class ServicesController extends AbstractController
         return $antiplagiatController->getList();
     }
 
-    #[Route('/litera', name: '_literra')]
-    public function getLitera(LiterraController $literraController): Response
+    #[Route('/litera', name: '_litera')]
+    public function getLitera(LiteraController $literaController): Response
     {
-        return $literraController->getList();
+        return $literaController->getList();
     }
 
     #[Route('/legalregister', name: '_legalregister')]
