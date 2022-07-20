@@ -37,7 +37,7 @@ class DisciplineController extends BaseController implements BaseInterface
         $sort = $this->request->get('sort') ?? null;
         $search = $this->request->get('search') ?? null;
 
-        if ($full === false) {
+        if (false === $full) {
             $result = $this->managerRegistry->getRepository(Discipline::class)->getList($page, $on_page, $sort, $search);
             $count = $this->managerRegistry->getRepository(Discipline::class)->getListAll($page, $on_page, $sort, $search);
         } else {
@@ -96,13 +96,23 @@ class DisciplineController extends BaseController implements BaseInterface
         $data[] = $dataRow;
 
         foreach ($result['data'] as $val) {
+            $name = !empty($val['name'])
+                ? html_entity_decode($val['name'])
+                : '-';
+            $comment = !empty($val['comment'])
+                ? html_entity_decode($val['comment'])
+                : '-';
+            $purpose = !empty($val['purpose'])
+                ? html_entity_decode($val['purpose'])
+                : '-';
+
             $data[] = [
-                ($val['status'] == 'accept' ? 'да' : 'нет'),
+                ('accept' == $val['status'] ? 'да' : 'нет'),
                 $val['type'], // надо типы
                 ($val['practice'] ? 'да' : 'нет'),
-                $val['name'],
-                $val['comment'],
-                $val['purpose'],
+                $name,
+                $comment,
+                $purpose,
             ];
         }
 
