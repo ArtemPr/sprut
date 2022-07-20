@@ -193,3 +193,31 @@
     }
   }
 }
+
+// корпоративные цвета
+.color-add-wrapper {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.custom-color-row {
+  display: flex;
+}
+
+.custom-colors-wrap {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+#add_custom_color, #update_custom_color {
+  display: block;
+}
+
+.delete-color-btn {
+  outline: none;
+  border: none;
+  background-color: transparent;
+  margin-left: 20px;
+}

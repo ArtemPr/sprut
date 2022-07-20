@@ -19,6 +19,9 @@
                 <li class="nav-item">
                     <a href="#uc_create_tab6" class="nav-link control-tab" data-bs-toggle="tab">Реквизиты</a>
                 </li>
+                <li class="nav-item">
+                    <a href="#uc_create_tab8" class="nav-link control-tab" data-bs-toggle="tab">Корпоративные цвета</a>
+                </li>
             </ul>
 
         </div>
@@ -158,6 +161,95 @@
                             </tbody>
                         </table>
                     {% endif %}
+                </div>
+
+                <div class="tab-pane" id="uc_create_tab8">
+                    <p>Выберите один или несколько цветов</p>
+                    <div class="form-group mb-3 row color-add-wrapper">
+                        <div class="col-auto">
+                            <label class="form-colorinput">
+                                <input name="corporate-color-edit" type="checkbox" value="#1e293b"
+                                       class="form-colorinput-input"/>
+                                <span class="form-colorinput-color bg-dark"></span>
+                            </label>
+                        </div>
+                        <div class="col-auto">
+                            <label class="form-colorinput form-colorinput-light">
+                                <input name="corporate-color-edit" type="checkbox" value="#fff"
+                                       class="form-colorinput-input"/>
+                                <span class="form-colorinput-color bg-white"></span>
+                            </label>
+                        </div>
+                        <div class="col-auto">
+                            <label class="form-colorinput">
+                                <input name="corporate-color-edit" type="checkbox" value="#206bc4"
+                                       class="form-colorinput-input"/>
+                                <span class="form-colorinput-color bg-blue"></span>
+                            </label>
+                        </div>
+                        <div class="col-auto">
+                            <label class="form-colorinput">
+                                <input name="corporate-color-edit" type="checkbox" value="#4299e1"
+                                       class="form-colorinput-input"/>
+                                <span class="form-colorinput-color bg-azure"></span>
+                            </label>
+                        </div>
+                        <div class="col-auto">
+                            <label class="form-colorinput">
+                                <input name="corporate-color-edit" type="checkbox" value="#4263eb"
+                                       class="form-colorinput-input"/>
+                                <span class="form-colorinput-color bg-indigo"></span>
+                            </label>
+                        </div>
+                        <div class="col-auto">
+                            <label class="form-colorinput">
+                                <input name="corporate-color-edit" type="checkbox" value="#ae3ec9"
+                                       class="form-colorinput-input"/>
+                                <span class="form-colorinput-color bg-purple"></span>
+                            </label>
+                        </div>
+                        <div class="col-auto">
+                            <label class="form-colorinput">
+                                <input name="corporate-color-edit" type="checkbox" value="#d6336c"
+                                       class="form-colorinput-input"/>
+                                <span class="form-colorinput-color bg-pink"></span>
+                            </label>
+                        </div>
+                        <div class="col-auto">
+                            <label class="form-colorinput">
+                                <input name="corporate-color-edit" type="checkbox" value="#d63939"
+                                       class="form-colorinput-input"/>
+                                <span class="form-colorinput-color bg-red"></span>
+                            </label>
+                        </div>
+                        <div class="col-auto">
+                            <label class="form-colorinput">
+                                <input name="corporate-color-edit" type="checkbox" value="#f76707"
+                                       class="form-colorinput-input"/>
+                                <span class="form-colorinput-color bg-orange"></span>
+                            </label>
+                        </div>
+                        <div class="col-auto">
+                            <label class="form-colorinput">
+                                <input name="corporate-color-edit" type="checkbox" value="#f59f00"
+                                       class="form-colorinput-input"/>
+                                <span class="form-colorinput-color bg-yellow"></span>
+                            </label>
+                        </div>
+                        <div class="col-auto">
+                            <label class="form-colorinput">
+                                <input name="corporate-color-edit" type="checkbox" value="#74b816"
+                                       class="form-colorinput-input"/>
+                                <span class="form-colorinput-color bg-lime"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="d-flex mb-4 custom-colors-wrap">
+                        <button name="add_string" type="button" class="btn btn-primary btn-green" id="update_custom_color">
+                            Добавить свой цвет
+                        </button>
+                    </div>
                 </div>
 
             </div>

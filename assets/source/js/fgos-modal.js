@@ -54,9 +54,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
                         add_tbl.querySelector('tbody').insertAdjacentHTML('afterbegin', firstRow);
                         let rowElement = add_tbl.querySelector('tbody tr');
-                        //   console.log('rowElement ', rowElement);
                         let rowCross = rowElement.querySelector('tbody tr .delete_string');
-                        //    console.log('rowCross ', rowCross);
                         rowCross.addEventListener('click', () => removeRow(rowElement))
                     });
                 }
