@@ -26,14 +26,16 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
         if (editUserBtn !== null) {
             editUserBtn.addEventListener('click', function () {
-                setTimeout(() => {
+                let interval_update = setInterval(function (){
                     let editTel = document.querySelector(".form-update [name='phone']");
-                    //     console.log(editTel);
-                    let editMaskOptions = {
-                        mask: '+{7}(000)000-00-00'
-                    };
-                    let editMask = IMask(editTel, editMaskOptions);
-                }, 1000);
+                    if(editTel) {
+                        clearInterval(interval_update);
+                        let editMaskOptions = {
+                            mask: '+{7}(000)000-00-00'
+                        };
+                        let editMask = IMask(editTel, editMaskOptions);
+                    }
+                }, 2000);
             })
         }
     }
