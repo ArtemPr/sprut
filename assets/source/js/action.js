@@ -5,15 +5,38 @@
 
 require('sortablejs');
 import Sortable from 'sortablejs';
+import Cookies from 'js-cookie'
 
 document.addEventListener("DOMContentLoaded", function (event) {
 
-    // скрытие боковой панели
+    // скрытие боковой панели ↓
     const hideBtn = document.querySelector('.hide-btn');
     const asidePanel = document.querySelector('.aside-panel');
     const pageWrapper = document.querySelector('.page-wrapper');
     const navLinkWords = document.querySelectorAll('.aside-panel .nav-link-title');
-    if(hideBtn && asidePanel && pageWrapper && navLinkWords) {
+    let asideHiddenValue = Cookies.get('aside_hidden');
+
+    // переводим строку из куки в булевое значение
+    if (asideHiddenValue === 'true') {
+        asideHiddenValue = true;
+    } else if (asideHiddenValue === 'false') {
+        asideHiddenValue = false;
+    } else {
+        Cookies.set('aside_hidden', 'false', { expires: 7 });
+        asideHiddenValue = false;
+    }
+
+    if (hideBtn && asidePanel && pageWrapper && navLinkWords) {
+        // скрываем панель сразу, если кука true
+        if (asideHiddenValue === true) {
+            navLinkWords.forEach( navLinkWord => {
+                navLinkWord.classList.add('nav-link--hidden');
+            })
+            asidePanel.classList.add('aside--hidden');
+            hideBtn.classList.add('hide-btn--hidden');
+            pageWrapper.classList.add('page-wrapper--full');
+        }
+
         hideBtn.addEventListener('click', function(){
             navLinkWords.forEach( navLinkWord => {
                 navLinkWord.classList.toggle('nav-link--hidden');
@@ -21,8 +44,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
             asidePanel.classList.toggle('aside--hidden');
             hideBtn.classList.toggle('hide-btn--hidden');
             pageWrapper.classList.toggle('page-wrapper--full');
+            asideHiddenValue = !asideHiddenValue;
+            Cookies.set('aside_hidden', asideHiddenValue, { expires: 7 })
         })
     }
+    // скрытие боковой панели  ↑
 
     let top_btn = document.querySelectorAll('.btn');
 
@@ -47,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     async function getFormData(container, controller, select_id = null) {
 
-        url = location.protocol + '//' + location.host + '/form/' + controller + '/' + select_id;
+        let url = location.protocol + '//' + location.host + '/form/' + controller + '/' + select_id;
 
         let data = await fetch(url).then((result) => result.text());
 
