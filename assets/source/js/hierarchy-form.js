@@ -4,10 +4,10 @@
 
 document.addEventListener("DOMContentLoaded", function (event) {
     const changeRoleBtn = document.querySelector(
-        '.btn-group [data-action="edit"]'
+        '.btn-group [href="#roleEditingPanel"]'
     );
     const createRoleBtn = document.querySelector(
-        '.btn-group [data-action="add"]'
+        '.btn-group [href="#roleCreationPanel"]'
     );
     if (changeRoleBtn) {
         changeRoleBtn.addEventListener("click", manipulateCheckboxes);

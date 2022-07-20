@@ -77,8 +77,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
                                 liItem.addEventListener('click', function () {
                                     fgosFilter.value = liItem.textContent;
                                     fgosHiddenInput.value = liItem.getAttribute('data-id');
-                                    console.log('fgosHiddenInput.value ', fgosHiddenInput.value);
-                                    console.log('fgosFilter.value ', fgosFilter.value);
+                                    // console.log('fgosHiddenInput.value ', fgosHiddenInput.value);
+                                    // console.log('fgosFilter.value ', fgosFilter.value);
                                 })
                             })
                         }
@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                                     liItem.addEventListener('click', function () {
                                         fgosFilter.value = liItem.textContent;
                                         fgosHiddenInput.value = liItem.getAttribute('data-id');
-                                        console.log('fgosHiddenInput.value ', fgosHiddenInput.value);
+                                    //    console.log('fgosHiddenInput.value ', fgosHiddenInput.value);
                                     })
                                 })
                             } else {
