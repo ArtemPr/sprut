@@ -8,12 +8,19 @@ namespace App\Controller\Services;
 use App\Controller\BaseController;
 use App\Controller\BaseInterface;
 use App\Service\AuthService;
+use App\Service\CSVHelper;
 use App\Service\LinkService;
 
-class LiterraController extends BaseController implements BaseInterface
+class LiteraController extends BaseController implements BaseInterface
 {
     use AuthService;
     use LinkService;
+    use CSVHelper;
+
+    public function get(bool $full = false)
+    {
+        // TODO: Implement get() method.
+    }
 
     public function getList()
     {
@@ -45,9 +52,9 @@ class LiterraController extends BaseController implements BaseInterface
         );
     }
 
-    public function get()
+    public function getCSV()
     {
-        // TODO: Implement get() method.
+        //
     }
 
     private function setTable(): array
