@@ -101,10 +101,17 @@ class AdminDirectoryPS extends AbstractController
         $data[] = $dataRow;
 
         foreach ($result['data'] as $val) {
+            $name = !empty($val['name'])
+                ? html_entity_decode($val['name'])
+                : '-';
+            $short_name = !empty($val['short_name'])
+                ? html_entity_decode($val['short_name'])
+                : '-';
+
             $data[] = [
                 ($val['archive_flag'] ? 'да' : 'нет'),
-                $val['name'],
-                $val['short_name'],
+                $name,
+                $short_name,
             ];
         }
 
