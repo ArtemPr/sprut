@@ -3,6 +3,7 @@
  */
 
 document.addEventListener("DOMContentLoaded", function (event) {
+    const editTrigger = document.querySelector('[href="#training_centreEditingPanel"]');
     const addColorBtn = document.querySelector('#add_custom_color');
     let updateColorBtn = document.querySelector('#update_custom_color');
     const colorTabCreate = document.querySelector('#uc_create_tab7');
@@ -43,20 +44,26 @@ document.addEventListener("DOMContentLoaded", function (event) {
         })
     }
 
-    // используем интервал, чтобы найти элементы во второй модалке, они сразу не отрисовываются со всей стр
-    let interval_update = setInterval(function (){
-        updateColorBtn = document.querySelector('#update_custom_color');
-        colorTabUpdate = document.querySelector('#uc_create_tab8');
-        if(updateColorBtn && colorTabUpdate) {
-            clearInterval(interval_update);
-            updateColorBtn.addEventListener('click', function(){
-                updateColorBtn.insertAdjacentHTML('beforebegin', colorPickerRowUpdate);
-                let deleteRowBtns = colorTabUpdate.querySelectorAll('.custom-color-row .delete-color-btn');
-                deleteRowBtns[deleteRowBtns.length-1].addEventListener('click', function(){
-                    this.parentElement.remove();
-                })
-            })
-        }
-    }, 3000);
+    if(editTrigger) {
+        // слушаем кнопку Изменить, потому что на второе открытие модалки элементы перерисовываются
+        editTrigger.addEventListener('click', function(){
+            // используем интервал, чтобы найти элементы во второй модалке, они сразу не отрисовываются со всей стр
+            let interval_update = setInterval(function (){
+                updateColorBtn = document.querySelector('#update_custom_color');
+                colorTabUpdate = document.querySelector('#uc_create_tab8');
+                if(updateColorBtn && colorTabUpdate) {
+                    clearInterval(interval_update);
+                    updateColorBtn.addEventListener('click', function(){
+                        console.log('updateColorBtn click');
+                        updateColorBtn.insertAdjacentHTML('beforebegin', colorPickerRowUpdate);
+                        let deleteRowBtns = colorTabUpdate.querySelectorAll('.custom-color-row .delete-color-btn');
+                        deleteRowBtns[deleteRowBtns.length-1].addEventListener('click', function(){
+                            this.parentElement.remove();
+                        })
+                    })
+                }
+            }, 1500);
+        })
+    }
 })
 

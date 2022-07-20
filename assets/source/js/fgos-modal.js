@@ -3,7 +3,8 @@
  */
 
 document.addEventListener("DOMContentLoaded", function (event) {
-    // заготовка пустой строки
+    const editTrigger = document.querySelector('[href="#federal_standartEditingPanel"]');
+// заготовка пустой строки
     const firstRow = '<tr>' +
         '<td>-</td>' +
         '<td>' +
@@ -23,27 +24,32 @@ document.addEventListener("DOMContentLoaded", function (event) {
         '</td>' +
         '</tr>'
 
-    // получаем элементы во второй модалке Изменить
-    let interval_update = setInterval(function () {
-        let add_btn = document.querySelector("body").querySelector('#add_string_create_add');
-        let add_tbl = document.querySelector("body").querySelector('#add_string_table_add');
+    if(editTrigger) {
+        editTrigger.addEventListener('click', function(){
+            // получаем элементы во второй модалке Изменить
+            let interval_update = setInterval(function () {
+                let add_btn = document.querySelector("body").querySelector('#add_string_create_add');
+                let add_tbl = document.querySelector("body").querySelector('#add_string_table_add');
 
-        if (add_btn !== null) {
-        //    console.log('add_btn found');
-            clearInterval(interval_update);
-            add_btn.addEventListener('click', function () {
-                function removeRow(el) {
-                    this.removeEventListener('click', () => removeRow(el))
-                    el.remove();
+                if (add_btn !== null) {
+                    //    console.log('add_btn found');
+                    clearInterval(interval_update);
+                    add_btn.addEventListener('click', function () {
+                        function removeRow(el) {
+                            this.removeEventListener('click', () => removeRow(el))
+                            el.remove();
+                        }
+
+                        add_tbl.querySelector('tbody').insertAdjacentHTML('afterbegin', firstRow);
+                        let rowElement = add_tbl.querySelector('tbody tr');
+                        let rowCross = rowElement.querySelector('tbody tr .delete_string');
+                        rowCross.addEventListener('click', () => removeRow(rowElement))
+                    });
                 }
+            }, 1500);
+        })
+    }
 
-                add_tbl.querySelector('tbody').insertAdjacentHTML('afterbegin', firstRow);
-                let rowElement = add_tbl.querySelector('tbody tr');
-                let rowCross = rowElement.querySelector('tbody tr .delete_string');
-                rowCross.addEventListener('click', () => removeRow(rowElement))
-            });
-        }
-    }, 3000);
 
     const btn_add_line_create = document.querySelector('#add_string_create');
     const add_string_table = document.querySelector('#add_string_table');
