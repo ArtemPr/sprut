@@ -196,6 +196,10 @@
   }
 }
 
+#on_page_selector {
+  margin-right: 0.5rem;
+}
+
 // корпоративные цвета
 .color-add-wrapper {
   display: flex;
@@ -227,4 +231,15 @@
 
 .fgos-filter {
   padding-left: 0.4375rem !important;
+}
+
+.badge {
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  min-width: 0;
+  min-height: auto;
+  padding: 0;
+  border-radius: 100rem;
+  vertical-align: baseline;
 }
