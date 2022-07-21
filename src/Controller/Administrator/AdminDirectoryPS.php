@@ -32,9 +32,30 @@ class AdminDirectoryPS extends AbstractController
     private function setTable()
     {
         return [
-            ['', '', 'bool', true],
-            ['name', 'Название', 'string', true],
-            ['short_name', 'Короткое название', 'string', true]
+            [
+                'name' => ' ',
+                'header' => '',
+                'type' => 'bool',
+                'filter' => false,
+                'show' => true,
+                'sort' => false,
+            ],
+            [
+                'name' => 'name',
+                'header' => 'Название',
+                'type' => 'string',
+                'filter' => false,
+                'show' => true,
+                'sort' => false,
+            ],
+            [
+                'name' => 'short_name',
+                'header' => 'Короткое название',
+                'type' => 'string',
+                'filter' => false,
+                'show' => true,
+                'sort' => false,
+            ],
         ];
     }
 

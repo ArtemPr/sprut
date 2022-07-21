@@ -5,30 +5,37 @@
         <tr>
             {% if table|default(false) %}
                 {% for tbl in table %}
-                    {% if tbl.3 == true %}
-                        {% if tbl.1 == '' %}
+                    {% if tbl['show'] == true %}
+                        {% if tbl['header'] == '' %}
                             <th></th>
                         {% else %}
-                            {% if loop.first == 1 %}
-                                <th>
-                                    <a
-                                        class="sort-icon is-{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}desc{% elseif sort.current_sort|default(false) and sort.current_sort == (tbl.0~'__up') %}asc{% elseif sort.current_sort|default(false) == false %}asc{% else %}both{% endif %}"
-                                        href="{{ path('administrator_directory_ps') ~ sort.sort_link ~ tbl.0 }}{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}__up{% endif %}"></a>
-                                    {% if  tbl.1  == 'ID' %}
-                                        <p class="th-name id-name">{{ tbl.1 }}</p>
-                                    {% else %}
-                                        <p class="th-name">{{ tbl.1 }}</p>
-                                    {% endif %}
-                                </th>
-                            {% else %}
-                                <th>
-                                    <a
-                                        class="sort-icon is-{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}desc{% elseif sort.current_sort|default(false) and sort.current_sort == (tbl.0~'__up') %}asc{% else %}both{% endif %}"
-                                        href="{{ path('administrator_directory_ps') ~ sort.sort_link ~ tbl.0 }}{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}__up{% endif %}"
-                                    ></a>
-                                    <p class="th-name"> {{ tbl.1 }}</p>
-                                </th>
-                            {% endif %}
+                            <th>
+                                <div class="th-name">
+                                    <div class="sort-name-wrap">
+                                        {#                                            <span class="drag-icon" title="Переместить колонку {{ tbl['header'] }}"></span>#}
+                                        <span class="name-text">{{ tbl['header'] }}</span>
+                                    </div>
+
+                                    <div class="filter-sort-wrap">
+                                        {% if tbl['sort'] == true %}
+                                            <a title="Сортировка по значению ({{ tbl['header'] }})"
+                                               class="sort-icon is-{% if sort.current_sort|default(false) and sort.current_sort == tbl['name'] %}desc{% elseif sort.current_sort|default(false) and sort.current_sort == (tbl['name']~'__up') %}asc{% else %}both{% endif %}"
+                                               href="{{ path('administrator_directory_ps') ~ sort.sort_link ~ tbl['name'] }}{% if sort.current_sort|default(false) and sort.current_sort == tbl['name'] %}__up{% endif %}"
+                                            ></a>
+                                        {% endif %}
+
+                                        {% if tbl['filter'] == true %}
+                                            {% include 'administrator/block/block_filter.html.twig' with {
+                                                'columnIndex': loop.index,
+                                                'columnHeader': tbl['header'],
+                                                'columnName': tbl['name'],
+                                                'columnType': tbl['type'],
+                                            } %}
+                                        {% endif %}
+
+                                    </div>
+                                </div>
+                            </th>
                         {% endif %}
                     {% endif %}
                 {% endfor %}
@@ -40,15 +47,19 @@
             {% for dat in data %}
                 <tr data-string="{{ dat.id }}"
                     class="user-table-row {% if loop.first %}is-selected{% endif %}">
-                    <td>
-                        <span class="badge {% if dat.archive_flag|default(false) %} bg-success {% else %} bg-danger {% endif %}"></span>
-                    </td>
-                    <td style="max-width: 500px; white-space: normal;">
-                        {{ dat.name|default(false)|raw }}
-                    </td>
-                    <td style="max-width: 500px; white-space: normal;">
-                        {{ dat.short_name|default(false)|raw }}
-                    </td>
+                    {% for tbl in table %}
+                        {% if tbl['show'] == true %}
+                            {% if tbl.type == 'bool' %}
+                                <td style="max-width: 500px; white-space: normal;"><span class="badge {% if dat[tbl.name]|default(false) %} bg-success {% else %} bg-danger {% endif %} "></span></td>
+                            {% elseif tbl.type == 'date' %}
+                                <td class="text-center" style="max-width: 500px; white-space: normal;">{{ dat[tbl.name]|date("d.m.Y") }}</td>
+                            {% elseif tbl.type == 'int' %}
+                                <td class="text-center" style="max-width: 500px; white-space: normal;">{{ dat[tbl.name]|default(false)|raw }} </td>
+                            {% else %}
+                                <td style="max-width: 500px; white-space: normal;">{{ dat[tbl.name]|default(false)|raw }} </td>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
                 </tr>
             {% endfor %}
         {% endif %}
