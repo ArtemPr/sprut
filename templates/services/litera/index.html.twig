@@ -16,7 +16,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbar-menu">
-                    {% include 'administrator/block/nav_services.html.twig' with {'controller': 'literra'} %}
+                    {% include 'administrator/block/nav_services.html.twig' with {'controller': 'litera'} %}
                 </div>
             </div>
         </aside>
@@ -31,16 +31,30 @@
                             <div class="card">
                                 {% include 'block/search_panel.html.twig' with {
                                     'close_delete': true,
-                                    'close_edit': true,
-                                    'close_create': true
+                                    'close_edit': false,
+                                    'close_create': false,
+                                    'controller': 'litera',
+                                    'path': path('litera'),
+                                    'add_csv': path('litera') ~ '_csv' ~ csv_link
                                 } %}
                                 <div class="ajax-table">
-                                    {% include 'services/legal_register/table.html.twig' %}
+                                    {% include 'services/litera/table.html.twig' %}
                                 </div>
 
                             </div>
 
+                            <div id="literaCreationPanel" data-action="add"  class="user-form-panel offcanvas offcanvas-end modal-middle" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                                {% include 'services/litera/form/create_form.html.twig' %}
+                            </div>
+
+                            <div id="literaEditingPanel" data-action="edit" class="user-form-panel offcanvas offcanvas-end modal-middle" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                                <img src="{{ absolute_url('/assets/images/loading--big.gif') }}" style="position: absolute; top: 10%; left: 50%; margin-left: -75px;">
+                            </div>
+
                             <div id="userEditingOverlay" class="offcanvas-backdrop fade"></div>
+                            {# <div id="literaEditingOverlay" class="offcanvas-backdrop fade"></div>#}
+
+                            {% include 'modal/delete.html.twig' %}
 
                         </div>
                     </div>
