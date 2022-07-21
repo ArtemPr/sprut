@@ -18,15 +18,28 @@ class DisciplineController extends BaseController implements BaseInterface
     use AuthService;
     use CSVHelper;
 
-    private function setTable()
+    private function setTable(): array
     {
         return [
-            ['', '', '', true],
-            ['name', 'Тип', 'string', true],
-            ['practicum_flag', 'Практикум', 'int', true],
-            ['type', 'Название', 'string', true],
-            ['comment', 'Комментарий', 'string', true],
-            ['comment', 'Цель освоения', 'string', true],
+            [
+                'name' => 'active', 'header' => '', 'type' => 'bool', 'filter' => true, 'show' => true,
+                'sort' => false,
+            ], [
+                'name' => 'name', 'header' => 'Тип', 'type' => 'string', 'filter' => true, 'show' => true,
+                'sort' => true,
+            ], [
+                'name' => 'practicum_flag', 'header' => 'Практикум', 'type' => 'int', 'filter' => true, 'show' => true,
+                'sort' => true,
+            ], [
+                'name' => 'type', 'header' => 'Название', 'type' => 'string', 'filter' => true, 'show' => true,
+                'sort' => true,
+            ], [
+                'name' => 'comment', 'header' => 'Комментарий', 'type' => 'string', 'filter' => true, 'show' => true,
+                'sort' => true,
+            ], [
+                'name' => 'purpose', 'header' => 'Цель освоения', 'type' => 'string', 'filter' => true, 'show' => true,
+                'sort' => true,
+            ],
         ];
     }
 
@@ -42,7 +55,8 @@ class DisciplineController extends BaseController implements BaseInterface
             $count = $this->managerRegistry->getRepository(Discipline::class)->getListAll($page, $on_page, $sort, $search);
         } else {
             $result = $this->managerRegistry->getRepository(Discipline::class)->getList(0, 9999999999, $sort, $search);
-            $count = $this->managerRegistry->getRepository(Discipline::class)->getListAll(0, 9999999999, $sort, $search);
+            $count = $this->managerRegistry->getRepository(Discipline::class)->getListAll(0, 9999999999, $sort,
+                $search);
         }
 
         $page = $page ?? 1;
