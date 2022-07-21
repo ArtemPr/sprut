@@ -24,13 +24,6 @@ class AntiplagiatAPI
     protected ?UserInterface $internalUser;
 
     /**
-     * @param string $url
-     * @param string $login
-     * @param string $password
-     * @param string $company_name
-     * @param string $api_address
-     * @param string $ext_user
-     *
      * @throws \SoapFault
      */
     public function __construct(
@@ -177,6 +170,31 @@ class AntiplagiatAPI
     }
 
     /**
+     * Получить информацию о тарифе.
+     */
+    public function getTariffInfo(): array
+    {
+        $tarifInfo = $this->client->GetTariffInfo()->GetTariffInfoResult;
+
+        $available_services = [];
+
+        if (!empty($tarifInfo->CheckServices) && !empty($tarifInfo->CheckServices->CheckServiceInfo)) {
+            foreach ($tarifInfo->CheckServices->CheckServiceInfo as $check_service) {
+                $available_services[] = $check_service->Description.' (#'.$check_service->Code.')';
+            }
+        }
+
+        return [
+            'name' => $tarifInfo->Name,
+            'subscriptionDate' => $tarifInfo->SubscriptionDate,
+            'expiration_date' => $tarifInfo->ExpirationDate,
+            'total_checks_count' => $tarifInfo->TotalChecksCount,
+            'remained_checks_count' => $tarifInfo->RemainedChecksCount,
+            'available_services' => $available_services,
+        ];
+    }
+
+    /**
      * Загрузить файл в сервис антиплагиат.
      */
     public function uploadFile(string $filename): \stdClass
@@ -283,6 +301,7 @@ class AntiplagiatAPI
         $ch = curl_init($remoteFilename);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
         return curl_exec($ch);
     }
 }

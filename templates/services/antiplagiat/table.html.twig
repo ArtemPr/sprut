@@ -10,7 +10,10 @@
                 {% for tbl in table %}
                     {% if tbl.3 == true %}
                         {% if tbl.1 == '' %}
-                            <th></th>
+                            <th>&nbsp;</th>
+                        {% elseif tbl.2 == 'file' %}
+                            <th>&nbsp;</th>
+                            <th>Название файла</th>
                         {% else %}
                             {% if loop.first == 1 %}
                                 <th>
@@ -64,12 +67,14 @@
                             </svg>
                         </a>
                     </td>
+                    <td>{{ data_item.file | split('/') | last }}</td>
+
                     <td>{% if data_item.discipline %}{{ data_item.discipline.name | raw }}{% else %}&mdash;{% endif %}</td>
-                    <td>{{ (data_item.size / 1024) | number_format(2, ',') ~ ' кб' }}</td>
+                    <td>{{ "%.2f"|format((data_item.size / 1024)) }}</td>
                     <td>{% if data_item.author %}{{ data_item.author.fullname }}{% else %}&mdash;{% endif %}</td>
                     <td>{{ data_item.data_create | date('d/m/Y H:i') }}</td>
                     <td>{{ data_item.comment }}</td>
-                    <td>{{ data_item.plagiat_percent }} %</td>
+                    <td>{{ "%.2f"|format(data_item.plagiat_percent) }}</td>
                     <td>
                         {% if data_item.result_file %}
                             <a href="{{ data_item.result_file }}" target="_blank">
