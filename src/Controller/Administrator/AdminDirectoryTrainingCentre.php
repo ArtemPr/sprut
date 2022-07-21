@@ -135,7 +135,7 @@ class AdminDirectoryTrainingCentre extends AbstractController
 
         $dataRow = [];
         foreach ($this->setTable() as $tbl) {
-            $dataRow[] = $tbl[1];
+            $dataRow[] = $tbl['header'];
         }
 
         $data[] = $dataRow;
