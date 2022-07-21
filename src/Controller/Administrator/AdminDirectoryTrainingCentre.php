@@ -32,11 +32,46 @@ class AdminDirectoryTrainingCentre extends AbstractController
     private function setTable()
     {
         return [
-            ['id', 'ID', 'string', true],
-            ['name', 'Название', 'string', true],
-            ['phone', 'Телефоны', 'string', true],
-            ['email', 'E-mail', 'string', true],
-            ['url', 'URL', 'string', true]
+            [
+                'name' => 'id',
+                'header' => 'ID',
+                'type' => 'string',
+                'show' => true,
+                'filter' => false,
+                'sort' => true,
+            ],
+            [
+                'name' => 'name',
+                'header' => 'Название',
+                'type' => 'string',
+                'show' => true,
+                'filter' => false,
+                'sort' => true,
+            ],
+            [
+                'name' => 'phone',
+                'header' => 'Телефоны',
+                'type' => 'string',
+                'show' => true,
+                'filter' => false,
+                'sort' => true,
+            ],
+            [
+                'name' => 'email',
+                'header' => 'E-mail',
+                'type' => 'string',
+                'show' => true,
+                'filter' => false,
+                'sort' => true,
+            ],
+            [
+                'name' => 'url',
+                'header' => 'URL',
+                'type' => 'string',
+                'show' => true,
+                'filter' => false,
+                'sort' => true,
+            ],
         ];
     }
 
@@ -100,7 +135,7 @@ class AdminDirectoryTrainingCentre extends AbstractController
 
         $dataRow = [];
         foreach ($this->setTable() as $tbl) {
-            $dataRow[] = $tbl[1];
+            $dataRow[] = $tbl['header'];
         }
 
         $data[] = $dataRow;
