@@ -16,7 +16,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbar-menu">
-                    menu
+                    {% include 'administrator/block/nav_documents.html.twig' %}
                 </div>
                 <button id="hide-btn" class="hide-btn" title="Скрыть панель">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -31,6 +31,7 @@
                 {% include 'block/header_list.html.twig' with {'header': 'Шаблоны документов', 'onpage_link': path('document_templates')} %}
             </div>
             {% set controller = 'federal_standart' %}
+{#            изменить контроллер#}
             <div class="page-body">
                 <div class="container-fluid">
                     <div class="row row-deck row-cards">
@@ -48,7 +49,15 @@
                                 <div class="ajax-table">
                                     {{ include('administrator/document_templates/table.html.twig') }}
                                 </div>
-
+                                <div class="table-comments--documents">
+                                    <p>Информация по переменным</p>
+                                    <ul>
+                                        <li>значение (AL_RRRR - метка в файле) переменной</li>
+                                        <li>название переменной</li>
+                                        <li>привязанное поле</li>
+                                        <li>комментарий</li>
+                                    </ul>
+                                </div>
                             </div>
 
                             <div id="userEditingOverlay" class="offcanvas-backdrop fade"></div>
@@ -62,10 +71,13 @@
                             </div>
                             <div id="{{ controller|default(false) }}EditingPanel" data-action="edit" class="user-form-panel offcanvas offcanvas-end modal-large" tabindex="-1" aria-labelledby="offcanvasEndLabel">
                                 <img src="{{ absolute_url('/assets/images/loading--big.gif') }}" style="position: absolute; top: 10%; left: 50%; margin-left: -75px;">
+                                {% include '/administrator/document_templates/form/update.html.twig'  %}
                             </div>
 
                         </div>
                     </div>
+
+
                 </div>
             </div>
         </div>

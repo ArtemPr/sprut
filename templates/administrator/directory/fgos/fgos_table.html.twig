@@ -6,7 +6,7 @@
             {% if table|default(false) %}
                 {% for tbl in table %}
                     {% if tbl['show'] == true %}
-                        {% if tbl['name'] == '' %}
+                        {% if tbl['header'] == '' %}
                             <th></th>
                         {% else %}
                                 <th>
