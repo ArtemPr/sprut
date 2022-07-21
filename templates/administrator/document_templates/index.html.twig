@@ -31,6 +31,7 @@
                 {% include 'block/header_list.html.twig' with {'header': 'Шаблоны документов', 'onpage_link': path('document_templates')} %}
             </div>
             {% set controller = 'federal_standart' %}
+{#            изменить контроллер#}
             <div class="page-body">
                 <div class="container-fluid">
                     <div class="row row-deck row-cards">
@@ -70,6 +71,7 @@
                             </div>
                             <div id="{{ controller|default(false) }}EditingPanel" data-action="edit" class="user-form-panel offcanvas offcanvas-end modal-large" tabindex="-1" aria-labelledby="offcanvasEndLabel">
                                 <img src="{{ absolute_url('/assets/images/loading--big.gif') }}" style="position: absolute; top: 10%; left: 50%; margin-left: -75px;">
+                                {% include '/administrator/document_templates/form/update.html.twig'  %}
                             </div>
 
                         </div>

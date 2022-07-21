@@ -1,1 +1,59 @@
-update
+<div class="offcanvas-header">
+    <h2 class="offcanvas-title">Редактирование шаблона документа</h2>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+</div>
+<div class="offcanvas-body">
+    <form action="#" name="document_template-edit" id="document_template-edit" class="form-create">
+        <div class="">
+            <div class="card-body">
+                <div class="form-group mb-3 row flex-nowrap align-items-center">
+                    <label for="dt-activity" class="form-label col-4 col-form-label">Шаблон активен</label>
+                    <div class="form-check form-switch mb-0 ms-2">
+                        <input id="dt-activity" class="form-check-input" type="checkbox" name="active">
+                    </div>
+                </div>
+                <div class="form-group mb-3 row">
+                    <label class="form-label col-3 col-form-label">Название шаблона</label>
+                    <div class="col">
+                        <input name="dt-name" type="text" class="form-control" placeholder="Название шаблона"
+                               required value="">
+                    </div>
+                </div>
+                <div class="form-group mb-3 row">
+                    <label for="dt-formFile" class="form-label col-3 col-form-label">
+                        Загрузить файл
+                    </label>
+                    <div class="col">
+                        <input class="form-control" type="file" id="dt-formFile">
+                    </div>
+                </div>
+                <div class="form-group mb-3 row">
+                    <label class="form-label col-3 col-form-label">Комментарий</label>
+                    <div class="col">
+                        <textarea name="dt-comment" class="form-control" style="min-height: 100px;"></textarea>
+                    </div>
+                </div>
+                <div class="form-group mb-3 row">
+                    <label class="form-label col-3 col-form-label">Дата создания</label>
+                    <div class="col">
+                        <input name="dt-data_create" type="date" class="form-control" required value="">
+                    </div>
+                </div>
+                <div class="form-group mb-3 row">
+                    <label class="form-label col-3 col-form-label">Дата изменения</label>
+                    <div class="col">
+                        <input name="dt-data_edit" type="date" class="form-control" required value="">
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex mb-4">
+                <button data-form-id="document_template-edit" data-action="send-form" type="submit"
+                        class="btn btn-primary ms-auto"
+                        aria-label="Close"
+                >Сохранить
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+

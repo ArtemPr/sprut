@@ -23,7 +23,7 @@ class DocumentsController extends BaseController implements BaseInterface
     {
 
         $auth = $this->getAuthValue($this->getUser(), 'auth_document_templates', $this->managerRegistry);
-        if(!is_array($auth)) {
+        if (!is_array($auth)) {
             return $auth;
         }
 
@@ -32,15 +32,16 @@ class DocumentsController extends BaseController implements BaseInterface
             'auth' => $auth,
             'table' => $this->setTable(),
             // тестовые данные
-            'data' => [[
-                'active' => true,
-                'id' => '1',
-                'name' => 'Name',
-                'link' => 'http://axiomabio.com/pdf/test.pdf',
-                'comment' => 'lorem ipsum',
-                'date_create' => '20.12.2021',
-                'author' => 'Вася Иванов'
-            ],
+            'data' => [
+                [
+                    'active' => true,
+                    'id' => '1',
+                    'name' => 'Name',
+                    'link' => 'http://axiomabio.com/pdf/test.pdf',
+                    'comment' => 'lorem ipsum',
+                    'date_create' => '20.12.2021',
+                    'author' => 'Вася Иванов'
+                ],
                 [
                     'active' => false,
                     'id' => '2',
