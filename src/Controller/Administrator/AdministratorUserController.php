@@ -64,7 +64,7 @@ class AdministratorUserController extends AbstractController
 
         return [
             'controller' => 'AdminUser',
-            'user_list' => $user_list,
+            'data' => $user_list,
             'city_list' => $city,
             'roles' => $roles,
             'table' => $this->setTable(),
@@ -107,12 +107,12 @@ class AdministratorUserController extends AbstractController
 
         $dataRow = [];
         foreach ($this->setTable() as $tbl) {
-            $dataRow[] = $tbl[1];
+            $dataRow[] = $tbl['header'];
         }
 
         $data[] = $dataRow;
 
-        foreach ($result['user_list'] as $val) {
+        foreach ($result['data'] as $val) {
             $currRoles = [];
 
             if (!empty($val['roles'])) {
@@ -157,14 +157,70 @@ class AdministratorUserController extends AbstractController
     private function setTable()
     {
         return [
-            ['', '', 'bool', true],
-            ['', '', 'bool', true],
-            ['username', 'ФИО', 'bool', true],
-            ['', 'Роль', 'string', true],
-            ['position', 'Должность', 'string', true],
-            ['departament', 'Подразделение', 'string', true],
-            ['email', 'Email', 'string', true],
-            ['phone', 'Телефон', 'string', true]
-        ];
+                [
+                    'name' => 'activity',
+                    'header' => '',
+                    'type' => 'bool',
+                    'filter' => false,
+                    'show' => true,
+                    'sort' => false
+                ],
+                [
+                    'name' => 'local',
+                    'header' => '',
+                    'type' => 'string',
+                    'filter' => false,
+                    'show' => true,
+                    'sort' => false
+                ],
+                [
+                    'name' => 'fullname',
+                    'header' => 'ФИО',
+                    'type' => 'string',
+                    'filter' => true,
+                    'show' => true,
+                    'sort' => true
+                ],
+                [
+                    'name' => 'role',
+                    'header' => 'Роль',
+                    'type' => 'string',
+                    'filter' => false,
+                    'show' => true,
+                    'sort' => false
+                ],
+                [
+                    'name' => 'position',
+                    'header' => 'Должность',
+                    'type' => 'string',
+                    'filter' => true,
+                    'show' => true,
+                    'sort' => true
+                ],
+                [
+                    'name' => 'departament',
+                    'header' => 'Подразделение',
+                    'type' => 'string',
+                    'filter' => true,
+                    'show' => true,
+                    'sort' => true
+                ],
+                [
+                    'name' => 'email',
+                    'header' => 'Email',
+                    'type' => 'string',
+                    'filter' => true,
+                    'show' => true,
+                    'sort' => true
+                ],
+                [
+                    'name' => 'phone',
+                    'header' => 'Телефон',
+                    'type' => 'string',
+                    'filter' => true,
+                    'show' => true,
+                    'sort' => true
+                ],
+            ];
     }
 }
