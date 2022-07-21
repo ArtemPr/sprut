@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     if (hideBtn && asidePanel && pageWrapper && navLinkWords) {
         // скрываем панель сразу, если кука true
         if (asideHiddenValue === true) {
-            navLinkWords.forEach( navLinkWord => {
+            navLinkWords.forEach(navLinkWord => {
                 navLinkWord.classList.add('nav-link--hidden');
             })
             asidePanel.classList.add('aside--hidden');
@@ -37,8 +37,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
             pageWrapper.classList.add('page-wrapper--full');
         }
 
-        hideBtn.addEventListener('click', function(){
-            navLinkWords.forEach( navLinkWord => {
+        hideBtn.addEventListener('click', function () {
+            navLinkWords.forEach(navLinkWord => {
                 navLinkWord.classList.toggle('nav-link--hidden');
             })
             asidePanel.classList.toggle('aside--hidden');
@@ -96,14 +96,14 @@ document.addEventListener("DOMContentLoaded", function (event) {
             }
 
             let tabs = document.querySelector('.nav-tabs');
-            if(tabs !== null) {
+            if (tabs !== null) {
             }
 
         }
     }
 
 
-// Удаление
+    // Удаление
     const delete_btn = document.querySelector('.delete_action');
     if (delete_btn != null) {
         delete_btn.addEventListener('click', async function (event) {
@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             let controller = (select_string != null) ? select_string.getAttribute('data-type') : null;
 
             let url = location.protocol + '//' + location.host + '/api/' + controller + '_hide/' + select_id;
-            console.log(url);
+        //    console.log(url);
             await fetch(url).then((result) => result.text());
 
             select_string.parentNode.removeChild(select_string);

@@ -97,7 +97,7 @@
 .aside--hidden {
   width: auto !important;
 
-   .navbar-nav .nav-link {
+  .navbar-nav .nav-link {
     padding: 0.5rem !important;
     justify-content: center !important;
   }
@@ -129,7 +129,8 @@
   }
 }
 
-.hide-btn--hidden {;
+.hide-btn--hidden {
+  ;
   transform: rotate(180deg);
 }
 
@@ -188,8 +189,42 @@
     background-image: url("../img/drag.png");
     cursor: url('../img/dragS.svg') 6 6, move;
 
-    &:hover, &:active {
+    &:hover,
+    &:active {
       cursor: url('../img/dragS.svg') 6 6, move;
     }
   }
+}
+
+// корпоративные цвета
+.color-add-wrapper {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.custom-color-row {
+  display: flex;
+}
+
+.custom-colors-wrap {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+#add_custom_color,
+#update_custom_color {
+  display: block;
+}
+
+.delete-color-btn {
+  outline: none;
+  border: none;
+  background-color: transparent;
+  margin-left: 20px;
+}
+
+.fgos-filter {
+  padding-left: 0.4375rem !important;
 }
