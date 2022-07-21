@@ -36,12 +36,19 @@ services:
     App\Service\AntiplagiatAPI:
         autowire: true
         arguments:
+#            Тестовые данные
             $url: 'https://testapi.antiplagiat.ru'
             $login: 'testapi@antiplagiat.ru'
             $password: 'testapi'
             $company_name: 'testapi'
             $api_address: 'api.antiplagiat.ru:44902'
             $ext_user: 'testapi'
+#            Боевые данные
+#            $login: ''
+#            $password: ''
+#            $company_name: ''
+#            $api_address: ''
+#            $ext_user: ''
 
     # Сервис Литера5
     App\Service\Litera5API:

@@ -7,9 +7,13 @@ namespace App\Controller\Services;
 
 use App\Controller\BaseController;
 use App\Controller\BaseInterface;
+use App\Entity\Litera;
+use App\Entity\Discipline;
+use App\Repository\LiteraRepository;
 use App\Service\AuthService;
 use App\Service\CSVHelper;
 use App\Service\LinkService;
+use Symfony\Component\Routing\Annotation\Route;
 
 class LiteraController extends BaseController implements BaseInterface
 {
@@ -19,9 +23,41 @@ class LiteraController extends BaseController implements BaseInterface
 
     public function get(bool $full = false)
     {
-        // TODO: Implement get() method.
+        $page = $this->get_data['page'] ?? null;
+        $on_page = $this->get_data['on_page'] ?? 25;
+        $sort = $this->get_data['sort'] ?? null;
+        $search = $this->get_data['search'] ?? null;
+
+        if (false === $full) {
+            $data = $this->managerRegistry->getRepository(Litera::class)->getList($page, $on_page, $sort, $search);
+            $count = $this->managerRegistry->getRepository(Litera::class)->getListAll($page, $on_page, $sort, $search);
+        } else {
+            $data = $this->managerRegistry->getRepository(Litera::class)->getList(0, 9999999999, $sort, $search);
+            $count = $this->managerRegistry->getRepository(Litera::class)->getListAll(0, 9999999999, $sort, $search);
+        }
+
+        return [
+            'data' => $data,
+            'disciplines' => $this->managerRegistry->getRepository(Discipline::class)->getList(0, 9999999999),
+            'search' => strip_tags($search) ?? '',
+            'pager' => [
+                'count_all_position' => $count,
+                'current_page' => $page,
+                'count_page' => (int) ceil($count / $on_page),
+                'paginator_link' => $this->getParinatorLink(),
+                'on_page' => $on_page,
+            ],
+            'sort' => [
+                'sort_link' => $this->getSortLink(),
+                'current_sort' => $this->get_data['sort'] ?? null,
+            ],
+            'search_link' => $this->getSearchLink(),
+            'table' => $this->setTable(),
+            'csv_link' => $this->getCSVLink(),
+        ];
     }
 
+    #[Route('/service/litera', name: 'litera')]
     public function getList()
     {
         $auth = $this->getAuthValue($this->getUser(), 'auth_litera', $this->managerRegistry);
@@ -29,29 +65,19 @@ class LiteraController extends BaseController implements BaseInterface
             return $auth;
         }
 
-        $page = $this->request->get('page') ?? null;
-        $on_page = $this->request->get('on_page') ?? 25;
-        $sort = $this->request->get('sort') ?? null;
-        $search = $this->request->get('search') ?? null;
+        $tpl = !empty($this->request->get('ajax'))
+            ? 'services/litera/table.html.twig'
+            : 'services/litera/index.html.twig';
 
-        $data = [];
-
-        $count = 0;
-
-        $tpl = !empty($this->get_data['ajax'])
-            ?
-            'services/litera/table.html.twig'
-            :
-            'services/litera/ingex.html.twig';
+        $result = $this->get();
+        $result['auth'] = $auth;
 
         return $this->render($tpl,
-            [
-                'data' => $data,
-                'auth' => $auth,
-            ]
+            $result,
         );
     }
 
+    #[Route('/service/litera_csv', name: 'litera_csv')]
     public function getCSV()
     {
         //
@@ -60,6 +86,15 @@ class LiteraController extends BaseController implements BaseInterface
     private function setTable(): array
     {
         return [
+            ['status', '', 'string', true],
+            ['file', 'Файл', 'string', true],
+            ['discipline', 'Дисциплина', 'string', true],
+            ['size', 'Размер', 'string', true],
+            ['author', 'Загрузил', 'string', true],
+            ['data_create', 'Создано', 'string', true],
+            ['comment', 'Комментарий', 'string', true],
+
+            ['result_date', 'Проверено', 'string', true],
         ];
     }
 }
