@@ -3,6 +3,7 @@
  */
 
 document.addEventListener("DOMContentLoaded", function (event) {
+    // Программы
     let fgosBtns = document.querySelectorAll("[data-controller='program']");
     let fgosBtnCreate = null;
     let fgosBtnUpdate = null;
@@ -19,20 +20,22 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     if (fgosBtnCreate !== null) {
         fgosBtnCreate.addEventListener('click', function () {
-            setTimeout(() => {
+            let interval_update = setInterval (() => {
                 let fgosContainer = document.querySelector('.fgos-tab--add');
                 if (fgosContainer) {
+                    clearInterval(interval_update);
                     chooseFgos(fgosContainer);
                 }
-            }, 1000)
+            }, 3000)
         })
     }
 
     if (fgosBtnUpdate !== null) {
         fgosBtnUpdate.addEventListener('click', function () {
-            setTimeout(() => {
+            let interval_update2 = setInterval (() => {
                 let fgosContainer = document.querySelector('.fgos-tab--edit');
                 if (fgosContainer) {
+                    clearInterval(interval_update2);
                     chooseFgos(fgosContainer);
                 }
             }, 1000)
@@ -74,8 +77,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
                                 liItem.addEventListener('click', function () {
                                     fgosFilter.value = liItem.textContent;
                                     fgosHiddenInput.value = liItem.getAttribute('data-id');
-                                    console.log('fgosHiddenInput.value ', fgosHiddenInput.value);
-                                    console.log('fgosFilter.value ', fgosFilter.value);
+                                    // console.log('fgosHiddenInput.value ', fgosHiddenInput.value);
+                                    // console.log('fgosFilter.value ', fgosFilter.value);
                                 })
                             })
                         }
@@ -104,7 +107,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                                     liItem.addEventListener('click', function () {
                                         fgosFilter.value = liItem.textContent;
                                         fgosHiddenInput.value = liItem.getAttribute('data-id');
-                                        console.log('fgosHiddenInput.value ', fgosHiddenInput.value);
+                                    //    console.log('fgosHiddenInput.value ', fgosHiddenInput.value);
                                     })
                                 })
                             } else {
