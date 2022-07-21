@@ -107,12 +107,12 @@ class AdministratorUserController extends AbstractController
 
         $dataRow = [];
         foreach ($this->setTable() as $tbl) {
-            $dataRow[] = $tbl[1];
+            $dataRow[] = $tbl['header'];
         }
 
         $data[] = $dataRow;
 
-        foreach ($result['user_list'] as $val) {
+        foreach ($result['data'] as $val) {
             $currRoles = [];
 
             if (!empty($val['roles'])) {
