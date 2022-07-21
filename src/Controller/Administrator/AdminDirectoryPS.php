@@ -32,9 +32,30 @@ class AdminDirectoryPS extends AbstractController
     private function setTable()
     {
         return [
-            ['', '', 'bool', true],
-            ['name', 'Название', 'string', true],
-            ['short_name', 'Короткое название', 'string', true]
+            [
+                'name' => ' ',
+                'header' => '',
+                'type' => 'bool',
+                'filter' => false,
+                'show' => true,
+                'sort' => false,
+            ],
+            [
+                'name' => 'name',
+                'header' => 'Название',
+                'type' => 'string',
+                'filter' => false,
+                'show' => true,
+                'sort' => false,
+            ],
+            [
+                'name' => 'short_name',
+                'header' => 'Короткое название',
+                'type' => 'string',
+                'filter' => false,
+                'show' => true,
+                'sort' => false,
+            ],
         ];
     }
 
@@ -95,16 +116,23 @@ class AdminDirectoryPS extends AbstractController
 
         $dataRow = [];
         foreach ($this->setTable() as $tbl) {
-            $dataRow[] = $tbl[1];
+            $dataRow[] = $tbl['header'];
         }
 
         $data[] = $dataRow;
 
         foreach ($result['data'] as $val) {
+            $name = !empty($val['name'])
+                ? html_entity_decode($val['name'])
+                : '-';
+            $short_name = !empty($val['short_name'])
+                ? html_entity_decode($val['short_name'])
+                : '-';
+
             $data[] = [
                 ($val['archive_flag'] ? 'да' : 'нет'),
-                $val['name'],
-                $val['short_name'],
+                $name,
+                $short_name,
             ];
         }
 

@@ -51,10 +51,8 @@ class DisciplineController extends BaseController implements BaseInterface
         $search = $this->request->get('search') ?? null;
 
         if (false === $full) {
-            $result = $this->managerRegistry->getRepository(Discipline::class)->getList($page, $on_page, $sort,
-                $search);
-            $count = $this->managerRegistry->getRepository(Discipline::class)->getListAll($page, $on_page, $sort,
-                $search);
+            $result = $this->managerRegistry->getRepository(Discipline::class)->getList($page, $on_page, $sort, $search);
+            $count = $this->managerRegistry->getRepository(Discipline::class)->getListAll($page, $on_page, $sort, $search);
         } else {
             $result = $this->managerRegistry->getRepository(Discipline::class)->getList(0, 9999999999, $sort, $search);
             $count = $this->managerRegistry->getRepository(Discipline::class)->getListAll(0, 9999999999, $sort,
@@ -112,13 +110,23 @@ class DisciplineController extends BaseController implements BaseInterface
         $data[] = $dataRow;
 
         foreach ($result['data'] as $val) {
+            $name = !empty($val['name'])
+                ? html_entity_decode($val['name'])
+                : '-';
+            $comment = !empty($val['comment'])
+                ? html_entity_decode($val['comment'])
+                : '-';
+            $purpose = !empty($val['purpose'])
+                ? html_entity_decode($val['purpose'])
+                : '-';
+
             $data[] = [
                 ('accept' == $val['status'] ? 'да' : 'нет'),
                 $val['type'], // надо типы
                 ($val['practice'] ? 'да' : 'нет'),
-                $val['name'],
-                $val['comment'],
-                $val['purpose'],
+                $name,
+                $comment,
+                $purpose,
             ];
         }
 

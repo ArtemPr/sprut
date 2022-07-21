@@ -57,7 +57,7 @@
                                     </a>
                                 {% endif %}
                                 {% if auth.auth_litera|default(false) %}
-                                    <a class="dropdown-item" href="{{ path('service_literra') }}">
+                                    <a class="dropdown-item" href="{{ path('service_litera') }}">
                                         Литера 5
                                     </a>
                                 {% endif %}
@@ -96,6 +96,13 @@
                                         Журнал событий
                                     </a>
                                 {% endif %}
+
+                                {% if auth.auth_document_templates|default(false) %}
+                                    <a class="dropdown-item" href="{{ path('document_templates') }}">
+                                        Шаблоны документов
+                                    </a>
+                                {% endif %}
+
                             </div>
                         </li>
                     {% endif %}
