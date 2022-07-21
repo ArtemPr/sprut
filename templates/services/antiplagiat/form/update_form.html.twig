@@ -39,7 +39,7 @@
                                         selected
                                         {% endif %}
                                 >
-                                    {{ discipline.name }}
+                                    {{ discipline.name | replace({'&amp;': '&'}) | replace({'&ndash;': '-'}) | escape('html') }}
                                     {% if discipline.comment %}
                                     ({{ discipline.comment | raw }})
                                     {% endif %}
