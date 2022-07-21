@@ -34,11 +34,46 @@ class AdminDirectoryKafedra extends AbstractController
     private function setTable()
     {
         return [
-            ['id', 'ID', 'string', true],
-            ['training_centre.name', 'УЦ', 'string', true],
-            ['name', 'Название', 'string', true],
-            ['director.username', 'ФИО руководителя', 'string', true],
-            ['director.email', 'E-mail руководителя', 'string', true]
+            [
+                'name' => 'id',
+                'header' => 'ID',
+                'type' => 'string',
+                'show' => true,
+                'sort' => true,
+                'filter' => false,
+            ],
+            [
+                'name' => 'training_centre.name',
+                'header' => 'УЦ',
+                'type' => 'string',
+                'show' => true,
+                'sort' => true,
+                'filter' => false,
+            ],
+            [
+                'name' => 'name',
+                'header' => 'Название',
+                'type' => 'string',
+                'show' => true,
+                'sort' => true,
+                'filter' => false,
+            ],
+            [
+                'name' => 'director.username',
+                'header' => 'ФИО руководителя',
+                'type' => 'string',
+                'show' => true,
+                'sort' => true,
+                'filter' => false,
+            ],
+            [
+                'name' => 'director.email',
+                'header' => 'E-mail руководителя',
+                'type' => 'string',
+                'show' => true,
+                'sort' => true,
+                'filter' => false,
+            ],
         ];
     }
 
@@ -113,7 +148,7 @@ class AdminDirectoryKafedra extends AbstractController
 
         $dataRow = [];
         foreach ($this->setTable() as $tbl) {
-            $dataRow[] = $tbl[1];
+            $dataRow[] = $tbl['header'];
         }
 
         $data[] = $dataRow;
