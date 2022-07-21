@@ -1,37 +1,64 @@
 <div class="users-table-wrap table-responsive">
-
-    {# dump(data) #}
-
-    <table id="usersTable"
-           class="users-table table card-table table-vcenter text-nowrap datatable">
+    <table id="usersTable" class="users-table table card-table table-vcenter text-nowrap datatable">
         <thead>
         <tr>
             {% if table|default(false) %}
                 {% for tbl in table %}
-                    {% if tbl.3 == true %}
-                        {% if tbl.1 == '' %}
+                    {% if tbl['show'] == true %}
+                        {% if tbl['header'] == '' %}
                             <th></th>
                         {% else %}
-                            {% if loop.first == 1 %}
-                                <th>
-                                    <a
-                                        class="sort-icon is-{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}desc{% elseif sort.current_sort|default(false) and sort.current_sort == (tbl.0~'__up') %}asc{% elseif sort.current_sort|default(false) == false %}asc{% else %}both{% endif %}"
-                                        href="{{ path('service_antiplagiat') ~ sort.sort_link ~ tbl.0 }}{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}__up{% endif %}"></a>
-                                    {% if  tbl.1  == 'ID' %}
-                                        <p class="th-name id-name">{{ tbl.1 }}</p>
-                                    {% else %}
-                                        <p class="th-name">{{ tbl.1 }}</p>
-                                    {% endif %}
-                                </th>
-                            {% else %}
-                                <th>
-                                    <a
-                                        class="sort-icon is-{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}desc{% elseif sort.current_sort|default(false) and sort.current_sort == (tbl.0~'__up') %}asc{% else %}both{% endif %}"
-                                        href="{{ path('service_antiplagiat') ~ sort.sort_link ~ tbl.0 }}{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}__up{% endif %}"
-                                    ></a>
-                                    <p class="th-name"> {{ tbl.1 }}</p>
-                                </th>
-                            {% endif %}
+                            <th>
+                                <div class="th-name">
+                                    <div class="sort-name-wrap">
+                                        <span class="name-text">{{ tbl['header'] }}</span>
+                                    </div>
+                                    <div class="filter-sort-wrap">
+                                        {% if tbl['sort'] == true %}
+                                            <a title="Сортировка по значению ({{ tbl['header'] }})"
+                                               class="sort-icon is-{% if sort.current_sort|default(false) and sort.current_sort == tbl['name'] %}desc{% elseif sort.current_sort|default(false) and sort.current_sort == (tbl['name']~'__up') %}asc{% else %}both{% endif %}"
+                                               href="{{ path('service_antiplagiat') ~ sort.sort_link ~ tbl['name'] }}{% if sort.current_sort|default(false) and sort.current_sort == tbl['name'] %}__up{% endif %}"></a>
+                                        {% endif %}
+                                        {% if tbl['filter'] == true %}
+                                            <button type="button" title="Фильтрация по значению ({{ tbl['header'] }})"
+                                                    class="table-filter-btn" data-bs-toggle="modal"
+                                                    data-bs-target="#filterModal-{{ loop.index }}">
+                                                <svg viewBox="64 64 896 896" focusable="false" data-icon="filter"
+                                                     width="1em" height="1em" fill="currentColor" aria-hidden="true">
+                                                    <path
+                                                        d="M349 838c0 17.7 14.2 32 31.8 32h262.4c17.6 0 31.8-14.3 31.8-32V642H349v196zm531.1-684H143.9c-24.5 0-39.8 26.7-27.5 48l221.3 376h348.8l221.3-376c12.1-21.3-3.2-48-27.7-48z"></path>
+                                                </svg>
+                                            </button>
+                                            <div class="modal fade" id="filterModal-{{ loop.index }}" tabindex="-1"
+                                                 aria-labelledby="filterModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="filter-modal-title" id="filterModalLabel">
+                                                                Фильтрация по значению ({{ tbl['header'] }})</h5>
+                                                            <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            {% if tbl['type'] == 'string' %}
+                                                                {% include 'block/filter/table_string.html.twig' with {'field': tbl['name']} %}
+                                                            {% elseif tbl['type'] == 'date' %}
+                                                                {% include 'block/filter/table_date.html.twig' with {'field': tbl['name']} %}
+                                                            {% elseif tbl['type'] == 'int' %}
+                                                                {% include 'block/filter/table_int.html.twig' with {'field': tbl['name']} %}
+                                                            {% endif %}
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-primary">Фильтровать
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </th>
                         {% endif %}
                     {% endif %}
                 {% endfor %}
@@ -40,21 +67,15 @@
         </thead>
         <tbody>
         {% if data|default(false) %}
-            {% for data_item in data %}
-                <tr data-string="{{ data_item.id }}"
-                    class="user-table-row {% if loop.first %}is-selected{% endif %}">
-
+            {% for dat in data %}
+                <tr data-string="{{ dat.id }}" class="user-table-row {% if loop.first %}is-selected{% endif %}">
+                    <td><span class="badge {{ statuses_colors[dat.status]|default('bg-') }} "
+                              title="{{ statuses[dat.status]|default('-') }}" data-bs-toggle="tooltip"></span></td>
                     <td>
-                        <span
-                            class="badge {{ statuses_colors[data_item.status]|default('bg-') }} "
-                            title="{{ statuses[data_item.status]|default('-') }}"
-                            data-bs-toggle="tooltip"
-                        ></span>
-                    </td>
-
-                    <td>
-                        <a href="{{ data_item.file }}" target="_blank">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-text" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <a href="{{ dat.file }}" target="_blank">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-text"
+                                 width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                 fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                 <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
                                 <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"></path>
@@ -64,42 +85,66 @@
                             </svg>
                         </a>
                     </td>
-                    <td>{% if data_item.discipline %}{{ data_item.discipline.name | raw }}{% else %}&mdash;{% endif %}</td>
-                    <td>{{ (data_item.size / 1024) | number_format(2, ',') ~ ' кб' }}</td>
-                    <td>{% if data_item.author %}{{ data_item.author.fullname }}{% else %}&mdash;{% endif %}</td>
-                    <td>{{ data_item.data_create | date('d/m/Y H:i') }}</td>
-                    <td>{{ data_item.comment }}</td>
-                    <td>{{ data_item.plagiat_percent }} %</td>
-                    <td>
-                        {% if data_item.result_file %}
-                            <a href="{{ data_item.result_file }}" target="_blank">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-analytics" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                    <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-                                    <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"></path>
-                                    <line x1="9" y1="17" x2="9" y2="12"></line>
-                                    <line x1="12" y1="17" x2="12" y2="16"></line>
-                                    <line x1="15" y1="17" x2="15" y2="14"></line>
-                                </svg>
-                            </a>
-                        {% else %}
-                            &mdash;
+                    {% for tbl in table %}
+                        {% if tbl['show'] == true %}
+                            {% if tbl['name'] == 'discipline' %}
+                                <td>
+                                    {% if dat.discipline %}
+                                        {{ dat.discipline.name | raw }}
+                                    {% else %}
+                                        &mdash;
+                                    {% endif %}
+                                </td>
+                            {% elseif tbl['name'] == 'size' %}
+                                <td>{{ (dat.size / 1024) | number_format(2, ',') ~ ' кб' }}</td>
+                            {% elseif tbl['name'] == 'author' %}
+                                <td>{% if dat.author %}{{ dat.author.fullname }}{% else %}&mdash;{% endif %}</td>
+                            {% elseif tbl['name'] == 'data_create' %}
+                                <td>{{ dat.data_create | date('d/m/Y H:i') }}</td>
+                            {% elseif tbl['name'] == 'comment' %}
+                                <td>{{ dat.comment }}</td>
+                            {% elseif tbl['name'] == 'plagiat_percent' %}
+                                <td>{{ dat.plagiat_percent }} %</td>
+                            {% elseif tbl['name'] == 'result_file' %}
+                                <td>
+                                    {% if dat.result_file %}
+                                        <a href="{{ dat.result_file }}" target="_blank">
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                 class="icon icon-tabler icon-tabler-file-analytics" width="24"
+                                                 height="24"
+                                                 viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                 fill="none"
+                                                 stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+                                                <path
+                                                    d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"></path>
+                                                <line x1="9" y1="17" x2="9" y2="12"></line>
+                                                <line x1="12" y1="17" x2="12" y2="16"></line>
+                                                <line x1="15" y1="17" x2="15" y2="14"></line>
+                                            </svg>
+                                        </a>
+                                    {% else %}
+                                        &mdash;
+                                    {% endif %}
+                                </td>
+                            {% elseif tbl['name'] == 'result_date' %}
+                                <td>
+                                    {% if dat.result_date %}
+                                        {{ dat.result_date | date('d/m/Y H:i') }}
+                                    {% else %}
+                                        &mdash;
+                                    {% endif %}
+                                </td>
+                            {% endif %}
                         {% endif %}
-                    </td>
-                    <td>
-                        {% if data_item.result_date %}
-                            {{ data_item.result_date | date('d/m/Y H:i') }}
-                        {% else %}
-                            &mdash;
-                        {% endif %}
-                    </td>
+                    {% endfor %}
                 </tr>
             {% endfor %}
         {% endif %}
         </tbody>
     </table>
 </div>
-
 {% include 'block/paginator.html.twig' with {
     'path': path('service_antiplagiat')
-}  %}
+} %}
