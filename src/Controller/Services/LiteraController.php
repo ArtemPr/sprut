@@ -7,9 +7,8 @@ namespace App\Controller\Services;
 
 use App\Controller\BaseController;
 use App\Controller\BaseInterface;
-use App\Entity\Litera;
 use App\Entity\Discipline;
-use App\Repository\LiteraRepository;
+use App\Entity\Litera;
 use App\Service\AuthService;
 use App\Service\CSVHelper;
 use App\Service\LinkService;
@@ -80,21 +79,75 @@ class LiteraController extends BaseController implements BaseInterface
     #[Route('/service/litera_csv', name: 'litera_csv')]
     public function getCSV()
     {
-        //
     }
 
     private function setTable(): array
     {
         return [
-            ['status', '', 'string', true],
-            ['file', 'Файл', 'string', true],
-            ['discipline', 'Дисциплина', 'string', true],
-            ['size', 'Размер', 'string', true],
-            ['author', 'Загрузил', 'string', true],
-            ['data_create', 'Создано', 'string', true],
-            ['comment', 'Комментарий', 'string', true],
-
-            ['result_date', 'Проверено', 'string', true],
+            [
+                'name' => 'status',
+                'header' => '',
+                'type' => 'string',
+                'filter' => true,
+                'show' => true,
+                'sort' => false,
+            ],
+            [
+                'name' => 'file',
+                'header' => 'Файл',
+                'type' => 'string',
+                'filter' => true,
+                'show' => true,
+                'sort' => false,
+            ],
+            [
+                'name' => 'discipline',
+                'header' => 'Дисциплина',
+                'type' => 'string',
+                'filter' => true,
+                'show' => true,
+                'sort' => false,
+            ],
+            [
+                'name' => 'size',
+                'header' => 'Размер',
+                'type' => 'string',
+                'filter' => true,
+                'show' => true,
+                'sort' => false,
+            ],
+            [
+                'name' => 'author',
+                'header' => 'Загрузил',
+                'type' => 'string',
+                'filter' => true,
+                'show' => true,
+                'sort' => false,
+            ],
+            [
+                'name' => 'data_create',
+                'header' => 'Создано',
+                'type' => 'string',
+                'filter' => true,
+                'show' => true,
+                'sort' => false,
+            ],
+            [
+                'name' => 'comment',
+                'header' => 'Комментарий',
+                'type' => 'string',
+                'filter' => true,
+                'show' => true,
+                'sort' => false,
+            ],
+            [
+                'name' => 'result_date',
+                'header' => 'Проверено',
+                'type' => 'string',
+                'filter' => true,
+                'show' => true,
+                'sort' => false,
+            ],
         ];
     }
 }
