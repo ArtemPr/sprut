@@ -3,7 +3,7 @@
     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 </div>
 <div class="offcanvas-body">
-    <form action="#" name="add_antiplagiat-create" id="add_antiplagiat-create" class="form-create" enctype="multipart/form-data">
+    <form action="#" name="add_litera-create" id="add_litera-create" class="form-create" enctype="multipart/form-data">
         <div class="card-body">
             <div class="row">
                 <div class="col">
@@ -16,8 +16,8 @@
                                     class="input"
                                     name="file"
                                     type="file"
-                                    id="input_ap_doc"
-                                    accept="application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/rtf"
+                                    id="input_lit_doc"
+                                    accept="text/html, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/rtf"
                                     required="required"
                                 >
                             </div>
@@ -32,7 +32,7 @@
                                     type="checkbox"
                                     name="unique_discipline"
                                     value="1"
-                                    onclick="var curr_accept = (this.checked == true) ? 'application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/rtf, application/pdf, text/plain, htext/tml, application/vnd.oasis.opendocument.text, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation' : 'application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/rtf'; document.getElementById('input_ap_doc').setAttribute('accept', curr_accept); if (this.checked == true) { document.getElementById('ap_disciplines').setAttribute('disabled', 'disabled'); } else { document.getElementById('ap_disciplines').removeAttribute('disabled'); }"
+                                    onclick="if (this.checked == true) { document.getElementById('lit_disciplines').setAttribute('disabled', 'disabled'); } else { document.getElementById('lit_disciplines').removeAttribute('disabled'); }"
                                 >
                                 <span class="form-check-label">Универсальная дисциплина</span>
                                 <span class="form-check-description">Выберите этот пункт для документа,
@@ -44,7 +44,7 @@
                     <div class="form-group mb-3 row">
                         <label class="form-label col-3 col-form-label">Дисциплина</label>
                         <div class="col">
-                            <select class="form-select" name="discipline" id="ap_disciplines">
+                            <select class="form-select" name="discipline" id="lit_disciplines">
                                 <option disabled {% if data.discipline.id|default(false) == false %}selected{% endif %}>
                                     Выберите дисциплину
                                 </option>
@@ -64,19 +64,12 @@
                         </div>
                     </div>
 
-                    <div class="form-group mb-3 row">
-                        <label class="form-label col-3 col-form-label">Комментарий</label>
-                        <div class="col">
-                            <input type="text" class="form-control" placeholder="Ваш комментарий" name="comment">
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </div>
 
         <div class="d-flex mb-4">
-            <button data-form-id="add_antiplagiat-create" data-action="send-form" type="submit"
+            <button data-form-id="add_litera-create" data-action="send-form" type="submit"
                     class="btn btn-primary ms-auto"
                     aria-label="Close">Сохранить
             </button>

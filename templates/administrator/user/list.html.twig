@@ -30,9 +30,13 @@
                         <div class="col-12">
                             <div class="card">
                                 {% include 'block/search_panel.html.twig' with {
-                                    'controller': 'user',
+                                    'close_delete': true,
+                                    'close_edit': true,
+                                    'close_create': true,
+                                    'controller': controller,
                                     'path': path('administrator_user'),
-                                    'add_csv': path('administrator_user') ~ '_csv' ~ csv_link
+                                    'add_csv': path('administrator_user') ~ '_csv' ~ csv_link,
+                                    'table' : table
                                 } %}
 
                                 <div class="ajax-table">
@@ -42,6 +46,10 @@
                             </div>
 
                             <div id="userEditingOverlay" class="offcanvas-backdrop fade"></div>
+
+                            <div id="{{ controller }}ViewPanel" data-action="view" class="user-form-panel offcanvas offcanvas-end modal-large" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                                <img src="{{ absolute_url('/assets/images/loading--big.gif') }}" style="position: absolute; top: 10%; left: 50%; margin-left: -75px;">
+                            </div>
 
                             <div id="userCreationPanel" data-action="add"  class="user-form-panel offcanvas offcanvas-end modal-middle" tabindex="-1" aria-labelledby="offcanvasEndLabel">
                             {% include 'administrator/user/form/create_form.html.twig' %}

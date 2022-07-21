@@ -1,132 +1,111 @@
-{% if data|default(false) %}
 <div class="users-table-wrap table-responsive">
     <table id="usersTable"
            class="users-table table card-table table-vcenter text-nowrap datatable">
         <thead>
         <tr>
-
             {% if table|default(false) %}
                 {% for tbl in table %}
-                    {% if tbl.3 == true %}
-                        {% if tbl.1 == '' %}
+                    {% if tbl['show'] == true %}
+                        {% if tbl['name'] == '' %}
                             <th></th>
                         {% else %}
-                            {% if loop.first == 1 %}
-                                <th>
-                                    <a
-                                        class="sort-icon is-{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}desc{% elseif sort.current_sort|default(false) and sort.current_sort == (tbl.0~'__up') %}asc{% elseif sort.current_sort|default(false) == false %}asc{% else %}both{% endif %}"
-                                        href="{{ path('administrator_operations') ~ sort.sort_link ~ tbl.0 }}{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}__up{% endif %}"></a>
-                                    {% if  tbl.1  == 'ID' %}
-                                        <p class="th-name id-name">{{ tbl.1 }}</p>
-                                    {% else %}
-                                        <p class="th-name">{{ tbl.1 }}</p>
-                                    {% endif %}
-                                </th>
-                            {% else %}
-                                <th>
-                                    <a
-                                        class="sort-icon is-{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}desc{% elseif sort.current_sort|default(false) and sort.current_sort == (tbl.0~'__up') %}asc{% else %}both{% endif %}"
-                                        href="{{ path('administrator_operations') ~ sort.sort_link ~ tbl.0 }}{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}__up{% endif %}"
-                                    ></a>
-                                    <p class="th-name"> {{ tbl.1 }}</p>
-                                </th>
-                            {% endif %}
+                            <th>
+                                <div class="th-name">
+                                    <div class="sort-name-wrap">
+                                        {#                                            <span class="drag-icon" title="Переместить колонку {{ tbl['header'] }}"></span>#}
+                                        <span class="name-text">{{ tbl['header'] }}</span>
+                                    </div>
+
+                                    <div class="filter-sort-wrap">
+                                        {% if tbl['sort'] == true %}
+                                            <a title="Сортировка по значению ({{ tbl['header'] }})"
+                                               class="sort-icon is-{% if sort.current_sort|default(false) and sort.current_sort == tbl['name'] %}desc{% elseif sort.current_sort|default(false) and sort.current_sort == (tbl['name']~'__up') %}asc{% else %}both{% endif %}"
+                                               href="{{ path('administrator_operations') ~ sort.sort_link ~ tbl['name'] }}{% if sort.current_sort|default(false) and sort.current_sort == tbl['name'] %}__up{% endif %}"
+                                            ></a>
+                                        {% endif %}
+
+                                        {% if tbl['filter'] == true %}
+                                            <button type="button"
+                                                    title="Фильтрация по значению ({{ tbl['header'] }})"
+                                                    class="table-filter-btn"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#filterModal-{{ loop.index }}">
+                                                <svg viewBox="64 64 896 896" focusable="false" data-icon="filter"
+                                                     width="1em" height="1em" fill="currentColor"
+                                                     aria-hidden="true">
+                                                    <path
+                                                        d="M349 838c0 17.7 14.2 32 31.8 32h262.4c17.6 0 31.8-14.3 31.8-32V642H349v196zm531.1-684H143.9c-24.5 0-39.8 26.7-27.5 48l221.3 376h348.8l221.3-376c12.1-21.3-3.2-48-27.7-48z"></path>
+                                                </svg>
+                                            </button>
+                                            <div class="modal fade" id="filterModal-{{ loop.index }}" tabindex="-1"
+                                                 aria-labelledby="filterModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="filter-modal-title" id="filterModalLabel">
+                                                                Фильтрация
+                                                                по значению ({{ tbl['header'] }})</h5>
+                                                            <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal"
+                                                                    aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            {% if tbl['type'] == 'string' %}
+                                                                {% include 'block/filter/table_string.html.twig' with {
+                                                                    'field': tbl['name']
+                                                                } %}
+                                                            {% elseif tbl['type'] == 'date' %}
+                                                                {% include 'block/filter/table_date.html.twig' with {
+                                                                    'field': tbl['name']
+                                                                } %}
+                                                            {% elseif tbl['type'] == 'int' %}
+                                                                {% include 'block/filter/table_int.html.twig' with {
+                                                                    'field': tbl['name']
+                                                                } %}
+                                                            {% endif %}
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-primary">
+                                                                Фильтровать
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+
+                                    </div>
+                                </div>
+                            </th>
                         {% endif %}
                     {% endif %}
                 {% endfor %}
             {% endif %}
-
         </tr>
         </thead>
         <tbody>
-
-        {% for operations in data %}
-            <tr data-string="{{ operations.id }}" class="user-table-row {% if loop.first %}is-selected{% endif %}">
-                <td>
-                    {{ operations.group|default(false)}}
-                </td>
-                <td>
-                    {{ operations.name|default(false)}}
-                </td>
-                <td>
-                    {{ operations.comment|default(false)}}
-                </td>
-                <td>
-                    {{ operations.code|default(false)}}
-                </td>
-            </tr>
-        {% endfor %}
+        {% if data|default(false) %}
+            {% for dat in data %}
+                <tr data-string="{{ dat.id }}" class="user-table-row {% if loop.first %}is-selected{% endif %}">
+                    {% for tbl in table %}
+                        {% if tbl['show'] == true %}
+                            {% if tbl.type == 'bool' %}
+                                <td><span class="badge {% if dat[tbl.name]|default(false) %} bg-success {% else %} bg-danger {% endif %} "></span></td>
+                            {% elseif tbl.type == 'date' %}
+                                <td class="text-center">{{ dat[tbl.name]|date("d.m.Y") }}</td>
+                            {% elseif tbl.type == 'int' %}
+                                <td class="text-center">{{ dat[tbl.name]|default(false)|raw }} </td>
+                            {% else %}
+                                <td>{{ dat[tbl.name]|default(false)|raw }} </td>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        {% endif %}
         </tbody>
     </table>
 </div>
-{% endif %}
-
-<div class="card-footer d-flex align-items-center">
-    <p class="m-0 text-muted"><b>{{ pager.count_all_position }}</b> результатов</p>
-    {% if pager.count_page|default(false) and pager.count_page > 1 %}
-        <ul class="pagination m-0 ms-auto">
-            <li class="page-item">
-                <a class="page-link" href="{{ path('administrator_operations') ~ pager.paginator_link ~ '1' }}" tabindex="-1">
-                    <!-- Download SVG icon from http://tabler-icons.io/i/chevron-left -->
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24"
-                         height="24" viewBox="0 0 24 24" stroke-width="2"
-                         stroke="currentColor" fill="none" stroke-linecap="round"
-                         stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                        <polyline points="15 6 9 12 15 18"/>
-                    </svg>
-                </a>
-            </li>
-
-            {% if pager.count_page > 8 %}
-                {% set start = 1 %}
-                {% if pager.current_page|default(false) %}
-                    {% set start = pager.current_page %}
-                {% endif %}
-                {% if start > 1 %}
-                    {% set start = start - 1 %}
-                {% endif %}
-                {% if pager.current_page > (pager.count_page - 5) %}
-                    {% set start = pager.count_page - 5 %}
-                {% endif %}
-
-                {% for page in start..pager.count_page %}
-                    {% if loop.index < 8 %}
-                        <li class="page-item {% if (page == pager.current_page) or (page == 1 and pager.current_page|default(false) == false) %}active{% endif %}">
-                            <a class="page-link" href="{{ path('administrator_operations') ~ pager.paginator_link ~ page }}">
-                                {{ page }}
-                            </a>
-                        </li>
-                    {% endif %}
-                {% endfor %}
-            {% else %}
-                {% for page in 1..pager.count_page %}
-                    {% if (page == pager.current_page) or (page == 1 and pager.current_page|default(false) == false) %}
-                        <li class="page-item active"><a
-                                data-ajax="{{ path('administrator_operations') ~ pager.paginator_link ~ page }}&ajax=true"
-                                class="page-link"
-                                href="{{ path('administrator_operations') ~ pager.paginator_link ~ page }}">{{ page }}</a>
-                        </li>
-                    {% else %}
-                        <li class="page-item"><a class="page-link"
-                                                 href="{{ path('administrator_operations') ~ pager.paginator_link ~ page }}">{{ page }}</a>
-                        </li>
-                    {% endif %}
-                {% endfor %}
-            {% endif %}
-
-            <li class="page-item">
-                <a class="page-link" href="{{ path('administrator_operations') ~ pager.paginator_link ~ pager.count_page }}">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24"
-                         height="24" viewBox="0 0 24 24" stroke-width="2"
-                         stroke="currentColor" fill="none" stroke-linecap="round"
-                         stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                        <polyline points="9 6 15 12 9 18"/>
-                    </svg>
-                </a>
-            </li>
-        </ul>
-    {% endif %}
-
-</div>
+{% include 'block/paginator.html.twig' with {
+    'path': path('administrator_operations')
+} %}
