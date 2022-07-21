@@ -33,10 +33,38 @@ class AdministratorOperationsController extends AbstractController
     private function setTable()
     {
         return [
-            ['group', 'Группа', 'string', true],
-            ['name', 'Название', 'string', true],
-            ['comment', 'Комментарий', 'string', true],
-            ['code', 'Код операции', 'string', true]
+            [
+                'name' => 'group',
+                'header' => 'Группа',
+                'type' => 'string',
+                'filter' => true,
+                'show' => true,
+                'sort' => true
+            ],
+            [
+                'name' => 'name',
+                'header' => 'Название',
+                'type' => 'string',
+                'filter' => true,
+                'show' => true,
+                'sort' => true
+            ],
+            [
+                'name' => 'comment',
+                'header' => 'Комментарий',
+                'type' => 'string',
+                'filter' => true,
+                'show' => true,
+                'sort' => true
+            ],
+            [
+                'name' => 'code',
+                'header' => 'Код операции',
+                'type' => 'string',
+                'filter' => true,
+                'show' => true,
+                'sort' => true
+            ],
         ];
     }
 
@@ -100,7 +128,7 @@ class AdministratorOperationsController extends AbstractController
 
         $dataRow = [];
         foreach ($this->setTable() as $tbl) {
-            $dataRow[] = $tbl[1];
+            $dataRow[] = $tbl['header'];
         }
 
         $data[] = $dataRow;

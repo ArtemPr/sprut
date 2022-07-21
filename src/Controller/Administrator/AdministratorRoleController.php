@@ -33,9 +33,38 @@ class AdministratorRoleController extends AbstractController
     private function setTable()
     {
         return [
-            ['roles_alt', 'Идентификатор', 'string', true],
-            ['name', 'Название', 'string', true],
-            ['comment', 'Комментарий', 'string', true],
+            [
+                'name' => 'active',
+                'header' => '',
+                'type' => 'bool',
+                'filter' => false,
+                'show' => true,
+                'sort' => false
+            ],
+            [
+                'name' => 'roles_alt',
+                'header' => 'Идентификатор',
+                'type' => 'string',
+                'filter' => true,
+                'show' => true,
+                'sort' => true
+            ],
+            [
+                'name' => 'name',
+                'header' => 'Название',
+                'type' => 'string',
+                'filter' => true,
+                'show' => true,
+                'sort' => true
+            ],
+            [
+                'name' => 'comment',
+                'header' => 'Комментарий',
+                'type' => 'string',
+                'filter' => false,
+                'show' => true,
+                'sort' => false
+            ],
         ];
     }
 
@@ -57,8 +86,9 @@ class AdministratorRoleController extends AbstractController
         $page = $page ?? 1;
 
         return [
-            'role_list' => $result,
+            'data' => $result,
             'search' => $search,
+            'controller' => 'role',
             'pager' => [
                 'count_all_position' => $count,
                 'current_page' => $page,
@@ -100,12 +130,13 @@ class AdministratorRoleController extends AbstractController
 
         $dataRow = [];
         foreach ($this->setTable() as $tbl) {
-            $dataRow[] = $tbl[1];
+            if(!empty($tbl['header']))
+                $dataRow[] = $tbl['header'];
         }
 
         $data[] = $dataRow;
 
-        foreach ($result['role_list'] as $val) {
+        foreach ($result['data'] as $val) {
             $data[] = [
                 $val['roles_alt'],
                 $val['name'],
