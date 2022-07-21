@@ -27,7 +27,6 @@ class AntiplagiatController extends BaseController implements BaseInterface
         $on_page = $this->get_data['on_page'] ?? 25;
         $sort = $this->get_data['sort'] ?? null;
         $search = $this->get_data['search'] ?? null;
-
         if (false === $full) {
             $data = $this->managerRegistry->getRepository(Antiplagiat::class)->getList($page, $on_page, $sort, $search);
             $count = $this->managerRegistry->getRepository(Antiplagiat::class)->getListAll($page, $on_page, $sort, $search);
@@ -35,7 +34,6 @@ class AntiplagiatController extends BaseController implements BaseInterface
             $data = $this->managerRegistry->getRepository(Antiplagiat::class)->getList(0, 9999999999, $sort, $search);
             $count = $this->managerRegistry->getRepository(Antiplagiat::class)->getListAll(0, 9999999999, $sort, $search);
         }
-
         return [
             'data' => $data,
             'statuses' => $this->getActualStatuses(),
@@ -66,14 +64,11 @@ class AntiplagiatController extends BaseController implements BaseInterface
         if (!is_array($auth)) {
             return $auth;
         }
-
         $tpl = !empty($this->request->get('ajax'))
             ? 'services/antiplagiat/table.html.twig'
             : 'services/antiplagiat/index.html.twig';
-
         $result = $this->get();
         $result['auth'] = $auth;
-
         return $this->render($tpl,
             $result,
         );
@@ -84,14 +79,11 @@ class AntiplagiatController extends BaseController implements BaseInterface
     {
         $result = $this->get(true);
         $data = [];
-
         $dataRow = [];
         foreach ($this->setTable() as $tbl) {
-            $dataRow[] = $tbl[1];
+            $dataRow[] = $tbl['name'];
         }
-
         $data[] = $dataRow;
-
         if (!empty($result['data'])) {
             foreach ($result['data'] as $val) {
                 $data[] = [
@@ -108,7 +100,6 @@ class AntiplagiatController extends BaseController implements BaseInterface
                 ];
             }
         }
-
         return $this->processCSV($data, 'antiplagiat.csv');
     }
 
@@ -117,7 +108,6 @@ class AntiplagiatController extends BaseController implements BaseInterface
     {
         $disciplines = $this->managerRegistry->getRepository(Discipline::class)->getList(0, 9999999999);
         $data_out = $this->managerRegistry->getRepository(Antiplagiat::class)->get($id);
-
         return $this->render(
             'services/antiplagiat/form/update_form.html.twig',
             [
@@ -131,16 +121,86 @@ class AntiplagiatController extends BaseController implements BaseInterface
     private function setTable(): array
     {
         return [
-            ['status', '', 'string', true],
-            ['file', 'Файл', 'string', true],
-            ['discipline', 'Дисциплина', 'string', true],
-            ['size', 'Размер', 'string', true],
-            ['author', 'Загрузил', 'string', true],
-            ['data_create', 'Создано', 'string', true],
-            ['comment', 'Комментарий', 'string', true],
-            ['plagiat_percent', 'Заимствования', 'string', true],
-            ['result_file', 'PDF', 'string', true],
-            ['result_date', 'Проверено', 'string', true],
+            [
+                'name' => 'status',
+                'header' => '',
+                'type' => 'string',
+                'filter' => true,
+                'show' => true,
+                'sort' => false,
+            ],
+            [
+                'name' => 'file',
+                'header' => 'Файл',
+                'type' => 'string',
+                'filter' => false,
+                'show' => true,
+                'sort' => true,
+            ],
+            [
+                'name' => 'discipline',
+                'header' => 'Дисциплина',
+                'type' => 'string',
+                'filter' => false,
+                'show' => true,
+                'sort' => true,
+            ],
+            [
+                'name' => 'size',
+                'header' => 'Размер',
+                'type' => 'string',
+                'filter' => false,
+                'show' => true,
+                'sort' => true,
+            ],
+            [
+                'name' => 'author',
+                'header' => 'Загрузил',
+                'type' => 'string',
+                'filter' => false,
+                'show' => true,
+                'sort' => true,
+            ],
+            [
+                'name' => 'data_create',
+                'header' => 'Создано',
+                'type' => 'string',
+                'filter' => false,
+                'show' => true,
+                'sort' => true,
+            ],
+            [
+                'name' => 'comment',
+                'header' => 'Комментарий',
+                'type' => 'string',
+                'filter' => false,
+                'show' => true,
+                'sort' => true,
+            ],
+            [
+                'name' => 'plagiat_percent',
+                'header' => 'Заимствования',
+                'type' => 'string',
+                'filter' => false,
+                'show' => true,
+                'sort' => false,
+            ],
+            [
+                'name' => 'result_file',
+                'header' => 'PDF',
+                'type' => 'string',
+                'filter' => false,
+                'show' => true,
+                'sort' => true,
+            ],
+            [
+                'name' => 'result_date',
+                'header' => 'Проверено',
+                'type' => 'string',
+                'filter' => false,
+                'show' => true,
+                'sort' => true,
+            ],
         ];
     }
 
