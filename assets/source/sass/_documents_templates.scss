@@ -1,0 +1,15 @@
+/*!
+ * Created AptPr <prudishew@yandex.ru> 2022.
+ */
+
+.table-comments--documents {
+margin-left: 20px;
+}
+
+.documents__download-link {
+  &:hover {
+    svg {
+      stroke: #1a91da;
+    }
+  }
+}
