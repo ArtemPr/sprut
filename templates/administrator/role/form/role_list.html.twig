@@ -314,6 +314,21 @@
                            class="form-check-input js-checkbox-scope"/>{{ operations.api_edit }}
                 </label>
             </li>
+
+
+            <li class="js-check-scope-container" data-level="2" data-scope-for="repo:status">
+                <label class="hierarchy__scope">
+                    <input type="checkbox" name="role[auth_document_templates]" value="1"
+                        {% if data.auth_list|default(false) %}
+                            {% if data.auth_list['auth_document_templates']|default(false) %}
+                                checked
+                            {% endif %}
+                        {% endif %}
+                           class="form-check-input js-checkbox-scope"/>{{ operations.auth_document_templates }}
+                </label>
+            </li>
+
+
         </ul>
 
     </li>
