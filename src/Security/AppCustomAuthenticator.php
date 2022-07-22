@@ -76,13 +76,7 @@ class AppCustomAuthenticator extends AbstractLoginFormAuthenticator
         }
 
 
-        $last_page = $token->getUser()->getLastPage();
-        if  (!empty($last_page)) {
-            $url = $_SERVER['HTTP_HOST'] . $last_page;
-            return new RedirectResponse($url, 302);
-        } else {
-            return new RedirectResponse($this->urlGenerator->generate('main'));
-        }
+        return new RedirectResponse($this->urlGenerator->generate('main'));
     }
 
     /**

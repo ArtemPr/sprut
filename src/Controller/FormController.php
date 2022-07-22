@@ -49,7 +49,7 @@ class FormController extends AbstractController
         return $administratorOperationsController->getOperationsForm($id);
     }
 
-    #[Route('/user_edit/{id}', name: 'user_edit')]
+    #[Route('/AdminUser_edit/{id}', name: 'user_edit')]
     public function getUserForm($id, AdministratorUserController $administratorUserController) : Response
     {
         return $administratorUserController->getUserForm($id);
