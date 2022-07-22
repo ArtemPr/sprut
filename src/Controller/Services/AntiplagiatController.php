@@ -10,10 +10,13 @@ use App\Controller\BaseInterface;
 use App\Entity\Antiplagiat;
 use App\Entity\Discipline;
 use App\Repository\AntiplagiatRepository;
+use App\Service\AntiplagiatAPI;
 use App\Service\AuthService;
 use App\Service\CSVHelper;
 use App\Service\LinkService;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 class AntiplagiatController extends BaseController implements BaseInterface
 {
@@ -21,12 +24,20 @@ class AntiplagiatController extends BaseController implements BaseInterface
     use LinkService;
     use CSVHelper;
 
+    public function __construct(ManagerRegistry $managerRegistry, Security $security, AntiplagiatAPI $antiplagiatAPI)
+    {
+        parent::__construct($managerRegistry, $security);
+        $this->security = $security;
+        $this->antiplagiatAPI = $antiplagiatAPI;
+    }
+
     public function get(bool $full = false)
     {
         $page = $this->get_data['page'] ?? null;
         $on_page = $this->get_data['on_page'] ?? 25;
         $sort = $this->get_data['sort'] ?? null;
         $search = $this->get_data['search'] ?? null;
+
         if (false === $full) {
             $data = $this->managerRegistry->getRepository(Antiplagiat::class)->getList($page, $on_page, $sort, $search);
             $count = $this->managerRegistry->getRepository(Antiplagiat::class)->getListAll($page, $on_page, $sort, $search);
@@ -34,6 +45,7 @@ class AntiplagiatController extends BaseController implements BaseInterface
             $data = $this->managerRegistry->getRepository(Antiplagiat::class)->getList(0, 9999999999, $sort, $search);
             $count = $this->managerRegistry->getRepository(Antiplagiat::class)->getListAll(0, 9999999999, $sort, $search);
         }
+
         return [
             'data' => $data,
             'statuses' => $this->getActualStatuses(),
@@ -64,11 +76,21 @@ class AntiplagiatController extends BaseController implements BaseInterface
         if (!is_array($auth)) {
             return $auth;
         }
+
         $tpl = !empty($this->request->get('ajax'))
             ? 'services/antiplagiat/table.html.twig'
             : 'services/antiplagiat/index.html.twig';
+
         $result = $this->get();
         $result['auth'] = $auth;
+
+        $tarif = $this->antiplagiatAPI->getTariffInfo();
+        $result['tarif'] = [
+            'check_left' => null == $tarif['remained_checks_count'] ? '&infin;' : $tarif['remained_checks_count'],
+            'check_total' => null == $tarif['total_checks_count'] ? '&infin;' : $tarif['total_checks_count'],
+            'check_expired' => $tarif['expiration_date'],
+        ];
+
         return $this->render($tpl,
             $result,
         );
@@ -79,11 +101,14 @@ class AntiplagiatController extends BaseController implements BaseInterface
     {
         $result = $this->get(true);
         $data = [];
+
         $dataRow = [];
         foreach ($this->setTable() as $tbl) {
             $dataRow[] = $tbl['name'];
         }
+
         $data[] = $dataRow;
+
         if (!empty($result['data'])) {
             foreach ($result['data'] as $val) {
                 $data[] = [
@@ -100,6 +125,7 @@ class AntiplagiatController extends BaseController implements BaseInterface
                 ];
             }
         }
+
         return $this->processCSV($data, 'antiplagiat.csv');
     }
 
@@ -108,6 +134,7 @@ class AntiplagiatController extends BaseController implements BaseInterface
     {
         $disciplines = $this->managerRegistry->getRepository(Discipline::class)->getList(0, 9999999999);
         $data_out = $this->managerRegistry->getRepository(Antiplagiat::class)->get($id);
+
         return $this->render(
             'services/antiplagiat/form/update_form.html.twig',
             [
@@ -147,7 +174,7 @@ class AntiplagiatController extends BaseController implements BaseInterface
             ],
             [
                 'name' => 'size',
-                'header' => 'Размер',
+                'header' => 'Размер, кб',
                 'type' => 'string',
                 'filter' => false,
                 'show' => true,
@@ -179,7 +206,7 @@ class AntiplagiatController extends BaseController implements BaseInterface
             ],
             [
                 'name' => 'plagiat_percent',
-                'header' => 'Заимствования',
+                'header' => 'Заимствования, %',
                 'type' => 'string',
                 'filter' => false,
                 'show' => true,

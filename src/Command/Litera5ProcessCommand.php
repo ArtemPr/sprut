@@ -5,8 +5,10 @@
 
 namespace App\Command;
 
+use App\Entity\Litera;
+use App\Repository\LiteraRepository;
 use App\Service\Litera5API;
-use App\Service\Litera5Helper;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -21,6 +23,8 @@ class Litera5ProcessCommand extends Command
     protected string $projectDir;
 
     public function __construct(
+        private LiteraRepository $literaRepository,
+        private readonly ManagerRegistry $doctrine,
         protected Litera5API $litera5API,
         protected KernelInterface $appKernel
     ) {
@@ -47,6 +51,29 @@ class Litera5ProcessCommand extends Command
 
         if (!is_numeric($itemId)) {
             throw new \InvalidArgumentException('[E] id must be a number!', Command::INVALID);
+        }
+
+        if (!empty($itemId)) {
+            $itemRow = $this->doctrine->getRepository(Litera::class)->find(['id' => $itemId]);
+        } else {
+            $qb = $this->doctrine->getRepository(Litera::class)
+                ->createQueryBuilder('lit')
+                ->where('lit.status IN (1, 2)')
+                ->orderBy('lit.data_create')
+                ->setMaxResults(1)
+            ;
+            $query = $qb->getQuery();
+            $itemRow = $query->execute(
+                hydrationMode: Query::HYDRATE_OBJECT
+            );
+
+            if (!empty($itemRow)) {
+                $itemRow = $itemRow[0];
+            }
+        }
+
+        if (empty($itemRow)) {
+            throw new \Exception('[E] Item is not found!');
         }
 
         $result = $this->litera5API->setCheck([
