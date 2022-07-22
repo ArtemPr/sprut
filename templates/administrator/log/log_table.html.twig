@@ -54,7 +54,7 @@
                             {% elseif tbl.type == 'int' %}
                                 <td class="text-center">{{ dat[tbl.name]|default(false)|raw }} </td>
                             {% elseif tbl.name == 'user_loger.fullname' %}
-                                <td>{{ dat.user_loger.username}} {{dat.user_loger.surname|first}}.{{dat.user_loger.patronymic|first}}. </td>
+                                <td>{{ dat.user_loger.fullname}}</td>
                             {% elseif tbl.name == 'user_loger.email' %}
                                 <td class="">{{ dat.user_loger.email|default(false)|raw }} </td>
                             {% elseif tbl.name == 'action' %}
