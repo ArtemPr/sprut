@@ -34,7 +34,7 @@ class AdministratorRoleController extends AbstractController
     {
         return [
             [
-                'name' => 'active',
+                'name' => 'activity',
                 'header' => '',
                 'type' => 'bool',
                 'filter' => false,

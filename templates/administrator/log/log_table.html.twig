@@ -4,30 +4,37 @@
         <tr>
             {% if table|default(false) %}
                 {% for tbl in table %}
-                    {% if tbl.3 == true %}
-                        {% if tbl.1 == '' %}
+                    {% if tbl['show'] == true %}
+                        {% if tbl['header'] == '' %}
                             <th></th>
                         {% else %}
-                            {% if loop.first == 1 %}
-                                <th>
-                                    <a
-                                        class="sort-icon is-{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}desc{% elseif sort.current_sort|default(false) and sort.current_sort == (tbl.0~'__up') %}asc{% elseif sort.current_sort|default(false) == false %}asc{% else %}both{% endif %}"
-                                        href="{{ path('administrator_log') ~ sort.sort_link ~ tbl.0 }}{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}__up{% endif %}"></a>
-                                    {% if  tbl.1  == 'ID' %}
-                                        <p class="th-name id-name">{{ tbl.1 }}</p>
-                                    {% else %}
-                                        <p class="th-name">{{ tbl.1 }}</p>
-                                    {% endif %}
-                                </th>
-                            {% else %}
-                                <th>
-                                    <a
-                                        class="sort-icon is-{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}desc{% elseif sort.current_sort|default(false) and sort.current_sort == (tbl.0~'__up') %}asc{% else %}both{% endif %}"
-                                        href="{{ path('administrator_log') ~ sort.sort_link ~ tbl.0 }}{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}__up{% endif %}"
-                                    ></a>
-                                    <p class="th-name"> {{ tbl.1 }}</p>
-                                </th>
-                            {% endif %}
+                            <th>
+                                <div class="th-name">
+                                    <div class="sort-name-wrap">
+                                        {#                                            <span class="drag-icon" title="Переместить колонку {{ tbl['header'] }}"></span>#}
+                                        <span class="name-text">{{ tbl['header'] }}</span>
+                                    </div>
+
+                                    <div class="filter-sort-wrap">
+                                        {% if tbl['sort'] == true %}
+                                            <a title="Сортировка по значению ({{ tbl['header'] }})"
+                                               class="sort-icon is-{% if sort.current_sort|default(false) and sort.current_sort == tbl['name'] %}desc{% elseif sort.current_sort|default(false) and sort.current_sort == (tbl['name']~'__up') %}asc{% else %}both{% endif %}"
+                                               href="{{ path('administrator_log') ~ sort.sort_link ~ tbl['name'] }}{% if sort.current_sort|default(false) and sort.current_sort == tbl['name'] %}__up{% endif %}"
+                                            ></a>
+                                        {% endif %}
+
+                                        {% if tbl['filter'] == true %}
+                                            {% include 'administrator/block/block_filter.html.twig' with {
+                                                'columnIndex': loop.index,
+                                                'columnHeader': tbl['header'],
+                                                'columnName': tbl['name'],
+                                                'columnType': tbl['type'],
+                                            } %}
+                                        {% endif %}
+
+                                    </div>
+                                </div>
+                            </th>
                         {% endif %}
                     {% endif %}
                 {% endfor %}
@@ -35,94 +42,36 @@
         </tr>
         </thead>
         <tbody>
-        {% if data|default(false) %} {% for dat in data %}
-            <tr class="user-table-row">
-                <td> {{ dat.chapter }} </td>
-                <td> Администрирование </td>
-                <td>{{ data_action[dat.action]}}</td>
-                <td>{{ dat.user_loger.username}} {{dat.user_loger.surname|first}}.{{dat.user_loger.patronymic|first}}. </td>
-                <td>{{ dat.user_loger.email}}</td>
-                <td>{{ dat.ip }}</td>
-                <td>{{ dat.time|date('d/m/Y H:i:s') }}</td>
-                <td>{{ dat.comment }}</td>
-                <td class="hidden-cell"> <input class="selected-checkbox" type="checkbox" name="#" checked> </td> </tr>
-        {% endfor %}
+        {% if data|default(false) %}
+            {% for dat in data %}
+                <tr data-string="{{ dat.id }}" class="user-table-row {% if loop.first %}is-selected{% endif %}">
+                    {% for tbl in table %}
+                        {% if tbl['show'] == true %}
+                            {% if tbl.type == 'bool' %}
+                                <td><span class="badge {% if dat[tbl.name]|default(false) %} bg-success {% else %} bg-danger {% endif %} "></span></td>
+                            {% elseif tbl.type == 'date' %}
+                                <td class="text-center">{{ dat[tbl.name]|date("d.m.Y H:i:s") }}</td>
+                            {% elseif tbl.type == 'int' %}
+                                <td class="text-center">{{ dat[tbl.name]|default(false)|raw }} </td>
+                            {% elseif tbl.name == 'user_loger.fullname' %}
+                                <td>{{ dat.user_loger.username}} {{dat.user_loger.surname|first}}.{{dat.user_loger.patronymic|first}}. </td>
+                            {% elseif tbl.name == 'user_loger.email' %}
+                                <td class="">{{ dat.user_loger.email|default(false)|raw }} </td>
+                            {% elseif tbl.name == 'action' %}
+                                <td class="">{{ data_action[dat.action]|default(false)|raw }} </td>
+                            {% elseif tbl.name == 'type' %}
+                                <td> Администрирование </td>
+                            {% else %}
+                                <td>{{ dat[tbl.name]|default(false)|raw }} </td>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+            {% endfor %}
         {% endif %}
         </tbody>
     </table>
 </div>
-
-
-<div class="card-footer d-flex align-items-center">
-    <p class="m-0 text-muted"><b>{{ pager.count_all_position }}</b> результатов</p>
-    {% if pager.count_page|default(false) and pager.count_page > 1 %}
-        <ul class="pagination m-0 ms-auto">
-            <li class="page-item">
-                <a class="page-link" href="{{ path('administrator_log') ~ pager.paginator_link ~ '1' }}" tabindex="-1">
-                    <!-- Download SVG icon from http://tabler-icons.io/i/chevron-left -->
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24"
-                         height="24" viewBox="0 0 24 24" stroke-width="2"
-                         stroke="currentColor" fill="none" stroke-linecap="round"
-                         stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                        <polyline points="15 6 9 12 15 18"/>
-                    </svg>
-                </a>
-            </li>
-
-            {% if pager.count_page > 8 %}
-                {% set start = 1 %}
-                {% if pager.current_page|default(false) %}
-                    {% set start = pager.current_page %}
-                {% endif %}
-                {% if start > 1 %}
-                    {% set start = start - 1 %}
-                {% endif %}
-
-
-                {% if pager.current_page > (pager.count_page - 5) %}
-                    {% set start = pager.count_page - 5 %}
-                {% endif %}
-
-                {% for page in start..pager.count_page %}
-                    {% if loop.index < 8 %}
-                        <li class="page-item {% if (page == pager.current_page) or (page == 1 and pager.current_page|default(false) == false) %}active{% endif %}">
-                            <a class="page-link" href="{{ path('administrator_log') ~ pager.paginator_link ~ page }}">
-                                {{ page }}
-                            </a>
-                        </li>
-                    {% endif %}
-                {% endfor %}
-            {% else %}
-                {% for page in 1..pager.count_page %}
-                    {% if (page == pager.current_page) or (page == 1 and pager.current_page|default(false) == false) %}
-                        <li class="page-item active"><a
-                                data-ajax="{{ path('administrator_log') ~ pager.paginator_link ~ page }}&ajax=true"
-                                class="page-link"
-                                href="{{ path('administrator_log') ~ pager.paginator_link ~ page }}">{{ page }}</a>
-                        </li>
-                    {% else %}
-                        <li class="page-item"><a class="page-link"
-                                                 href="{{ path('administrator_log') ~ pager.paginator_link ~ page }}">{{ page }}</a>
-                        </li>
-                    {% endif %}
-                {% endfor %}
-            {% endif %}
-
-
-
-            <li class="page-item">
-                <a class="page-link" href="{{ path('administrator_log') ~ pager.paginator_link ~ pager.count_page }}">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24"
-                         height="24" viewBox="0 0 24 24" stroke-width="2"
-                         stroke="currentColor" fill="none" stroke-linecap="round"
-                         stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                        <polyline points="9 6 15 12 9 18"/>
-                    </svg>
-                </a>
-            </li>
-        </ul>
-    {% endif %}
-
-</div>
+{% include 'block/paginator.html.twig' with {
+    'path': path('administrator_log')
+} %}

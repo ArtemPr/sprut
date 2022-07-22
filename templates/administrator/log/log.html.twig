@@ -24,13 +24,18 @@
                                     'close_create': true,
                                     'controller': 'log',
                                     'path': path('administrator_log'),
-                                    'add_csv': path('administrator_log') ~ '_csv' ~ csv_link
+                                    'add_csv': path('administrator_log') ~ '_csv' ~ csv_link,
+                                    'table': table
                                 } %}
                                 <div class="ajax-table">
                                     {% include '/administrator/log/log_table.html.twig' %}
                                 </div>
                             </div>
                             <div id="userEditingOverlay" class="offcanvas-backdrop fade"></div>
+
+                            <div id="logViewPanel" data-action="view" class="user-form-panel offcanvas offcanvas-end modal-large" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                                <img src="{{ absolute_url('/assets/images/loading--big.gif') }}" style="position: absolute; top: 10%; left: 50%; margin-left: -75px;">
+                            </div>
                         </div>
                     </div>
                 </div>
