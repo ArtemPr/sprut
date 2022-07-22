@@ -36,7 +36,8 @@ class DocumentsController extends BaseController implements BaseInterface
                 [
                     'active' => true,
                     'id' => '1',
-                    'name' => 'Name',
+                    'template_name' => 'template 1',
+                    'file_name' => 'file 1',
                     'link' => 'http://axiomabio.com/pdf/test.pdf',
                     'comment' => 'lorem ipsum',
                     'date_create' => '20.12.2021',
@@ -45,7 +46,8 @@ class DocumentsController extends BaseController implements BaseInterface
                 [
                     'active' => false,
                     'id' => '2',
-                    'name' => 'Name2',
+                    'template_name' => 'template 2',
+                    'file_name' => 'file 2',
                     'link' => 'https://tablericons.com/',
                     'comment' => 'lorem ipsum dolorem',
                     'date_create' => '15.12.2021',
@@ -82,8 +84,16 @@ class DocumentsController extends BaseController implements BaseInterface
                 'sort' => false
             ],
             [
-                'name' => 'name',
+                'name' => 'template_name',
                 'header' => 'Название шаблона',
+                'type' => 'string',
+                'filter' => true,
+                'show' => true,
+                'sort' => false
+            ],
+            [
+                'name' => 'file_name',
+                'header' => 'Название файла',
                 'type' => 'string',
                 'filter' => true,
                 'show' => true,
@@ -115,7 +125,7 @@ class DocumentsController extends BaseController implements BaseInterface
             ],
             [
                 'name' => 'author',
-                'header' => 'Кто разместил',
+                'header' => 'Разместил',
                 'type' => 'string',
                 'filter' => true,
                 'show' => true,
