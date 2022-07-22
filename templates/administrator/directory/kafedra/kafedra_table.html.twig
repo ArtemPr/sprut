@@ -49,21 +49,33 @@
             {% for dat in data %}
 
                 <tr data-string="{{ dat.id }}" data-type="kafedra" class="user-table-row {% if loop.first %}is-selected{% endif %}">
-                    <td>
-                        {{ dat['id']|default(false) }}
-                    </td>
-                    <td>
-                        {{ dat['training_centre']['name']|default(false) }}
-                    </td>
-                    <td>
-                        {{ dat['name']|default(false) }}
-                    </td>
-                    <td>
-                        {{ dat['director']['username']|default(false) }}
-                    </td>
-                    <td>
-                        {{ dat['director']['email']|default(false) }}
-                    </td>
+                    {% for tbl in table %}
+                        {% if tbl['show'] == true %}
+                            {% if tbl.name == 'training_centre.name' %}
+                                <td>
+                                    {{ dat['training_centre']['name']|default(false) }}
+                                </td>
+                            {% elseif tbl.name == 'director.username' %}
+                                <td>
+                                    {{ dat['director']['username']|default(false) }}
+                                </td>
+                            {% elseif tbl.name == 'director.email' %}
+                                <td>
+                                    {{ dat['director']['email']|default(false) }}
+                                </td>
+                            {% else %}
+                                {% if tbl.type == 'bool' %}
+                                    <td><span class="badge {% if dat[tbl.name]|default(false) %} bg-success {% else %} bg-danger {% endif %} "></span></td>
+                                {% elseif tbl.type == 'date' %}
+                                    <td class="text-center">{{ dat[tbl.name]|date("d.m.Y") }}</td>
+                                {% elseif tbl.type == 'int' %}
+                                    <td class="text-center">{{ dat[tbl.name]|default(false)|raw }} </td>
+                                {% else %}
+                                    <td>{{ dat[tbl.name]|default(false)|raw }} </td>
+                                {% endif %}
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
                 </tr>
             {% endfor %}
         {% endif %}
