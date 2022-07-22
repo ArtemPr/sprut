@@ -90,7 +90,7 @@ class LiteraController extends BaseController implements BaseInterface
                 'type' => 'string',
                 'filter' => true,
                 'show' => true,
-                'sort' => false,
+                'sort' => true,
             ],
             [
                 'name' => 'file',
@@ -98,7 +98,7 @@ class LiteraController extends BaseController implements BaseInterface
                 'type' => 'string',
                 'filter' => true,
                 'show' => true,
-                'sort' => false,
+                'sort' => true,
             ],
             [
                 'name' => 'discipline',
@@ -106,7 +106,7 @@ class LiteraController extends BaseController implements BaseInterface
                 'type' => 'string',
                 'filter' => true,
                 'show' => true,
-                'sort' => false,
+                'sort' => true,
             ],
             [
                 'name' => 'size',
@@ -114,7 +114,7 @@ class LiteraController extends BaseController implements BaseInterface
                 'type' => 'string',
                 'filter' => true,
                 'show' => true,
-                'sort' => false,
+                'sort' => true,
             ],
             [
                 'name' => 'author',
@@ -122,7 +122,7 @@ class LiteraController extends BaseController implements BaseInterface
                 'type' => 'string',
                 'filter' => true,
                 'show' => true,
-                'sort' => false,
+                'sort' => true,
             ],
             [
                 'name' => 'data_create',
@@ -130,7 +130,7 @@ class LiteraController extends BaseController implements BaseInterface
                 'type' => 'string',
                 'filter' => true,
                 'show' => true,
-                'sort' => false,
+                'sort' => true,
             ],
             [
                 'name' => 'comment',
@@ -138,7 +138,7 @@ class LiteraController extends BaseController implements BaseInterface
                 'type' => 'string',
                 'filter' => true,
                 'show' => true,
-                'sort' => false,
+                'sort' => true,
             ],
             [
                 'name' => 'result_date',
@@ -146,7 +146,7 @@ class LiteraController extends BaseController implements BaseInterface
                 'type' => 'string',
                 'filter' => true,
                 'show' => true,
-                'sort' => false,
+                'sort' => true,
             ],
         ];
     }
