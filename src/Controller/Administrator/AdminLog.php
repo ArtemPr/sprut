@@ -89,13 +89,12 @@ class AdminLog extends BaseController implements BaseInterface
 
         $dataRow = [];
         foreach ($this->setTable() as $tbl) {
-            $dataRow[] = $tbl[1];
+            $dataRow[] = $tbl['header'];
         }
 
         $data[] = $dataRow;
 
         foreach ($result['data'] as $val) {
-
 //            dd([
 //                '$dataRow' => $dataRow,
 //                '$val' => $val,
@@ -120,14 +119,70 @@ class AdminLog extends BaseController implements BaseInterface
     private function setTable(): array
     {
         return [
-            ['chapter', 'Раздел', 'string', true],
-            ['action', 'Тип события', 'string', true],
-            ['', 'Название события', 'string', true],
-            ['user_loger.username', 'Инициатор события (ФИО)', 'string', true],
-            ['user_loger.email', 'Электронная почта', 'string', true],
-            ['ip', 'IP-адрес', 'string', true],
-            ['time', 'Дата', 'string', true],
-            ['comment', 'Комментарий', 'string', true],
+            [
+                'name' => 'chapter',
+                'header' => 'Раздел',
+                'type' => 'string',
+                'filter' => true,
+                'show' => true,
+                'sort' => true,
+            ],
+            [
+                'name' => 'type',
+                'header' => 'Тип события',
+                'type' => 'string',
+                'filter' => false,
+                'show' => true,
+                'sort' => false,
+            ],
+            [
+                'name' => 'action',
+                'header' => 'Название события',
+                'type' => 'string',
+                'filter' => true,
+                'show' => true,
+                'sort' => true,
+            ],
+            [
+                'name' => 'user_loger.fullname',
+                'header' => 'Инициатор события (ФИО)',
+                'type' => 'string',
+                'filter' => true,
+                'show' => true,
+                'sort' => true,
+            ],
+            [
+                'name' => 'user_loger.email',
+                'header' => 'Электронная почта',
+                'type' => 'string',
+                'filter' => true,
+                'show' => true,
+                'sort' => true,
+            ],
+            [
+                'name' => 'ip',
+                'header' => 'IP-адрес',
+                'type' => 'string',
+                'filter' => true,
+                'show' => true,
+                'sort' => true,
+            ],
+            [
+                'name' => 'time',
+                'header' => 'Дата',
+                'type' => 'date',
+                'filter' => true,
+                'show' => true,
+                'sort' => true,
+            ],
+            [
+                'name' => 'comment',
+                'header' => 'Комментарий',
+                'type' => 'string',
+                'filter' => true,
+                'show' => true,
+                'sort' => true,
+            ],
         ];
     }
 }
