@@ -37,7 +37,7 @@ class AdminDirectoryTrainingCentre extends AbstractController
                 'header' => 'ID',
                 'type' => 'string',
                 'show' => true,
-                'filter' => false,
+                'filter' => true,
                 'sort' => true,
             ],
             [
@@ -45,7 +45,7 @@ class AdminDirectoryTrainingCentre extends AbstractController
                 'header' => 'Название',
                 'type' => 'string',
                 'show' => true,
-                'filter' => false,
+                'filter' => true,
                 'sort' => true,
             ],
             [
@@ -53,7 +53,7 @@ class AdminDirectoryTrainingCentre extends AbstractController
                 'header' => 'Телефоны',
                 'type' => 'string',
                 'show' => true,
-                'filter' => false,
+                'filter' => true,
                 'sort' => true,
             ],
             [
@@ -61,7 +61,7 @@ class AdminDirectoryTrainingCentre extends AbstractController
                 'header' => 'E-mail',
                 'type' => 'string',
                 'show' => true,
-                'filter' => false,
+                'filter' => true,
                 'sort' => true,
             ],
             [
@@ -69,7 +69,7 @@ class AdminDirectoryTrainingCentre extends AbstractController
                 'header' => 'URL',
                 'type' => 'string',
                 'show' => true,
-                'filter' => false,
+                'filter' => true,
                 'sort' => true,
             ],
         ];

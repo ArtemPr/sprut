@@ -40,7 +40,7 @@ class AdminDirectoryKafedra extends AbstractController
                 'type' => 'string',
                 'show' => true,
                 'sort' => true,
-                'filter' => false,
+                'filter' => true,
             ],
             [
                 'name' => 'training_centre.name',
@@ -48,7 +48,7 @@ class AdminDirectoryKafedra extends AbstractController
                 'type' => 'string',
                 'show' => true,
                 'sort' => true,
-                'filter' => false,
+                'filter' => true,
             ],
             [
                 'name' => 'name',
@@ -56,7 +56,7 @@ class AdminDirectoryKafedra extends AbstractController
                 'type' => 'string',
                 'show' => true,
                 'sort' => true,
-                'filter' => false,
+                'filter' => true,
             ],
             [
                 'name' => 'director.username',
@@ -64,7 +64,7 @@ class AdminDirectoryKafedra extends AbstractController
                 'type' => 'string',
                 'show' => true,
                 'sort' => true,
-                'filter' => false,
+                'filter' => true,
             ],
             [
                 'name' => 'director.email',
@@ -72,7 +72,7 @@ class AdminDirectoryKafedra extends AbstractController
                 'type' => 'string',
                 'show' => true,
                 'sort' => true,
-                'filter' => false,
+                'filter' => true,
             ],
         ];
     }
