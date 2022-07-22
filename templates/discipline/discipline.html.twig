@@ -1,19 +1,16 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}СПРУТ 1.0{% endblock %}
-
 {% block stylesheets %}
     {{ encore_entry_link_tags('app') }}
 {% endblock %}
-
 {% block body %}
     {{ include('block/header.html.twig') }}
-
     <div class="page page-layout">
         <div class="page-wrapper">
             <div class="container-fluid">
                 {% include 'block/header_list.html.twig' with {'header': 'Дисциплины', 'onpage_link': path('discipline')} %}
             </div>
+            {% set controller = 'discipline' %}
             <div class="page-body">
                 <div class="container-fluid">
                     <div class="row row-deck row-cards">
@@ -23,32 +20,30 @@
                                     'close_delete': true,
                                     'close_edit': false,
                                     'close_create': false,
-                                    'controller': 'discipline',
-                                    'add_csv': path('discipline') ~ '_csv' ~ csv_link
+                                    'path': path('discipline'),
+                                    'controller': controller,
+                                    'add_csv': path('discipline') ~ '_csv' ~ csv_link,
+                                    'table' : table
                                 } %}
-
                                 <div class="ajax-table">
                                     {{ include('discipline/discipline_table.html.twig') }}
                                 </div>
-
                             </div>
-
                             <div id="userEditingOverlay" class="offcanvas-backdrop fade"></div>
-
-                            <div id="disciplineCreationPanel" data-action="add" class="user-form-panel offcanvas offcanvas-end modal-large" tabindex="-1" aria-labelledby="offcanvasEndLabel">
-                                {% include 'discipline/form/discipline_add.html.twig'  %}
+                            <div id="{{ controller }}ViewPanel" data-action="view" class="user-form-panel offcanvas offcanvas-end modal-large" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                                <img src="{{ absolute_url('/assets/images/loading--big.gif') }}" style="position: absolute; top: 35%; left: 50%; margin-left: -75px;">
                             </div>
-                            <div id="disciplineEditingPanel" data-action="edit" class="user-form-panel offcanvas offcanvas-end modal-large" tabindex="-1" aria-labelledby="offcanvasEndLabel">
-                                <img src="{{ absolute_url('/assets/images/loading--big.gif') }}" style="position: absolute; top: 10%; left: 50%; margin-left: -75px;">
+                            <div id="{{ controller }}CreationPanel" data-action="add" class="user-form-panel offcanvas offcanvas-end modal-large" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                                {% include 'discipline/form/discipline_add.html.twig' %}
                             </div>
-
+                            <div id="{{ controller }}EditingPanel" data-action="edit" class="user-form-panel offcanvas offcanvas-end modal-large" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                                <img src="{{ absolute_url('/assets/images/loading--big.gif') }}" style="position: absolute; top: 35%; left: 50%; margin-left: -75px;">
+                            </div>
                             {% include 'modal/delete.html.twig' with {'controller': 'discipline'} %}
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 {% endblock %}
