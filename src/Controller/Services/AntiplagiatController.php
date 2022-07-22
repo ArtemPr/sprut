@@ -10,16 +10,26 @@ use App\Controller\BaseInterface;
 use App\Entity\Antiplagiat;
 use App\Entity\Discipline;
 use App\Repository\AntiplagiatRepository;
+use App\Service\AntiplagiatAPI;
 use App\Service\AuthService;
 use App\Service\CSVHelper;
 use App\Service\LinkService;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 class AntiplagiatController extends BaseController implements BaseInterface
 {
     use AuthService;
     use LinkService;
     use CSVHelper;
+
+    public function __construct(ManagerRegistry $managerRegistry, Security $security, AntiplagiatAPI $antiplagiatAPI)
+    {
+        parent::__construct($managerRegistry, $security);
+        $this->security = $security;
+        $this->antiplagiatAPI = $antiplagiatAPI;
+    }
 
     public function get(bool $full = false)
     {
@@ -74,6 +84,13 @@ class AntiplagiatController extends BaseController implements BaseInterface
         $result = $this->get();
         $result['auth'] = $auth;
 
+        $tarif = $this->antiplagiatAPI->getTariffInfo();
+        $result['tarif'] = [
+            'check_left' => null == $tarif['remained_checks_count'] ? '&infin;' : $tarif['remained_checks_count'],
+            'check_total' => null == $tarif['total_checks_count'] ? '&infin;' : $tarif['total_checks_count'],
+            'check_expired' => $tarif['expiration_date'],
+        ];
+
         return $this->render($tpl,
             $result,
         );
@@ -87,7 +104,7 @@ class AntiplagiatController extends BaseController implements BaseInterface
 
         $dataRow = [];
         foreach ($this->setTable() as $tbl) {
-            $dataRow[] = $tbl[1];
+            $dataRow[] = $tbl['name'];
         }
 
         $data[] = $dataRow;
@@ -131,16 +148,86 @@ class AntiplagiatController extends BaseController implements BaseInterface
     private function setTable(): array
     {
         return [
-            ['status', '', 'string', true],
-            ['file', 'Файл', 'string', true],
-            ['discipline', 'Дисциплина', 'string', true],
-            ['size', 'Размер', 'string', true],
-            ['author', 'Загрузил', 'string', true],
-            ['data_create', 'Создано', 'string', true],
-            ['comment', 'Комментарий', 'string', true],
-            ['plagiat_percent', 'Заимствования', 'string', true],
-            ['result_file', 'PDF', 'string', true],
-            ['result_date', 'Проверено', 'string', true],
+            [
+                'name' => 'status',
+                'header' => '',
+                'type' => 'string',
+                'filter' => true,
+                'show' => true,
+                'sort' => false,
+            ],
+            [
+                'name' => 'file',
+                'header' => 'Файл',
+                'type' => 'string',
+                'filter' => false,
+                'show' => true,
+                'sort' => true,
+            ],
+            [
+                'name' => 'discipline',
+                'header' => 'Дисциплина',
+                'type' => 'string',
+                'filter' => false,
+                'show' => true,
+                'sort' => true,
+            ],
+            [
+                'name' => 'size',
+                'header' => 'Размер, кб',
+                'type' => 'string',
+                'filter' => false,
+                'show' => true,
+                'sort' => true,
+            ],
+            [
+                'name' => 'author',
+                'header' => 'Загрузил',
+                'type' => 'string',
+                'filter' => false,
+                'show' => true,
+                'sort' => true,
+            ],
+            [
+                'name' => 'data_create',
+                'header' => 'Создано',
+                'type' => 'string',
+                'filter' => false,
+                'show' => true,
+                'sort' => true,
+            ],
+            [
+                'name' => 'comment',
+                'header' => 'Комментарий',
+                'type' => 'string',
+                'filter' => false,
+                'show' => true,
+                'sort' => true,
+            ],
+            [
+                'name' => 'plagiat_percent',
+                'header' => 'Заимствования, %',
+                'type' => 'string',
+                'filter' => false,
+                'show' => true,
+                'sort' => false,
+            ],
+            [
+                'name' => 'result_file',
+                'header' => 'PDF',
+                'type' => 'string',
+                'filter' => false,
+                'show' => true,
+                'sort' => true,
+            ],
+            [
+                'name' => 'result_date',
+                'header' => 'Проверено',
+                'type' => 'string',
+                'filter' => false,
+                'show' => true,
+                'sort' => true,
+            ],
         ];
     }
 
