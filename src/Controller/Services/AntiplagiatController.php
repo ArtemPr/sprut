@@ -50,7 +50,7 @@ class AntiplagiatController extends BaseController implements BaseInterface
             'data' => $data,
             'statuses' => $this->getActualStatuses(),
             'statuses_colors' => $this->getStatusesColors(),
-            'disciplines' => $this->managerRegistry->getRepository(Discipline::class)->getList(0, 9999999999),
+            'disciplines' => $this->managerRegistry->getRepository(Discipline::class)->getList(0, 9999999999, 'name'),
             'search' => strip_tags($search) ?? '',
             'pager' => [
                 'count_all_position' => $count,
