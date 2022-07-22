@@ -41,6 +41,7 @@ class ApiRole extends \Symfony\Bundle\FrameworkBundle\Controller\AbstractControl
         $tc->setName(trim($data['name']));
         $tc->setRolesAlt(trim($data['roles_alt']));
         $tc->setAuthList($auth_list);
+        $tc->setComment($data['comment'] ?? null);
         $entityManager = $this->doctrine->getManager();
         $entityManager->persist($tc);
         $entityManager->flush();
@@ -82,6 +83,7 @@ class ApiRole extends \Symfony\Bundle\FrameworkBundle\Controller\AbstractControl
         $tc->setName(trim($data['name']));
         $tc->setRolesAlt(trim($data['roles_alt']));
         $tc->setAuthList($auth_list);
+        $tc->setComment($data['comment'] ?? null);
         $entityManager = $this->doctrine->getManager();
         $entityManager->persist($tc);
         $entityManager->flush();
