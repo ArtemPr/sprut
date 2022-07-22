@@ -23,15 +23,25 @@ select {
 }
 
 .dual-listbox {
- // outline: 1px dotted red;
+  //outline: 1px dotted red;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  align-items: center;
+  //flex-direction: column;
 
   .dual-listbox__container {
+    flex-basis: 45%;
     display: flex;
     align-items: center;
     flex-direction: row;
     flex-wrap: wrap;
+
+    select {
+      width: 100%;
+  //    overflow-x: auto;
+    }
   }
 
   .dual-listbox__search {
@@ -55,7 +65,7 @@ select {
     display: flex;
     flex-direction: column;
     margin: 0 10px;
-    padding-top: 30px;
+   // padding-top: 30px;
   }
 
   .dual-listbox__button {
@@ -103,9 +113,12 @@ select {
       color: #fff;
     }
   }
-
 }
 
-option[selected=true], option:checked, option:active, option:focus {
+option[selected=true], option:focus, option:active {
   background-color: rgba(32, 107, 196, 0.25) !important;
+}
+
+option:checked  {
+  background-color: transparent;
 }

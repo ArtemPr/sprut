@@ -2,69 +2,82 @@
  * Created AptPr <prudishew@yandex.ru> 2022.
  */
 // временно элементов нет
-// document.addEventListener("DOMContentLoaded", function (event) {
-//     const managingDepartmentsModals = document.querySelectorAll(
-//         '[data-bs-target="#managingDepartmentsModal"]'
-//     );
-//
-//     //console.log(managingDepartmentsModal.textContent);
-//
-//     const dualItems = document.querySelectorAll(".dual-listbox__item");
-//     const leftPanel = document.querySelector(".dual-controls-select");
-//     const rightPanel = document.querySelector(".dual-listbox__selected");
-//     const addOneBtn = document.querySelector('[name="add_one"]');
-//     const addAllBtn = document.querySelector('[name="add_all"]');
-//     const removeOneBtn = document.querySelector('[name="remove_one"]');
-//     const removeAllBtn = document.querySelector('[name="remove_all"]');
-//
-//     console.log(addOneBtn);
-//
-//     if (addOneBtn && leftPanel && rightPanel && dualItems) {
-//         addOneBtn.addEventListener("click", addOne);
-//     }
-//
-//     function addOne() {
-//         console.log("addOne");
-//         leftPanel.removeChild(this);
-//         rightPanel.appendChild(this);
-//     }
-//
-//     function toggleSelected() {
-//         dualItems.forEach((dualItem) =>
-//             dualItem.classList.remove("dual-listbox__item--selected")
-//         );
-//         this.classList.toggle("dual-listbox__item--selected");
-//     }
-//
-//     dualItems.forEach((dualItem) => {
-//         dualItem.addEventListener("click", toggleSelected);
-//     });
-//
-//     // if (managingDepartmentsModals) {
-//     //     managingDepartmentsModals.forEach((modalBtn) => {
-//     //         modalBtn.addEventListener("click", function () {
-//     //             console.log("click managingDepartmentsModal");
-//     //         });
-//     //     });
-//     //     //  console.log('managingDepartmentsModal is')
-//     //     managingDepartmentsModal.addEventListener("click", function () {
-//     //         console.log("click managingDepartmentsModal");
-//     //         // if (addOneBtn && leftPanel && rightPanel && dualItems) {
-//     //         //     console.log('all, add f')
-//     //         //     addOneBtn.addEventListener("click", addOne);
-//     //         // }
-//
-//     //         // function toggleSelected(){
-//     //         //     dualItems.forEach(dualItem=>dualItem.classList.remove('dual-listbox__item--selected'));
-//     //         //     this.classList.toggle('dual-listbox__item--selected');
-//     //         // }
-//
-//     //         // if (dualItems && leftPanel && rightPanel) {
-//     //         //     dualItems.forEach((dualItem) =>
-//     //         //         dualItem.addEventListener("dblclick", addOne)
-//     //         //     );
-//     //         //     //   dualItems.forEach(dualItem=>dualItem.addEventListener('click', toggleSelected));
-//     //     });
-//     //     //   });
-//     // }
-// });
+document.addEventListener("DOMContentLoaded", function (event) {
+
+    const userDualBox = document.querySelector('.dual-listbox--user-add');
+    const dualItems = userDualBox.querySelectorAll(".dual-listbox__item");
+    const leftPanel = userDualBox.querySelector(".dual-controls-select");
+    const rightPanel = userDualBox.querySelector(".dual-listbox__selected");
+    const addOneBtn = userDualBox.querySelector('[name="add_one"]');
+    const addAllBtn = userDualBox.querySelector('[name="add_all"]');
+    const removeOneBtn = userDualBox.querySelector('[name="remove_one"]');
+    const removeAllBtn = userDualBox.querySelector('[name="remove_all"]');
+
+    if (userDualBox && addOneBtn && leftPanel && rightPanel && dualItems) {
+        dualItems[0].classList.add("dual-listbox__item--selected");
+        addOneBtn.addEventListener("click", addOne);
+        addAllBtn.addEventListener("click", addAll);
+        removeOneBtn.addEventListener("click", removeOne);
+        removeAllBtn.addEventListener("click", removeAll);
+
+        dualItems.forEach((dualItem) => {
+            dualItem.addEventListener("click", toggleSelected);
+        });
+    }
+
+    function focusOnFirst() {
+        let ItemsToSelect = leftPanel.querySelectorAll('.dual-listbox__item');
+        console.log('ItemsToSelect ', ItemsToSelect);
+        if(ItemsToSelect) {
+            ItemsToSelect[0].classList.add("dual-listbox__item--selected");
+        }
+    }
+
+    function toggleSelected() {
+        dualItems.forEach((dualItem) =>
+            dualItem.classList.remove("dual-listbox__item--selected")
+        );
+        this.classList.toggle("dual-listbox__item--selected");
+
+    }
+
+    function addOne() {
+        let elToMove = leftPanel.querySelector('.dual-listbox__item--selected');
+        if(elToMove) {
+            leftPanel.removeChild(elToMove);
+            rightPanel.appendChild(elToMove);
+            elToMove.classList.remove("dual-listbox__item--selected");
+        }
+        focusOnFirst();
+    }
+
+    function removeOne() {
+        let elToMove = rightPanel.querySelector('.dual-listbox__item--selected');
+        if(elToMove) {
+            rightPanel.removeChild(elToMove);
+            leftPanel.appendChild(elToMove);
+            elToMove.classList.remove("dual-listbox__item--selected");
+        }
+        focusOnFirst();
+    }
+
+    function addAll(){
+        let itemsToMove = leftPanel.querySelectorAll('.dual-listbox__item');
+        if (itemsToMove) {
+            itemsToMove.forEach(item => {
+                leftPanel.removeChild(item);
+                rightPanel.appendChild(item);
+            })
+        }
+    }
+
+    function removeAll(){
+        let itemsToMove = rightPanel.querySelectorAll('.dual-listbox__item');
+        if (itemsToMove) {
+            itemsToMove.forEach(item => {
+                rightPanel.removeChild(item);
+                leftPanel.appendChild(item);
+            })
+        }
+    }
+});
