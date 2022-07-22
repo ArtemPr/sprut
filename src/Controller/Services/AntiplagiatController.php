@@ -132,7 +132,7 @@ class AntiplagiatController extends BaseController implements BaseInterface
     #[Route('/form/antiplagiat_edit/{id}', name: 'antiplagiat_edit')]
     public function getItemForm($id)
     {
-        $disciplines = $this->managerRegistry->getRepository(Discipline::class)->getList(0, 9999999999);
+        $disciplines = $this->managerRegistry->getRepository(Discipline::class)->getList(0, 9999999999, 'name');
         $data_out = $this->managerRegistry->getRepository(Antiplagiat::class)->get($id);
 
         return $this->render(
