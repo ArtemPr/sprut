@@ -115,11 +115,11 @@ class AntiplagiatController extends BaseController implements BaseInterface
                     $this->getActualStatuses()[$val['status']],
                     $val['file'],
                     (!empty($val['discipline']) ? $val['discipline']['name'] : '-'),
-                    (!empty($val['size']) ? $val['size'] : '-'),
+                    (!empty($val['size']) ? number_format($val['size'], 2, ',', ' ') : '-'),
                     (!empty($val['author']) ? $val['author']['fullname'] : '-'),
                     date_format($val['data_create'], 'd/m/Y H:i'),
                     (!empty($val['comment']) ? $val['comment'] : '-'),
-                    (null !== $val['plagiat_percent'] ? $val['plagiat_percent'] : '-'),
+                    (null !== $val['plagiat_percent'] ? number_format($val['plagiat_percent'], 2, ',', ' ') : '-'),
                     (!empty($val['result_file']) ? $val['result_file'] : '-'),
                     (!empty($val['result_date']) ? date_format($val['result_date'], 'd/m/Y H:i') : '-'),
                 ];
