@@ -133,7 +133,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 if (selectColored) {
                     selectColored.addEventListener('change', function () {
                         const value = selectColored.options[selectColored.selectedIndex].value
-                        //    console.log('change ', value)
                         switch (selectColored.value) {
                             case "1":
                                 selectColored.className = 'form-control select-new';
@@ -159,10 +158,26 @@ document.addEventListener("DOMContentLoaded", function (event) {
             }, 1000);
         })
     }
+
+    // размер загружаемого файла в шаблонах документов
+    const fileInputAdd = document.querySelector('#dt-formFile');
+    let sizeInputAdd = document.querySelector('[name="dt-file-size"]');
+    if(fileInputAdd && sizeInputAdd) {
+        fileInputAdd.addEventListener('change', function(){
+            sizeInputAdd.value = Math.round(this.files[0].size/1024) + " kb";
+        })
+    }
+
+    const fileInputEdit = document.querySelector('#dt-formFile-edit');
+    let sizeInputEdit = document.querySelector('[name="dt-file-size"]');
+    if(fileInputEdit && sizeInputEdit) {
+        fileInputEdit.addEventListener('change', function(){
+            sizeInputEdit.value = Math.round(this.files[0].size/1024) + " kb";
+        })
+    }
 })
 
-
-
+// Настройка отображения колонок таблицы
 document.addEventListener("DOMContentLoaded", function (event) {
     let dragItems = document.querySelector('#drag-interface');
     if (dragItems != null) {
