@@ -49,7 +49,7 @@
                     {% for tbl in table %}
                         {% if tbl['show'] == true %}
                             {% if tbl.type == 'bool' %}
-                                <td>{# <span class="badge {% if dat[tbl.name]|default(false) %} bg-success {% else %} bg-danger {% endif %} "></span> #}<span class="badge bg-success"></span></td>
+                                <td> <span class="badge {% if dat[tbl.name]|default(false) %} bg-success {% else %} bg-danger {% endif %} "></span> </td>
                             {% elseif tbl.type == 'date' %}
                                 <td class="text-center">{{ dat[tbl.name]|date("d.m.Y") }}</td>
                             {% elseif tbl.type == 'int' %}
