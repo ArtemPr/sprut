@@ -221,6 +221,14 @@ class AdministratorUserController extends AbstractController
                     'show' => true,
                     'sort' => true
                 ],
+            [
+                'name' => 'skype',
+                'header' => 'Skype',
+                'type' => 'string',
+                'filter' => true,
+                'show' => true,
+                'sort' => true
+            ],
             ];
     }
 }
