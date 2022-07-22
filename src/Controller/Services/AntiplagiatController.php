@@ -174,7 +174,7 @@ class AntiplagiatController extends BaseController implements BaseInterface
             ],
             [
                 'name' => 'size',
-                'header' => 'Размер',
+                'header' => 'Размер, кб',
                 'type' => 'string',
                 'filter' => false,
                 'show' => true,
@@ -206,7 +206,7 @@ class AntiplagiatController extends BaseController implements BaseInterface
             ],
             [
                 'name' => 'plagiat_percent',
-                'header' => 'Заимствования',
+                'header' => 'Заимствования, %',
                 'type' => 'string',
                 'filter' => false,
                 'show' => true,

@@ -7,6 +7,9 @@
                     {% if tbl['show'] == true %}
                         {% if tbl['header'] == '' %}
                             <th></th>
+                        {% elseif tbl['name'] == 'file' %}
+                            <th>&nbsp;</th>
+                            <th>Название файла</th>
                         {% else %}
                             <th>
                                 <div class="th-name">
@@ -71,23 +74,23 @@
                 <tr data-string="{{ dat.id }}" class="user-table-row {% if loop.first %}is-selected{% endif %}">
                     <td><span class="badge {{ statuses_colors[dat.status]|default('bg-') }} "
                               title="{{ statuses[dat.status]|default('-') }}" data-bs-toggle="tooltip"></span></td>
-                    <td>
-                        <a href="{{ dat.file }}" target="_blank">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-text"
-                                 width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                 fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-                                <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"></path>
-                                <line x1="9" y1="9" x2="10" y2="9"></line>
-                                <line x1="9" y1="13" x2="15" y2="13"></line>
-                                <line x1="9" y1="17" x2="15" y2="17"></line>
-                            </svg>
-                        </a>
-                    </td>
                     {% for tbl in table %}
                         {% if tbl['show'] == true %}
-                            {% if tbl['name'] == 'discipline' %}
+                            {% if tbl['name'] == 'file' %}
+                                <td>
+                                    <a href="{{ dat.file }}" target="_blank">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-text" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                            <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+                                            <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"></path>
+                                            <line x1="9" y1="9" x2="10" y2="9"></line>
+                                            <line x1="9" y1="13" x2="15" y2="13"></line>
+                                            <line x1="9" y1="17" x2="15" y2="17"></line>
+                                        </svg>
+                                    </a>
+                                </td>
+                                <td>{{ dat.file | split('/') | last }}</td>
+                            {% elseif tbl['name'] == 'discipline' %}
                                 <td>
                                     {% if dat.discipline %}
                                         {{ dat.discipline.name | raw }}
@@ -96,7 +99,7 @@
                                     {% endif %}
                                 </td>
                             {% elseif tbl['name'] == 'size' %}
-                                <td>{{ (dat.size / 1024) | number_format(2, ',') ~ ' кб' }}</td>
+                                <td>{{ (dat.size / 1024) | number_format(2, ',') }}</td>
                             {% elseif tbl['name'] == 'author' %}
                                 <td>{% if dat.author %}{{ dat.author.fullname }}{% else %}&mdash;{% endif %}</td>
                             {% elseif tbl['name'] == 'data_create' %}
@@ -104,7 +107,7 @@
                             {% elseif tbl['name'] == 'comment' %}
                                 <td>{{ dat.comment }}</td>
                             {% elseif tbl['name'] == 'plagiat_percent' %}
-                                <td>{{ dat.plagiat_percent }} %</td>
+                                <td>{{ dat.plagiat_percent }}</td>
                             {% elseif tbl['name'] == 'result_file' %}
                                 <td>
                                     {% if dat.result_file %}
