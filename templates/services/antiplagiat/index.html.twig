@@ -36,7 +36,7 @@
                                     'table' : table
                                 } %}
                                 <div class="users-option-panel card-body border-bottom py-3">
-                                    <p>Осталось {{ tarif.check_left | raw }} проверок из {{ tarif.check_total | raw }} до {{ tarif.check_expired | date('d.m.Y') }}г.</p>
+                                    <p style="font-weight: 600">Осталось {{ tarif.check_left | raw }} проверок из {{ tarif.check_total | raw }} до {{ tarif.check_expired | date('d.m.Y') }}г.</p>
                                 </div>
                                 <div class="ajax-table">
                                     {% include 'services/antiplagiat/table.html.twig' %}
