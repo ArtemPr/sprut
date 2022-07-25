@@ -50,4 +50,18 @@
             <span class="nav-link-title">Направления</span>
         </a>
     </li>
+    <li class="nav-item {% if controller|default(false) and controller == 'administrator_directory_city' %}active{% endif %}">
+        <a class="nav-link" href="{{ path('administrator_directory_city') }}" title="Направления">
+            <img class="icon icon-tabler icon-tabler-directions" src="https://cdn-icons-png.flaticon.com/512/2451/2451474.png" alt="" style="height: 20px">
+<!--            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-directions" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <path d="M9 5h10l2 2l-2 2h-10a1 1 0 0 1 -1 -1v-2a1 1 0 0 1 1 -1" />
+                <path d="M13 13h-7l-2 2l2 2h7a1 1 0 0 0 1 -1v-2a1 1 0 0 0 -1 -1" />
+                <line x1="12" y1="22" x2="12" y2="17" />
+                <line x1="12" y1="13" x2="12" y2="9" />
+                <line x1="12" y1="5" x2="12" y2="3" />
+            </svg>-->
+            <span class="nav-link-title">Города</span>
+        </a>
+    </li>
 </ul>

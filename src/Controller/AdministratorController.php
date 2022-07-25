@@ -6,6 +6,7 @@
 namespace App\Controller;
 
 use App\Controller\Administrator\Admin;
+use App\Controller\Administrator\AdminDirectoryCity;
 use App\Controller\Administrator\AdminDirectoryDiscipline;
 use App\Controller\Administrator\AdminDirectoryFGOS;
 use App\Controller\Administrator\AdminDirectoryKafedra;
@@ -115,5 +116,17 @@ class AdministratorController extends AbstractController
     public function getDirectoryTrainingCentreCSV(AdminDirectoryTrainingCentre $adminDirectoryTrainingCentre): Response
     {
         return $adminDirectoryTrainingCentre->getCSV();
+    }
+
+    #[Route('/administrator/directory/city', name: 'administrator_directory_city')]
+    public function getDirectoryCity(AdminDirectoryCity $adminDirectoryCity): Response
+    {
+        return $adminDirectoryCity->getList();
+    }
+
+    #[Route('/administrator/directory/city_csv', name: 'administrator_directory_city_csv')]
+    public function getDirectoryCityCSV(AdminDirectoryCity $adminDirectoryCity): Response
+    {
+        return $adminDirectoryCity->getCSV();
     }
 }
