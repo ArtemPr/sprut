@@ -108,18 +108,20 @@
                                             {% endfor %}
                                         {% endif %}
                                     </ul>
-                                                                            <select class="dual-controls-select dual-controls-select_create  dual-listbox__available" hidden  name="roles[]" multiple>
-                                                                                {% if roles|default(false) %}
-                                                                                    {% for rol in roles %}
-                                                                                        {% if data.roles|default(false) and (rol.roles_alt in data.roles) %}
-                                                                                            <option class="dual-listbox__item" title="{{ rol.name }}" value="{{ rol.roles_alt }}" selected>{{ rol.name }}</option>
-                                                                                        {% else %}
-                                                                                            <option class="dual-listbox__item" title="{{ rol.name }}" value="{{ rol.roles_alt }}">{{ rol.name }}</option>
-                                                                                        {% endif %}
-                                                                                    {% endfor %}
-                                                                                {% endif %}
-                                                                            </select>
 
+                                    <select hidden name="roles[]" multiple>
+                                        {% if roles|default(false) %}
+                                            {% for rol in roles %}
+                                                {% if data.roles|default(false) and (rol.roles_alt in data.roles) %}
+                                                    <option class="dual-listbox__item" title="{{ rol.name }}"
+                                                            value="{{ rol.roles_alt }}" selected>{{ rol.name }}</option>
+                                                {% else %}
+                                                    <option class="dual-listbox__item" title="{{ rol.name }}"
+                                                            value="{{ rol.roles_alt }}">{{ rol.name }}</option>
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endif %}
+                                    </select>
 
                                     <div class="dual-listbox__buttons">
                                         <button type="button" name="add_all" class="dual-listbox__button">&gt;&gt;

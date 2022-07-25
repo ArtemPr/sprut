@@ -92,7 +92,7 @@ select {
 
   .dual-listbox__item {
     display: block;
-    padding: 10px;
+  //  padding: 10px;
     cursor: pointer;
     user-select: none;
     -moz-user-select: none;
@@ -100,12 +100,6 @@ select {
     -ms-user-select: none;
     border-bottom: 1px solid #fff;
     transition: background 0.2s ease;
-
-    //&:focus-visible, &:active, &:focus,  &:hover {
-    //  background-color: #5e9ae1 !important;
-    //  color: #fff;
-    //  outline: none;
-    //}
 
     &.dual-listbox__item--selected {
       background-color: #206bc4;

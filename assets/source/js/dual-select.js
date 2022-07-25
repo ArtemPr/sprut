@@ -1,6 +1,9 @@
 /*
  * Created AptPr <prudishew@yandex.ru> 2022.
  */
+require('sortablejs');
+import Sortable from 'sortablejs';
+
 document.addEventListener("DOMContentLoaded", function (event) {
 
     // function focusOnFirst() {
@@ -38,6 +41,26 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
 
         if (container && dualItems && hiddenSelect && leftPanel !== null && rightPanel !== null) {
+
+            // drag-and-drop
+            new Sortable(leftPanel, {
+                group: 'shared', // set both lists to same group
+                animation: 150
+            });
+
+            new Sortable(rightPanel, {
+                group: 'shared',
+                animation: 150
+            });
+
+            leftPanel.addEventListener('dragend', function(){
+                addToHiddenSelect();
+            })
+
+            rightPanel.addEventListener('dragend', function(){
+                addToHiddenSelect();
+            })
+
             dualItems[0].classList.add("dual-listbox__item--selected")
             addOneBtn.addEventListener("click", addOne);
             addAllBtn.addEventListener("click", addAll);
@@ -141,7 +164,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
     }
 
     // вызов функции ↑, нужно подставить обертку div
-    // и скрытый селект как на модалке "Создать пользователя"
+    // скрытый селект и классы dual-listbox__item" и др.
+    // как на модалке "Создать пользователя"
+
     const userDualBox = document.querySelector('.dual-listbox--user-add');
     let hiddenSelect = document.querySelector('[name="roles[]"]');
 
