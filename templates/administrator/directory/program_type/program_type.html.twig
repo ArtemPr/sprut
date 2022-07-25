@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+{% block title %}СПРУТ 1.0{% endblock %}
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}
+{% block body %}
+    {{ include('block/header.html.twig') }}
+    <div class="page page-layout">
+        <aside class="aside-panel navbar navbar-vertical navbar-expand-lg navbar-light">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbar-menu">
+                    {% include 'administrator/block/nav_directory.html.twig' with {'controller': 'administrator_directory_program_type'} %}
+                </div>
+                <button id="hide-btn" class="hide-btn" title="Скрыть панель">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="44"
+                         height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000" fill="none"
+                         stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <polyline points="15 6 9 12 15 18"/>
+                    </svg>
+                </button>
+            </div>
+        </aside>
+        <div class="page-wrapper">
+            <div class="container-fluid">
+                {% include 'block/header_list.html.twig' with {'header': 'Справочник - Тип программы', 'onpage_link': path('administrator_directory_program_type')} %}
+            </div>
+            {% set controller = 'program_type' %}
+            <div class="page-body">
+                <div class="container-fluid">
+                    <div class="row row-deck row-cards">
+                        <div class="col-12">
+                            <div class="card">
+                                {% include 'block/search_panel.html.twig' with {
+                                    'close_delete': true,
+                                    'close_edit': false,
+                                    'close_create': false,
+                                    'path': path('administrator_directory_program_type'),
+                                    'controller': controller,
+                                    'add_csv': path('administrator_directory_program_type') ~ '_csv' ~ csv_link,
+                                    'table' : table
+                                } %}
+                                <div class="ajax-table">
+                                    {{ include('administrator/directory/program_type/program_type_table.html.twig') }}
+                                </div>
+                            </div>
+                            <div id="userEditingOverlay" class="offcanvas-backdrop fade"></div>
+                            <div id="{{ controller }}ViewPanel" data-action="view" class="user-form-panel offcanvas offcanvas-end modal-sm" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                                <img src="{{ absolute_url('/assets/images/loading--big.gif') }}"
+                                     style="position: absolute; top: 10%; left: 50%; margin-left: -75px;">
+                            </div>
+                            <div id="{{ controller }}CreationPanel" data-action="add" class="user-form-panel offcanvas offcanvas-end modal-sm" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                                {% include 'administrator/directory/program_type/form/add.html.twig' %}
+                            </div>
+                            <div id="{{ controller }}EditingPanel" data-action="edit" class="user-form-panel offcanvas offcanvas-end modal-sm" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                                <img src="{{ absolute_url('/assets/images/loading--big.gif') }}"
+                                     style="position: absolute; top: 10%; left: 50%; margin-left: -75px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
