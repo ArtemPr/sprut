@@ -175,7 +175,7 @@ body.user-editing-panel-opened {
 
 .user-form-panel .dual-listbox__available,
 .user-form-panel .dual-listbox__selected {
-	width: auto;
+	/* width: auto; */
 	height: 222px !important;
 }
 
