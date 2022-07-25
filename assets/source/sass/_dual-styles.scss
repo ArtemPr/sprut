@@ -30,18 +30,16 @@ select {
   align-items: center;
 
   .dual-listbox__container {
-   // flex-basis: 45%;
     display: flex;
     align-items: center;
     flex-direction: row;
     flex-wrap: nowrap;
 
     .dual-controls-select {
-      flex-basis: 45%;
+      flex-basis: 43%;
       min-width: 40%;
       min-width: 40%;
       width: 40%;
-  //    overflow-x: auto;
     }
   }
 
@@ -64,7 +62,7 @@ select {
   .dual-listbox__buttons {
     display: flex;
     flex-direction: column;
-    margin: 0 10px;
+    margin: 0 15px;
   }
 
   .dual-listbox__button {
@@ -100,6 +98,8 @@ select {
     -ms-user-select: none;
     border-bottom: 1px solid #fff;
     transition: background 0.2s ease;
+    position: relative;
+    padding-left: 20px;
 
     &.dual-listbox__item--selected {
       background-color: #206bc4;

@@ -55,10 +55,16 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
             leftPanel.addEventListener('dragend', function(){
                 addToHiddenSelect();
+                dualItems.forEach((dualItem) =>
+                    dualItem.classList.remove('dual-listbox__item--selected')
+                )
             })
 
             rightPanel.addEventListener('dragend', function(){
                 addToHiddenSelect();
+                dualItems.forEach((dualItem) =>
+                    dualItem.classList.remove('dual-listbox__item--selected')
+                )
             })
 
             dualItems[0].classList.add("dual-listbox__item--selected")
