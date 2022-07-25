@@ -28,6 +28,9 @@ class Roles
     #[ORM\Column(type: 'boolean', nullable: true)]
     private $delete = false;
 
+    #[ORM\Column(type: 'text', nullable: true)]
+    private $comment;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -103,6 +106,22 @@ class Roles
     public function setDelete($delete): void
     {
         $this->delete = $delete;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    /**
+     * @param mixed $comment
+     */
+    public function setComment($comment): void
+    {
+        $this->comment = $comment;
     }
 
 }

@@ -44,17 +44,17 @@ class AdminDirectoryPS extends AbstractController
                 'name' => 'name',
                 'header' => 'Название',
                 'type' => 'string',
-                'filter' => false,
+                'filter' => true,
                 'show' => true,
-                'sort' => false,
+                'sort' => true,
             ],
             [
                 'name' => 'short_name',
                 'header' => 'Короткое название',
                 'type' => 'string',
-                'filter' => false,
+                'filter' => true,
                 'show' => true,
-                'sort' => false,
+                'sort' => true,
             ],
         ];
     }

@@ -6,6 +6,7 @@
 namespace App\Controller;
 
 use App\Controller\Api\ApiAntiplagiat;
+use App\Controller\Api\ApiCityController;
 use App\Controller\Api\ApiFgosController;
 use App\Controller\Api\ApiKafedra;
 use App\Controller\Api\ApiOperations;
@@ -184,5 +185,17 @@ class ApiController extends AbstractController
     public function update_antiplagiat(ApiAntiplagiat $apiAntiplagiat): Response
     {
         return $apiAntiplagiat->update();
+    }
+
+    #[Route('/city_update', name: 'city_update', methods: ['POST'])]
+    public function city_update(ApiCityController $apiCityController): Response
+    {
+        return $apiCityController->update();
+    }
+
+    #[Route('/city_add', name: 'city_add', methods: ['POST'])]
+    public function city_add(ApiCityController $apiCityController): Response
+    {
+        return $apiCityController->add();
     }
 }

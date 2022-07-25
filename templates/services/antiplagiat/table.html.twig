@@ -7,9 +7,7 @@
                     {% if tbl['show'] == true %}
                         {% if tbl['header'] == '' %}
                             <th></th>
-                        {% elseif tbl['name'] == 'file' %}
                             <th>&nbsp;</th>
-                            <th>Название файла</th>
                         {% else %}
                             <th>
                                 <div class="th-name">
@@ -99,7 +97,7 @@
                                     {% endif %}
                                 </td>
                             {% elseif tbl['name'] == 'size' %}
-                                <td>{{ (dat.size / 1024) | number_format(2, ',') }}</td>
+                                <td>{{ (dat.size / 1024) | number_format(2, ',', ' ') }}</td>
                             {% elseif tbl['name'] == 'author' %}
                                 <td>{% if dat.author %}{{ dat.author.fullname }}{% else %}&mdash;{% endif %}</td>
                             {% elseif tbl['name'] == 'data_create' %}
@@ -107,7 +105,7 @@
                             {% elseif tbl['name'] == 'comment' %}
                                 <td>{{ dat.comment }}</td>
                             {% elseif tbl['name'] == 'plagiat_percent' %}
-                                <td>{{ dat.plagiat_percent }}</td>
+                                <td>{{ dat.plagiat_percent | number_format(2, ',', ' ')}}</td>
                             {% elseif tbl['name'] == 'result_file' %}
                                 <td>
                                     {% if dat.result_file %}
