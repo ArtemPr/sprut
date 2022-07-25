@@ -212,19 +212,19 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
     });
 
-    const dualControlsSelects = document.querySelectorAll(".dual-controls-select_create");
-    for (let i = 0; i < dualControlsSelects.length; ++i) {
-        let dualControlsSelect = dualControlsSelects[i];
-        new DualListbox(dualControlsSelect, {
-            availableTitle: "Available numbers",
-            selectedTitle: "Selected numbers",
-            addButtonText: ">",
-            removeButtonText: "<",
-            addAllButtonText: ">>",
-            removeAllButtonText: "<<",
-            searchPlaceholder: "Поиск",
-        });
-    }
+    // const dualControlsSelects = document.querySelectorAll(".dual-controls-select_create");
+    // for (let i = 0; i < dualControlsSelects.length; ++i) {
+    //     let dualControlsSelect = dualControlsSelects[i];
+    //     new DualListbox(dualControlsSelect, {
+    //         availableTitle: "Available numbers",
+    //         selectedTitle: "Selected numbers",
+    //         addButtonText: ">",
+    //         removeButtonText: "<",
+    //         addAllButtonText: ">>",
+    //         removeAllButtonText: "<<",
+    //         searchPlaceholder: "Поиск",
+    //     });
+    // }
 
     /**
      * Search Clear
