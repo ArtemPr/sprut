@@ -64,4 +64,9 @@
             <span class="nav-link-title">Города</span>
         </a>
     </li>
+    <li class="nav-item {% if controller|default(false) and controller == 'administrator_directory_program_type' %}active{% endif %}">
+        <a class="nav-link" href="{{ path('administrator_directory_program_type') }}" title="Направления">
+            <span class="nav-link-title">Тип программы</span>
+        </a>
+    </li>
 </ul>

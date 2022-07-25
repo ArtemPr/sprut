@@ -10,6 +10,7 @@ use App\Controller\Administrator\AdminDirectoryCity;
 use App\Controller\Administrator\AdminDirectoryDiscipline;
 use App\Controller\Administrator\AdminDirectoryFGOS;
 use App\Controller\Administrator\AdminDirectoryKafedra;
+use App\Controller\Administrator\AdminDirectoryProgramType;
 use App\Controller\Administrator\AdminDirectoryPS;
 use App\Controller\Administrator\AdminDirectoryTrainingCentre;
 use App\Controller\Administrator\AdministratorOperationsController;
@@ -128,5 +129,17 @@ class AdministratorController extends AbstractController
     public function getDirectoryCityCSV(AdminDirectoryCity $adminDirectoryCity): Response
     {
         return $adminDirectoryCity->getCSV();
+    }
+
+    #[Route('/administrator/directory/program_type', name: 'administrator_directory_program_type')]
+    public function getDirectoryProgramType(AdminDirectoryProgramType $adminDirectoryProgramType): Response
+    {
+        return $adminDirectoryProgramType->getList();
+    }
+
+    #[Route('/administrator/directory/program_type_csv', name: 'administrator_directory_program_type_csv')]
+    public function getDirectoryProgramTypeCSV(AdminDirectoryProgramType $adminDirectoryProgramType): Response
+    {
+        return $adminDirectoryProgramType->getCSV();
     }
 }
