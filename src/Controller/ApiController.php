@@ -11,6 +11,7 @@ use App\Controller\Api\ApiFgosController;
 use App\Controller\Api\ApiKafedra;
 use App\Controller\Api\ApiOperations;
 use App\Controller\Api\ApiProgramController;
+use App\Controller\Api\ApiProgramTypeController;
 use App\Controller\Api\ApiRole;
 use App\Controller\Api\ApiTrainingCentre;
 use App\Controller\Api\ApiUserController;
@@ -195,6 +196,18 @@ class ApiController extends AbstractController
 
     #[Route('/city_add', name: 'city_add', methods: ['POST'])]
     public function city_add(ApiCityController $apiCityController): Response
+    {
+        return $apiCityController->add();
+    }
+
+    #[Route('/program_type_update', name: 'program_type_update', methods: ['POST'])]
+    public function program_type_update(ApiProgramTypeController $apiCityController): Response
+    {
+        return $apiCityController->update();
+    }
+
+    #[Route('/program_type_add', name: 'program_type_add', methods: ['POST'])]
+    public function program_type_add(ApiProgramTypeController $apiCityController): Response
     {
         return $apiCityController->add();
     }
