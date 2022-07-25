@@ -97,6 +97,8 @@ class ApiUserController extends AbstractController
             $user->setSkype($data['skype'] ? trim($data['skype']) : '');
             $user->setPosition($data['position'] ? trim($data['position']) : '');
 
+            $user->setCreatedAt(new \DateTime());
+
             if (!in_array('ROLE_USER', $data['roles'])) {
                 $data['roles'][] = 'ROLE_USER';
             }
@@ -168,6 +170,8 @@ class ApiUserController extends AbstractController
         $user->setSkype($data['skype'] ? trim($data['skype']) : '');
         $user->setPosition($data['position'] ? trim($data['position']) : '');
 
+        $user->setUpdatedAt(new \DateTime());
+
         if (!in_array('ROLE_USER', $data['roles'])) {
             $data['roles'][] = 'ROLE_USER';
         }
@@ -223,6 +227,8 @@ class ApiUserController extends AbstractController
 
         $fix_user_email = time() . '_' . $userEntity->getEmail();
         $userEntity->setEmail($fix_user_email);
+
+        $userEntity->setDeletedAt(new \DateTime());
 
         $entityManager = $this->doctrine->getManager();
         $entityManager->persist($userEntity);
