@@ -1,0 +1,23 @@
+<div class="offcanvas-header">
+    <h2 class="offcanvas-title">Создание города</h2>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+</div>
+<div class="offcanvas-body">
+    <form action="#" name="city-create" id="city_add-create" class="form-create">
+
+        <div class="form-group mb-3 row">
+            <label class="form-label col-3 col-form-label">Название *</label>
+            <div class="col">
+                <input name="name" type="text" class="form-control" placeholder="Название города" required>
+            </div>
+        </div>
+
+        <div class="d-flex mb-4">
+            <button data-form-id="city_add-create" data-action="send-form" type="submit"
+                    class="btn btn-primary ms-auto"
+                    aria-label="Close"
+            >Сохранить
+            </button>
+        </div>
+    </form>
+</div>
