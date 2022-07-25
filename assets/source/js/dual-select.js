@@ -32,6 +32,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
         let selectedItems = [];
         let ctrlOn = false;
+        let shiftOn = false;
         let hiddenOptions = [];
         let valuesList = [];
 
@@ -41,6 +42,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
 
         if (container && dualItems && hiddenSelect && leftPanel !== null && rightPanel !== null) {
+
+            function unselectAll() {
+                dualItems.forEach((dualItem) =>
+                    dualItem.classList.remove('dual-listbox__item--selected')
+                )
+            }
 
             // drag-and-drop
             new Sortable(leftPanel, {
@@ -55,16 +62,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
             leftPanel.addEventListener('dragend', function(){
                 addToHiddenSelect();
-                dualItems.forEach((dualItem) =>
-                    dualItem.classList.remove('dual-listbox__item--selected')
-                )
+                unselectAll();
             })
 
             rightPanel.addEventListener('dragend', function(){
                 addToHiddenSelect();
-                dualItems.forEach((dualItem) =>
-                    dualItem.classList.remove('dual-listbox__item--selected')
-                )
+                unselectAll();
             })
 
             dualItems[0].classList.add("dual-listbox__item--selected")
@@ -80,14 +83,18 @@ document.addEventListener("DOMContentLoaded", function (event) {
             document.addEventListener('keydown', function (e) {
                 if (e.code === 'ControlLeft' || e.code === 'ControlRight') {
                     ctrlOn = true;
+                } else if (e.code === 'ShiftLeft' || e.code === 'ShiftRight') {
+                    shiftOn = true;
                 }
             });
+
             document.addEventListener('keyup', function (e) {
                 if (e.code === 'ControlLeft' || e.code === 'ControlRight') {
                     ctrlOn = false;
+                }  else if (e.code === 'ShiftLeft' || e.code === 'ShiftRight') {
+                    shiftOn = false;
                 }
             });
-        }
 
         function addToHiddenSelect() {
             hiddenOptions.forEach(hiddenOption => {
@@ -105,15 +112,39 @@ document.addEventListener("DOMContentLoaded", function (event) {
             }
         }
 
-        function toggleSelected() {
+        function toggleSelected(event) {
+            if (shiftOn === true) {
+                let firstSelected = document.querySelector('.dual-listbox__item--selected');
+                if(firstSelected) {
+                    let lastSelected = event.target;
+                    if (firstSelected.parentElement === lastSelected.parentElement) {
+                        let parent = firstSelected.parentElement;
+                        let allChildren = parent.querySelectorAll('.dual-listbox__item');
+                        let allChildrenArr = Array.from(parent.querySelectorAll('.dual-listbox__item'));
+                        let firstIndex = allChildrenArr.indexOf(firstSelected);
+                        let lastIndex = allChildrenArr.indexOf(lastSelected);
+                        if(firstIndex !== -1 && lastIndex !== -1) {
+                            if(firstIndex < lastIndex) {
+                                for (let i = firstIndex; i <= lastIndex; i++ ) {
+                                    allChildren[i].classList.add('dual-listbox__item--selected');
+                                }
+                            } else {
+                                for (let i = lastIndex; i <= firstIndex; i++ ) {
+                                    allChildren[i].classList.add('dual-listbox__item--selected');
+                                }
+                            }
+                        }
+                    }
+                }
+                return
+            }
             if (ctrlOn === false) {
-                dualItems.forEach((dualItem) =>
-                    dualItem.classList.remove('dual-listbox__item--selected')
-                )
+                unselectAll();
                 this.classList.toggle('dual-listbox__item--selected')
-            } else {
+            } if (ctrlOn === true) {
                 this.classList.add('dual-listbox__item--selected');
             }
+
         }
 
         function addOne() {
@@ -149,9 +180,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 })
             }
             addToHiddenSelect();
-            dualItems.forEach((dualItem) =>
-                dualItem.classList.remove('dual-listbox__item--selected')
-            )
+            unselectAll();
         }
 
         function removeAll() {
@@ -163,10 +192,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 })
             }
             addToHiddenSelect();
-            dualItems.forEach((dualItem) =>
-                dualItem.classList.remove('dual-listbox__item--selected')
-            )
+            unselectAll();
         }
+
+        }
+
     }
 
     // вызов функции ↑, нужно подставить обертку div
