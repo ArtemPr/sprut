@@ -9,12 +9,14 @@
 
 namespace App\Controller;
 
+use App\Controller\Administrator\AdminDirectoryCity;
 use App\Controller\Administrator\AdminDirectoryFGOS;
 use App\Controller\Administrator\AdminDirectoryKafedra;
 use App\Controller\Administrator\AdminDirectoryTrainingCentre;
 use App\Controller\Administrator\AdministratorOperationsController;
 use App\Controller\Administrator\AdministratorRoleController;
 use App\Controller\Administrator\AdministratorUserController;
+use App\Entity\City;
 use App\Entity\FederalStandart;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -77,5 +79,11 @@ class FormController extends AbstractController
     public function getFgosForm($id, AdminDirectoryFGOS $adminDirectoryFGOS) : Response
     {
         return $adminDirectoryFGOS->getFgosForm($id);
+    }
+
+    #[Route('/city_edit/{id}', name: 'city_edit')]
+    public function getCityForm($id, AdminDirectoryCity $adminCity) : Response
+    {
+        return $adminCity->getCityForm($id);
     }
 }
