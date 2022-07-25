@@ -23,6 +23,11 @@ class ApiCityController extends AbstractController
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
         $data = $request->request->all();
 
+        $fs = $this->managerRegistry->getRepository(City::class)->findOneBy(['name' => trim($data['name'])]);
+        if (!empty($fs)) {
+            return $this->json(['result' => 'error']);
+        }
+
         $city = new City();
         $city->setName(trim($data['name']));
         $entityManager = $this->doctrine->getManager();
@@ -32,7 +37,7 @@ class ApiCityController extends AbstractController
 
         $logger = new Loger();
         $logger->setTime(new \DateTime());
-        $logger->setAction('city_add');
+        $logger->setAction('add_city');
         $logger->setUserLoger($this->getUser());
         $logger->setIp($request->server->get('REMOTE_ADDR'));
         $logger->setChapter('Города');
@@ -53,7 +58,7 @@ class ApiCityController extends AbstractController
 
         $logger = new Loger();
         $logger->setTime(new \DateTime());
-        $logger->setAction('city_update');
+        $logger->setAction('update_city');
         $logger->setUserLoger($this->getUser());
         $logger->setIp($request->server->get('REMOTE_ADDR'));
         $logger->setChapter('Города');

@@ -53,14 +53,14 @@
 
                             <div id="userEditingOverlay" class="offcanvas-backdrop fade"></div>
 
-                            <div id="{{ controller }}ViewPanel" data-action="view" class="user-form-panel offcanvas offcanvas-end modal-large" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                            <div id="{{ controller }}ViewPanel" data-action="view" class="user-form-panel offcanvas offcanvas-end modal-sm" tabindex="-1" aria-labelledby="offcanvasEndLabel">
                                 <img src="{{ absolute_url('/assets/images/loading--big.gif') }}" style="position: absolute; top: 10%; left: 50%; margin-left: -75px;">
                             </div>
 
-                            <div id="{{ controller }}CreationPanel" data-action="add" class="user-form-panel offcanvas offcanvas-end modal-large" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                            <div id="{{ controller }}CreationPanel" data-action="add" class="user-form-panel offcanvas offcanvas-end modal-sm" tabindex="-1" aria-labelledby="offcanvasEndLabel">
                                 {% include 'administrator/directory/city/form/add.html.twig'  %}
                             </div>
-                            <div id="{{ controller }}EditingPanel" data-action="edit" class="user-form-panel offcanvas offcanvas-end modal-large" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                            <div id="{{ controller }}EditingPanel" data-action="edit" class="user-form-panel offcanvas offcanvas-end modal-sm" tabindex="-1" aria-labelledby="offcanvasEndLabel">
                                 <img src="{{ absolute_url('/assets/images/loading--big.gif') }}" style="position: absolute; top: 10%; left: 50%; margin-left: -75px;">
                             </div>
 
