@@ -1,0 +1,23 @@
+<div class="offcanvas-header">
+    <h2 class="offcanvas-title">Создание типа программ</h2>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+</div>
+<div class="offcanvas-body">
+    <form action="#" name="program_type-create" id="program_type_add-create" class="form-create">
+        <div class="form-group mb-3 row">
+            <label class="form-label col-3 col-form-label">Название типа программы</label>
+            <div class="col">
+                <input name="name_type" type="text" class="form-control" placeholder="Название типа программ" required>
+            </div>
+        </div>
+        <div class="form-group mb-3 row">
+            <label class="form-label col-3 col-form-label">Короткое название</label>
+            <div class="col">
+                <input name="short_name_type" type="text" class="form-control" placeholder="Короткое название типа программ" required>
+            </div>
+        </div>
+        <div class="d-flex mb-4">
+            <button data-form-id="program_type_add-create" data-action="send-form" type="submit" class="btn btn-primary ms-auto" aria-label="Close">Сохранить</button>
+        </div>
+    </form>
+</div>
