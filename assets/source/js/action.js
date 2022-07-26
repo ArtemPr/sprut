@@ -6,6 +6,38 @@
 require('sortablejs');
 import Sortable from 'sortablejs';
 import Cookies from 'js-cookie'
+import ClassicEditor from 'ckeditor5-build-classic-plus';
+
+let ckeditorItems = [];
+ckeditorItems = document.querySelectorAll('.editor');
+
+if (ckeditorItems.length > 0) {
+    for (let i = 0; i < ckeditorItems.length; i++) {
+        ClassicEditor
+            .create(ckeditorItems[i], {
+                simpleUpload: {
+                    // The URL that the images are uploaded to.
+                    uploadUrl: "http://example.com",
+
+                    // Enable the XMLHttpRequest.withCredentials property if required.
+                    withCredentials: true,
+
+                    // Headers sent along with the XMLHttpRequest to the upload server.
+                    headers: {
+                        "X-CSRF-TOKEN": "CSFR-Token",
+                        Authorization: "Bearer <JSON Web Token>"
+                    }
+                }
+            })
+            .then(editor => {
+                window.editor = editor;
+            })
+            .catch(err => {
+                console.error(err.stack);
+            });
+    }
+}
+
 
 document.addEventListener("DOMContentLoaded", function (event) {
 
@@ -22,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     } else if (asideHiddenValue === 'false') {
         asideHiddenValue = false;
     } else {
-        Cookies.set('aside_hidden', 'false', { expires: 7 });
+        Cookies.set('aside_hidden', 'false', {expires: 7});
         asideHiddenValue = false;
     }
 
@@ -45,7 +77,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             hideBtn.classList.toggle('hide-btn--hidden');
             pageWrapper.classList.toggle('page-wrapper--full');
             asideHiddenValue = !asideHiddenValue;
-            Cookies.set('aside_hidden', asideHiddenValue, { expires: 7 })
+            Cookies.set('aside_hidden', asideHiddenValue, {expires: 7})
         })
     }
     // скрытие боковой панели  ↑
@@ -113,7 +145,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             let controller = (select_string != null) ? select_string.getAttribute('data-type') : null;
 
             let url = location.protocol + '//' + location.host + '/api/' + controller + '_hide/' + select_id;
-        //    console.log(url);
+            //    console.log(url);
             await fetch(url).then((result) => result.text());
 
             select_string.parentNode.removeChild(select_string);
@@ -162,17 +194,17 @@ document.addEventListener("DOMContentLoaded", function (event) {
     // размер загружаемого файла в шаблонах документов
     const fileInputAdd = document.querySelector('#dt-formFile');
     let sizeInputAdd = document.querySelector('[name="dt-file-size"]');
-    if(fileInputAdd && sizeInputAdd) {
-        fileInputAdd.addEventListener('change', function(){
-            sizeInputAdd.value = Math.round(this.files[0].size/1024) + " kb";
+    if (fileInputAdd && sizeInputAdd) {
+        fileInputAdd.addEventListener('change', function () {
+            sizeInputAdd.value = Math.round(this.files[0].size / 1024) + " kb";
         })
     }
 
     const fileInputEdit = document.querySelector('#dt-formFile-edit');
     let sizeInputEdit = document.querySelector('[name="dt-file-size"]');
-    if(fileInputEdit && sizeInputEdit) {
-        fileInputEdit.addEventListener('change', function(){
-            sizeInputEdit.value = Math.round(this.files[0].size/1024) + " kb";
+    if (fileInputEdit && sizeInputEdit) {
+        fileInputEdit.addEventListener('change', function () {
+            sizeInputEdit.value = Math.round(this.files[0].size / 1024) + " kb";
         })
     }
 })
