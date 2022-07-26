@@ -10,6 +10,7 @@
 namespace App\Controller;
 
 use App\Controller\Administrator\AdminDirectoryCity;
+use App\Controller\Administrator\AdminDirectoryEmployerRequirements;
 use App\Controller\Administrator\AdminDirectoryFGOS;
 use App\Controller\Administrator\AdminDirectoryKafedra;
 use App\Controller\Administrator\AdminDirectoryProgramType;
@@ -90,5 +91,11 @@ class FormController extends AbstractController
     public function getProgramTypeForm($id, AdminDirectoryProgramType $adminProgram): Response
     {
         return $adminProgram->getProgramTypeForm($id);
+    }
+
+    #[Route('/employer_requirements_edit/{id}', name: 'employer_requirements_edit')]
+    public function getEmployerRequirementsForm($id, AdminDirectoryEmployerRequirements $adminEmployerRequirements): Response
+    {
+        return $adminEmployerRequirements->getEmployerRequirementsForm($id);
     }
 }

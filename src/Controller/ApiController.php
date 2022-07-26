@@ -7,6 +7,7 @@ namespace App\Controller;
 
 use App\Controller\Api\ApiAntiplagiat;
 use App\Controller\Api\ApiCityController;
+use App\Controller\Api\ApiEmployerRequirementsController;
 use App\Controller\Api\ApiFgosController;
 use App\Controller\Api\ApiKafedra;
 use App\Controller\Api\ApiOperations;
@@ -201,14 +202,26 @@ class ApiController extends AbstractController
     }
 
     #[Route('/program_type_update', name: 'program_type_update', methods: ['POST'])]
-    public function program_type_update(ApiProgramTypeController $apiCityController): Response
+    public function program_type_update(ApiProgramTypeController $apiProgramTypeController): Response
     {
-        return $apiCityController->update();
+        return $apiProgramTypeController->update();
     }
 
     #[Route('/program_type_add', name: 'program_type_add', methods: ['POST'])]
-    public function program_type_add(ApiProgramTypeController $apiCityController): Response
+    public function program_type_add(ApiProgramTypeController $apiProgramTypeController): Response
     {
-        return $apiCityController->add();
+        return $apiProgramTypeController->add();
+    }
+
+    #[Route('/employer_requirements_update', name: 'employer_requirements_update', methods: ['POST'])]
+    public function employer_requirements_update(ApiEmployerRequirementsController $apiEmployerRequirementsController): Response
+    {
+        return $apiEmployerRequirementsController->update();
+    }
+
+    #[Route('/employer_requirements_add', name: 'employer_requirements_add', methods: ['POST'])]
+    public function employer_requirements_add(ApiEmployerRequirementsController $apiEmployerRequirementsController): Response
+    {
+        return $apiEmployerRequirementsController->add();
     }
 }
