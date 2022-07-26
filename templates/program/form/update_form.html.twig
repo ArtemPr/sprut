@@ -34,23 +34,14 @@
                             <label class="form-label col-3 col-form-label">Тип программы</label>
                             <div class="col">
                                 <select class="form-select" name="type" required>
-                                    <option value="">Выберите из списка</option>
-                                    <option value="1"
-                                            {% if data.program_type.id|default(false) and data.program_type.id == '1' %}selected{% endif %}>
-                                        Повышение квалификации (ПК)
+                                    <option disabled {% if data.program_type.id|default(false) == false %}selected{% endif %}>
+                                        Выберите дисциплину
                                     </option>
-                                    <option value="2"
-                                            {% if data.program_type.id|default(false) and data.program_type.id == '2' %}selected{% endif %}>
-                                        Профессиональная переподготовка (ПП)
-                                    </option>
-                                    <option value="3"
-                                            {% if data.program_type.id|default(false) and data.program_type.id == '3' %}selected{% endif %}>
-                                        Профессиональное обучение (ПО)
-                                    </option>
-                                    <option value="4"
-                                            {% if data.program_type.id|default(false) and data.program_type.id == '4' %}selected{% endif %}>
-                                        Дополнительное образование (ДО)
-                                    </option>
+                                    {% for pt in program_type %}
+                                        <option value="{{ pt.id }}" {% if data.program_type.id|default(false) and pt.id == data.program_type.id %}selected{% endif %}>
+                                            {{ pt.name_type | raw }} ({{ pt.short_name_type | raw }})
+                                        </option>
+                                    {% endfor %}
                                 </select>
                             </div>
                         </div>
