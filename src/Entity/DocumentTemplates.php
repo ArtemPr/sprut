@@ -34,6 +34,9 @@ class DocumentTemplates
     #[ORM\Column(type: 'string', length: 255)]
     private $author;
 
+    #[ORM\Column(type: 'boolean')]
+    private $delete;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -119,6 +122,18 @@ class DocumentTemplates
     public function setAuthor(string $author): self
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+    public function isDelete(): ?bool
+    {
+        return $this->delete;
+    }
+
+    public function setDelete(bool $delete): self
+    {
+        $this->delete = $delete;
 
         return $this;
     }
