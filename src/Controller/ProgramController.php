@@ -157,6 +157,10 @@ class ProgramController extends BaseController implements BaseInterface
             ['history', 'Ист. данные', 'string', true],
             ['pt.id', 'Тип', 'string', true],
             ['name', 'Название', 'string', true],
+            ['length_week', 'Продолжительность (нед.)', 'string', true],
+            ['length_hour', 'Продолжительность (час.)', 'string', true],
+            ['length_week_short', 'Ускоренное обучение (нед.)', 'string', true],
+            ['name', 'Продолжительность в неделях', 'string', true],
             ['fs.id', 'ФГОС', 'string', true],
             ['ps.id', 'ПС', 'string', true],
         ];
