@@ -79,4 +79,9 @@
             <span class="nav-link-title">Потенциальные места работы</span>
         </a>
     </li>
+    <li class="nav-item {% if controller|default(false) and controller == 'administrator_directory_subdivisions' %}active{% endif %}">
+        <a class="nav-link" href="{{ path('administrator_directory_subdivisions') }}" title="Подразделения">
+            <span class="nav-link-title">Подразделения</span>
+        </a>
+    </li>
 </ul>

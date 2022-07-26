@@ -15,6 +15,7 @@ use App\Controller\Administrator\AdminDirectoryFGOS;
 use App\Controller\Administrator\AdminDirectoryKafedra;
 use App\Controller\Administrator\AdminDirectoryPotentialJobs;
 use App\Controller\Administrator\AdminDirectoryProgramType;
+use App\Controller\Administrator\AdminDirectorySubdivisions;
 use App\Controller\Administrator\AdminDirectoryTrainingCentre;
 use App\Controller\Administrator\AdministratorOperationsController;
 use App\Controller\Administrator\AdministratorRoleController;
@@ -104,5 +105,11 @@ class FormController extends AbstractController
     public function getPotentialJobsForm($id, AdminDirectoryPotentialJobs $adminDirectoryPotentialJobs): Response
     {
         return $adminDirectoryPotentialJobs->getPotentialJobsForm($id);
+    }
+
+    #[Route('/subdivisions_edit/{id}', name: 'subdivisions_edit')]
+    public function getSubdivisionsForm($id, AdminDirectorySubdivisions $adminDirectorySubdivisions): Response
+    {
+        return $adminDirectorySubdivisions->getSubdivisionsForm($id);
     }
 }
