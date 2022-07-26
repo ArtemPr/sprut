@@ -38,7 +38,6 @@ select {
     .dual-controls-select {
       flex-basis: 43%;
       min-width: 40%;
-      min-width: 40%;
       width: 40%;
     }
   }
@@ -101,9 +100,29 @@ select {
     position: relative;
     padding-left: 20px;
 
+    &::before {
+      content: '';
+      position: absolute;
+      display: block;
+      width: 10px;
+      height: 20px;
+     // background-color: #6b62de;
+      left: 5px;
+      top: 50%;
+      transform: translateY(-50%);
+     background-image: url("../img/drag.png");
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
     &.dual-listbox__item--selected {
       background-color: #206bc4;
       color: #fff;
+    }
+
+    .multi--selected {
+      background-color: teal;
     }
   }
 
