@@ -11,6 +11,7 @@ use App\Controller\Api\ApiEmployerRequirementsController;
 use App\Controller\Api\ApiFgosController;
 use App\Controller\Api\ApiKafedra;
 use App\Controller\Api\ApiOperations;
+use App\Controller\Api\ApiPotentialJobsController;
 use App\Controller\Api\ApiProgramController;
 use App\Controller\Api\ApiProgramTypeController;
 use App\Controller\Api\ApiRole;
@@ -223,5 +224,17 @@ class ApiController extends AbstractController
     public function employer_requirements_add(ApiEmployerRequirementsController $apiEmployerRequirementsController): Response
     {
         return $apiEmployerRequirementsController->add();
+    }
+
+    #[Route('/potential_jobs_update', name: 'potential_jobs_update', methods: ['POST'])]
+    public function potential_jobs_update(ApiPotentialJobsController $apiPotentialJobsController): Response
+    {
+        return $apiPotentialJobsController->update();
+    }
+
+    #[Route('/potential_jobs_add', name: 'potential_jobs_add', methods: ['POST'])]
+    public function potential_jobs_add(ApiPotentialJobsController $apiPotentialJobsController): Response
+    {
+        return $apiPotentialJobsController->add();
     }
 }

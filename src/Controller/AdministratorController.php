@@ -11,6 +11,7 @@ use App\Controller\Administrator\AdminDirectoryDiscipline;
 use App\Controller\Administrator\AdminDirectoryEmployerRequirements;
 use App\Controller\Administrator\AdminDirectoryFGOS;
 use App\Controller\Administrator\AdminDirectoryKafedra;
+use App\Controller\Administrator\AdminDirectoryPotentialJobs;
 use App\Controller\Administrator\AdminDirectoryProgramType;
 use App\Controller\Administrator\AdminDirectoryPS;
 use App\Controller\Administrator\AdminDirectoryTrainingCentre;
@@ -154,5 +155,17 @@ class AdministratorController extends AbstractController
     public function getDirectoryEmployerRequirementsCSV(AdminDirectoryEmployerRequirements $adminDirectoryEmployerRequirements): Response
     {
         return $adminDirectoryEmployerRequirements->getCSV();
+    }
+
+    #[Route('/administrator/directory/potential_jobs', name: 'administrator_directory_potential_jobs')]
+    public function getDirectoryPotentialJobs(AdminDirectoryPotentialJobs $adminDirectoryPotentialJobs): Response
+    {
+        return $adminDirectoryPotentialJobs->getList();
+    }
+
+    #[Route('/administrator/directory/employer_requirements_csv', name: 'administrator_directory_potential_jobs_csv')]
+    public function getDirectoryPotentialJobsCSV(AdminDirectoryPotentialJobs $adminDirectoryPotentialJobs): Response
+    {
+        return $adminDirectoryPotentialJobs->getCSV();
     }
 }

@@ -13,6 +13,7 @@ use App\Controller\Administrator\AdminDirectoryCity;
 use App\Controller\Administrator\AdminDirectoryEmployerRequirements;
 use App\Controller\Administrator\AdminDirectoryFGOS;
 use App\Controller\Administrator\AdminDirectoryKafedra;
+use App\Controller\Administrator\AdminDirectoryPotentialJobs;
 use App\Controller\Administrator\AdminDirectoryProgramType;
 use App\Controller\Administrator\AdminDirectoryTrainingCentre;
 use App\Controller\Administrator\AdministratorOperationsController;
@@ -97,5 +98,11 @@ class FormController extends AbstractController
     public function getEmployerRequirementsForm($id, AdminDirectoryEmployerRequirements $adminEmployerRequirements): Response
     {
         return $adminEmployerRequirements->getEmployerRequirementsForm($id);
+    }
+
+    #[Route('/potential_jobs_edit/{id}', name: 'potential_jobs_edit')]
+    public function getPotentialJobsForm($id, AdminDirectoryPotentialJobs $adminDirectoryPotentialJobs): Response
+    {
+        return $adminDirectoryPotentialJobs->getPotentialJobsForm($id);
     }
 }
