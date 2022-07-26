@@ -1,8 +1,11 @@
 <?php
+/*
+ * Created AptPr <prudishew@yandex.ru> 2022.
+ */
 
 namespace App\Controller\Administrator;
 
-use App\Entity\ProgramType;
+use App\Entity\Subdivisions;
 use App\Service\AuthService;
 use App\Service\CSVHelper;
 use App\Service\LinkService;
@@ -11,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class AdminDirectoryProgramType extends AbstractController
+class AdminDirectorySubdivisions extends AbstractController
 {
     use LinkService;
     use AuthService;
@@ -30,7 +33,7 @@ class AdminDirectoryProgramType extends AbstractController
         if (!is_array($auth)) {
             return $auth;
         }
-        $tpl = $this->request->get('ajax') ? 'administrator/directory/program_type/program_type_table.html.twig' : 'administrator/directory/program_type/program_type.html.twig';
+        $tpl = $this->request->get('ajax') ? 'administrator/directory/subdivisions/subdivisions_table.html.twig' : 'administrator/directory/subdivisions/subdivisions.html.twig';
         $result = $this->get();
         $result['auth'] = $auth;
 
@@ -51,12 +54,11 @@ class AdminDirectoryProgramType extends AbstractController
         foreach ($result['data'] as $val) {
             $data[] = [
                 ($val['id']),
-                ($val['name_type']),
-                ($val['short_name_type']),
+                ($val['subdivisions_name']),
             ];
         }
 
-        return $this->processCSV($data, 'program_type.csv');
+        return $this->processCSV($data, 'subdivisions.csv');
     }
 
     private function get(bool $full = false)
@@ -66,13 +68,13 @@ class AdminDirectoryProgramType extends AbstractController
         $sort = $this->request->get('sort') ?? null;
         $search = $this->request->get('search') ?? null;
         if (false === $full) {
-            $result = $this->managerRegistry->getRepository(ProgramType::class)->getList($page, $on_page, $sort, $search);
-            $count = $this->managerRegistry->getRepository(ProgramType::class)->getListAll($page, $on_page,
+            $result = $this->managerRegistry->getRepository(Subdivisions::class)->getList($page, $on_page, $sort, $search);
+            $count = $this->managerRegistry->getRepository(Subdivisions::class)->getListAll($page, $on_page,
                 $sort, $search);
         } else {
-            $result = $this->managerRegistry->getRepository(ProgramType::class)->getList(0, 9999999999, $sort,
+            $result = $this->managerRegistry->getRepository(Subdivisions::class)->getList(0, 9999999999, $sort,
                 $search);
-            $count = $this->managerRegistry->getRepository(ProgramType::class)->getListAll(0, 9999999999,
+            $count = $this->managerRegistry->getRepository(Subdivisions::class)->getListAll(0, 9999999999,
                 $sort, $search);
         }
         $page = $page ?? 1;
@@ -97,12 +99,12 @@ class AdminDirectoryProgramType extends AbstractController
         ];
     }
 
-    public function getProgramTypeForm($id): Response
+    public function getSubdivisionsForm($id): Response
     {
-        $data_out = $this->managerRegistry->getRepository(ProgramType::class)->get($id);
+        $data_out = $this->managerRegistry->getRepository(Subdivisions::class)->get($id);
 
         return $this->render(
-            'administrator/directory/program_type/form/update.html.twig',
+            'administrator/directory/subdivisions/form/update.html.twig',
             [
                 'data' => $data_out[0] ?? null,
             ]
@@ -121,24 +123,8 @@ class AdminDirectoryProgramType extends AbstractController
                 'sort' => true,
             ],
             [
-                'name' => 'name_type',
+                'name' => 'subdivisions_name',
                 'header' => 'Название',
-                'type' => 'string',
-                'filter' => true,
-                'show' => true,
-                'sort' => true,
-            ],
-            [
-                'name' => 'short_name_type',
-                'header' => 'Короткое название',
-                'type' => 'string',
-                'filter' => true,
-                'show' => true,
-                'sort' => true,
-            ],
-            [
-                'name' => 'comment',
-                'header' => 'Комментарий',
                 'type' => 'string',
                 'filter' => true,
                 'show' => true,
