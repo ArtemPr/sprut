@@ -16,6 +16,9 @@ class Subdivisions
     #[ORM\Column(type: 'string', length: 255)]
     private $subdivisions_name;
 
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    private $delete;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -29,6 +32,18 @@ class Subdivisions
     public function setSubdivisionsName(string $subdivisions_name): self
     {
         $this->subdivisions_name = $subdivisions_name;
+
+        return $this;
+    }
+
+    public function isDelete(): ?bool
+    {
+        return $this->delete;
+    }
+
+    public function setDelete(?bool $delete): self
+    {
+        $this->delete = $delete;
 
         return $this;
     }
