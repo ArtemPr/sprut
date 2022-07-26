@@ -143,6 +143,7 @@
                             <tr>
                                 <th style="width: 5%">ID</th>
                                 <th>Название</th>
+                                <th>Код</th>
                                 <th style="width: 5%">Удалить</th>
                             </tr>
                             </thead>
@@ -151,7 +152,10 @@
                                 <tr>
                                     <td>-</td>
                                     <td>
-                                        <input type="text" name="comp_name[]" class="form-control" value="" />
+                                        <input type="text" name="comp_name_new[]" class="form-control" value="" required />
+                                    </td>
+                                    <td>
+                                        <input type="text" name="comp_code_new[]" class="form-control" value="" required />
                                     </td>
                                     <td class="text-center">
                                         <button type="button" class="delete_string">
