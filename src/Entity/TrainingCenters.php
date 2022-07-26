@@ -44,9 +44,13 @@ class TrainingCenters
     #[ORM\Column(type: 'boolean', nullable: true)]
     private $delete;
 
+    #[ORM\ManyToMany(targetEntity: MasterProgram::class)]
+    private $program;
+
     public function __construct()
     {
         $this->trainingCentersRequisites = new ArrayCollection();
+        $this->program = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -191,6 +195,30 @@ class TrainingCenters
     public function setDelete(?bool $delete): self
     {
         $this->delete = $delete;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, MasterProgram>
+     */
+    public function getProgram(): Collection
+    {
+        return $this->program;
+    }
+
+    public function addProgram(MasterProgram $program): self
+    {
+        if (!$this->program->contains($program)) {
+            $this->program[] = $program;
+        }
+
+        return $this;
+    }
+
+    public function removeProgram(MasterProgram $program): self
+    {
+        $this->program->removeElement($program);
 
         return $this;
     }

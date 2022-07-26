@@ -95,6 +95,17 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
             if (selectedItems.length === 0) {
                 dualItems[0].classList.add("dual-listbox__item--selected")
+            } else {
+                selectedItems.forEach(selectedItem => {
+                    leftPanel.removeChild(selectedItem);
+                    rightPanel.appendChild(selectedItem);
+                    selectedItem.classList.remove("dual-listbox__item--selected");
+                })
+                let leftRoles = [];
+                leftRoles =  leftPanel.querySelectorAll('.dual-listbox__item');
+                if(leftRoles.length > 0) {
+                    leftRoles[0].classList.add("dual-listbox__item--selected");
+                }
             }
 
             addOneBtn.addEventListener("click", addOne);
