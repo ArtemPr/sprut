@@ -4,6 +4,7 @@
 require('sortablejs');
 //import Sortable from 'sortablejs';
 import {Sortable, MultiDrag} from 'sortablejs';
+Sortable.mount(new MultiDrag());
 
 document.addEventListener("DOMContentLoaded", function (event) {
 
@@ -42,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             hiddenOptions.forEach(hiddenOption => valuesList.push(hiddenOption.textContent));
         }
 
-        if (container && dualItems && hiddenSelect && leftPanel !== null && rightPanel !== null) {
+        if (container && dualItems && select && leftPanel !== null && rightPanel !== null) {
 
             function unselectAll() {
                 dualItems.forEach((dualItem) =>
@@ -51,7 +52,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
             }
 
             // drag-and-drop
-            Sortable.mount(new MultiDrag());
             new Sortable(leftPanel, {
                 multiDrag: true,
                 selectedClass: 'multi--selected',
@@ -77,7 +77,17 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 unselectAll();
             })
 
-            dualItems[0].classList.add("dual-listbox__item--selected")
+            dualItems.forEach(dualItem => {
+                    if (dualItem.classList.contains('dual-listbox__item--selected')) {
+                        selectedItems.push(dualItem);
+                    }
+                }
+            )
+
+            if (selectedItems.length === 0) {
+                dualItems[0].classList.add("dual-listbox__item--selected")
+            }
+
             addOneBtn.addEventListener("click", addOne);
             addAllBtn.addEventListener("click", addAll);
             removeOneBtn.addEventListener("click", removeOne);
@@ -121,7 +131,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
             function toggleSelected(event) {
                 if (shiftOn === true) {
-                    let firstSelected = document.querySelector('.dual-listbox__item--selected');
+                    let firstSelected = container.querySelector('.dual-listbox__item--selected');
                     if (firstSelected) {
                         let lastSelected = event.target;
                         if (firstSelected.parentElement === lastSelected.parentElement) {
@@ -152,7 +162,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 if (ctrlOn === true) {
                     this.classList.add('dual-listbox__item--selected');
                 }
-
             }
 
             function addOne() {
@@ -211,8 +220,25 @@ document.addEventListener("DOMContentLoaded", function (event) {
     // скрытый селект и классы dual-listbox__item" и др.
     // как на модалке "Создать пользователя"
 
-    const userDualBox = document.querySelector('.dual-listbox--user-add');
-    let hiddenSelect = document.querySelector('[name="roles[]"]');
+    const userDualBoxAdd = document.querySelector('.dual-listbox--user-add');
+    let hiddenSelectAdd = document.querySelector('#user-select-hidden--add');
 
-    customDualSelect(userDualBox, hiddenSelect)
+    customDualSelect(userDualBoxAdd, hiddenSelectAdd)
+
+    let userDualBoxUpdate = null
+    let hiddenSelectUpdate = null
+
+    const editTriggerBtn = document.querySelector('[href="#AdminUserEditingPanel"]');
+    if (editTriggerBtn) {
+        editTriggerBtn.addEventListener('click', function () {
+            let interval_update = setInterval(function () {
+                userDualBoxUpdate = document.querySelector('.dual-listbox--user-update');
+                hiddenSelectUpdate = document.querySelector('#user-select-hidden--update');
+                if (userDualBoxUpdate !== null && hiddenSelectUpdate !== null) {
+                    customDualSelect(userDualBoxUpdate, hiddenSelectUpdate)
+                    clearInterval(interval_update);
+                }
+            }, 1500)
+        })
+    }
 });

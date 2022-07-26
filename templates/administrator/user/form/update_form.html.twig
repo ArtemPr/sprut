@@ -86,21 +86,51 @@
                             <div class="dual-controls-wrap mb-4">
                                 <div class="dual-controls-label mb-3"><b>Выберите роль</b></div>
                                 <div class="dual-controls-box col-12">
-                                    <div class="dual-listbox">
-                                        <div class="dual-listbox__container">
-                                            <select class="dual-controls-select dual-controls-select_update dual-listbox__available" name="roles[]" multiple>
-                                                {% if roles|default(false) %}
-                                                    {% for rol in roles %}
-                                                        {% if data.roles|default(false) and (rol.roles_alt in data.roles) %}
-                                                            <option class="dual-listbox__item" value="{{ rol.roles_alt }}" selected>{{ rol.name }}</option>
-                                                        {% else %}
-                                                            <option class="dual-listbox__item" value="{{ rol.roles_alt }}">{{ rol.name }}</option>
-                                                        {% endif %}
-                                                    {% endfor %}
-                                                {% endif %}
-                                            </select>
+
+                                    <div class="dual-listbox dual-listbox--user-update">
+                                        {#                                    <div class="dual-listbox__container"> #}
+                                        <ul class="dual-controls-select dual-controls-select_create  dual-listbox__available">
+                                            {% if roles|default(false) %}
+                                                {% for rol in roles %}
+                                                    {% if data.roles|default(false) and (rol.roles_alt in data.roles) %}
+                                                        <li class="dual-listbox__item dual-listbox__item--selected"
+                                                            title="{{ rol.name }}"
+                                                            value="{{ rol.roles_alt }}">{{ rol.name }}</li>
+                                                    {% else %}
+                                                        <li class="dual-listbox__item" title="{{ rol.name }}"
+                                                            value="{{ rol.roles_alt }}">{{ rol.name }}</li>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% endif %}
+                                        </ul>
+
+                                        <select hidden name="roles[]" id="user-select-hidden--update" multiple>
+                                            {% if roles|default(false) %}
+                                                {% for rol in roles %}
+                                                    {% if data.roles|default(false) and (rol.roles_alt in data.roles) %}
+                                                        <option class="dual-listbox__item" title="{{ rol.name }}"
+                                                                value="{{ rol.roles_alt }}" selected>{{ rol.name }}</option>
+                                                    {% else %}
+                                                        <option class="dual-listbox__item" title="{{ rol.name }}"
+                                                                value="{{ rol.roles_alt }}">{{ rol.name }}</option>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% endif %}
+                                        </select>
+
+                                        <div class="dual-listbox__buttons">
+                                            <button type="button" name="add_all" class="dual-listbox__button">&gt;&gt;
+                                            </button>
+                                            <button type="button" name="add_one" class="dual-listbox__button">&gt;</button>
+                                            <button type="button" name="remove_one" class="dual-listbox__button">&lt;
+                                            </button>
+                                            <button type="button" name="remove_all" class="dual-listbox__button">&lt;&lt;
+                                            </button>
                                         </div>
+                                        <ul class="dual-controls-select dual-controls-select_create  dual-listbox__selected">
+                                        </ul>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -146,5 +176,6 @@
                             aria-label="Close">Сохранить
                     </button>
                 </div>
+            </div>
         </form>
 </div>
