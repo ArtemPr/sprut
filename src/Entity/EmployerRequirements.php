@@ -19,6 +19,9 @@ class EmployerRequirements
     #[ORM\Column(type: 'text', nullable: true)]
     private $comment;
 
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    private $delete;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -44,6 +47,18 @@ class EmployerRequirements
     public function setComment(?string $comment): self
     {
         $this->comment = $comment;
+
+        return $this;
+    }
+
+    public function isDelete(): ?bool
+    {
+        return $this->delete;
+    }
+
+    public function setDelete(?bool $delete): self
+    {
+        $this->delete = $delete;
 
         return $this;
     }
