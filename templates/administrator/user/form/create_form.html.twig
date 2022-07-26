@@ -92,6 +92,7 @@
                         <div class="dual-controls-wrap mb-4">
                             <div class="dual-controls-label mb-3"><b>Выберите роль</b></div>
                             <div class="dual-controls-box col-12">
+
                                 <div class="dual-listbox dual-listbox--user-add">
                                     {#                                    <div class="dual-listbox__container"> #}
                                     <ul class="dual-controls-select dual-controls-select_create  dual-listbox__available">
@@ -109,7 +110,7 @@
                                         {% endif %}
                                     </ul>
 
-                                    <select hidden name="roles[]" multiple>
+                                    <select hidden name="roles[]" id="user-select-hidden--add" multiple>
                                         {% if roles|default(false) %}
                                             {% for rol in roles %}
                                                 {% if data.roles|default(false) and (rol.roles_alt in data.roles) %}
@@ -132,12 +133,13 @@
                                         <button type="button" name="remove_all" class="dual-listbox__button">&lt;&lt;
                                         </button>
                                     </div>
-                                    <ul class="dual-controls-select dual-controls-select_create  dual-listbox__selected"
-                                        name="roles[]" multiple>
+                                    <ul class="dual-controls-select dual-controls-select_create  dual-listbox__selected">
                                     </ul>
                                 </div>
+
                             </div>
                         </div>
+                    </div>
 
                         <div class="tab-pane" id="tabs-ex3">
                             <div class="form-group mb-3 row">
@@ -183,7 +185,6 @@
                     </button>
                 </div>
             </div>
-        </div>
 
     </form>
 </div>
