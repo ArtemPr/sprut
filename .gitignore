@@ -30,3 +30,11 @@ yarn-error.log
 .phpunit.result.cache
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
+
+composer.lock
+package-lock.json
+.idea/*
+!.idea/dataSources.xml
+!.idea/dataSources.local.xml
+!.idea/sshConfigs.xml
+!.idea/webServers.xml
