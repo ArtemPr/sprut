@@ -176,6 +176,12 @@ class ApiController extends AbstractController
         return $apiFgosController->update();
     }
 
+    #[Route('/fgos_add', name: 'fgos_add', methods: ['POST'])]
+    public function fgos_add(ApiFgosController $apiFgosController): Response
+    {
+        return $apiFgosController->add();
+    }
+
     #[Route('/add_antiplagiat', name: 'add_antiplagiat', methods: ['POST'])]
     public function add_antiplagiat(ApiAntiplagiat $apiAntiplagiat): Response
     {
