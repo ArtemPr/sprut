@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 class FederalStandartCompetencies
 {
     #[ORM\Id]
+    #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private $id;
 
@@ -25,6 +26,9 @@ class FederalStandartCompetencies
 
     #[ORM\Column(type: 'integer', nullable: true)]
     private $number;
+
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    private $delete = false;
 
     public function __construct()
     {
@@ -121,4 +125,21 @@ class FederalStandartCompetencies
     {
         $this->number = $number;
     }
+
+    /**
+     * @return bool
+     */
+    public function isDelete(): bool
+    {
+        return $this->delete;
+    }
+
+    /**
+     * @param bool $delete
+     */
+    public function setDelete(bool $delete): void
+    {
+        $this->delete = $delete;
+    }
+
 }
