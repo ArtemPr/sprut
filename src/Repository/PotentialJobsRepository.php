@@ -49,28 +49,35 @@ class PotentialJobsRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('pj')
             ->orderBy($order[0], $order[1])
             ->setFirstResult($first_result)
-            ->setMaxResults($on_page);
+            ->setMaxResults($on_page)
+            ->where('pj.delete = :delete')
+            ->setParameter('delete', false);
         $query = $qb->getQuery();
         $result = $query->execute(
             hydrationMode: Query::HYDRATE_ARRAY
         );
+
         return $result;
     }
 
     public function getListAll(int|null $page = 0, int|null $on_page = 25, string|null $sort = null, string|null $search = null)
     {
         $qb = $this->createQueryBuilder('pj');
-        $qb->select('COUNT(pj.id)');
+        $qb->select('COUNT(pj.id)')
+            ->where('pj.delete = :delete')
+            ->setParameter('delete', false);
         $query = $qb->getQuery();
         $result = $query->execute(
             hydrationMode: Query::HYDRATE_ARRAY
         );
+
         return $result[0][1] ?? 0;
     }
 
     public function get($id)
     {
         $entityManager = $this->getEntityManager();
+
         return $entityManager->createQuery(
             'SELECT pj
                 FROM App\Entity\PotentialJobs pj
@@ -94,6 +101,7 @@ class PotentialJobsRepository extends ServiceEntityRepository
         } else {
             $order = $prefix.'.jobs_name DESC';
         }
+
         return explode(' ', $order);
     }
 }

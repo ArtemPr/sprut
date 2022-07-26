@@ -66,7 +66,7 @@
                                      style="position: absolute; top: 35%; left: 50%; margin-left: -75px;">
                             </div>
                             <div id="userEditingOverlay" class="offcanvas-backdrop fade"></div>
-                            {% include 'modal/delete.html.twig' %}
+                            {% include 'modal/delete.html.twig' with {'controller': controller} %}
                         </div>
                     </div>
                 </div>
