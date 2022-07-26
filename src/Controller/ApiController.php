@@ -15,6 +15,7 @@ use App\Controller\Api\ApiPotentialJobsController;
 use App\Controller\Api\ApiProgramController;
 use App\Controller\Api\ApiProgramTypeController;
 use App\Controller\Api\ApiRole;
+use App\Controller\Api\ApiSubdivisionsController;
 use App\Controller\Api\ApiTrainingCentre;
 use App\Controller\Api\ApiUserController;
 use App\Repository\KaferdaRepository;
@@ -254,5 +255,23 @@ class ApiController extends AbstractController
     public function potential_jobs_hide($id, ApiPotentialJobsController $apiPotentialJobsController): Response
     {
         return $apiPotentialJobsController->hide($id);
+    }
+
+    #[Route('/subdivisions_update', name: 'subdivisions_update', methods: ['POST'])]
+    public function subdivisions_update(ApiSubdivisionsController $apiSubdivisionsController): Response
+    {
+        return $apiSubdivisionsController->update();
+    }
+
+    #[Route('/subdivisions_add', name: 'subdivisions_add', methods: ['POST'])]
+    public function subdivisions_add(ApiSubdivisionsController $apiSubdivisionsController): Response
+    {
+        return $apiSubdivisionsController->add();
+    }
+
+    #[Route('/subdivisions_hide/{id}', name: 'subdivisions_hide', methods: ['GET'])]
+    public function subdivisions_hide($id, ApiSubdivisionsController $apiSubdivisionsController): Response
+    {
+        return $apiSubdivisionsController->hide($id);
     }
 }
