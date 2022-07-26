@@ -50,7 +50,9 @@ class AdminDirectoryProgramType extends AbstractController
         $data[] = $dataRow;
         foreach ($result['data'] as $val) {
             $data[] = [
-                ($val['name']),
+                ($val['id']),
+                ($val['name_type']),
+                ($val['short_name_type']),
             ];
         }
 
@@ -129,6 +131,14 @@ class AdminDirectoryProgramType extends AbstractController
             [
                 'name' => 'short_name_type',
                 'header' => 'Короткое название',
+                'type' => 'string',
+                'filter' => true,
+                'show' => true,
+                'sort' => true,
+            ],
+            [
+                'name' => 'comment',
+                'header' => 'Комментарий',
                 'type' => 'string',
                 'filter' => true,
                 'show' => true,

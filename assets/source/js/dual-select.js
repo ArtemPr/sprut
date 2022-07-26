@@ -37,6 +37,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         let shiftOn = false;
         let hiddenOptions = [];
         let valuesList = [];
+        let leftItems = [];
 
         if (select) {
             hiddenOptions = select.querySelectorAll('option');
@@ -70,11 +71,19 @@ document.addEventListener("DOMContentLoaded", function (event) {
             leftPanel.addEventListener('dragend', function () {
                 addToHiddenSelect();
                 unselectAll();
+                leftItems = rightPanel.querySelectorAll('.dual-listbox__item');
+                if(leftItems.length > 0) {
+                    leftItems[0].classList.add('dual-listbox__item--selected');
+                }
             })
 
             rightPanel.addEventListener('dragend', function () {
                 addToHiddenSelect();
                 unselectAll();
+                leftItems = leftPanel.querySelectorAll('.dual-listbox__item');
+                if(leftItems.length > 0) {
+                    leftItems[0].classList.add('dual-listbox__item--selected');
+                }
             })
 
             dualItems.forEach(dualItem => {
@@ -174,6 +183,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     })
                 }
                 addToHiddenSelect();
+                leftItems = leftPanel.querySelectorAll('.dual-listbox__item');
+                if(leftItems.length > 0) {
+                    leftItems[0].classList.add('dual-listbox__item--selected');
+                }
             }
 
             function removeOne() {
@@ -186,6 +199,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     })
                 }
                 addToHiddenSelect();
+                leftItems = rightPanel.querySelectorAll('.dual-listbox__item');
+                if(leftItems.length > 0) {
+                    leftItems[0].classList.add('dual-listbox__item--selected');
+                }
             }
 
             function addAll() {
