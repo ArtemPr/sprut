@@ -51,7 +51,9 @@ class EmployerRequirementsRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('er')
             ->orderBy($order[0], $order[1])
             ->setFirstResult($first_result)
-            ->setMaxResults($on_page);
+            ->setMaxResults($on_page)
+            ->where('er.delete = :delete')
+            ->setParameter('delete', false);
         $query = $qb->getQuery();
         $result = $query->execute(
             hydrationMode: Query::HYDRATE_ARRAY
@@ -62,7 +64,9 @@ class EmployerRequirementsRepository extends ServiceEntityRepository
     public function getListAll(int|null $page = 0, int|null $on_page = 25, string|null $sort = null, string|null $search = null)
     {
         $qb = $this->createQueryBuilder('er');
-        $qb->select('COUNT(er.id)');
+        $qb->select('COUNT(er.id)')
+            ->where('er.delete = :delete')
+            ->setParameter('delete', false);
         $query = $qb->getQuery();
         $result = $query->execute(
             hydrationMode: Query::HYDRATE_ARRAY

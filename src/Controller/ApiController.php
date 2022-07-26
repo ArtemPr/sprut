@@ -232,6 +232,12 @@ class ApiController extends AbstractController
         return $apiEmployerRequirementsController->add();
     }
 
+    #[Route('/employer_requirements_hide/{id}', name: 'employer_requirements_hide', methods: ['GET'])]
+    public function employer_requirements_hide($id, ApiEmployerRequirementsController $apiEmployerRequirementsController): Response
+    {
+        return $apiEmployerRequirementsController->hide($id);
+    }
+
     #[Route('/potential_jobs_update', name: 'potential_jobs_update', methods: ['POST'])]
     public function potential_jobs_update(ApiPotentialJobsController $apiPotentialJobsController): Response
     {
@@ -242,5 +248,11 @@ class ApiController extends AbstractController
     public function potential_jobs_add(ApiPotentialJobsController $apiPotentialJobsController): Response
     {
         return $apiPotentialJobsController->add();
+    }
+
+    #[Route('/potential_jobs_hide/{id}', name: 'potential_jobs_hide', methods: ['GET'])]
+    public function potential_jobs_hide($id, ApiPotentialJobsController $apiPotentialJobsController): Response
+    {
+        return $apiPotentialJobsController->hide($id);
     }
 }
