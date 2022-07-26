@@ -112,11 +112,26 @@ class ApiFgosController extends AbstractController
         $federal_s->setPrNum($data['pr_num']);
         $federal_s->setOldName(null);
 
-
         $entityManager = $this->managerRegistry->getManager();
         $entityManager->persist($federal_s);
         $entityManager->flush();
         $lastId = $federal_s->getId();
+
+        if (!empty($data['comp_name_new'])) {
+
+            $fs = $this->managerRegistry->getRepository(FederalStandart::class)->find((int) $lastId);
+            foreach ($data['comp_name_new'] as $k => $v) {
+                $comp_name = $data['comp_name_new'][$k];
+                $comp_code = $data['comp_code_new'][$k];
+                $fs_comp = new FederalStandartCompetencies();
+                $fs_comp->setName($comp_name);
+                $fs_comp->setCode($comp_code);
+                $fs_comp->setFederalStandart($fs);
+                $entityManager->persist($fs_comp);
+                $entityManager->flush();
+                unset($qb);
+            }
+        }
 
         $loger = new Loger();
         $loger->setTime(new \DateTime());
