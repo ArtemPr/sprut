@@ -1,8 +1,11 @@
 <?php
+/*
+ * Created AptPr <prudishew@yandex.ru> 2022.
+ */
 
 namespace App\Controller\Administrator;
 
-use App\Entity\ProgramType;
+use App\Entity\PotentialJobs;
 use App\Service\AuthService;
 use App\Service\CSVHelper;
 use App\Service\LinkService;
@@ -11,12 +14,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class AdminDirectoryProgramType extends AbstractController
+class AdminDirectoryPotentialJobs extends AbstractController
 {
     use LinkService;
     use AuthService;
     use CSVHelper;
-
     private $request;
 
     public function __construct(private ManagerRegistry $managerRegistry)
@@ -30,7 +32,7 @@ class AdminDirectoryProgramType extends AbstractController
         if (!is_array($auth)) {
             return $auth;
         }
-        $tpl = $this->request->get('ajax') ? 'administrator/directory/program_type/program_type_table.html.twig' : 'administrator/directory/program_type/program_type.html.twig';
+        $tpl = $this->request->get('ajax') ? 'administrator/directory/potential_jobs/potential_jobs_table.html.twig' : 'administrator/directory/potential_jobs/potential_jobs.html.twig';
         $result = $this->get();
         $result['auth'] = $auth;
 
@@ -51,8 +53,8 @@ class AdminDirectoryProgramType extends AbstractController
         foreach ($result['data'] as $val) {
             $data[] = [
                 ($val['id']),
-                ($val['name_type']),
-                ($val['short_name_type']),
+                ($val['jobs_name']),
+                ($val['comment']),
             ];
         }
 
@@ -66,13 +68,13 @@ class AdminDirectoryProgramType extends AbstractController
         $sort = $this->request->get('sort') ?? null;
         $search = $this->request->get('search') ?? null;
         if (false === $full) {
-            $result = $this->managerRegistry->getRepository(ProgramType::class)->getList($page, $on_page, $sort, $search);
-            $count = $this->managerRegistry->getRepository(ProgramType::class)->getListAll($page, $on_page,
+            $result = $this->managerRegistry->getRepository(PotentialJobs::class)->getList($page, $on_page, $sort, $search);
+            $count = $this->managerRegistry->getRepository(PotentialJobs::class)->getListAll($page, $on_page,
                 $sort, $search);
         } else {
-            $result = $this->managerRegistry->getRepository(ProgramType::class)->getList(0, 9999999999, $sort,
+            $result = $this->managerRegistry->getRepository(PotentialJobs::class)->getList(0, 9999999999, $sort,
                 $search);
-            $count = $this->managerRegistry->getRepository(ProgramType::class)->getListAll(0, 9999999999,
+            $count = $this->managerRegistry->getRepository(PotentialJobs::class)->getListAll(0, 9999999999,
                 $sort, $search);
         }
         $page = $page ?? 1;
@@ -97,12 +99,12 @@ class AdminDirectoryProgramType extends AbstractController
         ];
     }
 
-    public function getProgramTypeForm($id): Response
+    public function getPotentialJobsForm($id): Response
     {
-        $data_out = $this->managerRegistry->getRepository(ProgramType::class)->get($id);
+        $data_out = $this->managerRegistry->getRepository(PotentialJobs::class)->get($id);
 
         return $this->render(
-            'administrator/directory/program_type/form/update.html.twig',
+            'administrator/directory/potential_jobs/form/update.html.twig',
             [
                 'data' => $data_out[0] ?? null,
             ]
@@ -121,16 +123,8 @@ class AdminDirectoryProgramType extends AbstractController
                 'sort' => true,
             ],
             [
-                'name' => 'name_type',
+                'name' => 'jobs_name',
                 'header' => 'Название',
-                'type' => 'string',
-                'filter' => true,
-                'show' => true,
-                'sort' => true,
-            ],
-            [
-                'name' => 'short_name_type',
-                'header' => 'Короткое название',
                 'type' => 'string',
                 'filter' => true,
                 'show' => true,
