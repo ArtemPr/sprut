@@ -64,7 +64,7 @@ class AdminDirectoryFGOS extends BaseController
         $data = $this->managerRegistry->getRepository(FederalStandart::class)->get($id);
         if(!empty($data)) {
             $data_competensions = $this->managerRegistry->getRepository(FederalStandartCompetencies::class)->findBy(
-                ['federal_standart' => $id], ['id' => 'ASC']
+                ['federal_standart' => $id, 'delete' => false], ['id' => 'ASC']
             );
             $data['compenencions'] = $data_competensions;
         }
