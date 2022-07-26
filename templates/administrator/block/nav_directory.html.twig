@@ -65,8 +65,18 @@
         </a>
     </li>
     <li class="nav-item {% if controller|default(false) and controller == 'administrator_directory_program_type' %}active{% endif %}">
-        <a class="nav-link" href="{{ path('administrator_directory_program_type') }}" title="Направления">
+        <a class="nav-link" href="{{ path('administrator_directory_program_type') }}" title="Тип программы">
             <span class="nav-link-title">Тип программы</span>
+        </a>
+    </li>
+    <li class="nav-item {% if controller|default(false) and controller == 'administrator_directory_employer_requirements' %}active{% endif %}">
+        <a class="nav-link" href="{{ path('administrator_directory_employer_requirements') }}" title="Требования работодателя">
+            <span class="nav-link-title">Требования работодателя</span>
+        </a>
+    </li>
+    <li class="nav-item {% if controller|default(false) and controller == 'administrator_directory_potential_jobs' %}active{% endif %}">
+        <a class="nav-link" href="{{ path('administrator_directory_potential_jobs') }}" title="Потенциальные места работы">
+            <span class="nav-link-title">Потенциальные места работы</span>
         </a>
     </li>
 </ul>

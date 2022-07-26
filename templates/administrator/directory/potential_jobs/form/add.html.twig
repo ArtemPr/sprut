@@ -1,0 +1,23 @@
+<div class="offcanvas-header">
+    <h2 class="offcanvas-title">Создание потенциального места работы</h2>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+</div>
+<div class="offcanvas-body">
+    <form action="#" name="potential_jobs-create" id="potential_jobs_add-create" class="form-create">
+        <div class="form-group mb-3 row">
+            <label class="form-label col-3 col-form-label">Название потенциального места</label>
+            <div class="col">
+                <input name="jobs_name" type="text" class="form-control" placeholder="Название потенциального места работы" required>
+            </div>
+        </div>
+        <div class="form-group mb-3 row">
+            <label class="form-label col-3 col-form-label">Комментарий</label>
+            <div class="col">
+                <input name="comment" type="text" class="form-control" placeholder="Комментарий" required>
+            </div>
+        </div>
+        <div class="d-flex mb-4">
+            <button data-form-id="potential_jobs_add-create" data-action="send-form" type="submit" class="btn btn-primary ms-auto" aria-label="Close">Сохранить</button>
+        </div>
+    </form>
+</div>

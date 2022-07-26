@@ -8,8 +8,10 @@ namespace App\Controller;
 use App\Controller\Administrator\Admin;
 use App\Controller\Administrator\AdminDirectoryCity;
 use App\Controller\Administrator\AdminDirectoryDiscipline;
+use App\Controller\Administrator\AdminDirectoryEmployerRequirements;
 use App\Controller\Administrator\AdminDirectoryFGOS;
 use App\Controller\Administrator\AdminDirectoryKafedra;
+use App\Controller\Administrator\AdminDirectoryPotentialJobs;
 use App\Controller\Administrator\AdminDirectoryProgramType;
 use App\Controller\Administrator\AdminDirectoryPS;
 use App\Controller\Administrator\AdminDirectoryTrainingCentre;
@@ -141,5 +143,29 @@ class AdministratorController extends AbstractController
     public function getDirectoryProgramTypeCSV(AdminDirectoryProgramType $adminDirectoryProgramType): Response
     {
         return $adminDirectoryProgramType->getCSV();
+    }
+
+    #[Route('/administrator/directory/employer_requirements', name: 'administrator_directory_employer_requirements')]
+    public function getDirectoryEmployerRequirements(AdminDirectoryEmployerRequirements $adminDirectoryEmployerRequirements): Response
+    {
+        return $adminDirectoryEmployerRequirements->getList();
+    }
+
+    #[Route('/administrator/directory/employer_requirements_csv', name: 'administrator_directory_employer_requirements_csv')]
+    public function getDirectoryEmployerRequirementsCSV(AdminDirectoryEmployerRequirements $adminDirectoryEmployerRequirements): Response
+    {
+        return $adminDirectoryEmployerRequirements->getCSV();
+    }
+
+    #[Route('/administrator/directory/potential_jobs', name: 'administrator_directory_potential_jobs')]
+    public function getDirectoryPotentialJobs(AdminDirectoryPotentialJobs $adminDirectoryPotentialJobs): Response
+    {
+        return $adminDirectoryPotentialJobs->getList();
+    }
+
+    #[Route('/administrator/directory/employer_requirements_csv', name: 'administrator_directory_potential_jobs_csv')]
+    public function getDirectoryPotentialJobsCSV(AdminDirectoryPotentialJobs $adminDirectoryPotentialJobs): Response
+    {
+        return $adminDirectoryPotentialJobs->getCSV();
     }
 }
