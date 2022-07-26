@@ -62,6 +62,9 @@
                 <td>
                     {{ program.name | raw }}
                 </td>
+                <td>{{ program.length_week|default(false) }}</td>
+                <td>{{ program.length_hour|default(false) }}</td>
+                <td>{{ program.length_week_short|default(false) }}</td>
                 <td>
                     {% if program.federal_standart|default(false) %}
                         {% for fs in program.federal_standart %}
