@@ -110,4 +110,18 @@ class DisciplineRepository extends ServiceEntityRepository
 
         return explode(' ', $order);
     }
+
+    public function get($id)
+    {
+        $qb = $this->createQueryBuilder('discipline')
+            ->where('discipline.id = :id')
+//            ->leftJoin('training_centers.trainingCentersRequisites', 'training_centers_requisites')->addSelect('training_centers_requisites')
+            ->setParameter('id', $id);
+
+        $query = $qb->getQuery();
+        $result = $query->execute(
+            hydrationMode: Query::HYDRATE_ARRAY
+        );
+        return $result;
+    }
 }

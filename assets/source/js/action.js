@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     } else if (asideHiddenValue === 'false') {
         asideHiddenValue = false;
     } else {
-        Cookies.set('aside_hidden', 'false', {expires: 7});
+        Cookies.set('aside_hidden', 'false', { expires: 7 });
         asideHiddenValue = false;
     }
 
@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             hideBtn.classList.toggle('hide-btn--hidden');
             pageWrapper.classList.toggle('page-wrapper--full');
             asideHiddenValue = !asideHiddenValue;
-            Cookies.set('aside_hidden', asideHiddenValue, {expires: 7})
+            Cookies.set('aside_hidden', asideHiddenValue, { expires: 7 })
         })
     }
     // скрытие боковой панели  ↑
@@ -157,6 +157,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
         });
     }
 
+    // доделать цвет на первый элемент
+
     const changeDisciplineBtn = document.querySelector('.btn-group [data-action="edit"]');
     if (changeDisciplineBtn) {
         changeDisciplineBtn.addEventListener('click', function () {
@@ -173,13 +175,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
                                 selectColored.className = 'form-control select-check';
                                 break;
                             case "3":
-                                selectColored.className = 'form-control select-work';
+                                selectColored.className = 'form-control select-revision';
                                 break;
                             case "4":
-                                selectColored.className = 'form-control select-approved';
+                                selectColored.className = 'form-control select-accept';
                                 break;
                             case "5":
-                                selectColored.className = 'form-control select-ready';
+                                selectColored.className = 'form-control select-done';
                                 break;
                             default:
                                 selectColored.className = 'form-control select-new';

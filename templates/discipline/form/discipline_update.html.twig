@@ -1,24 +1,30 @@
 <div class="offcanvas-header">
-    <h2 class="offcanvas-title">Создание дисциплины</h2>
+    <h2 class="offcanvas-title">Изменение дисциплины</h2>
     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 </div>
 <div class="offcanvas-body">
     <form action="#" name="discipline-create" id="discipline_add-create" class="form-create">
-
-
         <div class="form-group mb-3 row">
             <label class="col-12 col-form-label">Статус</label>
             <div class="">
-                <select name="book" class="form-control select-new" id="select-colored">
-                    <option class="option-new" value="1">Новая</option>
-                    <option class="option-check" value="2">На проверке</option>
-                    <option class="option-work" value="3">На доработке</option>
-                    <option class="option-approved" value="4">Принята</option>
-                    <option class="option-ready" value="5">Готова</option>
+                <select name="book" class="form-control select-{{ data.status|default('new') }}" id="select-colored">
+                    {% if data.status and status_types%}
+                    {% for status_type in status_types %}
+                        {% if status_type.status == data.status %}
+                        <option class="option-{{ status_type.status }}" value="{{status_type.value}}" selected>{{ status_type.label }}</option>
+                        {% else %}
+                            <option class="option-{{ status_type.status }}" value="{{status_type.value}}">{{ status_type.label  }}</option>
+                        {% endif %}
+                    {% endfor %}
+                    {% endif %}
+{#                    <option class="option-new" value="new">Новая</option>#}
+{#                    <option class="option-check" value="2">На проверке</option>#}
+{#                    <option class="option-work" value="3">На доработке</option>#}
+{#                    <option class="option-approved" value="accept">Принята</option>#}
+{#                    <option class="option-ready" value="done">Готова</option>#}
                 </select>
             </div>
         </div>
-
 
         <div class="">
             <ul class="nav nav-tabs" data-bs-toggle="tabs">
@@ -38,13 +44,11 @@
             <div class="card-body">
                 <div class="tab-content">
 
-
-
                     <div class="tab-pane active show" id="tabs-ex5">
                         <div class="form-group mb-3 row">
                             <label class="form-label col-3 col-form-label">Название *</label>
                             <div class="col">
-                                <input name="name" type="text" class="form-control" placeholder="Название дисциплины"
+                                <input name="name" type="text" class="form-control" value="{{ data.name|default(false) }}" placeholder="Название дисциплины"
                                        required>
                             </div>
                         </div>
@@ -53,9 +57,18 @@
                             <label class="form-label col-3 col-form-label">Тип</label>
                             <div class="col">
                                 <select name="type" class="form-control">
-                                    <option value="0">нет типа</option>
-                                    <option value="1">Профессиональная переподготовка</option>
-                                    <option value="2">Профессиональное обучение</option>
+                                    {% if data.type and types %}
+                                        {% for type in types %}
+                                            {% if type.value == data.type %}
+                                                <option value={{ type.value }} selected>{{ type.label }} </option>
+                                                {#                                    <option value="0">нет типа</option> #}
+                                                {#                                    <option value="1">Профессиональная переподготовка</option> #}
+                                                {#                                    <option value="2">Профессиональное обучение</option> #}
+                                            {% else %}
+                                                <option value={{ type.value }} >{{ type.label }}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
                                 </select>
                             </div>
                         </div>
@@ -63,10 +76,15 @@
                         <div class="form-group mb-3 row">
                             <label class="form-label col-3 col-form-label">Практикум</label>
                             <div class="col">
-
+{#                                <p>data.practicum_flag {{ data.practicum_flag }}</p>#}
                                 <select name="practicum_flag" class="form-control">
-                                    <option value="0">нет</option>
-                                    <option value="1">да</option>
+                                    {% if data.practicum_flag == '0' or data.practicum_flag == '1'%}
+                                        {% if data.practicum_flag == '0' %}
+                                        <option value="0">нет</option>
+                                        {% else %}
+                                        <option value="1">да</option>
+                                        {% endif %}
+                                    {% endif %}
                                 </select>
                             </div>
                         </div>
@@ -74,18 +92,17 @@
                         <div class="form-group mb-3 row">
                             <label class="form-label col-3 col-form-label">Цель освоения</label>
                             <div class="col">
-                                <textarea name="purpose" type="text" class="form-control" placeholder=""></textarea>
+                                <textarea name="purpose" type="text" class="form-control" placeholder="">{{ data.purpose|default(false) }}</textarea>
                             </div>
                         </div>
 
                         <div class="form-group mb-3 row">
                             <label class="form-label col-3 col-form-label">Комментарий</label>
                             <div class="col">
-                                <textarea name="comment" type="text" class="form-control" placeholder=""></textarea>
+                                <textarea name="comment" type="text" class="form-control" placeholder="">{{ data.comment|default(false) }}</textarea>
                             </div>
                         </div>
                     </div>
-
 
                     <div class="tab-pane" id="tabs-ex6">
                         <div class="form-group mb-3 row">
@@ -98,8 +115,6 @@
                         </div>
                     </div>
 
-
-
                     <div class="tab-pane" id="tabs-ex7">
                         <div class="form-group mb-3 row">
                             <label class="col-12 col-form-label">Литература</label>
@@ -109,12 +124,7 @@
                                 </select>
                             </div>
                         </div>
-
-
-
                     </div>
-
-
 
                     <div class="tab-pane" id="tabs-ex8">
                         <div class="form-group mb-3 row">

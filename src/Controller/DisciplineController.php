@@ -6,6 +6,7 @@
 namespace App\Controller;
 
 use App\Entity\Discipline;
+use App\Entity\Antiplagiat;
 use App\Service\AuthService;
 use App\Service\CSVHelper;
 use App\Service\LinkService;
@@ -135,6 +136,23 @@ class DisciplineController extends BaseController implements BaseInterface
 
     public function getDisciplineForm($id)
     {
-        return $this->render('discipline/form/discipline_update.html.twig');
+
+        $data = $this->managerRegistry->getRepository(Discipline::class)->get($id);
+       //dd( $data[0]);
+        $types = [
+            ['value'=>'0', 'label'=> 'нет типа'],
+            ['value'=>'1', 'label'=> 'Профессиональная переподготовка'],
+            ['value'=>'2', 'label'=> 'Профессиональное обучение']
+        ];
+        $status_types = [
+            ['value' => '1', 'status' => 'new', 'label' => 'Новая'],
+            ['value' => '2', 'status' => 'check', 'label' => 'На проверке'],
+            ['value' => '3', 'status' => 'revision', 'label' => 'На доработке'],
+            ['value' => '4', 'status' => 'accept', 'label' => 'Принята'],
+            ['value' => '5', 'status' => 'done', 'label' => 'Готова']
+        ];
+
+        return $this->render('discipline/form/discipline_update.html.twig',
+            ['data' => $data[0], 'status_types' => $status_types, 'types'=>$types]);
     }
 }
