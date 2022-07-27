@@ -42,7 +42,10 @@ class ApiLitera extends AbstractController
 
         dd([
             'data' => $data ?? '-',
+            '_FILES' => $_FILES ?? '-',
         ]);
+
+        // если у нас есть $data['content'] и нет файла, то необходимо файл сделать, в противном случае используем файл
 
         $this->logAction(
             'add_litera',

@@ -11,6 +11,7 @@ use App\Controller\Api\apiDocumentsController;
 use App\Controller\Api\ApiEmployerRequirementsController;
 use App\Controller\Api\ApiFgosController;
 use App\Controller\Api\ApiKafedra;
+use App\Controller\Api\ApiLitera;
 use App\Controller\Api\ApiOperations;
 use App\Controller\Api\ApiPotentialJobsController;
 use App\Controller\Api\ApiProgramController;
@@ -196,6 +197,18 @@ class ApiController extends AbstractController
     public function update_antiplagiat(ApiAntiplagiat $apiAntiplagiat): Response
     {
         return $apiAntiplagiat->update();
+    }
+
+    #[Route('/add_litera', name: 'add_litera', methods: ['POST'])]
+    public function add_litera(ApiLitera $apiLitera): Response
+    {
+        return $apiLitera->add();
+    }
+
+    #[Route('/update_litera', name: 'update_litera', methods: ['POST'])]
+    public function update_litera(ApiLitera $apiLitera): Response
+    {
+        return $apiLitera->update();
     }
 
     #[Route('/city_update', name: 'city_update', methods: ['POST'])]
