@@ -58,13 +58,26 @@ class ApiLitera extends AbstractController
             ? $this->uploadFileFromContent($data['content'], Litera::class, $filename)
             : $this->uploadFile('file', Litera::class);
 
-        //
+        if (empty($uploadedFilename)) {
+            // Вернуть тут ошибку, если файл не загрузился!
+            return $this->json(['result' => 'error', 'error' => 'Файл не загружен!']);
+        }
 
-        dd([
-            '$data' => $data ?? '-',
-            '$_FILES' => $_FILES ?? '-',
-            '$uploadedFilename' => $uploadedFilename ?? '-',
-        ]);
+        $litera = new Litera();
+        $litera
+            ->setAuthor($this->getUser())
+            ->setDiscipline($discipline)
+            ->setDataCreate(new \DateTime())
+            ->setFile($uploadedFilename)
+            ->setSize($this->checkedFile['filesize'])
+            ->setStatus(LiteraRepository::CHECK_STATUS_NEW)
+            ->setDocName($data['doc_name'])
+        ;
+
+        $entityManager = $this->doctrine->getManager();
+        $entityManager->persist($litera);
+        $entityManager->flush();
+        $lastId = $litera->getId();
 
         $this->logAction(
             'add_litera',
@@ -77,6 +90,13 @@ class ApiLitera extends AbstractController
 
     public function update(): JsonResponse
     {
+        $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
+        $data = $request->request->all();
+
+        dd([
+            '$data' => $data ?? '-',
+        ]);
+
         $this->logAction(
             'update_litera',
             'Литера5',

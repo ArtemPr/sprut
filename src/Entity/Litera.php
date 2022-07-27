@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\LiteraRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: LiteraRepository::class)]
@@ -43,6 +44,9 @@ class Litera
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $doc_title;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $date_update = null;
 
     public function getId(): ?int
     {
@@ -165,6 +169,18 @@ class Litera
     public function setDocTitle(?string $doc_title): self
     {
         $this->doc_title = $doc_title;
+
+        return $this;
+    }
+
+    public function getDateUpdate(): ?\DateTimeInterface
+    {
+        return $this->date_update;
+    }
+
+    public function setDateUpdate(?\DateTimeInterface $date_update): self
+    {
+        $this->date_update = $date_update;
 
         return $this;
     }

@@ -20,6 +20,12 @@ class LiteraRepository extends ServiceEntityRepository
 {
     use QueryHelper;
 
+    public const CHECK_STATUS_NEW = 1;
+    public const CHECK_STATUS_NONE = 2;
+    public const CHECK_STATUS_INPROGRESS = 3;
+    public const CHECK_STATUS_READY = 4;
+    public const CHECK_STATUS_FAILED = 5;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Litera::class);
