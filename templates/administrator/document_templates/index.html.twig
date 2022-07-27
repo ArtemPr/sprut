@@ -30,15 +30,14 @@
             <div class="container-fluid">
                 {% include 'block/header_list.html.twig' with {'header': 'Шаблоны документов', 'onpage_link': path('document_templates')} %}
             </div>
-{#            {% set controller = 'federal_standart' %}#}
-{#            изменить контроллер#}
+            {% set controller = 'document_templates' %}
             <div class="page-body">
                 <div class="container-fluid">
                     <div class="row row-deck row-cards">
                         <div class="col-12">
                             <div class="card">
                                 {% include 'block/search_panel.html.twig' with {
-                                    'close_delete': true,
+                                    'close_delete': false,
                                     'close_edit': false,
                                     'close_create': false,
                                     'path': path('document_templates'),
@@ -62,17 +61,19 @@
 
                             <div id="userEditingOverlay" class="offcanvas-backdrop fade"></div>
 
-                            <div id="{{ controller|default(false) }}ViewPanel" data-action="view" class="user-form-panel offcanvas offcanvas-end modal-large" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                            <div id="{{ controller|default(false) }}ViewPanel" data-action="view" class="user-form-panel offcanvas offcanvas-end modal-middle" tabindex="-1" aria-labelledby="offcanvasEndLabel">
                                 <img src="{{ absolute_url('/assets/images/loading--big.gif') }}" style="position: absolute; top: 10%; left: 50%; margin-left: -75px;">
                             </div>
 
-                            <div id="{{ controller|default(false) }}CreationPanel" data-action="add" class="user-form-panel offcanvas offcanvas-end modal-large" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                            <div id="{{ controller|default(false) }}CreationPanel" data-action="add" class="user-form-panel offcanvas offcanvas-end modal-middle" tabindex="-1" aria-labelledby="offcanvasEndLabel">
                                 {% include '/administrator/document_templates/form/add.html.twig'  %}
                             </div>
-                            <div id="{{ controller|default(false) }}EditingPanel" data-action="edit" class="user-form-panel offcanvas offcanvas-end modal-large" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                            <div id="{{ controller|default(false) }}EditingPanel" data-action="edit" class="user-form-panel offcanvas offcanvas-end modal-middle" tabindex="-1" aria-labelledby="offcanvasEndLabel">
                                 <img src="{{ absolute_url('/assets/images/loading--big.gif') }}" style="position: absolute; top: 10%; left: 50%; margin-left: -75px;">
                                 {% include '/administrator/document_templates/form/update.html.twig'  %}
                             </div>
+
+                            {% include 'modal/delete.html.twig' with {'controller': controller}  %}
 
                         </div>
                     </div>
