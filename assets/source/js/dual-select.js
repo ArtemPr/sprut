@@ -37,6 +37,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         let shiftOn = false;
         let hiddenOptions = [];
         let valuesList = [];
+        let leftItems = [];
 
         if (select) {
             hiddenOptions = select.querySelectorAll('option');
@@ -70,11 +71,19 @@ document.addEventListener("DOMContentLoaded", function (event) {
             leftPanel.addEventListener('dragend', function () {
                 addToHiddenSelect();
                 unselectAll();
+                leftItems = rightPanel.querySelectorAll('.dual-listbox__item');
+                if(leftItems.length > 0) {
+                    leftItems[0].classList.add('dual-listbox__item--selected');
+                }
             })
 
             rightPanel.addEventListener('dragend', function () {
                 addToHiddenSelect();
                 unselectAll();
+                leftItems = leftPanel.querySelectorAll('.dual-listbox__item');
+                if(leftItems.length > 0) {
+                    leftItems[0].classList.add('dual-listbox__item--selected');
+                }
             })
 
             dualItems.forEach(dualItem => {
@@ -86,6 +95,17 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
             if (selectedItems.length === 0) {
                 dualItems[0].classList.add("dual-listbox__item--selected")
+            } else {
+                selectedItems.forEach(selectedItem => {
+                    leftPanel.removeChild(selectedItem);
+                    rightPanel.appendChild(selectedItem);
+                    selectedItem.classList.remove("dual-listbox__item--selected");
+                })
+                let leftRoles = [];
+                leftRoles =  leftPanel.querySelectorAll('.dual-listbox__item');
+                if(leftRoles.length > 0) {
+                    leftRoles[0].classList.add("dual-listbox__item--selected");
+                }
             }
 
             addOneBtn.addEventListener("click", addOne);
@@ -174,6 +194,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     })
                 }
                 addToHiddenSelect();
+                leftItems = leftPanel.querySelectorAll('.dual-listbox__item');
+                if(leftItems.length > 0) {
+                    leftItems[0].classList.add('dual-listbox__item--selected');
+                }
             }
 
             function removeOne() {
@@ -186,6 +210,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     })
                 }
                 addToHiddenSelect();
+                leftItems = rightPanel.querySelectorAll('.dual-listbox__item');
+                if(leftItems.length > 0) {
+                    leftItems[0].classList.add('dual-listbox__item--selected');
+                }
             }
 
             function addAll() {

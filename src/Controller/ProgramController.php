@@ -39,11 +39,10 @@ class ProgramController extends BaseController implements BaseInterface
             $count = $this->managerRegistry->getRepository(MasterProgram::class)->getApiProgramInfo();
             $count = $count['count_program'] ?? 0;
         }
-
         return [
             'data' => $program_list,
             'search' => strip_tags($search) ?? '',
-            'program_type' => $this->managerRegistry->getRepository(ProgramType::class)->findAll(),
+            'program_type' => $this->managerRegistry->getRepository(ProgramType::class)->getList(),
             'training_centre' => $this->managerRegistry->getRepository(TrainingCenters::class)->findAll(),
             'category' => $this->managerRegistry->getRepository(Category::class)->getList(),
             'fgos' => $this->managerRegistry->getRepository(FederalStandart::class)->findAll(),
@@ -80,7 +79,6 @@ class ProgramController extends BaseController implements BaseInterface
 
         $result = $this->get();
         $result['auth'] = $auth;
-
         return $this->render(
             $tpl,
             $result
@@ -139,13 +137,13 @@ class ProgramController extends BaseController implements BaseInterface
 
         $fgos = $this->managerRegistry->getRepository(FederalStandart::class)->findAll();
 
-        $type = $this->managerRegistry->getRepository(ProgramType::class)->findAll();
+        $type = $this->managerRegistry->getRepository(ProgramType::class)->getList();
 
         return $this->render(
             'program/form/update_form.html.twig',
             [
                 'data' => $data,
-                'type' => $type,
+                'program_type' => $type,
                 'fgos' => $fgos,
             ]
         );
@@ -159,6 +157,10 @@ class ProgramController extends BaseController implements BaseInterface
             ['history', 'Ист. данные', 'string', true],
             ['pt.id', 'Тип', 'string', true],
             ['name', 'Название', 'string', true],
+            ['length_week', 'Продолжительность (нед.)', 'string', true],
+            ['length_hour', 'Продолжительность (час.)', 'string', true],
+            ['length_week_short', 'Ускоренное обучение (нед.)', 'string', true],
+            ['name', 'Продолжительность в неделях', 'string', true],
             ['fs.id', 'ФГОС', 'string', true],
             ['ps.id', 'ПС', 'string', true],
         ];

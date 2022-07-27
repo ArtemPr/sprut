@@ -8,7 +8,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
     const firstRow = '<tr>' +
         '<td>-</td>' +
         '<td>' +
-        '<input type="text" name="comp_name[]" class="form-control" value="">' +
+        '<input type="text" name="comp_name_new[]" class="form-control" required value="">' +
+        '</td>' +
+        '<td>' +
+        '<input type="text" name="comp_code_new[]" class="form-control" required value=""/>' +
         '</td>' +
         '<td class="text-center">' +
         '<button class="delete_string">' +

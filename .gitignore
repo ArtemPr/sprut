@@ -20,3 +20,21 @@ yarn-error.log
 /.php-cs-fixer.cache
 ###< friendsofphp/php-cs-fixer ###
 /public/uplfile/*
+
+###> phpunit/phpunit ###
+/phpunit.xml
+.phpunit.result.cache
+###< phpunit/phpunit ###
+
+###> symfony/phpunit-bridge ###
+.phpunit.result.cache
+/phpunit.xml
+###< symfony/phpunit-bridge ###
+
+composer.lock
+package-lock.json
+.idea/*
+!.idea/dataSources.xml
+!.idea/dataSources.local.xml
+!.idea/sshConfigs.xml
+!.idea/webServers.xml

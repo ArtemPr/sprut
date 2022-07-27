@@ -66,6 +66,11 @@
                                         Реестр прав
                                     </a>
                                 {% endif %}
+                                {% if auth.auth_report|default(false) %}
+                                    <a class="dropdown-item" href="{{ path('service_reposts') }}">
+                                        Отчеты
+                                    </a>
+                                {% endif %}
                             </div>
                         </li>
                     {% endif %}
