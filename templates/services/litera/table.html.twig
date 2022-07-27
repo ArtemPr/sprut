@@ -1,3 +1,5 @@
+<pre>{{ dump(data) }}</pre>
+
 <div class="users-table-wrap table-responsive">
     <table id="usersTable" class="users-table table card-table table-vcenter text-nowrap datatable">
         <thead>
@@ -105,8 +107,8 @@
                                 <td>{{ dat.comment }}</td>
                             {% elseif tbl['name'] == 'result_date' %}
                                 <td>
-                                    {% if dat.result_date %}
-                                        {{ dat.result_date | date('d/m/Y H:i') }}
+                                    {% if dat.date_update|default('') %}
+                                        {{ dat.date_update | date('d/m/Y H:i') }}
                                     {% else %}
                                         &mdash;
                                     {% endif %}
