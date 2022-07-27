@@ -40,6 +40,9 @@
                 <li class="nav-item">
                     <a href="#tabs-ex8" class="nav-link" data-bs-toggle="tab">Файлы</a>
                 </li>
+                <li class="nav-item">
+                    <a href="#tabs-ex9" class="nav-link" data-bs-toggle="tab">Антиплагиат</a>
+                </li>
             </ul>
             <div class="card-body">
                 <div class="tab-content">
@@ -76,15 +79,9 @@
                         <div class="form-group mb-3 row">
                             <label class="form-label col-3 col-form-label">Практикум</label>
                             <div class="col">
-{#                                <p>data.practicum_flag {{ data.practicum_flag }}</p>#}
                                 <select name="practicum_flag" class="form-control">
-                                    {% if data.practicum_flag == '0' or data.practicum_flag == '1'%}
-                                        {% if data.practicum_flag == '0' %}
-                                        <option value="0">нет</option>
-                                        {% else %}
-                                        <option value="1">да</option>
-                                        {% endif %}
-                                    {% endif %}
+                                    <option value="0" >нет</option>
+                                    <option value="1" {% if  data.practicum_flag|default(0) == 1 %}selected{% endif %}>да</option>
                                 </select>
                             </div>
                         </div>
@@ -138,6 +135,25 @@
                             <label class="col-12 col-form-label">Файл РПД в старом формате</label>
                             <div class="">
                                 <input type="file" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="tabs-ex9">
+                        <div class="form-group mb-3 row">
+                            <label class="col-12 col-form-label">Антиплагиат</label>
+                            <div class="antiplagiats-wrapper">
+                                {% if antiplagiats and antiplagiat_status %}
+                                    {% for antiplagiat in antiplagiats %}
+                                        {% for  item in antiplagiat_status %}
+                                            {% if item.value == antiplagiat.status %}
+                                        <p class="antiplagiat-item antiplagiat-item--{{ item.class_name }}">{{ antiplagiat.file | split('/') | last }}</p>
+                                    {% endif %}
+                                        {% endfor %}
+                                {% endfor %}
+                                    {% else %}
+                                    <p>Нет загруженных файлов</p>
+                                {% endif %}
                             </div>
                         </div>
                     </div>

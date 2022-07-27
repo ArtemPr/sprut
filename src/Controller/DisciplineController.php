@@ -5,8 +5,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Discipline;
 use App\Entity\Antiplagiat;
+use App\Entity\Discipline;
+use App\Entity\Literature;
 use App\Service\AuthService;
 use App\Service\CSVHelper;
 use App\Service\LinkService;
@@ -67,7 +68,7 @@ class DisciplineController extends BaseController implements BaseInterface
             'pager' => [
                 'count_all_position' => $count,
                 'current_page' => $page,
-                'count_page' => (int) ceil($count / $on_page),
+                'count_page' => (int)ceil($count / $on_page),
                 'paginator_link' => $this->getParinatorLink(),
                 'on_page' => $on_page,
             ],
@@ -122,9 +123,9 @@ class DisciplineController extends BaseController implements BaseInterface
                 : '-';
 
             $data[] = [
-                ('accept' == $val['status'] ? 'да' : 'нет'),
+                'accept' == $val['status'] ? 'да' : 'нет',
                 $val['type'], // надо типы
-                ($val['practice'] ? 'да' : 'нет'),
+                $val['practice'] ? 'да' : 'нет',
                 $name,
                 $comment,
                 $purpose,
@@ -136,23 +137,31 @@ class DisciplineController extends BaseController implements BaseInterface
 
     public function getDisciplineForm($id)
     {
-
         $data = $this->managerRegistry->getRepository(Discipline::class)->get($id);
-       //dd( $data[0]);
+        $antiplagiats = $this->managerRegistry->getRepository(Antiplagiat::class)->getItemsByDiscipline($id);
+    //    dd($antiplagiats);
+        $antiplagiat_status = [
+            ['value' => '0', 'class_name' => 'red'],
+            ['value' => '1', 'class_name' => 'yellow'],
+            ['value' => '2', 'class_name' => 'orange'],
+            ['value' => '3', 'class_name' => 'blue'],
+            ['value' => '4', 'class_name' => 'green'],
+        ];
         $types = [
-            ['value'=>'0', 'label'=> 'нет типа'],
-            ['value'=>'1', 'label'=> 'Профессиональная переподготовка'],
-            ['value'=>'2', 'label'=> 'Профессиональное обучение']
+            ['value' => '0', 'label' => 'нет типа'],
+            ['value' => '1', 'label' => 'Профессиональная переподготовка'],
+            ['value' => '2', 'label' => 'Профессиональное обучение'],
         ];
         $status_types = [
             ['value' => '1', 'status' => 'new', 'label' => 'Новая'],
             ['value' => '2', 'status' => 'check', 'label' => 'На проверке'],
             ['value' => '3', 'status' => 'revision', 'label' => 'На доработке'],
             ['value' => '4', 'status' => 'accept', 'label' => 'Принята'],
-            ['value' => '5', 'status' => 'done', 'label' => 'Готова']
+            ['value' => '5', 'status' => 'done', 'label' => 'Готова'],
         ];
 
         return $this->render('discipline/form/discipline_update.html.twig',
-            ['data' => $data[0], 'status_types' => $status_types, 'types'=>$types]);
+            ['data' => $data[0], 'status_types' => $status_types, 'types' => $types,
+                'antiplagiats' => $antiplagiats, 'antiplagiat_status' => $antiplagiat_status]);
     }
 }

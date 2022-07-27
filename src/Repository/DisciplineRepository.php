@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Antiplagiat;
 use App\Entity\Discipline;
 use App\Service\QueryHelper;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -22,6 +23,8 @@ class DisciplineRepository extends ServiceEntityRepository
 
     public function __construct(ManagerRegistry $registry)
     {
+        $this->registry = $registry;
+
         parent::__construct($registry, Discipline::class);
     }
 
@@ -114,8 +117,8 @@ class DisciplineRepository extends ServiceEntityRepository
     public function get($id)
     {
         $qb = $this->createQueryBuilder('discipline')
+        //   ->leftJoin('antiplagiat.discipline', 'discipline')->addSelect('discipline')
             ->where('discipline.id = :id')
-//            ->leftJoin('training_centers.trainingCentersRequisites', 'training_centers_requisites')->addSelect('training_centers_requisites')
             ->setParameter('id', $id);
 
         $query = $qb->getQuery();
@@ -124,4 +127,18 @@ class DisciplineRepository extends ServiceEntityRepository
         );
         return $result;
     }
+
+    // var 1 working
+//    public function getAntiplagiats($id)
+//    {
+//        $antiplagiatItems = $this->registry
+//            ->getRepository(Antiplagiat::class)
+//            ->findBy([
+//                'discipline' => $id
+//            ]);
+//
+//        dd([
+//            '$antiplagiatItems' => $antiplagiatItems ?? '-',
+//        ]);
+//    }
 }
