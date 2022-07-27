@@ -57,7 +57,35 @@
                                 <option value="3">Высшее</option>
                             </select>
                         </div>
-
+                        <div class="mb-3">
+                            <div class="form-label fgos-label">Требования работодателя</div>
+                            <select class="form-select" name="employer">
+                                <option disabled {% if data.employer_requirements[0]['id']|default(false) == false %}selected{% endif %}>
+                                    Выберите требование
+                                </option>
+                                {% for er in employer_requirements %}
+                                    <option value="{{ er.id }}"
+                                            {% if data.employer_requirements.id|default(false) and er.id == data.employer_requirements.id %}selected{% endif %}>
+                                        {{ er.requirement_name | raw }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-label fgos-label">Потенциальные места работы</div>
+                            <select class="form-select" name="potential">
+                                <option disabled
+                                        {% if data.potential_jobs[0]['id']|default(false) == false %}selected{% endif %}>
+                                    Выберите потенциальное место работы
+                                </option>
+                                {% for pj in potential_jobs %}
+                                    <option value="{{ pj.id }}"
+                                            {% if data.potential_jobs.id|default(false) and pj.id == data.potential_jobs.id %}selected{% endif %}>
+                                        {{ pj.jobs_name | raw }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
                         <div class="mb-3 fgos-education">
                             <label class="form-label">Выберите образование</label>
                             <div class="input-icon mb-3">
