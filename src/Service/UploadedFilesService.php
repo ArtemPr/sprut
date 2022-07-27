@@ -66,7 +66,24 @@ trait UploadedFilesService
 
     protected function uploadFileFromContent(string $content, string $moduleName, ?string $filename): string|null
     {
+        if (empty($filename)) {
+            $filename = uniqid('f').$moduleName.'.html';
+        }
+
+        // сформировать из текста файл
+
+        /*
+         * @var $checkedFile array будет доступна из класса, который захочет использовать этот трейт
+         */
+        // если файл сформирован и загружен - всё ок
+//        if () {
+//            //
+//        } else {
+//            return null;
+//        }
+
         //
+        return null;
     }
 
     /**
