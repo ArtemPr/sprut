@@ -156,10 +156,12 @@ class MasterProgramRepository extends ServiceEntityRepository
         $entityManager = $this->getEntityManager();
 
         $result = $entityManager->createQuery(
-            'SELECT program, type, fgos
+            'SELECT program, type, fgos, employer, jobs
                 FROM App\Entity\MasterProgram program
                 LEFT JOIN program.program_type type
                 LEFT JOIN program.federal_standart fgos
+                LEFT JOIN program.employer_requirements employer
+                LEFT JOIN program.potential_jobs jobs
                 WHERE program.id = :id'
         )->setParameter('id', $id)
             ->getResult(Query::HYDRATE_ARRAY);

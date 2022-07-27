@@ -52,13 +52,13 @@ class AdminDirectoryPotentialJobs extends AbstractController
         $data[] = $dataRow;
         foreach ($result['data'] as $val) {
             $data[] = [
-                ($val['id']),
-                ($val['jobs_name']),
-                ($val['comment']),
+                $val['id'],
+                $val['jobs_name'],
+                $val['comment'],
             ];
         }
 
-        return $this->processCSV($data, 'program_type.csv');
+        return $this->processCSV($data, 'potential_jobs.csv');
     }
 
     private function get(bool $full = false)

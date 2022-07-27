@@ -6,8 +6,10 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Entity\EmployerRequirements;
 use App\Entity\FederalStandart;
 use App\Entity\MasterProgram;
+use App\Entity\PotentialJobs;
 use App\Entity\ProgramType;
 use App\Entity\TrainingCenters;
 use App\Service\AuthService;
@@ -39,10 +41,13 @@ class ProgramController extends BaseController implements BaseInterface
             $count = $this->managerRegistry->getRepository(MasterProgram::class)->getApiProgramInfo();
             $count = $count['count_program'] ?? 0;
         }
+
         return [
             'data' => $program_list,
             'search' => strip_tags($search) ?? '',
             'program_type' => $this->managerRegistry->getRepository(ProgramType::class)->getList(),
+            'employer_requirements' => $this->managerRegistry->getRepository(EmployerRequirements::class)->getList(),
+            'potential_jobs' => $this->managerRegistry->getRepository(PotentialJobs::class)->getList(),
             'training_centre' => $this->managerRegistry->getRepository(TrainingCenters::class)->findAll(),
             'category' => $this->managerRegistry->getRepository(Category::class)->getList(),
             'fgos' => $this->managerRegistry->getRepository(FederalStandart::class)->findAll(),
@@ -79,6 +84,7 @@ class ProgramController extends BaseController implements BaseInterface
 
         $result = $this->get();
         $result['auth'] = $auth;
+
         return $this->render(
             $tpl,
             $result
@@ -119,7 +125,7 @@ class ProgramController extends BaseController implements BaseInterface
 
                 $data[] = [
                     $val['id'],
-                    ($val['history'] ? 'Да' : 'Нет'),
+                    $val['history'] ? 'Да' : 'Нет',
                     $program_type, // Тип
                     $program_name, // Название
                     $fgos, // ФГОС
@@ -139,12 +145,18 @@ class ProgramController extends BaseController implements BaseInterface
 
         $type = $this->managerRegistry->getRepository(ProgramType::class)->getList();
 
+        $employer = $this->managerRegistry->getRepository(EmployerRequirements::class)->getList();
+
+        $potential = $this->managerRegistry->getRepository(PotentialJobs::class)->getList();
+
         return $this->render(
             'program/form/update_form.html.twig',
             [
                 'data' => $data,
                 'program_type' => $type,
                 'fgos' => $fgos,
+                'employer_requirements' => $employer,
+                'potential_jobs' => $potential,
             ]
         );
     }
