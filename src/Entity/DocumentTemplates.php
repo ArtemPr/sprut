@@ -23,6 +23,9 @@ class DocumentTemplates
     private $file_name;
 
     #[ORM\Column(type: 'string', length: 255)]
+    private $file_size;
+
+    #[ORM\Column(type: 'string', length: 255)]
     private $link;
 
     #[ORM\Column(type: 'string', length: 255)]
@@ -36,6 +39,9 @@ class DocumentTemplates
 
     #[ORM\Column(type: 'boolean')]
     private $delete;
+
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private $date_change;
 
     public function getId(): ?int
     {
@@ -74,6 +80,18 @@ class DocumentTemplates
     public function setFileName(string $file_name): self
     {
         $this->file_name = $file_name;
+
+        return $this;
+    }
+
+    public function getFileSize(): ?string
+    {
+        return $this->file_size;
+    }
+
+    public function setFileSize(string $file_size): self
+    {
+        $this->file_size = $file_size;
 
         return $this;
     }
@@ -134,6 +152,18 @@ class DocumentTemplates
     public function setDelete(bool $delete): self
     {
         $this->delete = $delete;
+
+        return $this;
+    }
+
+    public function getDateChange(): ?\DateTimeInterface
+    {
+        return $this->date_change;
+    }
+
+    public function setDateChange(?\DateTimeInterface $date_change): self
+    {
+        $this->date_change = $date_change;
 
         return $this;
     }
