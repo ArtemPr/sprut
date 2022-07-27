@@ -40,7 +40,9 @@ class ApiLitera extends AbstractController
             $discipline = $this->doctrine->getRepository(Discipline::class)->find($data['discipline']);
         }
 
-        //
+        dd([
+            'data' => $data ?? '-',
+        ]);
 
         $this->logAction(
             'add_litera',
