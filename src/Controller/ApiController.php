@@ -8,6 +8,7 @@ namespace App\Controller;
 use App\Controller\Api\ApiAntiplagiat;
 use App\Controller\Api\ApiCityController;
 use App\Controller\Api\ApiClusterController;
+use App\Controller\Api\apiDocumentsController;
 use App\Controller\Api\ApiEmployerRequirementsController;
 use App\Controller\Api\ApiFgosController;
 use App\Controller\Api\ApiKafedra;
@@ -276,7 +277,25 @@ class ApiController extends AbstractController
         return $apiSubdivisionsController->hide($id);
     }
 
-    #[Route('/cluster_add', name: 'cluster_add', methods: ['POST'])]
+    #[Route('/document_templates_update', name: 'document_templates_update', methods: ['POST'])]
+    public function document_templates_update(apiDocumentsController $apiDocumentsController): Response
+    {
+        return $apiDocumentsController->update();
+    }
+
+    #[Route('/document_templates_add', name: 'document_templates_add', methods: ['POST'])]
+    public function document_templates_add(apiDocumentsController $apiDocumentsController): Response
+    {
+        return $apiDocumentsController->add();
+    }
+
+    #[Route('/document_templates_hide/{id}', name: 'document_templates_hide')]
+    public function document_templates_hide($id, apiDocumentsController $apiDocumentsController): Response
+    {
+        return $apiDocumentsController->hide($id);
+    }
+
+        #[Route('/cluster_add', name: 'cluster_add', methods: ['POST'])]
     public function cluster_add(ApiClusterController $apiClusterController): Response
     {
         return $apiClusterController->add();

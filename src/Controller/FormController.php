@@ -21,6 +21,7 @@ use App\Controller\Administrator\AdminDirectoryTrainingCentre;
 use App\Controller\Administrator\AdministratorOperationsController;
 use App\Controller\Administrator\AdministratorRoleController;
 use App\Controller\Administrator\AdministratorUserController;
+use App\Controller\Administrator\DocumentsController;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -94,6 +95,12 @@ class FormController extends AbstractController
     public function getProgramTypeForm($id, AdminDirectoryProgramType $adminProgram): Response
     {
         return $adminProgram->getProgramTypeForm($id);
+    }
+
+    #[Route('/document_templates_edit/{id}', name: 'document_templates_edit')]
+    public function getDocumentTemplatesForm($id, DocumentsController $DocumentsController): Response
+    {
+        return $DocumentsController->getDocumentTemplatesForm($id);
     }
 
     #[Route('/employer_requirements_edit/{id}', name: 'employer_requirements_edit')]

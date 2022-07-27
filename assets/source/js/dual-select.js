@@ -135,7 +135,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
             function addToHiddenSelect() {
                 hiddenOptions.forEach(hiddenOption => {
-                    hiddenOption.setAttribute("selected", false);
+                    hiddenOption.removeAttribute("selected");
                 })
                 let itemsToSend = rightPanel.querySelectorAll('.dual-listbox__item');
                 let index = null;
