@@ -8,12 +8,15 @@ namespace App\Controller;
 use App\Controller\Api\ApiAntiplagiat;
 use App\Controller\Api\ApiCityController;
 use App\Controller\Api\apiDocumentsController;
+use App\Controller\Api\ApiEmployerRequirementsController;
 use App\Controller\Api\ApiFgosController;
 use App\Controller\Api\ApiKafedra;
 use App\Controller\Api\ApiOperations;
+use App\Controller\Api\ApiPotentialJobsController;
 use App\Controller\Api\ApiProgramController;
 use App\Controller\Api\ApiProgramTypeController;
 use App\Controller\Api\ApiRole;
+use App\Controller\Api\ApiSubdivisionsController;
 use App\Controller\Api\ApiTrainingCentre;
 use App\Controller\Api\ApiUserController;
 use App\Repository\KaferdaRepository;
@@ -177,6 +180,12 @@ class ApiController extends AbstractController
         return $apiFgosController->update();
     }
 
+    #[Route('/fgos_add', name: 'fgos_add', methods: ['POST'])]
+    public function fgos_add(ApiFgosController $apiFgosController): Response
+    {
+        return $apiFgosController->add();
+    }
+
     #[Route('/add_antiplagiat', name: 'add_antiplagiat', methods: ['POST'])]
     public function add_antiplagiat(ApiAntiplagiat $apiAntiplagiat): Response
     {
@@ -202,15 +211,69 @@ class ApiController extends AbstractController
     }
 
     #[Route('/program_type_update', name: 'program_type_update', methods: ['POST'])]
-    public function program_type_update(ApiProgramTypeController $apiCityController): Response
+    public function program_type_update(ApiProgramTypeController $apiProgramTypeController): Response
     {
-        return $apiCityController->update();
+        return $apiProgramTypeController->update();
     }
 
     #[Route('/program_type_add', name: 'program_type_add', methods: ['POST'])]
-    public function program_type_add(ApiProgramTypeController $apiCityController): Response
+    public function program_type_add(ApiProgramTypeController $apiProgramTypeController): Response
     {
-        return $apiCityController->add();
+        return $apiProgramTypeController->add();
+    }
+
+    #[Route('/employer_requirements_update', name: 'employer_requirements_update', methods: ['POST'])]
+    public function employer_requirements_update(ApiEmployerRequirementsController $apiEmployerRequirementsController): Response
+    {
+        return $apiEmployerRequirementsController->update();
+    }
+
+    #[Route('/employer_requirements_add', name: 'employer_requirements_add', methods: ['POST'])]
+    public function employer_requirements_add(ApiEmployerRequirementsController $apiEmployerRequirementsController): Response
+    {
+        return $apiEmployerRequirementsController->add();
+    }
+
+    #[Route('/employer_requirements_hide/{id}', name: 'employer_requirements_hide', methods: ['GET'])]
+    public function employer_requirements_hide($id, ApiEmployerRequirementsController $apiEmployerRequirementsController): Response
+    {
+        return $apiEmployerRequirementsController->hide($id);
+    }
+
+    #[Route('/potential_jobs_update', name: 'potential_jobs_update', methods: ['POST'])]
+    public function potential_jobs_update(ApiPotentialJobsController $apiPotentialJobsController): Response
+    {
+        return $apiPotentialJobsController->update();
+    }
+
+    #[Route('/potential_jobs_add', name: 'potential_jobs_add', methods: ['POST'])]
+    public function potential_jobs_add(ApiPotentialJobsController $apiPotentialJobsController): Response
+    {
+        return $apiPotentialJobsController->add();
+    }
+
+    #[Route('/potential_jobs_hide/{id}', name: 'potential_jobs_hide', methods: ['GET'])]
+    public function potential_jobs_hide($id, ApiPotentialJobsController $apiPotentialJobsController): Response
+    {
+        return $apiPotentialJobsController->hide($id);
+    }
+
+    #[Route('/subdivisions_update', name: 'subdivisions_update', methods: ['POST'])]
+    public function subdivisions_update(ApiSubdivisionsController $apiSubdivisionsController): Response
+    {
+        return $apiSubdivisionsController->update();
+    }
+
+    #[Route('/subdivisions_add', name: 'subdivisions_add', methods: ['POST'])]
+    public function subdivisions_add(ApiSubdivisionsController $apiSubdivisionsController): Response
+    {
+        return $apiSubdivisionsController->add();
+    }
+
+    #[Route('/subdivisions_hide/{id}', name: 'subdivisions_hide', methods: ['GET'])]
+    public function subdivisions_hide($id, ApiSubdivisionsController $apiSubdivisionsController): Response
+    {
+        return $apiSubdivisionsController->hide($id);
     }
 
     #[Route('/document_templates_update', name: 'document_templates_update', methods: ['POST'])]

@@ -131,7 +131,6 @@ class ApiAntiplagiat extends AbstractController
 
         $this->logAction(
             'add_antiplagiat',
-            $this->getUser(),
             'Антиплагиат',
             'Создание запроса '.$lastId
         );
@@ -168,7 +167,6 @@ class ApiAntiplagiat extends AbstractController
 
         $this->logAction(
             'update_antiplagiat',
-            $this->getUser(),
             'Антиплагиат',
             'Обновление запроса '.$data['id']
         );

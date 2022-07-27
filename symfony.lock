@@ -110,6 +110,18 @@
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.12"
     },
+    "friendsofsymfony/ckeditor-bundle": {
+        "version": "2.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "2.0",
+            "ref": "f5ad42002183a6881962683e6d84bbb25cdfce5d"
+        },
+        "files": [
+            "config/packages/fos_ckeditor.yaml"
+        ]
+    },
     "laminas/laminas-code": {
         "version": "4.5.1"
     },
@@ -148,6 +160,20 @@
     },
     "phpstan/phpstan": {
         "version": "1.7.7"
+    },
+    "phpunit/phpunit": {
+        "version": "9.5",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "9.3",
+            "ref": "a6249a6c4392e9169b87abf93225f7f9f59025e6"
+        },
+        "files": [
+            ".env.test",
+            "phpunit.xml.dist",
+            "tests/bootstrap.php"
+        ]
     },
     "psr/cache": {
         "version": "3.0.0"
@@ -362,6 +388,21 @@
     },
     "symfony/password-hasher": {
         "version": "v6.1.0"
+    },
+    "symfony/phpunit-bridge": {
+        "version": "6.1",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "5.3",
+            "ref": "97cb3dc7b0f39c7cfc4b7553504c9d7b7795de96"
+        },
+        "files": [
+            ".env.test",
+            "bin/phpunit",
+            "phpunit.xml.dist",
+            "tests/bootstrap.php"
+        ]
     },
     "symfony/polyfill-intl-grapheme": {
         "version": "v1.25.0"
