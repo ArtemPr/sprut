@@ -16,6 +16,9 @@ class Directions
     #[ORM\Column(length: 255)]
     private ?string $direction_name = null;
 
+    #[ORM\Column]
+    private ?bool $delete = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -29,6 +32,18 @@ class Directions
     public function setDirectionName(string $direction_name): self
     {
         $this->direction_name = $direction_name;
+
+        return $this;
+    }
+
+    public function isDelete(): ?bool
+    {
+        return $this->delete;
+    }
+
+    public function setDelete(bool $delete): self
+    {
+        $this->delete = $delete;
 
         return $this;
     }
