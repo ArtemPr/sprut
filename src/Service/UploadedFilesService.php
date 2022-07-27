@@ -75,16 +75,12 @@ trait UploadedFilesService
 
         if (empty($filename)) {
             $filename = uniqid('f').$moduleName.'.html';
+        } else {
+            $filename .= '.html';
         }
 
-        // сформировать из текста файл
-        $tempFile = tempnam('/tmp', 'sprut_');
-
-        if (false === $tempFile || false === file_put_contents($tempFile, $content)) {
-            return null;
-        }
-
-        $currSavePlace = $_SERVER['DOCUMENT_ROOT'].'/uplfile/'.$moduleName;
+        $docRoot = rtrim($_SERVER['DOCUMENT_ROOT'], '/');
+        $currSavePlace = $docRoot.'/uplfile/'.$moduleName;
         $currDownloadPlace = '/uplfile/'.$moduleName;
 
         $result = null;
@@ -92,7 +88,7 @@ trait UploadedFilesService
         /*
          * @var $checkedFile array будет доступна из класса, который захочет использовать этот трейт
          */
-        if (move_uploaded_file($tempFile, $currSavePlace)) {
+        if (false !== file_put_contents($currSavePlace.'/'.$filename, $content)) {
             $this->checkedFile = pathinfo($currSavePlace.'/'.$filename);
 
             if ('array' != gettype($this->checkedFile)) {
@@ -106,12 +102,10 @@ trait UploadedFilesService
             $this->checkedFile['filetype'] = filetype($currSavePlace.'/'.$filename);
             $this->checkedFile['mime'] = mime_content_type($currSavePlace.'/'.$filename);
 
-            $result = $currDownloadPlace.'/'.$filename;
+            return $currDownloadPlace.'/'.$filename;
+        } else {
+            return null;
         }
-
-        unlink($tempFile);
-
-        return $result;
     }
 
     /**
