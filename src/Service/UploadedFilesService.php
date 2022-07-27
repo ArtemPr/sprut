@@ -64,6 +64,11 @@ trait UploadedFilesService
         return null;
     }
 
+    protected function uploadFileFromContent(string $content, string $moduleName, ?string $filename): string|null
+    {
+        //
+    }
+
     /**
      * Предполагаемый обработчик сохранения файла в локальном хранилище.
      */
