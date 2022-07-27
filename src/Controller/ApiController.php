@@ -7,6 +7,7 @@ namespace App\Controller;
 
 use App\Controller\Api\ApiAntiplagiat;
 use App\Controller\Api\ApiCityController;
+use App\Controller\Api\ApiClusterController;
 use App\Controller\Api\apiDocumentsController;
 use App\Controller\Api\ApiEmployerRequirementsController;
 use App\Controller\Api\ApiFgosController;
@@ -292,5 +293,17 @@ class ApiController extends AbstractController
     public function document_templates_hide($id, apiDocumentsController $apiDocumentsController): Response
     {
         return $apiDocumentsController->hide($id);
+    }
+
+        #[Route('/cluster_add', name: 'cluster_add', methods: ['POST'])]
+    public function cluster_add(ApiClusterController $apiClusterController): Response
+    {
+        return $apiClusterController->add();
+    }
+
+    #[Route('/cluster_update', name: 'cluster_update', methods: ['POST'])]
+    public function cluster_update(ApiClusterController $apiClusterController): Response
+    {
+        return $apiClusterController->update();
     }
 }

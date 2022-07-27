@@ -7,6 +7,7 @@ namespace App\Controller;
 
 use App\Controller\Administrator\Admin;
 use App\Controller\Administrator\AdminDirectoryCity;
+use App\Controller\Administrator\AdminDirectoryCluster;
 use App\Controller\Administrator\AdminDirectoryDiscipline;
 use App\Controller\Administrator\AdminDirectoryEmployerRequirements;
 use App\Controller\Administrator\AdminDirectoryFGOS;
@@ -193,5 +194,17 @@ class AdministratorController extends AbstractController
     public function getDirectorySubdivisionsCSV(AdminDirectorySubdivisions $adminDirectorySubdivisions): Response
     {
         return $adminDirectorySubdivisions->getCSV();
+    }
+
+    #[Route('/administrator/directory/cluster', name: 'administrator_directory_cluster')]
+    public function getDirectoryCluster(AdminDirectoryCluster $adminDirectoryCluster): Response
+    {
+        return $adminDirectoryCluster->getList();
+    }
+
+    #[Route('/administrator/directory/cluster_csv', name: 'administrator_directory_cluster_csv')]
+    public function getDirectoryClusterCSV(AdminDirectoryCluster $adminDirectoryCluster): Response
+    {
+        return $adminDirectoryCluster->getCSV();
     }
 }
