@@ -178,14 +178,6 @@ class AdminDirectoryCluster extends BaseController
     {
         return [
             [
-                'name' => 'id',
-                'header' => 'ID',
-                'type' => 'int',
-                'filter' => true,
-                'show' => true,
-                'sort' => true
-            ],
-            [
                 'name' => 'name',
                 'header' => 'Название',
                 'type' => 'string',
