@@ -17,6 +17,7 @@ use App\Controller\Administrator\AdministratorOperationsController;
 use App\Controller\Administrator\AdministratorRoleController;
 use App\Controller\Administrator\AdministratorUserController;
 use App\Controller\Administrator\AdminLog;
+use App\Controller\Administrator\DocumentsController;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -141,5 +142,17 @@ class AdministratorController extends AbstractController
     public function getDirectoryProgramTypeCSV(AdminDirectoryProgramType $adminDirectoryProgramType): Response
     {
         return $adminDirectoryProgramType->getCSV();
+    }
+
+    #[Route('/administrator/document_templates', name: 'document_templates')]
+    public function getDirectoryDocumentTemplates(DocumentsController $adminDocumentsController): Response
+    {
+        return $adminDocumentsController->getList();
+    }
+
+    #[Route('/administrator/document_templates_csv', name: 'document_templates_csv')]
+    public function getDirectoryDocumentTemplatesCSV(DocumentsController $adminDocumentsController): Response
+    {
+        return $adminDocumentsController->getCSV();
     }
 }
