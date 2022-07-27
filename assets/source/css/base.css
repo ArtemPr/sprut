@@ -1,15 +1,15 @@
 .header {
 	/*position: relative;*/
-  top: 0;
-  left: 0;
-  position: fixed;
+	top: 0;
+	left: 0;
+	position: fixed;
 	z-index: 1035;
-  width: 100%;
-  /*min-height: 50px !important;*/
+	width: 100%;
+	/*min-height: 50px !important;*/
 }
 
 body {
-  padding-top: 67px;
+	padding-top: 67px;
 }
 
 .header .container-fluid {
@@ -24,15 +24,15 @@ body {
 }
 
 .header__navbar {
-  padding-top: 0.1rem;
-  padding-bottom: 0.1rem;
+	padding-top: 0.1rem;
+	padding-bottom: 0.1rem;
 }
 
 @media(max-width: 400px) {
-  .header__navbar {
-    padding-top: 0.25rem;
-    padding-bottom: 0.25rem;
-  }
+	.header__navbar {
+		padding-top: 0.25rem;
+		padding-bottom: 0.25rem;
+	}
 }
 
 /*.header__navbar .navbar {*/
@@ -40,7 +40,7 @@ body {
 /*}*/
 
 .header__navbar .navbar-light {
-  min-height: auto;
+	min-height: auto;
 }
 
 .page-layout {
@@ -48,12 +48,12 @@ body {
 }
 
 @media (min-width: 992px) {
-	.page-layout > .navbar-vertical.navbar-expand-lg {
+	.page-layout>.navbar-vertical.navbar-expand-lg {
 		padding-top: 70px;
 	}
 }
 
-.navbar-nav .nav-item.active > a {
+.navbar-nav .nav-item.active>a {
 	background-color: rgba(32, 107, 196, 0.25);
 }
 
@@ -90,7 +90,7 @@ body {
 	flex-wrap: nowrap;
 }
 
-.dual-listbox .dual-listbox__container > div {
+.dual-listbox .dual-listbox__container>div {
 	-webkit-box-flex: 1;
 	-ms-flex: 1;
 	flex: 1;
@@ -270,7 +270,7 @@ body {
 	-moz-user-select: none;
 }
 
-.regular-tree > details > summary {
+.regular-tree>details>summary {
 	display: none;
 }
 
@@ -305,7 +305,7 @@ body {
 	background-color: #444;
 }
 
-.regular-tree details > :not(details),
+.regular-tree details> :not(details),
 .regular-tree details {
 	position: relative;
 }
@@ -319,7 +319,7 @@ body {
 }
 
 .regular-tree details::before,
-.regular-tree details > :not(details)::before {
+.regular-tree details> :not(details)::before {
 	content: '';
 	width: 10px;
 	display: block;
@@ -327,17 +327,17 @@ body {
 }
 
 .regular-tree details::before,
-.regular-tree details > :not(details)::before {
+.regular-tree details> :not(details)::before {
 	background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 2 2" xmlns="http://www.w3.org/2000/svg"><g><rect x="0" y="0" width="1" height="1"/></g></svg>') left top/2px 2px;
 }
 
 .regular-tree.dark details::before,
-.regular-tree.dark details > :not(summary)::before {
+.regular-tree.dark details> :not(summary)::before {
 	background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 2 2" xmlns="http://www.w3.org/2000/svg"><g><rect x="0" y="0" width="1" height="1" fill="white"/></g></svg>');
 }
 
 .regular-tree.nodots details::before,
-.regular-tree.nodots details > :not(summary)::before {
+.regular-tree.nodots details> :not(summary)::before {
 	background-image: none;
 }
 
@@ -349,14 +349,14 @@ body {
 	z-index: -1;
 }
 
-.regular-tree details > :not(details)::before {
+.regular-tree details> :not(details)::before {
 	top: 8px;
 	height: calc(100% - 8px);
 	background-repeat: repeat-x;
 	left: -15px;
 }
 
-.regular-tree details > summary::before {
+.regular-tree details>summary::before {
 	background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg"><g><rect x="0" y="0" width="12" height="12" fill="white" stroke="gray" stroke-width="1"/><line x1="3" y1="6" x2="9" y2="6" stroke="black" stroke-width="2"/><line x1="6" y1="3" x2="6" y2="9" stroke="black" stroke-width="2"/></g></svg>') center center/12px 12px no-repeat;
 	left: -22px;
 	top: 2px;
@@ -364,7 +364,7 @@ body {
 	height: 16px;
 }
 
-.regular-tree details[open] > summary::before {
+.regular-tree details[open]>summary::before {
 	background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg"><title/><g><rect x="0" y="0" width="12" height="12" fill="white" stroke="gray" stroke-width="1"/><line x1="3" y1="6" x2="9" y2="6" stroke="black" stroke-width="2"/></g></svg>');
 }
 
@@ -386,7 +386,7 @@ body {
 
 @media (max-width: 767px) {
 
-	.header > .container-fluid {
+	.header>.container-fluid {
 		position: relative;
 		padding-right: 4rem;
 	}
@@ -448,88 +448,87 @@ body {
 }
 
 .disabled-btn {
-  opacity: 0.2;
+	opacity: 0.2;
 }
 
 .competence__title {
-  margin-top: 20px;
-  width: auto;
+	margin-top: 20px;
+	width: auto;
 }
 
 .competence__list {
-  border-top: 1px solid rgba(98,105,118,.16);
-  border-bottom: 1px solid rgba(98,105,118,.16);
-  max-height: 20vh;
-  overflow: auto;
-  padding: 10px 10px 10px 0;
-  box-sizing: border-box;
+	border-top: 1px solid rgba(98, 105, 118, .16);
+	border-bottom: 1px solid rgba(98, 105, 118, .16);
+	max-height: 20vh;
+	overflow: auto;
+	padding: 10px 10px 10px 0;
+	box-sizing: border-box;
 }
 
-#select-colored{
-  background-size: 10px;
-  padding-left: 30px;
-  background-repeat: no-repeat;
-  background-position: 10px center;
+#select-colored {
+	background-size: 10px;
+	padding-left: 30px;
+	background-repeat: no-repeat;
+	background-position: 10px center;
 }
 
 .select-new {
-  background-image: url('../img/circles-svg/circle-svg-grey.svg');
+	background-image: url('../img/circles-svg/circle-svg-grey.svg');
 }
 
 .select-check {
-  background-image: url('../img/circles-svg/circle-svg-yellow.svg');
+	background-image: url('../img/circles-svg/circle-svg-yellow.svg');
 }
 
-.select-work {
-  background-image: url('../img/circles-svg/circle-svg-purple.svg');
+.select-revision {
+	background-image: url('../img/circles-svg/circle-svg-purple.svg');
 }
 
-.select-approved {
-  background-image: url('../img/circles-svg/circle-svg-blue.svg');
+.select-accept {
+	background-image: url('../img/circles-svg/circle-svg-blue.svg');
 }
 
-.select-ready {
-  background-image: url('../img/circles-svg/circle-svg-green.svg');
+.select-done {
+	background-image: url('../img/circles-svg/circle-svg-green.svg');
 }
 
 /* убираем обводки таблера */
 
-.btn:focus, .btn:hover {
-  box-shadow: none;
-  border-color: #e6e7e9;
+.btn:focus,
+.btn:hover {
+	box-shadow: none;
+	border-color: #e6e7e9;
 }
 
 .btn:focus:not([disabled]):not(.disabled) {
-  border-color: #e6e7e9;
+	border-color: #e6e7e9;
 }
 
 .page-link:focus {
-  box-shadow: none;
+	box-shadow: none;
 }
 
 .form-check-input:focus {
-  box-shadow: none;
+	box-shadow: none;
 }
 
 #add-fgos {
-  margin-bottom: 20px;
+	margin-bottom: 20px;
 }
 
 /* сжатие шапки, уменьшение отступов на стр */
 
 .page-wrapper .page-header {
-  margin-top: 0;
+	margin-top: 0;
 }
 
 .page-body {
-  margin-top: 0.7rem;
+	margin-top: 0.7rem;
 }
 
-.header .navbar, .header .nav-link, .header .navbar-brand {
-  padding-top: 0;
-  padding-bottom: 0;
+.header .navbar,
+.header .nav-link,
+.header .navbar-brand {
+	padding-top: 0;
+	padding-bottom: 0;
 }
-
-
-
-
