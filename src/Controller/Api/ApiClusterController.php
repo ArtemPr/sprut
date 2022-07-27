@@ -18,7 +18,28 @@ class ApiClusterController extends AbstractController
 
     public function update()
     {
+        $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
+        $data = $request->request->all();
 
+        $cluster = $this->managerRegistry->getRepository(Cluster::class)->find((int) $data['id']);
+        $cluster->setName(trim($data['name']));
+
+        $entityManager = $this->managerRegistry->getManager();
+        $entityManager->persist($cluster);
+        $entityManager->flush();
+
+        $loger = new Loger();
+        $loger->setTime(new \DateTime());
+        $loger->setAction('update_cluster');
+        $loger->setUserLoger($this->getUser());
+        $loger->setIp($request->server->get('REMOTE_ADDR'));
+        $loger->setChapter('Кластеры');
+        $loger->setComment('Редактирование кластера'.$data['id'].' '.$data['name']);
+        $entityManager = $this->managerRegistry->getManager();
+        $entityManager->persist($loger);
+        $entityManager->flush();
+
+        return $this->json(['result' => 'success', 'id' => $data['id']]);
     }
 
     public function add(): Response

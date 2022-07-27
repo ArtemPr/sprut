@@ -57,78 +57,12 @@ class AdminDirectoryCluster extends BaseController
         return $this->processCSV($data, 'cluster.csv');
     }
 
-    public function getFgosForm($id): Response
+    public function getClusterForm($id): Response
     {
-        $data = $this->managerRegistry->getRepository(FederalStandart::class)->get($id);
-        if(!empty($data)) {
-            $data_competensions = $this->managerRegistry->getRepository(FederalStandartCompetencies::class)->findBy(
-                ['federal_standart' => $id], ['id' => 'ASC']
-            );
-            $data['compenencions'] = $data_competensions;
-        }
-        if (empty($data['old_name']) && strstr($data['name'], 'утв.')) {
-            $data['old_name'] = $data['name'];
-
-            $str = $data['name'];
-            $str = str_replace('Федеральный государственный образовательный стандарт', '', $str);
-            if (strstr($str,'высшего образования по специальности')) {
-                $data['type'] = 1;
-            } elseif (strstr($str,'высшего образования - бакалавриат по направлению подготовки')) {
-                $data['type'] = 2;
-            } elseif (strstr($str,'высшего образования - специалитет по специальности')) {
-                $data['type'] = 3;
-            } elseif (strstr($str,'среднего профессионального образования по специальности')) {
-                $data['type'] = 4;
-            }
-
-            $tmp = explode(' ', $data['short_name']);
-            $data['code'] = end($tmp);
-
-            preg_match('/N(.*?)\)$/i', $data['name'], $out);
-            if(!empty($out[1])){
-                $data['pr_num'] = trim($out[1]);
-            }
-
-
-            preg_match('/(\d)(\d).(\d)(\d).(\d)(\d)(\d)(\d)/i', $str, $out2);
-            if(empty($out2)) {
-                preg_match('/(\d).(\d)(\d).(\d)(\d)(\d)(\d)/i', $str, $out2);
-                $date_create = explode('.', $out2[0]);
-                $date_create[0] = '0' . $date_create[0];
-            } else {
-                $date_create = explode('.', $out2[0]);
-            }
-            $date_create = mktime(1,1,1, $date_create[1], $date_create[0], $date_create[2]);
-            $data['date_create'] = new DateTime(date('r', $date_create));
-
-            $str = str_replace($data['code'], '', $str);
-            $str = str_replace('высшего образования по специальности', '', $str);
-            $str = str_replace('высшего образования - бакалавриат по направлению подготовки', '', $str);
-            $str = str_replace('высшего образования - специалитет по специальности', '', $str);
-            $str = str_replace('среднего профессионального образования по специальности', '', $str);
-            $data['name'] = trim(preg_replace('/\(утв.(.*?)$/','', $str));
-
-
-        } else {
-            $str = 'Федеральный государственный образовательный стандарт ';
-            $type = [
-                1 => 'высшего образования по специальности ',
-                2 => 'высшего образования - бакалавриат по направлению подготовки ',
-                3 => 'высшего образования - специалитет по специальности ',
-                4 => 'среднего профессионального образования по специальности '
-            ];
-            $data['old_name'] = $str . $type[$data['type']] . $data['code'] . ' ' . $data['name'] . ' (утв. Приказом Минобрнауки России от ' . $data['date_create']->format('d.m.Y') . ' №' . $data['pr_num'] . ')';
-        }
-
-        if (!empty($data['date_create']))
-        {
-            $data['date_create'] = $data['date_create']->format(
-                'Y-m-d'
-            );
-        }
+        $data = $this->managerRegistry->getRepository(Cluster::class)->get($id);
 
         return $this->render(
-            'administrator/directory/fgos/form/update.html.twig',
+            'administrator/directory/cluster/form/update.html.twig',
             [
                 'data' => $data
             ]

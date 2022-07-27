@@ -20,7 +20,7 @@
                                         {% if tbl['sort'] == true %}
                                             <a title="Сортировка по значению ({{ tbl['header'] }})"
                                                class="sort-icon is-{% if sort.current_sort|default(false) and sort.current_sort == tbl['name'] %}desc{% elseif sort.current_sort|default(false) and sort.current_sort == (tbl['name']~'__up') %}asc{% else %}both{% endif %}"
-                                               href="{{ path('administrator_directory_fgos') ~ sort.sort_link ~ tbl['name'] }}{% if sort.current_sort|default(false) and sort.current_sort == tbl['name'] %}__up{% endif %}"
+                                               href="{{ path('administrator_directory_cluster') ~ sort.sort_link ~ tbl['name'] }}{% if sort.current_sort|default(false) and sort.current_sort == tbl['name'] %}__up{% endif %}"
                                             ></a>
                                         {% endif %}
 

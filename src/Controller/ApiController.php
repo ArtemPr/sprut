@@ -281,4 +281,10 @@ class ApiController extends AbstractController
     {
         return $apiClusterController->add();
     }
+
+    #[Route('/cluster_update', name: 'cluster_update', methods: ['POST'])]
+    public function cluster_update(ApiClusterController $apiClusterController): Response
+    {
+        return $apiClusterController->update();
+    }
 }

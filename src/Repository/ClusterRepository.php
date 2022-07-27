@@ -94,20 +94,20 @@ class ClusterRepository extends ServiceEntityRepository
 
     public function get(int $id)
     {
-//        $qb = $this->createQueryBuilder('fs');
-//        $qb->where('fs.id = :id')
-//            ->setParameters(
-//                [
-//                    'id' => $id
-//                ]
-//            );
-//
-//        $query = $qb->getQuery();
-//        $result = $query->execute(
-//            hydrationMode: Query::HYDRATE_ARRAY
-//        );
-//
-//        return $result[0] ?? [];
+        $qb = $this->createQueryBuilder('c');
+        $qb->where('c.id = :id')
+            ->setParameters(
+                [
+                    'id' => $id
+                ]
+            );
+
+        $query = $qb->getQuery();
+        $result = $query->execute(
+            hydrationMode: Query::HYDRATE_ARRAY
+        );
+
+        return $result[0] ?? [];
     }
 
     private function setSort($sort, $prefix)

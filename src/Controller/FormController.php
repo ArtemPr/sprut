@@ -10,6 +10,7 @@
 namespace App\Controller;
 
 use App\Controller\Administrator\AdminDirectoryCity;
+use App\Controller\Administrator\AdminDirectoryCluster;
 use App\Controller\Administrator\AdminDirectoryEmployerRequirements;
 use App\Controller\Administrator\AdminDirectoryFGOS;
 use App\Controller\Administrator\AdminDirectoryKafedra;
@@ -111,5 +112,11 @@ class FormController extends AbstractController
     public function getSubdivisionsForm($id, AdminDirectorySubdivisions $adminDirectorySubdivisions): Response
     {
         return $adminDirectorySubdivisions->getSubdivisionsForm($id);
+    }
+
+    #[Route('/cluster_edit/{id}', name: 'form_edit')]
+    public function getClusterForm($id, AdminDirectoryCluster $adminDirectoryCluster): Response
+    {
+        return $adminDirectoryCluster->getClusterForm($id);
     }
 }
