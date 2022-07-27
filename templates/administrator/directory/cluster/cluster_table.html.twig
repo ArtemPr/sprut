@@ -2,7 +2,7 @@
     <table id="usersTable"
            class="users-table table card-table table-vcenter datatable">
         <thead>
-            <tr>
+        <tr>
             {% if table|default(false) %}
                 {% for tbl in table %}
                     {% if tbl['show'] == true %}
@@ -12,7 +12,7 @@
                             <th>
                                 <div class="th-name">
                                     <div class="sort-name-wrap">
-                                        {# <span class="drag-icon" title="Переместить колонку {{ tbl['header'] }}"></span> #}
+{#                                        <span class="drag-icon" title="Переместить колонку {{ tbl['header'] }}"></span>#}
                                         <span class="name-text">{{ tbl['header'] }}</span>
                                     </div>
 
@@ -20,7 +20,7 @@
                                         {% if tbl['sort'] == true %}
                                             <a title="Сортировка по значению ({{ tbl['header'] }})"
                                                class="sort-icon is-{% if sort.current_sort|default(false) and sort.current_sort == tbl['name'] %}desc{% elseif sort.current_sort|default(false) and sort.current_sort == (tbl['name']~'__up') %}asc{% else %}both{% endif %}"
-                                               href="{{ path('document_templates') ~ sort.sort_link ~ tbl['name'] }}{% if sort.current_sort|default(false) and sort.current_sort == tbl['name'] %}__up{% endif %}"
+                                               href="{{ path('administrator_directory_cluster') ~ sort.sort_link ~ tbl['name'] }}{% if sort.current_sort|default(false) and sort.current_sort == tbl['name'] %}__up{% endif %}"
                                             ></a>
                                         {% endif %}
 
@@ -45,28 +45,17 @@
         <tbody>
         {% if data|default(false) %}
             {% for dat in data %}
-                <tr data-string="{{ dat.id }}" data-type="document_templates" class="user-table-row {% if loop.first %}is-selected{% endif %}">
+                <tr data-string="{{ dat.id }}" class="user-table-row {% if loop.first %}is-selected{% endif %}">
                     {% for tbl in table %}
                         {% if tbl['show'] == true %}
                             {% if tbl.type == 'bool' %}
-                                <td><span
-                                        class="badge {% if dat[tbl.name]|default(false) %} bg-success {% else %} bg-danger {% endif %} "></span>
-                                </td>
-                            {% elseif tbl.type == 'date' and dat[tbl.name] != null %}
-                                <td >{{ dat[tbl.name]|date("d.m.Y H:i") }}</td>
+                                <td><span class="badge {% if dat[tbl.name]|default(false) %} bg-success {% else %} bg-danger {% endif %} "></span></td>
+                            {% elseif tbl.type == 'date' %}
+                                <td class="text-center">{{ dat[tbl.name]|date("d.m.Y") }}</td>
                             {% elseif tbl.type == 'int' %}
-                                <td>{{ dat[tbl.name]|default(false)|raw }} </td>
-                            {% elseif tbl['name'] == 'file_size' %}
-                                <td>{{ (dat[tbl.name] / 1024) | number_format(2, ',', ' ') }} Кб</td>
-                            {% elseif tbl.type == 'string' and tbl.name == 'link'  %}
-                                <td><a class="documents__download-link" href="{{ dat[tbl.name] }}">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paperclip" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                            <path d="M15 7l-6.5 6.5a1.5 1.5 0 0 0 3 3l6.5 -6.5a3 3 0 0 0 -6 -6l-6.5 6.5a4.5 4.5 0 0 0 9 9l6.5 -6.5" />
-                                        </svg>
-                                    </a></td>
+                                <td class="text-center">{{ dat[tbl.name]|default(false)|raw }} </td>
                             {% else %}
-                                <td>{{ dat[tbl.name]|default('-')|raw }}</td>
+                                <td>{{ dat[tbl.name]|default(false)|raw }} </td>
                             {% endif %}
                         {% endif %}
                     {% endfor %}
@@ -76,7 +65,6 @@
         </tbody>
     </table>
 </div>
- {% include 'block/paginator.html.twig' with {
-    'path': path('document_templates')
- } %}
-
+{% include 'block/paginator.html.twig' with {
+    'path': path('administrator_directory_cluster')
+} %}

@@ -7,9 +7,12 @@ namespace App\Controller;
 
 use App\Controller\Api\ApiAntiplagiat;
 use App\Controller\Api\ApiCityController;
+use App\Controller\Api\ApiClusterController;
+use App\Controller\Api\apiDocumentsController;
 use App\Controller\Api\ApiEmployerRequirementsController;
 use App\Controller\Api\ApiFgosController;
 use App\Controller\Api\ApiKafedra;
+use App\Controller\Api\ApiLitera;
 use App\Controller\Api\ApiOperations;
 use App\Controller\Api\ApiPotentialJobsController;
 use App\Controller\Api\ApiProgramController;
@@ -197,6 +200,18 @@ class ApiController extends AbstractController
         return $apiAntiplagiat->update();
     }
 
+    #[Route('/add_litera', name: 'add_litera', methods: ['POST'])]
+    public function add_litera(ApiLitera $apiLitera): Response
+    {
+        return $apiLitera->add();
+    }
+
+    #[Route('/update_litera', name: 'update_litera', methods: ['POST'])]
+    public function update_litera(ApiLitera $apiLitera): Response
+    {
+        return $apiLitera->update();
+    }
+
     #[Route('/city_update', name: 'city_update', methods: ['POST'])]
     public function city_update(ApiCityController $apiCityController): Response
     {
@@ -273,5 +288,35 @@ class ApiController extends AbstractController
     public function subdivisions_hide($id, ApiSubdivisionsController $apiSubdivisionsController): Response
     {
         return $apiSubdivisionsController->hide($id);
+    }
+
+    #[Route('/document_templates_update', name: 'document_templates_update', methods: ['POST'])]
+    public function document_templates_update(apiDocumentsController $apiDocumentsController): Response
+    {
+        return $apiDocumentsController->update();
+    }
+
+    #[Route('/document_templates_add', name: 'document_templates_add', methods: ['POST'])]
+    public function document_templates_add(apiDocumentsController $apiDocumentsController): Response
+    {
+        return $apiDocumentsController->add();
+    }
+
+    #[Route('/document_templates_hide/{id}', name: 'document_templates_hide')]
+    public function document_templates_hide($id, apiDocumentsController $apiDocumentsController): Response
+    {
+        return $apiDocumentsController->hide($id);
+    }
+
+        #[Route('/cluster_add', name: 'cluster_add', methods: ['POST'])]
+    public function cluster_add(ApiClusterController $apiClusterController): Response
+    {
+        return $apiClusterController->add();
+    }
+
+    #[Route('/cluster_update', name: 'cluster_update', methods: ['POST'])]
+    public function cluster_update(ApiClusterController $apiClusterController): Response
+    {
+        return $apiClusterController->update();
     }
 }

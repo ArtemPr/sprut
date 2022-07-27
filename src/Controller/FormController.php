@@ -10,6 +10,7 @@
 namespace App\Controller;
 
 use App\Controller\Administrator\AdminDirectoryCity;
+use App\Controller\Administrator\AdminDirectoryCluster;
 use App\Controller\Administrator\AdminDirectoryEmployerRequirements;
 use App\Controller\Administrator\AdminDirectoryFGOS;
 use App\Controller\Administrator\AdminDirectoryKafedra;
@@ -20,6 +21,7 @@ use App\Controller\Administrator\AdminDirectoryTrainingCentre;
 use App\Controller\Administrator\AdministratorOperationsController;
 use App\Controller\Administrator\AdministratorRoleController;
 use App\Controller\Administrator\AdministratorUserController;
+use App\Controller\Administrator\DocumentsController;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -95,6 +97,12 @@ class FormController extends AbstractController
         return $adminProgram->getProgramTypeForm($id);
     }
 
+    #[Route('/document_templates_edit/{id}', name: 'document_templates_edit')]
+    public function getDocumentTemplatesForm($id, DocumentsController $DocumentsController): Response
+    {
+        return $DocumentsController->getDocumentTemplatesForm($id);
+    }
+
     #[Route('/employer_requirements_edit/{id}', name: 'employer_requirements_edit')]
     public function getEmployerRequirementsForm($id, AdminDirectoryEmployerRequirements $adminEmployerRequirements): Response
     {
@@ -111,5 +119,11 @@ class FormController extends AbstractController
     public function getSubdivisionsForm($id, AdminDirectorySubdivisions $adminDirectorySubdivisions): Response
     {
         return $adminDirectorySubdivisions->getSubdivisionsForm($id);
+    }
+
+    #[Route('/cluster_edit/{id}', name: 'form_edit')]
+    public function getClusterForm($id, AdminDirectoryCluster $adminDirectoryCluster): Response
+    {
+        return $adminDirectoryCluster->getClusterForm($id);
     }
 }

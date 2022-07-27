@@ -7,6 +7,7 @@ namespace App\Controller;
 
 use App\Controller\Administrator\Admin;
 use App\Controller\Administrator\AdminDirectoryCity;
+use App\Controller\Administrator\AdminDirectoryCluster;
 use App\Controller\Administrator\AdminDirectoryDiscipline;
 use App\Controller\Administrator\AdminDirectoryEmployerRequirements;
 use App\Controller\Administrator\AdminDirectoryFGOS;
@@ -20,6 +21,7 @@ use App\Controller\Administrator\AdministratorOperationsController;
 use App\Controller\Administrator\AdministratorRoleController;
 use App\Controller\Administrator\AdministratorUserController;
 use App\Controller\Administrator\AdminLog;
+use App\Controller\Administrator\DocumentsController;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -146,6 +148,18 @@ class AdministratorController extends AbstractController
         return $adminDirectoryProgramType->getCSV();
     }
 
+    #[Route('/administrator/document_templates', name: 'document_templates')]
+    public function getDirectoryDocumentTemplates(DocumentsController $adminDocumentsController): Response
+    {
+        return $adminDocumentsController->getList();
+    }
+
+    #[Route('/administrator/document_templates_csv', name: 'document_templates_csv')]
+    public function getDirectoryDocumentTemplatesCSV(DocumentsController $adminDocumentsController): Response
+    {
+        return $adminDocumentsController->getCSV();
+    }
+
     #[Route('/administrator/directory/employer_requirements', name: 'administrator_directory_employer_requirements')]
     public function getDirectoryEmployerRequirements(AdminDirectoryEmployerRequirements $adminDirectoryEmployerRequirements): Response
     {
@@ -180,5 +194,17 @@ class AdministratorController extends AbstractController
     public function getDirectorySubdivisionsCSV(AdminDirectorySubdivisions $adminDirectorySubdivisions): Response
     {
         return $adminDirectorySubdivisions->getCSV();
+    }
+
+    #[Route('/administrator/directory/cluster', name: 'administrator_directory_cluster')]
+    public function getDirectoryCluster(AdminDirectoryCluster $adminDirectoryCluster): Response
+    {
+        return $adminDirectoryCluster->getList();
+    }
+
+    #[Route('/administrator/directory/cluster_csv', name: 'administrator_directory_cluster_csv')]
+    public function getDirectoryClusterCSV(AdminDirectoryCluster $adminDirectoryCluster): Response
+    {
+        return $adminDirectoryCluster->getCSV();
     }
 }

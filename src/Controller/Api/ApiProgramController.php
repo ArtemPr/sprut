@@ -5,9 +5,11 @@
 
 namespace App\Controller\Api;
 
+use App\Entity\EmployerRequirements;
 use App\Entity\FederalStandart;
 use App\Entity\Loger;
 use App\Entity\MasterProgram;
+use App\Entity\PotentialJobs;
 use App\Entity\ProgramType;
 use App\Repository\MasterProgramRepository;
 use App\Service\ApiService;
@@ -20,15 +22,10 @@ class ApiProgramController extends AbstractController
 {
     use ApiService;
 
-    /**
-     * @param MasterProgramRepository $master_programm
-     * @param ManagerRegistry $doctrine
-     */
     public function __construct(
         private MasterProgramRepository $master_programm,
-        private ManagerRegistry         $doctrine
-    )
-    {
+        private ManagerRegistry $doctrine
+    ) {
     }
 
     /**
@@ -41,14 +38,13 @@ class ApiProgramController extends AbstractController
         return $this->render('api/index.html.twig', [
             'out' => $this->convertJson($result ?? ['error' => 'no results']),
         ]);
-
     }
 
     public function getProgramsList(): Response
     {
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
 
-        $page = (int)($request->get('page') ?? 1);
+        $page = (int) ($request->get('page') ?? 1);
         if ($page > 0) {
             $page = $page - 1;
         } else {
@@ -58,7 +54,7 @@ class ApiProgramController extends AbstractController
 
         $param = $request->get('param') ?? null;
 
-        $result = $this->master_programm->getProgramList((int)$page, $max_result, $param);
+        $result = $this->master_programm->getProgramList((int) $page, $max_result, $param);
 
         foreach ($result as $key => $value) {
             $result[$key]['program_type'] = $result[$key]['program_type']['id'];
@@ -81,9 +77,9 @@ class ApiProgramController extends AbstractController
     public function getProgram(int $id): Response
     {
         $out = $this->master_programm->getProgram($id);
+
         return $this->json($out ?? []);
     }
-
 
     public function add(): Response
     {
@@ -92,12 +88,16 @@ class ApiProgramController extends AbstractController
 
         $type = !empty($data['type']) ? $this->doctrine->getRepository(ProgramType::class)->find($data['type']) : null;
         $fgos = !empty($data['fgos']) ? $this->doctrine->getRepository(FederalStandart::class)->find($data['fgos']) : null;
+        $employer = !empty($data['employer']) ? $this->doctrine->getRepository(EmployerRequirements::class)->find($data['employer']) : null;
+        $potential = !empty($data['potential']) ? $this->doctrine->getRepository(PotentialJobs::class)->find($data['potential']) : null;
 
         $program = new MasterProgram();
         $program->setName(trim($data['name']));
         $program->setProgramType($type);
 
         $program->addFederalStandart($fgos);
+        $program->addEmployerRequirement($employer);
+        $program->addPotentialJob($potential);
 
         $program->setLengthHour(0);
         $program->setLengthWeekShort(0);
@@ -113,7 +113,7 @@ class ApiProgramController extends AbstractController
         $loger->setUserLoger($this->getUser());
         $loger->setIp($request->server->get('REMOTE_ADDR'));
         $loger->setChapter('Программы');
-        $loger->setComment('Создание программы ' . $lastId . ' ' . $data['name']);
+        $loger->setComment('Создание программы '.$lastId.' '.$data['name']);
         $entityManager = $this->doctrine->getManager();
         $entityManager->persist($loger);
         $entityManager->flush();
@@ -126,15 +126,14 @@ class ApiProgramController extends AbstractController
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
         $data = $request->request->all();
 
-
         $type = !empty($data['type']) ? $this->doctrine->getRepository(ProgramType::class)->find($data['type']) : null;
-        //$fgos = !empty($data['fgos']) ? $this->doctrine->getRepository(FederalStandart::class)->find($data['fgos']) : null;
+        // $fgos = !empty($data['fgos']) ? $this->doctrine->getRepository(FederalStandart::class)->find($data['fgos']) : null;
 
         $program = $this->doctrine->getRepository(MasterProgram::class)->find($data['id']);
         $program->setName(trim($data['name']));
         $program->setProgramType($type);
 
-        //$program->addFederalStandart($fgos);
+        // $program->addFederalStandart($fgos);
 
         $program->setLengthHour(0);
         $program->setLengthWeekShort(0);
@@ -149,7 +148,7 @@ class ApiProgramController extends AbstractController
         $loger->setUserLoger($this->getUser());
         $loger->setIp($request->server->get('REMOTE_ADDR'));
         $loger->setChapter('Программы');
-        $loger->setComment($data['id'] . ' ' . $data['name']);
+        $loger->setComment($data['id'].' '.$data['name']);
         $entityManager = $this->doctrine->getManager();
         $entityManager->persist($loger);
         $entityManager->flush();

@@ -16,7 +16,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbar-menu">
-                    {% include 'administrator/block/nav_documents.html.twig' %}
+                    {% include 'administrator/block/nav_directory.html.twig' with {'controller': 'administrator_directory_cluster'} %}
                 </div>
                 <button id="hide-btn" class="hide-btn" title="Скрыть панель">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -28,57 +28,44 @@
         </aside>
         <div class="page-wrapper">
             <div class="container-fluid">
-                {% include 'block/header_list.html.twig' with {'header': 'Шаблоны документов', 'onpage_link': path('document_templates')} %}
+                {% include 'block/header_list.html.twig' with {'header': 'Справочник - Кластеры', 'onpage_link': path('administrator_directory_cluster')} %}
             </div>
-            {% set controller = 'document_templates' %}
+            {% set controller = 'cluster' %}
             <div class="page-body">
                 <div class="container-fluid">
                     <div class="row row-deck row-cards">
                         <div class="col-12">
                             <div class="card">
                                 {% include 'block/search_panel.html.twig' with {
-                                    'close_delete': false,
+                                    'close_delete': true,
                                     'close_edit': false,
                                     'close_create': false,
-                                    'path': path('document_templates'),
-                                    'controller': controller|default(false),
-                                    'add_csv': path('document_templates') ~ '_csv' ~ csv_link|default(false),
-                                    'table' : table|default(false)
+                                    'path': path('administrator_directory_cluster'),
+                                    'controller': controller,
+                                    'add_csv': path('administrator_directory_cluster') ~ '_csv' ~ csv_link,
+                                    'table' : table
                                 } %}
                                 <div class="ajax-table">
-                                    {{ include('administrator/document_templates/table.html.twig') }}
+                                    {{ include('administrator/directory/cluster/cluster_table.html.twig') }}
                                 </div>
-                                <div class="table-comments--documents">
-                                    <p>Информация по переменным</p>
-                                    <ul>
-                                        <li>значение (AL_RRRR - метка в файле) переменной</li>
-                                        <li>название переменной</li>
-                                        <li>привязанное поле</li>
-                                        <li>комментарий</li>
-                                    </ul>
-                                </div>
+
                             </div>
 
                             <div id="userEditingOverlay" class="offcanvas-backdrop fade"></div>
 
-                            <div id="{{ controller|default(false) }}ViewPanel" data-action="view" class="user-form-panel offcanvas offcanvas-end modal-middle" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                            <div id="{{ controller }}ViewPanel" data-action="view" class="user-form-panel offcanvas offcanvas-end modal-sm" tabindex="-1" aria-labelledby="offcanvasEndLabel">
                                 <img src="{{ absolute_url('/assets/images/loading--big.gif') }}" style="position: absolute; top: 10%; left: 50%; margin-left: -75px;">
                             </div>
 
-                            <div id="{{ controller|default(false) }}CreationPanel" data-action="add" class="user-form-panel offcanvas offcanvas-end modal-middle" tabindex="-1" aria-labelledby="offcanvasEndLabel">
-                                {% include '/administrator/document_templates/form/add.html.twig'  %}
+                            <div id="{{ controller }}CreationPanel" data-action="add" class="user-form-panel offcanvas offcanvas-end modal-sm" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                                {% include 'administrator/directory/cluster/form/add.html.twig'  %}
                             </div>
-                            <div id="{{ controller|default(false) }}EditingPanel" data-action="edit" class="user-form-panel offcanvas offcanvas-end modal-middle" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                            <div id="{{ controller }}EditingPanel" data-action="update" class="user-form-panel offcanvas offcanvas-end modal-sm" tabindex="-1" aria-labelledby="offcanvasEndLabel">
                                 <img src="{{ absolute_url('/assets/images/loading--big.gif') }}" style="position: absolute; top: 10%; left: 50%; margin-left: -75px;">
-                                {% include '/administrator/document_templates/form/update.html.twig'  %}
                             </div>
-
-                            {% include 'modal/delete.html.twig' with {'controller': controller}  %}
 
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </div>
