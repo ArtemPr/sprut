@@ -41,15 +41,13 @@ class AdminDirectoryCluster extends BaseController
 
         $dataRow = [];
         foreach ($this->setTable() as $tbl) {
-            $dataRow[] = $tbl[1];
+            $dataRow[] = $tbl['header'];
         }
 
         $data[] = $dataRow;
 
         foreach ($result['data'] as $val) {
             $data[] = [
-                ($val['active'] ? 'да' : 'нет'),
-                $val['short_name'],
                 $val['name'],
             ];
         }
@@ -105,8 +103,6 @@ class AdminDirectoryCluster extends BaseController
             'csv_link' => $this->getCSVLink()
         ];
     }
-
-
 
     private function setTable()
     {

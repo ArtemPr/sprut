@@ -8,9 +8,12 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Service\LoggerService;
 
 class ApiClusterController extends AbstractController
 {
+    use LoggerService;
+
     public function __construct(
         private ManagerRegistry $managerRegistry
     ) {
@@ -28,16 +31,7 @@ class ApiClusterController extends AbstractController
         $entityManager->persist($cluster);
         $entityManager->flush();
 
-        $loger = new Loger();
-        $loger->setTime(new \DateTime());
-        $loger->setAction('update_cluster');
-        $loger->setUserLoger($this->getUser());
-        $loger->setIp($request->server->get('REMOTE_ADDR'));
-        $loger->setChapter('Кластеры');
-        $loger->setComment('Редактирование кластера'.$data['id'].' '.$data['name']);
-        $entityManager = $this->managerRegistry->getManager();
-        $entityManager->persist($loger);
-        $entityManager->flush();
+        $this->logAction('update_cluster', 'Кластеры', 'Редактирование кластера'.$data['id'].' '.$data['name']);
 
         return $this->json(['result' => 'success', 'id' => $data['id']]);
     }
@@ -55,16 +49,7 @@ class ApiClusterController extends AbstractController
         $entityManager->flush();
         $lastId = $cluster->getId();
 
-        $loger = new Loger();
-        $loger->setTime(new \DateTime());
-        $loger->setAction('add_cluster');
-        $loger->setUserLoger($this->getUser());
-        $loger->setIp($request->server->get('REMOTE_ADDR'));
-        $loger->setChapter('Кластеры');
-        $loger->setComment('Создание кластера '.$lastId.' '.$data['name']);
-        $entityManager = $this->managerRegistry->getManager();
-        $entityManager->persist($loger);
-        $entityManager->flush();
+        $this->logAction('add_cluster', 'Кластеры', 'Создание кластера '.$lastId.' '.$data['name']);
 
         return $this->json(['result' => 'success', 'id' => $lastId]);
     }
