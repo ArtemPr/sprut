@@ -130,4 +130,11 @@ class AntiplagiatRepository extends ServiceEntityRepository
 
         return explode(' ', $order);
     }
+
+    public function getItemsByDiscipline($id)
+    {
+        return $this->findBy([
+            'discipline' => $id
+        ]);
+    }
 }

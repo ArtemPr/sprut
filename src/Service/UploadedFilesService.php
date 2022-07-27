@@ -64,9 +64,48 @@ trait UploadedFilesService
         return null;
     }
 
+    /**
+     * Создаёт файл из контента (в частности для Литера5).
+     */
     protected function uploadFileFromContent(string $content, string $moduleName, ?string $filename): string|null
     {
-        //
+        if (str_contains($moduleName, '\\')) {
+            $moduleName = strtolower(substr($moduleName, strrpos($moduleName, '\\') + 1));
+        }
+
+        if (empty($filename)) {
+            $filename = uniqid('f').$moduleName.'.html';
+        } else {
+            $filename .= '.html';
+        }
+
+        $docRoot = rtrim($_SERVER['DOCUMENT_ROOT'], '/');
+        $currSavePlace = $docRoot.'/uplfile/'.$moduleName;
+        $currDownloadPlace = '/uplfile/'.$moduleName;
+
+        $result = null;
+
+        /*
+         * @var $checkedFile array будет доступна из класса, который захочет использовать этот трейт
+         */
+        if (false !== file_put_contents($currSavePlace.'/'.$filename, $content)) {
+            $this->checkedFile = pathinfo($currSavePlace.'/'.$filename);
+
+            if ('array' != gettype($this->checkedFile)) {
+                $this->checkedFile = [
+                    'pathinfo' => $this->checkedFile,
+                ];
+            }
+
+            $this->checkedFile['path'] = $currDownloadPlace.'/'.$filename;
+            $this->checkedFile['filesize'] = filesize($currSavePlace.'/'.$filename);
+            $this->checkedFile['filetype'] = filetype($currSavePlace.'/'.$filename);
+            $this->checkedFile['mime'] = mime_content_type($currSavePlace.'/'.$filename);
+
+            return $currDownloadPlace.'/'.$filename;
+        } else {
+            return null;
+        }
     }
 
     /**

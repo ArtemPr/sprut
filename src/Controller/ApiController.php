@@ -8,6 +8,7 @@ namespace App\Controller;
 use App\Controller\Api\ApiAntiplagiat;
 use App\Controller\Api\ApiCityController;
 use App\Controller\Api\ApiClusterController;
+use App\Controller\Api\ApiDirectionsController;
 use App\Controller\Api\apiDocumentsController;
 use App\Controller\Api\ApiEmployerRequirementsController;
 use App\Controller\Api\ApiFgosController;
@@ -30,22 +31,12 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/api', name: 'api')]
 class ApiController extends AbstractController
 {
-    /**
-     * @param ApiProgramController $apiProgramController
-     *
-     * @return Response
-     */
     #[Route('/program_info', name: 'api_get_program_info', methods: ['GET'])]
     public function api_get_program_info(ApiProgramController $apiProgramController): Response
     {
         return $apiProgramController->getProgramInfo();
     }
 
-    /**
-     * @param ApiProgramController $apiProgramController
-     *
-     * @return Response
-     */
     #[Route('/program', name: 'api_get_programs_list', methods: ['GET'])]
     public function api_get_programs_list(ApiProgramController $apiProgramController): Response
     {
@@ -80,6 +71,7 @@ class ApiController extends AbstractController
     public function update_kafedra(ApiKafedra $apiKafedra): Response
     {
         $update = $apiKafedra->update();
+
         return $update;
     }
 
@@ -99,6 +91,7 @@ class ApiController extends AbstractController
     public function update_tc(ApiTrainingCentre $apiTrainingCentre): Response
     {
         $update = $apiTrainingCentre->update();
+
         return $update;
     }
 
@@ -118,6 +111,7 @@ class ApiController extends AbstractController
     public function update_ps(ApiTrainingCentre $apiTrainingCentre): Response
     {
         $update = $apiTrainingCentre->update();
+
         return $update;
     }
 
@@ -125,6 +119,7 @@ class ApiController extends AbstractController
     public function update_operations(ApiOperations $apiOperations): Response
     {
         $update = $apiOperations->update();
+
         return $update;
     }
 
@@ -308,7 +303,7 @@ class ApiController extends AbstractController
         return $apiDocumentsController->hide($id);
     }
 
-        #[Route('/cluster_add', name: 'cluster_add', methods: ['POST'])]
+    #[Route('/cluster_add', name: 'cluster_add', methods: ['POST'])]
     public function cluster_add(ApiClusterController $apiClusterController): Response
     {
         return $apiClusterController->add();
@@ -318,5 +313,23 @@ class ApiController extends AbstractController
     public function cluster_update(ApiClusterController $apiClusterController): Response
     {
         return $apiClusterController->update();
+    }
+
+    #[Route('/directions_update', name: 'directions_update', methods: ['POST'])]
+    public function directions_update(ApiDirectionsController $apiDirectionsController): Response
+    {
+        return $apiDirectionsController->update();
+    }
+
+    #[Route('/directions_add', name: 'directions_add', methods: ['POST'])]
+    public function directions_add(ApiDirectionsController $apiDirectionsController): Response
+    {
+        return $apiDirectionsController->add();
+    }
+
+    #[Route('/directions_hide/{id}', name: 'directions_hide', methods: ['GET'])]
+    public function directions_hide($id, ApiDirectionsController $apiDirectionsController): Response
+    {
+        return $apiDirectionsController->hide($id);
     }
 }
