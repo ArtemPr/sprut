@@ -47,9 +47,17 @@ class MasterProgram
     #[ORM\Column(type: 'boolean', nullable: true)]
     private $history;
 
+    #[ORM\ManyToMany(targetEntity: EmployerRequirements::class, inversedBy: 'masterPrograms')]
+    private Collection $employer_requirements;
+
+    #[ORM\ManyToMany(targetEntity: PotentialJobs::class, inversedBy: 'masterPrograms')]
+    private Collection $potential_jobs;
+
     public function __construct()
     {
         $this->federal_standart = new ArrayCollection();
+        $this->employer_requirements = new ArrayCollection();
+        $this->potential_jobs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -231,6 +239,54 @@ class MasterProgram
     public function setProfStandarts($prof_standarts): void
     {
         $this->prof_standarts = $prof_standarts;
+    }
+
+    /**
+     * @return Collection<int, EmployerRequirements>
+     */
+    public function getEmployerRequirements(): Collection
+    {
+        return $this->employer_requirements;
+    }
+
+    public function addEmployerRequirement(EmployerRequirements $employerRequirement): self
+    {
+        if (!$this->employer_requirements->contains($employerRequirement)) {
+            $this->employer_requirements[] = $employerRequirement;
+        }
+
+        return $this;
+    }
+
+    public function removeEmployerRequirement(EmployerRequirements $employerRequirement): self
+    {
+        $this->employer_requirements->removeElement($employerRequirement);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PotentialJobs>
+     */
+    public function getPotentialJobs(): Collection
+    {
+        return $this->potential_jobs;
+    }
+
+    public function addPotentialJob(PotentialJobs $potentialJob): self
+    {
+        if (!$this->potential_jobs->contains($potentialJob)) {
+            $this->potential_jobs[] = $potentialJob;
+        }
+
+        return $this;
+    }
+
+    public function removePotentialJob(PotentialJobs $potentialJob): self
+    {
+        $this->potential_jobs->removeElement($potentialJob);
+
+        return $this;
     }
 
 }
