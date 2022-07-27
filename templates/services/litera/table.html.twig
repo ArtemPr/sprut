@@ -1,5 +1,3 @@
-<pre>{{ dump(data) }}</pre>
-
 <div class="users-table-wrap table-responsive">
     <table id="usersTable" class="users-table table card-table table-vcenter text-nowrap datatable">
         <thead>
@@ -103,9 +101,9 @@
                                 <td>{% if dat.author %}{{ dat.author.fullname }}{% else %}&mdash;{% endif %}</td>
                             {% elseif tbl['name'] == 'data_create' %}
                                 <td>{{ dat.data_create | date('d/m/Y H:i') }}</td>
-                            {% elseif tbl['name'] == 'comment' %}
-                                <td>{{ dat.comment }}</td>
-                            {% elseif tbl['name'] == 'result_date' %}
+                            {% elseif tbl['name'] == 'doc_name' %}
+                                <td>{{ dat.doc_name }}</td>
+                            {% elseif tbl['name'] == 'date_update' %}
                                 <td>
                                     {% if dat.date_update|default('') %}
                                         {{ dat.date_update | date('d/m/Y H:i') }}
