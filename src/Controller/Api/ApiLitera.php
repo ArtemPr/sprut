@@ -102,16 +102,22 @@ class ApiLitera extends AbstractController
             $discipline = $this->doctrine->getRepository(Discipline::class)->find($data['discipline']);
         }
 
-        dd([
-            '$data' => $data ?? '-',
-        ]);
+        $litera = $this->doctrine->getRepository(Litera::class)->find($data['id']);
+
+        $litera->setAuthor($this->getUser());
+        $litera->setDiscipline($discipline);
+        $litera->setDocName($data['doc_name'] ?? '');
+
+        $entityManager = $this->doctrine->getManager();
+        $entityManager->persist($litera);
+        $entityManager->flush();
 
         $this->logAction(
             'update_litera',
             'Литера5',
-            'Создание запроса '.$lastId
+            'Создание запроса '.$data['id']
         );
 
-        return $this->json(['result' => 'success', 'id' => $lastId]);
+        return $this->json(['result' => 'success', 'id' => $data['id']]);
     }
 }
