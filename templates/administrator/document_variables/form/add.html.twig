@@ -1,0 +1,56 @@
+<div class="offcanvas-header">
+    <h2 class="offcanvas-title">Создание шаблона документа</h2>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+</div>
+<div class="offcanvas-body">
+    <form action="#" name="document_variables-create" id="document_variables_add-create" class="form-create"
+          enctype="multipart/form-data">
+        <div class="">
+            <div class="card-body">
+                <div class="form-group mb-3 row">
+                    <label class="form-label col-3 col-form-label">Название переменной</label>
+                    <div class="col">
+                        <input name="name" type="text" class="form-control" placeholder="Название переменной"
+                               required value="">
+                    </div>
+                </div>
+                <div class="form-group mb-3 row">
+                    <label class="form-label col-3 col-form-label">Значение</label>
+                    <div class="col">
+                        <input name="variable_value" type="text" class="form-control" placeholder="Значение"
+                               required value="">
+                    </div>
+                </div>
+                <div class="form-group mb-3 row">
+                    <label class="form-label col-3 col-form-label">Привязанное поле</label>
+                    <div class="col">
+                        <input name="linked_field" type="text" class="form-control" placeholder="Привязанное поле"
+                               required value="">
+                    </div>
+                </div>
+                <div class="form-group mb-3 row">
+                    <label class="form-label col-3 col-form-label">Комментарий</label>
+                    <div class="col">
+                        <textarea name="comment" class="form-control" style="min-height: 100px;" aria-required=""
+                                  required></textarea>
+                    </div>
+                </div>
+                <div class="form-group mb-3 row">
+                    <label class="form-label col-3 col-form-label">Использование</label>
+                    <div class="col">
+                        <input name="usage" type="text" class="form-control"
+                               placeholder="список файлов, в которых есть переменная" required value="">
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex mb-4">
+                <button data-form-id="document_variables_add-create" data-action="send-form" type="submit"
+                        class="btn btn-primary ms-auto"
+                        aria-label="Close"
+                >Сохранить
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
