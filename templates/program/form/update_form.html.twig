@@ -18,8 +18,25 @@
                 >
             </div>
         </div>
-        <div class="card">
 
+
+        <div class="form-group mb-3 row">
+            <label class="form-label col-3 col-form-label">Статус</label>
+            <div class="col">
+                <select class="form-select" name="type" required>
+                    <option disabled {% if data.status|default(false) == false %}selected{% endif %}>
+                        Выберите статус
+                    </option>
+                    <option value="new" {% if data.status|default(false) and data.status == 'new' %}selected{% endif %}>Новая</option>
+                    <option value="work" {% if data.status|default(false) and data.status == 'work' %}selected{% endif %}>В работе</option>
+                    <option value="check" {% if data.status|default(false) and data.status == 'check' %}selected{% endif %}>На проверке</option>
+                    <option value="done" {% if data.status|default(false) and data.status == 'done' %}selected{% endif %}>Готова</option>
+                </select>
+            </div>
+        </div>
+
+
+        <div class="card">
             <ul class="nav nav-tabs" data-bs-toggle="tabs">
                 <li class="nav-item">
                     <a href="#tabs-home-ex10" class="nav-link active"
@@ -45,7 +62,7 @@
                             <div class="col">
                                 <select class="form-select" name="type" required>
                                     <option disabled {% if data.program_type.id|default(false) == false %}selected{% endif %}>
-                                        Выберите дисциплину
+                                        Выберите тип
                                     </option>
                                     {% for pt in program_type %}
                                         <option value="{{ pt.id }}" {% if data.program_type.id|default(false) and pt.id == data.program_type.id %}selected{% endif %}>
@@ -55,6 +72,7 @@
                                 </select>
                             </div>
                         </div>
+
                     </div>
 
                     <div class="tab-pane fgos-tab fgos-tab--edit" id="tabs-home-ex11">
