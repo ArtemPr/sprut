@@ -25,5 +25,6 @@ import './source/js/hierarchy-form';
 import './source/js/fgos';
 import './source/js/fgos-modal';
 import './source/js/training-center';
+import './source/js/ckeditor-script.js';
 
 import 'sortablejs';

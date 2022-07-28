@@ -83,6 +83,7 @@ class TeleportController extends AbstractController
             $program->setAdditionalFlag($additional_flag);
             $program->setHistory(true);
 
+
             $entityManager->persist($program);
             $entityManager->flush();
         }
