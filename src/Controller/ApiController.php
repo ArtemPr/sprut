@@ -358,4 +358,10 @@ class ApiController extends AbstractController
     {
         return $apiProductLineController->add();
     }
+
+    #[Route('/product_line_update', name: 'product_line_update', methods: ['POST'])]
+    public function product_line_update(ApiProductLineController $apiProductLineController): Response
+    {
+        return $apiProductLineController->update();
+    }
 }
