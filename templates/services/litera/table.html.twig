@@ -101,12 +101,12 @@
                                 <td>{% if dat.author %}{{ dat.author.fullname }}{% else %}&mdash;{% endif %}</td>
                             {% elseif tbl['name'] == 'data_create' %}
                                 <td>{{ dat.data_create | date('d/m/Y H:i') }}</td>
-                            {% elseif tbl['name'] == 'comment' %}
-                                <td>{{ dat.comment }}</td>
-                            {% elseif tbl['name'] == 'result_date' %}
+                            {% elseif tbl['name'] == 'doc_name' %}
+                                <td>{{ dat.doc_name }}</td>
+                            {% elseif tbl['name'] == 'date_update' %}
                                 <td>
-                                    {% if dat.result_date %}
-                                        {{ dat.result_date | date('d/m/Y H:i') }}
+                                    {% if dat.date_update|default('') %}
+                                        {{ dat.date_update | date('d/m/Y H:i') }}
                                     {% else %}
                                         &mdash;
                                     {% endif %}

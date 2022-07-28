@@ -8,6 +8,7 @@ namespace App\Controller;
 use App\Controller\Administrator\Admin;
 use App\Controller\Administrator\AdminDirectoryCity;
 use App\Controller\Administrator\AdminDirectoryCluster;
+use App\Controller\Administrator\AdminDirectoryDirections;
 use App\Controller\Administrator\AdminDirectoryDiscipline;
 use App\Controller\Administrator\AdminDirectoryEmployerRequirements;
 use App\Controller\Administrator\AdminDirectoryFGOS;
@@ -22,6 +23,7 @@ use App\Controller\Administrator\AdministratorRoleController;
 use App\Controller\Administrator\AdministratorUserController;
 use App\Controller\Administrator\AdminLog;
 use App\Controller\Administrator\DocumentsController;
+use App\Controller\Administrator\DocumentsVariablesController;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -206,5 +208,29 @@ class AdministratorController extends AbstractController
     public function getDirectoryClusterCSV(AdminDirectoryCluster $adminDirectoryCluster): Response
     {
         return $adminDirectoryCluster->getCSV();
+    }
+
+    #[Route('/administrator/directory/directions', name: 'administrator_directory_directions')]
+    public function getDirectoryDirections(AdminDirectoryDirections $adminDirectoryDirections): Response
+    {
+        return $adminDirectoryDirections->getList();
+    }
+
+    #[Route('/administrator/directory/directions_csv', name: 'administrator_directory_directions_csv')]
+    public function getDirectoryDirectionsCSV(AdminDirectoryDirections $adminDirectoryDirections): Response
+    {
+        return $adminDirectoryDirections->getCSV();
+    }
+
+    #[Route('/administrator/document_variables', name: 'document_variables')]
+    public function getDirectoryDocumentsVariables(DocumentsVariablesController $adminDocumentsVariablesController): Response
+    {
+        return $adminDocumentsVariablesController->getList();
+    }
+
+    #[Route('/administrator/document_variables_csv', name: 'document_variables_csv')]
+    public function getDirectoryDocumentsVariablesCSV(DocumentsVariablesController $adminDocumentsVariablesController): Response
+    {
+        return $adminDocumentsVariablesController->getCSV();
     }
 }
