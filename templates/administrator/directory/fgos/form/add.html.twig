@@ -80,60 +80,7 @@
                             </div>
                         </div>
                     </div>
-                    <script>
-                        // document.addEventListener("DOMContentLoaded", function (event) {
-                        //     var btn_add_line_create = document.querySelector('#add_string_create');
-                        //     var add_string_table = document.querySelector('#add_string_table');
-                        //
-                        //     const first_tr = add_string_table.querySelector('tbody tr')
-                        //     let first_close= first_tr.querySelector('.delete_string');
-                        //     first_close.disabled = true;
-                        //
-                        //     function removeRow(el) {
-                        //         this.removeEventListener('click', () => removeRow(el))
-                        //         el.remove();
-                        //     }
-                        //
-                        //     btn_add_line_create.addEventListener('click', function () {
-                        //         // first_tr = add_string_table.querySelector('tbody tr')
-                        //         // let first_close= first_tr.querySelector('.delete_string');
-                        //         // first_close.disabled = true;
-                        //         let new_tr = add_string_table.querySelector('tbody tr').cloneNode(true);
-                        //         new_tr.querySelector('input[type=text]').value = '';
-                        //         let new_tr_close = new_tr.querySelector('.delete_string');
-                        //         new_tr_close.disabled = false;
-                        //         new_tr_close.addEventListener('click', () => removeRow(new_tr));
-                        //     //    new_tr_close.removeEventListener('click', () => removeRow(new_tr))
-                        //         add_string_table.querySelector('tbody').insertBefore(new_tr, first_tr);
-                        //     });
-                        // });
-                        //
-                        // let interval_update = setInterval(function (){
-                        //     let add_btn = document.querySelector("body").querySelector('#add_string_create_add');
-                        //     let add_tbl = document.querySelector("body").querySelector('#add_string_table_add');
-                        //
-                        //     function removeRow(el) {
-                        //        this.removeEventListener('click', () => removeRow(el))
-                        //         el.remove();
-                        //     }
-                        //
-                        //     if ( add_btn !== null) {
-                        //         add_btn.addEventListener('click', function () {
-                        //             clearInterval(interval_update);
-                        //             let first_tr = add_tbl.querySelector('tbody tr')
-                        //         //    first_tr = add_tbl.querySelector('tbody tr')
-                        //             console.log('2 ', first_tr);
-                        //             let new_tr = add_tbl.querySelector('tbody tr').cloneNode(true);
-                        //             let new_tr_close = new_tr.querySelector('.delete_string');
-                        //             new_tr_close.addEventListener('click', () => removeRow(new_tr));
-                        //        //     new_tr_close.removeEventListener('click', () => removeRow(new_tr))
-                        //             new_tr.querySelector('input[type=text]').value = '';
-                        //             add_tbl.querySelector('tbody').insertBefore(new_tr, first_tr);
-                        //         });
-                        //     }
-                        // }, 3000);
 
-                    </script>
                     <div class="tab-pane" id="tabs-ex2">
                         <div class="d-flex mb-4">
                             <button name="add_string" type="button" class="btn btn-primary ms-auto btn-green" id="add_string_create">Добавить</button>
@@ -177,10 +124,14 @@
                 </div>
             </div>
 
+            <div class='spinner-save spinner-save--add'>
+                <img alt="spinner" src="{{ absolute_url('/assets/images/loading--big.gif') }}">
+            </div>
+
             <div class="d-flex mb-4">
-                <button data-form-id="fgos_add-create" data-action="send-form" type="submit"
+                <button id='fgos_add-submit' data-form-id="fgos_add-create" data-action="send-form" type="submit"
                         class="btn btn-primary ms-auto"
-                        aria-label="Close"
+                        {# aria-label="Close" #}
                 >Сохранить
                 </button>
             </div>
