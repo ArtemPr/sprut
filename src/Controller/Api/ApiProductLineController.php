@@ -21,19 +21,22 @@ class ApiProductLineController extends AbstractController
 
     public function update()
     {
-//        $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
-//        $data = $request->request->all();
-//
-//        $cluster = $this->managerRegistry->getRepository(Cluster::class)->find((int) $data['id']);
-//        $cluster->setName(trim($data['name']));
-//
-//        $entityManager = $this->managerRegistry->getManager();
-//        $entityManager->persist($cluster);
-//        $entityManager->flush();
-//
-//        $this->logAction('update_cluster', 'Кластеры', 'Редактирование кластера'.$data['id'].' '.$data['name']);
-//
-//        return $this->json(['result' => 'success', 'id' => $data['id']]);
+        $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
+        $data = $request->request->all();
+
+        $cluster = $this->managerRegistry->getRepository(Cluster::class)->find((int) $data['cluster']);
+
+        $productLine = $this->managerRegistry->getRepository(ProductLine::class)->find((int) $data['id']);
+        $productLine->setName(trim($data['name']));
+        $productLine->setCluster($cluster);
+
+        $entityManager = $this->managerRegistry->getManager();
+        $entityManager->persist($productLine);
+        $entityManager->flush();
+
+        $this->logAction('update_product_line', 'Продуктовые направления', 'Редактирование продуктового направления '.$data['id'].' '.$data['name']);
+
+        return $this->json(['result' => 'success', 'id' => $data['id']]);
     }
 
     public function add(): Response
@@ -52,7 +55,7 @@ class ApiProductLineController extends AbstractController
         $entityManager->flush();
         $lastId = $product_line->getId();
 
-//        $this->logAction('add_cluster', 'Кластеры', 'Создание кластера '.$lastId.' '.$data['name']);
+        $this->logAction('add_product_line', 'Продуктовые направления', 'Создание продуктового направления '.$lastId.' '.$data['name']);
 
         return $this->json(['result' => 'success', 'id' => $lastId]);
     }

@@ -73,7 +73,7 @@ class ProductLineRepository extends ServiceEntityRepository
     {
         $qb = $this->createQueryBuilder('pl');
 
-        if(!empty($search)) {
+        if (!empty($search)) {
             $qb->select('COUNT(pl.id)')->where("LOWER(pl.name) LIKE :search ESCAPE '!'")
                 ->setParameter('search', $this->makeLikeParam(mb_strtolower($search)));
         } else {
@@ -85,16 +85,17 @@ class ProductLineRepository extends ServiceEntityRepository
             hydrationMode: Query::HYDRATE_ARRAY
         );
 
-        return $result[0][1] ?? 0 ;
+        return $result[0][1] ?? 0;
     }
 
     public function get(int $id)
     {
         $qb = $this->createQueryBuilder('pl');
         $qb->where('pl.id = :id')
+            ->leftJoin('pl.cluster', 'cluster')->addSelect('cluster')
             ->setParameters(
                 [
-                    'id' => $id
+                    'id' => $id,
                 ]
             );
 
@@ -112,16 +113,16 @@ class ProductLineRepository extends ServiceEntityRepository
             if (strstr($sort, '__up')) {
                 $sort = str_replace('__up', ' DESC', $sort);
             } else {
-                $sort .= " ASC";
+                $sort .= ' ASC';
             }
 
             if (!strstr($sort, '.')) {
-                $order = $prefix . '.' . $sort;
+                $order = $prefix.'.'.$sort;
             } else {
                 $order = $sort;
             }
         } else {
-            $order = $prefix . '.id DESC';
+            $order = $prefix.'.id DESC';
         }
 
         return explode(' ', $order);

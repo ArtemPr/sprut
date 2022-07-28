@@ -56,15 +56,17 @@ class AdminDirectoryProductLine extends BaseController
         return $this->processCSV($data, 'cluster.csv');
     }
 
-    public function getClusterForm($id): Response
+    public function getProductLineForm($id): Response
     {
-        $data = $this->managerRegistry->getRepository(Cluster::class)->get($id);
+        $data = $this->managerRegistry->getRepository(ProductLine::class)->get($id);
+        $clusters = $this->managerRegistry->getRepository(Cluster::class)->getList();
 
         return $this->render(
-            'administrator/directory/cluster/form/update.html.twig',
-            [
-                'data' => $data,
-            ]
+            'administrator/directory/product_line/form/update.html.twig',
+            compact([
+                'data',
+                'clusters',
+            ]),
         );
     }
 
