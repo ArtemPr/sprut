@@ -75,6 +75,11 @@ class TeleportController extends AbstractController
                 $additional_flag = false;
             }
 
+            $archive_flag = (!empty($val->archive_flag) && $val->archive_flag == 1) ?
+                false : true;
+
+            $program->setActive($archive_flag);
+            $program->setStatus($val->status);
             $program->setName($val->name);
             $program->setLengthHour($val->hours_total);
             $program->setLengthWeek($val->weeks_total);
@@ -82,6 +87,7 @@ class TeleportController extends AbstractController
             $program->setLengthWeekShort($val->weeks_short_total ?? 0);
             $program->setAdditionalFlag($additional_flag);
             $program->setHistory(true);
+
 
             $entityManager->persist($program);
             $entityManager->flush();

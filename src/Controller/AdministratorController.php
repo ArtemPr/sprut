@@ -14,6 +14,7 @@ use App\Controller\Administrator\AdminDirectoryEmployerRequirements;
 use App\Controller\Administrator\AdminDirectoryFGOS;
 use App\Controller\Administrator\AdminDirectoryKafedra;
 use App\Controller\Administrator\AdminDirectoryPotentialJobs;
+use App\Controller\Administrator\AdminDirectoryProductLine;
 use App\Controller\Administrator\AdminDirectoryProgramType;
 use App\Controller\Administrator\AdminDirectoryPS;
 use App\Controller\Administrator\AdminDirectorySubdivisions;
@@ -232,5 +233,11 @@ class AdministratorController extends AbstractController
     public function getDirectoryDocumentsVariablesCSV(DocumentsVariablesController $adminDocumentsVariablesController): Response
     {
         return $adminDocumentsVariablesController->getCSV();
+    }
+
+    #[Route('/administrator/directory/product_line', name: 'administrator_directory_product_line')]
+    public function getDirectoryProductLine(AdminDirectoryProductLine $adminDirectoryProductLine): Response
+    {
+        return $adminDirectoryProductLine->getList();
     }
 }

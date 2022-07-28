@@ -2,31 +2,30 @@
 
 namespace App\Repository;
 
-use App\Entity\Cluster;
+use App\Entity\ProductLine;
 use App\Service\QueryHelper;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Cluster>
+ * @extends ServiceEntityRepository<ProductLine>
  *
- * @method Cluster|null find($id, $lockMode = null, $lockVersion = null)
- * @method Cluster|null findOneBy(array $criteria, array $orderBy = null)
- * @method Cluster[]    findAll()
- * @method Cluster[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ProductLine|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ProductLine|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ProductLine[]    findAll()
+ * @method ProductLine[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ClusterRepository extends ServiceEntityRepository
+class ProductLineRepository extends ServiceEntityRepository
 {
     use QueryHelper;
-    public const PER_PAGE = 400;
 
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Cluster::class);
+        parent::__construct($registry, ProductLine::class);
     }
 
-    public function add(Cluster $entity, bool $flush = false): void
+    public function add(ProductLine $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -35,7 +34,7 @@ class ClusterRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Cluster $entity, bool $flush = false): void
+    public function remove(ProductLine $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -52,15 +51,16 @@ class ClusterRepository extends ServiceEntityRepository
         $page = (empty($page) || 1 === $page || 0 === $page) ? 0 : $page - 1;
         $first_result = (int) $page * (int) $on_page;
 
-        $order = $this->setSort($sort, 'c');
+        $order = $this->setSort($sort, 'pl');
 
-        $qb = $this->createQueryBuilder('c')
+        $qb = $this->createQueryBuilder('pl')
+            ->leftJoin('pl.cluster', 'cluster')->addSelect('cluster')
             ->orderBy($order[0], $order[1])
             ->setFirstResult($first_result)
             ->setMaxResults($on_page);
 
         if (!empty($search)) {
-            $qb->where("LOWER(c.name) LIKE :search ESCAPE '!'")
+            $qb->where("LOWER(pl.name) LIKE :search ESCAPE '!'")
                 ->setParameter('search', $this->makeLikeParam(mb_strtolower($search)));
         }
 
@@ -74,13 +74,13 @@ class ClusterRepository extends ServiceEntityRepository
 
     public function getListAll(int|null $page = 0, int|null $on_page = 25, string|null $sort = null, string|null $search = null)
     {
-        $qb = $this->createQueryBuilder('c');
+        $qb = $this->createQueryBuilder('pl');
 
         if (!empty($search)) {
-            $qb->select('COUNT(c.id)')->where("LOWER(c.name) LIKE :search ESCAPE '!'")
+            $qb->select('COUNT(pl.id)')->where("LOWER(pl.name) LIKE :search ESCAPE '!'")
                 ->setParameter('search', $this->makeLikeParam(mb_strtolower($search)));
         } else {
-            $qb->select('COUNT(c.id)');
+            $qb->select('COUNT(pl.id)');
         }
 
         $query = $qb->getQuery();
@@ -93,8 +93,9 @@ class ClusterRepository extends ServiceEntityRepository
 
     public function get(int $id)
     {
-        $qb = $this->createQueryBuilder('c');
-        $qb->where('c.id = :id')
+        $qb = $this->createQueryBuilder('pl');
+        $qb->where('pl.id = :id')
+            ->leftJoin('pl.cluster', 'cluster')->addSelect('cluster')
             ->setParameters(
                 [
                     'id' => $id,

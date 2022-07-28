@@ -17,6 +17,7 @@ use App\Controller\Api\ApiKafedra;
 use App\Controller\Api\ApiLitera;
 use App\Controller\Api\ApiOperations;
 use App\Controller\Api\ApiPotentialJobsController;
+use App\Controller\Api\ApiProductLineController;
 use App\Controller\Api\ApiProgramController;
 use App\Controller\Api\ApiProgramTypeController;
 use App\Controller\Api\ApiRole;
@@ -350,5 +351,17 @@ class ApiController extends AbstractController
     public function directions_hide($id, ApiDirectionsController $apiDirectionsController): Response
     {
         return $apiDirectionsController->hide($id);
+    }
+
+    #[Route('/product_line_add', name: 'product_line_add', methods: ['POST'])]
+    public function product_line_add(ApiProductLineController $apiProductLineController): Response
+    {
+        return $apiProductLineController->add();
+    }
+
+    #[Route('/product_line_update', name: 'product_line_update', methods: ['POST'])]
+    public function product_line_update(ApiProductLineController $apiProductLineController): Response
+    {
+        return $apiProductLineController->update();
     }
 }
