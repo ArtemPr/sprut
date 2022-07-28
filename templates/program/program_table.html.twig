@@ -36,7 +36,7 @@
         <tbody>
         {% set count = 1 %}
         {% for program in data %}
-            <tr data-string="{{ program.id }}" data-type="program" class="user-table-row {% if loop.first %}is-selected{% endif %}">
+            <tr data-string="{{ program.id }}" data-type="program" class="user-table-row {% if loop.first %}is-selected{% endif %} {% if program.active == false %}archive_program{% endif %}">
                 <td>
                     {% if program.program_type.id|default(false) and program.program_type.id == 0 %}
                         <span class="badge bg-red" title="Не указан тип программы" data-bs-toggle="tooltip"></span>
