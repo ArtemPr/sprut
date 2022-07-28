@@ -38,12 +38,13 @@
         {% for program in data %}
             <tr data-string="{{ program.id }}" data-type="program" class="user-table-row {% if loop.first %}is-selected{% endif %} {% if program.active == false %}archive_program{% endif %}">
                 <td>
-                    {% if program.program_type.id|default(false) and program.program_type.id == 0 %}
-                        <span class="badge bg-red" title="Не указан тип программы" data-bs-toggle="tooltip"></span>
-                    {% elseif program.federal_standart|default(false) == false or program.prof_standarts|default(false) == false %}
-                        <span class="badge bg-warning" title="Отсутствуют ФГОС и/или профстандарты" data-bs-toggle="tooltip"></span>
+                    {% if program.status|default(false) and program.status == 'new' %}
+                        <span class="badge bg-red" title="Новая программа" data-bs-toggle="tooltip"></span>
+                    {% elseif program.status|default(false) and program.status == 'work' %}
+                        <span class="badge bg-warning" title="в работе" data-bs-toggle="tooltip"></span>
+                    {% elseif program.status|default(false) and program.status == 'done' %}
+                        <span class="badge bg-green" title="готова" data-bs-toggle="tooltip"></span>
                     {% else %}
-                        <span class="badge bg-green" title="Программа активна" data-bs-toggle="tooltip"></span>
                     {% endif %}
                 </td>
                 <td>
