@@ -6,38 +6,6 @@
 require('sortablejs');
 import Sortable from 'sortablejs';
 import Cookies from 'js-cookie'
-import ClassicEditor from 'ckeditor5-build-classic-plus';
-
-let ckeditorItems = [];
-ckeditorItems = document.querySelectorAll('.editor');
-
-if (ckeditorItems.length > 0) {
-    for (let i = 0; i < ckeditorItems.length; i++) {
-        ClassicEditor
-            .create(ckeditorItems[i], {
-                simpleUpload: {
-                    // The URL that the images are uploaded to.
-                    uploadUrl: "http://example.com",
-
-                    // Enable the XMLHttpRequest.withCredentials property if required.
-                    withCredentials: true,
-
-                    // Headers sent along with the XMLHttpRequest to the upload server.
-                    headers: {
-                        "X-CSRF-TOKEN": "CSFR-Token",
-                        Authorization: "Bearer <JSON Web Token>"
-                    }
-                }
-            })
-            .then(editor => {
-                window.editor = editor;
-            })
-            .catch(err => {
-                console.error(err.stack);
-            });
-    }
-}
-
 
 document.addEventListener("DOMContentLoaded", function (event) {
 
@@ -156,8 +124,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
             }
         });
     }
-
-    // доделать цвет на первый элемент
 
     const changeDisciplineBtn = document.querySelector('.btn-group [data-action="edit"]');
     if (changeDisciplineBtn) {

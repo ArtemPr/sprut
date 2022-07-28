@@ -119,4 +119,36 @@ document.addEventListener("DOMContentLoaded", function (event) {
             })
         }
     }
+
+    // Крутилка при сохранении формы. Чтобы окно не закрывалось - вырезать скрипт
+    // в tables-ajax.js строка 490-499
+
+    let editTrigger = document.querySelector('[href="#federal_standartEditingPanel"]');
+    if(editTrigger !== null) {
+        editTrigger.addEventListener('click', function () {
+            let interval_update3 = setInterval (() => {
+                let submitUpdateFormBtn = document.querySelector('#fgos_update-submit');
+                let spinnerSaveUpdate = document.querySelector('.spinner-save--update');
+                if (submitUpdateFormBtn && spinnerSaveUpdate) {
+                    clearInterval(interval_update3);
+                    submitUpdateFormBtn.addEventListener('click', function(){
+                        spinnerSaveUpdate.classList.add('spinner-save--show');
+                        setTimeout(() => {
+                            spinnerSaveUpdate.classList.remove('spinner-save--show');
+                        }, 2500);
+                    })
+                }
+            }, 1000)
+    })}
+
+    let submitAddFormBtn = document.querySelector('#fgos_add-submit');
+    let spinnerSaveAdd = document.querySelector('.spinner-save--add');
+    if(submitAddFormBtn && spinnerSaveAdd){
+        submitAddFormBtn.addEventListener('click', function(){
+            spinnerSaveAdd.classList.add('spinner-save--show');
+            setTimeout(() => {
+                spinnerSaveAdd.classList.remove('spinner-save--show');
+            }, 2000);
+        })
+    }
 });
