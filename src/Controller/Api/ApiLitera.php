@@ -90,19 +90,34 @@ class ApiLitera extends AbstractController
 
     public function update(): JsonResponse
     {
+        //
+        // файл не обновляем
+        //
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
         $data = $request->request->all();
 
-        dd([
-            '$data' => $data ?? '-',
-        ]);
+        $discipline = null;
+
+        if (empty($data['unique_discipline']) && !empty($data['discipline'])) {
+            $discipline = $this->doctrine->getRepository(Discipline::class)->find($data['discipline']);
+        }
+
+        $litera = $this->doctrine->getRepository(Litera::class)->find($data['id']);
+
+        $litera->setAuthor($this->getUser());
+        $litera->setDiscipline($discipline);
+        $litera->setDocName($data['doc_name'] ?? '');
+
+        $entityManager = $this->doctrine->getManager();
+        $entityManager->persist($litera);
+        $entityManager->flush();
 
         $this->logAction(
             'update_litera',
             'Литера5',
-            'Создание запроса '.$lastId
+            'Создание запроса '.$data['id']
         );
 
-        return $this->json(['result' => 'success', 'id' => $lastId]);
+        return $this->json(['result' => 'success', 'id' => $data['id']]);
     }
 }
