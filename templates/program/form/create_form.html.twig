@@ -41,7 +41,7 @@
                             <div class="col">
                                 <select class="form-select" name="type" required>
                                     <option disabled {% if data.program_type.id|default(false) == false %}selected{% endif %}>
-                                        Выберите дисциплину
+                                        Выберите тип программы
                                     </option>
                                     {% for pt in program_type %}
                                         <option value="{{ pt.id }}" {% if data.program_type.id|default(false) and pt.id == data.program_type.id %}selected{% endif %}>
