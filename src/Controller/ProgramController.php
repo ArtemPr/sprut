@@ -116,6 +116,17 @@ class ProgramController extends BaseController implements BaseInterface
                 $program_name = !empty($val['name'])
                     ? str_replace(';', '";"', html_entity_decode($val['name']))
                     : '-';
+
+                $length_hour = !empty($val['length_hour'])
+                    ? str_replace(';', '";"', html_entity_decode($val['length_hour']))
+                    : '-';
+                $length_week = !empty($val['length_week'])
+                    ? str_replace(';', '";"', html_entity_decode($val['length_week']))
+                    : '-';
+                $length_week_short = !empty($val['length_week_short'])
+                    ? str_replace(';', '";"', html_entity_decode($val['length_week_short']))
+                    : '-';
+
                 $fgos = !empty($val['federal_standart']) && !empty($val['federal_standart'][0])
                     ? html_entity_decode($val['federal_standart'][0]['short_name'])
                     : '-';
@@ -123,13 +134,24 @@ class ProgramController extends BaseController implements BaseInterface
                     ? html_entity_decode($val['prof_standarts'][0]['short_name'])
                     : '-';
 
+                $tc = "";
+                if (!empty($val['training_centre'])) {
+                    foreach ($val['training_centre'] as $vals) {
+                        $tc .= '(' . $val['id'] . '-' . $vals['id'] . ') ' . $vals['name']."\n";
+                    }
+                }
+
                 $data[] = [
                     $val['id'],
-                    $val['history'] ? 'Да' : 'Нет',
+                    !empty($val['history']) ? 'Да' : 'Нет',
                     $program_type, // Тип
                     $program_name, // Название
+                    $length_hour,
+                    $length_week,
+                    $length_week_short,
                     $fgos, // ФГОС
                     $ps, // ПС
+                    $tc
                 ];
             }
         }
@@ -172,9 +194,9 @@ class ProgramController extends BaseController implements BaseInterface
             ['length_week', 'Продолжительность (нед.)', 'string', true],
             ['length_hour', 'Продолжительность (час.)', 'string', true],
             ['length_week_short', 'Ускоренное обучение (нед.)', 'string', true],
-            ['name', 'Продолжительность в неделях', 'string', true],
             ['fs.id', 'ФГОС', 'string', true],
             ['ps.id', 'ПС', 'string', true],
+            ['tc.id', 'Учебные центры', 'string', true],
         ];
     }
 }
