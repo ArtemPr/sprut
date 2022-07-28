@@ -18,6 +18,9 @@ class MasterProgram
     #[ORM\Column(type: 'integer')]
     private $id;
 
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private $global_id;
+
     #[ORM\Column(type: 'boolean', nullable: true)]
     private $active;
 
@@ -76,41 +79,36 @@ class MasterProgram
         return $this->id;
     }
 
-    /**
-     * @param mixed $id
-     */
     public function setId($id): void
     {
         $this->id = $id;
     }
 
-    /**
-     * @return mixed
-     */
+    public function getGlobalId()
+    {
+        return $this->global_id;
+    }
+
+    public function setGlobalId($global_id): void
+    {
+        $this->global_id = $global_id;
+    }
+
     public function getActive()
     {
         return $this->active;
     }
 
-    /**
-     * @param mixed $active
-     */
     public function setActive($active): void
     {
         $this->active = $active;
     }
 
-    /**
-     * @return mixed
-     */
     public function getStatus()
     {
         return $this->status;
     }
 
-    /**
-     * @param mixed $status
-     */
     public function setStatus($status): void
     {
         $this->status = $status;
@@ -121,9 +119,6 @@ class MasterProgram
         return $this->name;
     }
 
-    /**
-     * @return $this
-     */
     public function setName(string $name): self
     {
         $this->name = $name;
@@ -136,9 +131,6 @@ class MasterProgram
         return $this->length_hour;
     }
 
-    /**
-     * @return $this
-     */
     public function setLengthHour(int $length_hour): self
     {
         $this->length_hour = $length_hour;
@@ -151,27 +143,18 @@ class MasterProgram
         return $this->length_week;
     }
 
-    /**
-     * @return $this
-     */
-    public function setLengthWeek(int $length_week): self
+    function setLengthWeek(int $length_week): self
     {
         $this->length_week = $length_week;
 
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
     public function getProgramType()
     {
         return $this->program_type;
     }
 
-    /**
-     * @param mixed $program_type
-     */
     public function setProgramType($program_type): void
     {
         $this->program_type = $program_type;
@@ -182,9 +165,6 @@ class MasterProgram
         return $this->length_week_short;
     }
 
-    /**
-     * @return $this
-     */
     public function setLengthWeekShort(?int $length_week_short): self
     {
         $this->length_week_short = $length_week_short;
@@ -192,17 +172,11 @@ class MasterProgram
         return $this;
     }
 
-    /**
-     * @return Collection<int, FederalStandart>
-     */
     public function getFederalStandart(): Collection
     {
         return $this->federal_standart;
     }
 
-    /**
-     * @return Collection<int, FederalStandartCompetencies>
-     */
     public function getFederalStandartCompetencies(): Collection
     {
         return $this->federal_standart_competencies;
@@ -236,9 +210,6 @@ class MasterProgram
         return $this;
     }
 
-    /**
-     * @return Collection<int, ProfStandarts>
-     */
     public function getProfStandarts(): Collection
     {
         return $this->prof_standarts;
@@ -256,37 +227,25 @@ class MasterProgram
         return $this;
     }
 
-    /**
-     * @param $federal_standart
-     */
     public function addFederalStandart(FederalStandart $federalStandart): self
     {
-    if (!$this->federal_standart->contains($federalStandart)) {
-        $this->federal_standart[] = $federalStandart;
+        if (!$this->federal_standart->contains($federalStandart)) {
+            $this->federal_standart[] = $federalStandart;
+        }
+
+        return $this;
     }
 
-    return $this;
-}
-
-    /**
-     * @param $federal_standart_competencies
-     */
     public function setFederalStandartCompetencies($federal_standart_competencies): void
     {
         $this->federal_standart_competencies = $federal_standart_competencies;
     }
 
-    /**
-     * @param $prof_standarts
-     */
     public function setProfStandarts($prof_standarts): void
     {
         $this->prof_standarts = $prof_standarts;
     }
 
-    /**
-     * @return Collection<int, EmployerRequirements>
-     */
     public function getEmployerRequirements(): Collection
     {
         return $this->employer_requirements;
@@ -308,9 +267,6 @@ class MasterProgram
         return $this;
     }
 
-    /**
-     * @return Collection<int, PotentialJobs>
-     */
     public function getPotentialJobs(): Collection
     {
         return $this->potential_jobs;
@@ -332,14 +288,10 @@ class MasterProgram
         return $this;
     }
 
-    /**
-     * @return ArrayCollection
-     */
     public function getTrainingCentre(): ArrayCollection
     {
         return $this->training_centre;
     }
-
 
     public function addTrainingCentre(TrainingCenters $training_centre): self
     {
