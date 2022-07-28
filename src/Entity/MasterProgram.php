@@ -8,6 +8,7 @@ use App\Repository\MasterProgramRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\True_;
 
 #[ORM\Entity(repositoryClass: MasterProgramRepository::class)]
 class MasterProgram
@@ -19,6 +20,9 @@ class MasterProgram
 
     #[ORM\Column(type: 'boolean', nullable: true)]
     private $active;
+
+    #[ORM\Column(type: 'string', nullable: true)]
+    private $status;
 
     #[ORM\Column(type: 'text')]
     private $name;
@@ -94,6 +98,22 @@ class MasterProgram
     public function setActive($active): void
     {
         $this->active = $active;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param mixed $status
+     */
+    public function setStatus($status): void
+    {
+        $this->status = $status;
     }
 
     public function getName(): ?string
