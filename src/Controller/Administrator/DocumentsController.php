@@ -151,6 +151,14 @@ class DocumentsController extends AbstractController
                 'sort' => true,
             ],
             [
+                'name' => 'link',
+                'header' => '',
+                'type' => 'string',
+                'filter' => false,
+                'show' => true,
+                'sort' => false,
+            ],
+            [
                 'name' => 'file_name',
                 'header' => 'Название файла',
                 'type' => 'string',
@@ -165,14 +173,6 @@ class DocumentsController extends AbstractController
                 'filter' => true,
                 'show' => true,
                 'sort' => true,
-            ],
-            [
-                'name' => 'link',
-                'header' => 'Ссылка на скачивание',
-                'type' => 'string',
-                'filter' => false,
-                'show' => true,
-                'sort' => false,
             ],
             [
                 'name' => 'comment',
