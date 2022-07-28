@@ -90,8 +90,17 @@ class ApiLitera extends AbstractController
 
     public function update(): JsonResponse
     {
+        //
+        // файл не обновляем
+        //
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
         $data = $request->request->all();
+
+        $discipline = null;
+
+        if (empty($data['unique_discipline']) && !empty($data['discipline'])) {
+            $discipline = $this->doctrine->getRepository(Discipline::class)->find($data['discipline']);
+        }
 
         dd([
             '$data' => $data ?? '-',
