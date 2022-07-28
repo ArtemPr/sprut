@@ -262,8 +262,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     let userDualBoxUpdate = null
     let hiddenSelectUpdate = null
+    let employerDualBoxUpdate = null
+    let employerSelectUpdate = null
+    let potentialDualBoxUpdate = null
+    let potentialSelectUpdate = null
 
     const editTriggerBtn = document.querySelector('[href="#AdminUserEditingPanel"]');
+    const programTriggerBtn = document.querySelector('[href="#programEditingPanel"]');
     if (editTriggerBtn) {
         editTriggerBtn.addEventListener('click', function () {
             let interval_update = setInterval(function () {
@@ -274,6 +279,25 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     clearInterval(interval_update);
                 }
             }, 1500)
+        })
+    }
+    if (programTriggerBtn) {
+        programTriggerBtn.addEventListener('click', function () {
+            let interval_program_update = setInterval(function () {
+                employerDualBoxUpdate = document.querySelector('.dual-listbox--employer-update');
+                employerSelectUpdate = document.querySelector('#employer-select-hidden--update');
+                potentialDualBoxUpdate = document.querySelector('.dual-listbox--potential-update');
+                potentialSelectUpdate = document.querySelector('#potential-select-hidden--update');
+                if (employerDualBoxUpdate !== null && employerSelectUpdate !== null) {
+                    customDualSelect(employerDualBoxUpdate, employerSelectUpdate)
+                }
+                if (potentialDualBoxUpdate !== null && potentialSelectUpdate !== null) {
+                    customDualSelect(potentialDualBoxUpdate, potentialSelectUpdate)
+                }
+                setTimeout(function (){
+                    clearInterval(interval_program_update)
+                }, 3000);
+            }, 1000)
         })
     }
 });

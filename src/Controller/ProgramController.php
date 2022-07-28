@@ -172,7 +172,7 @@ class ProgramController extends BaseController implements BaseInterface
             ['length_week', 'Продолжительность (нед.)', 'string', true],
             ['length_hour', 'Продолжительность (час.)', 'string', true],
             ['length_week_short', 'Ускоренное обучение (нед.)', 'string', true],
-            ['name', 'Продолжительность в неделях', 'string', true],
+//            ['name', 'Продолжительность в неделях', 'string', true],
             ['fs.id', 'ФГОС', 'string', true],
             ['ps.id', 'ПС', 'string', true],
         ];

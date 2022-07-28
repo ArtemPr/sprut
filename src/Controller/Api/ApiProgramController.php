@@ -85,19 +85,25 @@ class ApiProgramController extends AbstractController
     {
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
         $data = $request->request->all();
-
         $type = !empty($data['type']) ? $this->doctrine->getRepository(ProgramType::class)->find($data['type']) : null;
         $fgos = !empty($data['fgos']) ? $this->doctrine->getRepository(FederalStandart::class)->find($data['fgos']) : null;
-        $employer = !empty($data['employer']) ? $this->doctrine->getRepository(EmployerRequirements::class)->find($data['employer']) : null;
-        $potential = !empty($data['potential']) ? $this->doctrine->getRepository(PotentialJobs::class)->find($data['potential']) : null;
-
         $program = new MasterProgram();
         $program->setName(trim($data['name']));
         $program->setProgramType($type);
 
         $program->addFederalStandart($fgos);
-        $program->addEmployerRequirement($employer);
-        $program->addPotentialJob($potential);
+        if (!empty($data['employer'])) {
+            foreach ($data['employer'] as $emp) {
+                $employer = $this->doctrine->getRepository(EmployerRequirements::class)->find($emp);
+                $program->addEmployerRequirement($employer);
+            }
+        }
+        if (!empty($data['potential'])) {
+            foreach ($data['potential'] as $pot) {
+                $potential = $this->doctrine->getRepository(PotentialJobs::class)->find($pot);
+                $program->addPotentialJob($potential);
+            }
+        }
 
         $program->setLengthHour(0);
         $program->setLengthWeekShort(0);
@@ -134,7 +140,18 @@ class ApiProgramController extends AbstractController
         $program->setProgramType($type);
 
         // $program->addFederalStandart($fgos);
-
+        if (!empty($data['employer'])) {
+            foreach ($data['employer'] as $emp) {
+                $employer = $this->doctrine->getRepository(EmployerRequirements::class)->find($emp);
+                $program->addEmployerRequirement($employer);
+            }
+        }
+        if (!empty($data['potential'])) {
+            foreach ($data['potential'] as $pot) {
+                $potential = $this->doctrine->getRepository(PotentialJobs::class)->find($pot);
+                $program->addPotentialJob($potential);
+            }
+        }
         $program->setLengthHour(0);
         $program->setLengthWeekShort(0);
         $program->setLengthWeek(0);
