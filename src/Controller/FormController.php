@@ -21,6 +21,7 @@ use App\Controller\Administrator\AdministratorOperationsController;
 use App\Controller\Administrator\AdministratorRoleController;
 use App\Controller\Administrator\AdministratorUserController;
 use App\Controller\Administrator\DocumentsController;
+use App\Controller\Administrator\DocumentsVariablesController;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -118,5 +119,11 @@ class FormController extends AbstractController
     public function getSubdivisionsForm($id, AdminDirectorySubdivisions $adminDirectorySubdivisions): Response
     {
         return $adminDirectorySubdivisions->getSubdivisionsForm($id);
+    }
+
+    #[Route('/document_variables_edit/{id}', name: 'document_variables_edit')]
+    public function getDocumentVariablesForm($id, DocumentsVariablesController $DocumentsVariablesController): Response
+    {
+        return $DocumentsVariablesController->getDocumentTemplatesForm($id);
     }
 }

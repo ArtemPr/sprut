@@ -1,6 +1,6 @@
 <ul class="navbar-nav pt-lg-3">
-    <li class="nav-item">
-        <a class="nav-link" href="#" title="Шаблоны">
+    <li class="nav-item {% if controller|default(false) and controller == 'document_templates' %}active{% endif %}">
+        <a class="nav-link" href="{{ path('document_templates') }}" title="Шаблоны документов">
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-template" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                 <rect x="4" y="4" width="16" height="4" rx="1" />
@@ -12,8 +12,8 @@
             <span class="nav-link-title">Шаблоны</span>
         </a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link" href="#" title="Переменные">
+    <li class="nav-item {% if controller|default(false) and controller == 'document_variables' %}active{% endif %}">
+        <a class="nav-link" href="{{ path('document_variables') }}" title="Переменные">
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-variable" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                 <path d="M5 4c-2.5 5 -2.5 10 0 16m14 -16c2.5 5 2.5 10 0 16m-10 -11h1c1 0 1 1 2.016 3.527c.984 2.473 .984 3.473 1.984 3.473h1" />

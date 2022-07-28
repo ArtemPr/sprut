@@ -1,0 +1,58 @@
+<div class="offcanvas-header">
+    <h2 class="offcanvas-title">Редактирование шаблона документа</h2>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+</div>
+<div class="offcanvas-body">
+    <form action="#" name="document_variables-update" id="document_variables_update-update" class="form-update">
+        <div class="">
+            <div class="card-body">
+
+                <input type="hidden" name="id" value="{{ data.id|default(false) }}">
+
+                <div class="form-group mb-3 row">
+                    <label class="form-label col-3 col-form-label">Название переменной</label>
+                    <div class="col">
+                        <input name="name" type="text" class="form-control" placeholder="Название переменной"
+                               required value="{{ data.name|default(false) }}">
+                    </div>
+                </div>
+                <div class="form-group mb-3 row">
+                    <label class="form-label col-3 col-form-label">Значение</label>
+                    <div class="col">
+                        <input name="variable_value" type="text" class="form-control" placeholder="Значение"
+                               required value="{{ data.variable_value|default(false) }}">
+                    </div>
+                </div>
+                <div class="form-group mb-3 row">
+                    <label class="form-label col-3 col-form-label">Привязанное поле</label>
+                    <div class="col">
+                        <input name="linked_field" type="text" class="form-control" placeholder="Привязанное поле"
+                               required value="{{ data.linked_field|default(false) }}">
+                    </div>
+                </div>
+                <div class="form-group mb-3 row">
+                    <label class="form-label col-3 col-form-label">Комментарий</label>
+                    <div class="col">
+                        <textarea name="comment" class="form-control" style="min-height: 100px;" aria-required=""
+                                  required>{{ data.comment|default(false) }}</textarea>
+                    </div>
+                </div>
+                <div class="form-group mb-3 row">
+                    <label class="form-label col-3 col-form-label">Использование</label>
+                    <div class="col">
+                        <input name="usage" type="text" class="form-control"
+                               placeholder="список файлов, в которых есть переменная" required value="{{ data.usage|default(false) }}">
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex mb-4">
+                <button data-form-id="document_variables_update-edit" data-action="send-form" type="submit"
+                        class="btn btn-primary ms-auto"
+                        aria-label="Close"
+                >Сохранить
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
