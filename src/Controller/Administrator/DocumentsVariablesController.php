@@ -126,7 +126,7 @@ class DocumentsVariablesController extends AbstractController
         return [
             [
                 'name' => 'active',
-                'header' => 'Статус',
+                'header' => '',
                 'type' => 'bool',
                 'filter' => false,
                 'show' => true,
