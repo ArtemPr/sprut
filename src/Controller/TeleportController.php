@@ -75,6 +75,11 @@ class TeleportController extends AbstractController
                 $additional_flag = false;
             }
 
+            $archive_flag = (!empty($val->archive_flag) && $val->archive_flag == 1) ?
+                false : true;
+
+            $program->setActive($archive_flag);
+            $program->setStatus($val->status);
             $program->setName($val->name);
             $program->setLengthHour($val->hours_total);
             $program->setLengthWeek($val->weeks_total);
