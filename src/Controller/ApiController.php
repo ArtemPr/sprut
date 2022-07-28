@@ -10,6 +10,7 @@ use App\Controller\Api\ApiCityController;
 use App\Controller\Api\ApiClusterController;
 use App\Controller\Api\ApiDirectionsController;
 use App\Controller\Api\apiDocumentsController;
+use App\Controller\Api\ApiDocumentVariablesController;
 use App\Controller\Api\ApiEmployerRequirementsController;
 use App\Controller\Api\ApiFgosController;
 use App\Controller\Api\ApiKafedra;
@@ -301,6 +302,24 @@ class ApiController extends AbstractController
     public function document_templates_hide($id, apiDocumentsController $apiDocumentsController): Response
     {
         return $apiDocumentsController->hide($id);
+    }
+
+    #[Route('/document_variables_update', name: 'document_variables_update', methods: ['POST'])]
+    public function documents_variables_update(ApiDocumentVariablesController $apiDocumentsVariablesController): Response
+    {
+        return $apiDocumentsVariablesController->update();
+    }
+
+    #[Route('/document_variables_add', name: 'document_variables_add', methods: ['POST'])]
+    public function documents_variables_add(ApiDocumentVariablesController $apiDocumentsVariablesController): Response
+    {
+        return $apiDocumentsVariablesController->add();
+    }
+
+    #[Route('/document_variables_hide/{id}', name: 'document_variables_hide')]
+    public function document_variables_hide($id, ApiDocumentVariablesController $apiDocumentsVariablesController): Response
+    {
+        return $apiDocumentsVariablesController->hide($id);
     }
 
     #[Route('/cluster_add', name: 'cluster_add', methods: ['POST'])]

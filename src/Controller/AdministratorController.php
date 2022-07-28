@@ -23,6 +23,7 @@ use App\Controller\Administrator\AdministratorRoleController;
 use App\Controller\Administrator\AdministratorUserController;
 use App\Controller\Administrator\AdminLog;
 use App\Controller\Administrator\DocumentsController;
+use App\Controller\Administrator\DocumentsVariablesController;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -219,5 +220,17 @@ class AdministratorController extends AbstractController
     public function getDirectoryDirectionsCSV(AdminDirectoryDirections $adminDirectoryDirections): Response
     {
         return $adminDirectoryDirections->getCSV();
+    }
+
+    #[Route('/administrator/document_variables', name: 'document_variables')]
+    public function getDirectoryDocumentsVariables(DocumentsVariablesController $adminDocumentsVariablesController): Response
+    {
+        return $adminDocumentsVariablesController->getList();
+    }
+
+    #[Route('/administrator/document_variables_csv', name: 'document_variables_csv')]
+    public function getDirectoryDocumentsVariablesCSV(DocumentsVariablesController $adminDocumentsVariablesController): Response
+    {
+        return $adminDocumentsVariablesController->getCSV();
     }
 }
