@@ -252,3 +252,19 @@
 .editor-wrap {
   margin-bottom: 30px;
 }
+
+.ck-editor__editable {
+  min-height: 50vh;
+}
+
+.spinner-save {
+  display: none;
+}
+
+.spinner-save--show {
+  display: block;
+}
+
+.spinner-save img {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%)
+}

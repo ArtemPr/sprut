@@ -3,10 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Cluster;
+use App\Service\QueryHelper;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
-use App\Service\QueryHelper;
 
 /**
  * @extends ServiceEntityRepository<Cluster>
@@ -18,9 +18,8 @@ use App\Service\QueryHelper;
  */
 class ClusterRepository extends ServiceEntityRepository
 {
-    public const PER_PAGE = 400;
-
     use QueryHelper;
+    public const PER_PAGE = 400;
 
     public function __construct(ManagerRegistry $registry)
     {
@@ -77,7 +76,7 @@ class ClusterRepository extends ServiceEntityRepository
     {
         $qb = $this->createQueryBuilder('c');
 
-        if(!empty($search)) {
+        if (!empty($search)) {
             $qb->select('COUNT(c.id)')->where("LOWER(c.name) LIKE :search ESCAPE '!'")
                 ->setParameter('search', $this->makeLikeParam(mb_strtolower($search)));
         } else {
@@ -89,7 +88,7 @@ class ClusterRepository extends ServiceEntityRepository
             hydrationMode: Query::HYDRATE_ARRAY
         );
 
-        return $result[0][1] ?? 0 ;
+        return $result[0][1] ?? 0;
     }
 
     public function get(int $id)
@@ -98,7 +97,7 @@ class ClusterRepository extends ServiceEntityRepository
         $qb->where('c.id = :id')
             ->setParameters(
                 [
-                    'id' => $id
+                    'id' => $id,
                 ]
             );
 
@@ -116,16 +115,16 @@ class ClusterRepository extends ServiceEntityRepository
             if (strstr($sort, '__up')) {
                 $sort = str_replace('__up', ' DESC', $sort);
             } else {
-                $sort .= " ASC";
+                $sort .= ' ASC';
             }
 
             if (!strstr($sort, '.')) {
-                $order = $prefix . '.' . $sort;
+                $order = $prefix.'.'.$sort;
             } else {
                 $order = $sort;
             }
         } else {
-            $order = $prefix . '.id DESC';
+            $order = $prefix.'.id DESC';
         }
 
         return explode(' ', $order);
