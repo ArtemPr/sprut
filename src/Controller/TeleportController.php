@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+set_time_limit(0);
+
 use App\Entity\Category;
 use App\Entity\Discipline;
 use App\Entity\FederalStandart;
@@ -25,27 +27,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class TeleportController extends AbstractController
 {
-
-    #[Route('/teleport/cat', name: 'app_teleport_catt')]
-//    public function add_category(ManagerRegistry $doctrine)
-//    {
-//        $file = $_SERVER['DOCUMENT_ROOT'] . '/tmp/category.txt';
-//        $file = file($file);
-//        $file = array_unique($file);
-//        foreach ($file as $item) {
-//            $item  = trim($item);
-//            if(empty($item)) {
-//                continue;
-//            }
-//            $cat = new Category();
-//            $cat->setName($item);
-//
-//
-//            $entityManager = $doctrine->getManager();
-//            $entityManager->persist($cat);
-//            $entityManager->flush();
-//        }
-//    }
 
     /**
      * @param ManagerRegistry $doctrine
@@ -75,7 +56,6 @@ class TeleportController extends AbstractController
             $start = 0;
             $end = count($data_item);
         }
-
         foreach ($data_item as $key => $val) {
             if ($key < $start || $key > $end) {
                 continue;
@@ -101,6 +81,7 @@ class TeleportController extends AbstractController
             $program->setProgramType($type);
             $program->setLengthWeekShort($val->weeks_short_total ?? 0);
             $program->setAdditionalFlag($additional_flag);
+            $program->setHistory(true);
 
             $entityManager->persist($program);
             $entityManager->flush();
@@ -608,6 +589,29 @@ class TeleportController extends AbstractController
                 $data->addProfStandart($ps);
                 $entityManager = $doctrine->getManager();
                 $entityManager->persist($data);
+                $entityManager->flush();
+            }
+        }
+
+        return $this->render('teleport/index.html.twig', [
+            'out' => 'End',
+        ]);
+    }
+
+    #[Route('/teleport/program_tc', name: 'program_tc')]
+    public function program_tc(ManagerRegistry $doctrine): Response
+    {
+        $data_item = file_get_contents('http://metodistam.niidpo.ru/run_transport.php?t=program_tc');
+        $data_item = json_decode($data_item);
+
+        foreach ($data_item as $key => $val) {
+
+            $tc = $doctrine->getRepository(TrainingCenters::class)->find($val->training_center_id);
+            $product = $doctrine->getRepository(MasterProgram::class)->find($val->program_id);
+            if (!is_null($tc) && !is_null($product)) {
+                $tc->addProgram($product);
+                $entityManager = $doctrine->getManager();
+                $entityManager->persist($tc);
                 $entityManager->flush();
             }
         }
