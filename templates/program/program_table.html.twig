@@ -65,6 +65,7 @@
                 <td>{{ program.length_week|default(false) }}</td>
                 <td>{{ program.length_hour|default(false) }}</td>
                 <td>{{ program.length_week_short|default(false) }}</td>
+
                 <td>
                     {% if program.federal_standart|default(false) %}
                         {% for fs in program.federal_standart %}
@@ -76,6 +77,14 @@
                     {% if program.prof_standarts|default(false) %}
                         {% for ps in program.prof_standarts %}
                             {{ ps.short_name|raw }}
+                        {% endfor %}
+                    {% endif %}
+                </td>
+
+                <td>
+                    {% if program.training_centre|default(false) %}
+                        {% for tc in program.training_centre %}
+                            {{ tc.name }}<br />
                         {% endfor %}
                     {% endif %}
                 </td>
