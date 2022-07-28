@@ -2,33 +2,32 @@
 
 namespace App\Repository;
 
-use App\Entity\Antiplagiat;
-use App\Entity\Discipline;
-use App\Service\QueryHelper;
+use App\Entity\Cluster;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Service\QueryHelper;
 
 /**
- * @extends ServiceEntityRepository<Discipline>
+ * @extends ServiceEntityRepository<Cluster>
  *
- * @method Discipline|null find($id, $lockMode = null, $lockVersion = null)
- * @method Discipline|null findOneBy(array $criteria, array $orderBy = null)
- * @method Discipline[]    findAll()
- * @method Discipline[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Cluster|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Cluster|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Cluster[]    findAll()
+ * @method Cluster[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class DisciplineRepository extends ServiceEntityRepository
+class ClusterRepository extends ServiceEntityRepository
 {
+    public const PER_PAGE = 400;
+
     use QueryHelper;
 
     public function __construct(ManagerRegistry $registry)
     {
-        $this->registry = $registry;
-
-        parent::__construct($registry, Discipline::class);
+        parent::__construct($registry, Cluster::class);
     }
 
-    public function add(Discipline $entity, bool $flush = false): void
+    public function add(Cluster $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -37,7 +36,7 @@ class DisciplineRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Discipline $entity, bool $flush = false): void
+    public function remove(Cluster $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -51,18 +50,18 @@ class DisciplineRepository extends ServiceEntityRepository
      */
     public function getList(int|null $page = 0, int|null $on_page = 25, string|null $sort = null, string|null $search = null)
     {
-        $search = !empty($search) ? strtolower($search) : null;
-        $page = (empty($page) || $page === 1 || $page === 0) ? 0 : $page - 1;
-        $first_result = (int)$page * (int)$on_page;
-        $order = $this->setSort($sort, 'ds');
+        $page = (empty($page) || 1 === $page || 0 === $page) ? 0 : $page - 1;
+        $first_result = (int) $page * (int) $on_page;
 
-        $qb = $this->createQueryBuilder('ds')
+        $order = $this->setSort($sort, 'c');
+
+        $qb = $this->createQueryBuilder('c')
             ->orderBy($order[0], $order[1])
             ->setFirstResult($first_result)
             ->setMaxResults($on_page);
 
         if (!empty($search)) {
-            $qb->where("LOWER(ds.name) LIKE :search ESCAPE '!'")
+            $qb->where("LOWER(c.name) LIKE :search ESCAPE '!'")
                 ->setParameter('search', $this->makeLikeParam(mb_strtolower($search)));
         }
 
@@ -76,13 +75,13 @@ class DisciplineRepository extends ServiceEntityRepository
 
     public function getListAll(int|null $page = 0, int|null $on_page = 25, string|null $sort = null, string|null $search = null)
     {
-        $qb = $this->createQueryBuilder('ds');
-
-        $qb->select('COUNT(ds.id)');
+        $qb = $this->createQueryBuilder('c');
 
         if(!empty($search)) {
-            $qb->andWhere("LOWER(ds.name) LIKE :search ESCAPE '!'")
+            $qb->select('COUNT(c.id)')->where("LOWER(c.name) LIKE :search ESCAPE '!'")
                 ->setParameter('search', $this->makeLikeParam(mb_strtolower($search)));
+        } else {
+            $qb->select('COUNT(c.id)');
         }
 
         $query = $qb->getQuery();
@@ -91,6 +90,24 @@ class DisciplineRepository extends ServiceEntityRepository
         );
 
         return $result[0][1] ?? 0 ;
+    }
+
+    public function get(int $id)
+    {
+        $qb = $this->createQueryBuilder('c');
+        $qb->where('c.id = :id')
+            ->setParameters(
+                [
+                    'id' => $id
+                ]
+            );
+
+        $query = $qb->getQuery();
+        $result = $query->execute(
+            hydrationMode: Query::HYDRATE_ARRAY
+        );
+
+        return $result[0] ?? [];
     }
 
     private function setSort($sort, $prefix)
@@ -108,37 +125,9 @@ class DisciplineRepository extends ServiceEntityRepository
                 $order = $sort;
             }
         } else {
-            $order = $prefix . '.name DESC';
+            $order = $prefix . '.id DESC';
         }
 
         return explode(' ', $order);
     }
-
-    public function get($id)
-    {
-        $qb = $this->createQueryBuilder('discipline')
-        //   ->leftJoin('antiplagiat.discipline', 'discipline')->addSelect('discipline')
-            ->where('discipline.id = :id')
-            ->setParameter('id', $id);
-
-        $query = $qb->getQuery();
-        $result = $query->execute(
-            hydrationMode: Query::HYDRATE_ARRAY
-        );
-        return $result;
-    }
-
-    // var 1 working
-//    public function getAntiplagiats($id)
-//    {
-//        $antiplagiatItems = $this->registry
-//            ->getRepository(Antiplagiat::class)
-//            ->findBy([
-//                'discipline' => $id
-//            ]);
-//
-//        dd([
-//            '$antiplagiatItems' => $antiplagiatItems ?? '-',
-//        ]);
-//    }
 }

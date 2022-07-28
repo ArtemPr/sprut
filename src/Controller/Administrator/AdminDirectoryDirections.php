@@ -5,7 +5,7 @@
 
 namespace App\Controller\Administrator;
 
-use App\Entity\EmployerRequirements;
+use App\Entity\Directions;
 use App\Service\AuthService;
 use App\Service\CSVHelper;
 use App\Service\LinkService;
@@ -14,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class AdminDirectoryEmployerRequirements extends AbstractController
+class AdminDirectoryDirections extends AbstractController
 {
     use LinkService;
     use AuthService;
@@ -33,7 +33,7 @@ class AdminDirectoryEmployerRequirements extends AbstractController
         if (!is_array($auth)) {
             return $auth;
         }
-        $tpl = $this->request->get('ajax') ? 'administrator/directory/employer_requirements/employer_requirements_table.html.twig' : 'administrator/directory/employer_requirements/employer_requirements.html.twig';
+        $tpl = $this->request->get('ajax') ? 'administrator/directory/directions/directions_table.html.twig' : 'administrator/directory/directions/directions.html.twig';
         $result = $this->get();
         $result['auth'] = $auth;
 
@@ -54,12 +54,11 @@ class AdminDirectoryEmployerRequirements extends AbstractController
         foreach ($result['data'] as $val) {
             $data[] = [
                 $val['id'],
-                $val['requirement_name'],
-                $val['comment'],
+                $val['direction_name'],
             ];
         }
 
-        return $this->processCSV($data, 'employer.csv');
+        return $this->processCSV($data, 'directions.csv');
     }
 
     private function get(bool $full = false)
@@ -69,13 +68,13 @@ class AdminDirectoryEmployerRequirements extends AbstractController
         $sort = $this->request->get('sort') ?? null;
         $search = $this->request->get('search') ?? null;
         if (false === $full) {
-            $result = $this->managerRegistry->getRepository(EmployerRequirements::class)->getList($page, $on_page, $sort, $search);
-            $count = $this->managerRegistry->getRepository(EmployerRequirements::class)->getListAll($page, $on_page,
+            $result = $this->managerRegistry->getRepository(Directions::class)->getList($page, $on_page, $sort, $search);
+            $count = $this->managerRegistry->getRepository(Directions::class)->getListAll($page, $on_page,
                 $sort, $search);
         } else {
-            $result = $this->managerRegistry->getRepository(EmployerRequirements::class)->getList(0, 9999999999, $sort,
+            $result = $this->managerRegistry->getRepository(Directions::class)->getList(0, 9999999999, $sort,
                 $search);
-            $count = $this->managerRegistry->getRepository(EmployerRequirements::class)->getListAll(0, 9999999999,
+            $count = $this->managerRegistry->getRepository(Directions::class)->getListAll(0, 9999999999,
                 $sort, $search);
         }
         $page = $page ?? 1;
@@ -100,12 +99,12 @@ class AdminDirectoryEmployerRequirements extends AbstractController
         ];
     }
 
-    public function getEmployerRequirementsForm($id): Response
+    public function getDirectionsForm($id): Response
     {
-        $data_out = $this->managerRegistry->getRepository(EmployerRequirements::class)->get($id);
+        $data_out = $this->managerRegistry->getRepository(Directions::class)->get($id);
 
         return $this->render(
-            'administrator/directory/employer_requirements/form/update.html.twig',
+            'administrator/directory/directions/form/update.html.twig',
             [
                 'data' => $data_out[0] ?? null,
             ]
@@ -124,16 +123,8 @@ class AdminDirectoryEmployerRequirements extends AbstractController
                 'sort' => true,
             ],
             [
-                'name' => 'requirement_name',
+                'name' => 'direction_name',
                 'header' => 'Название',
-                'type' => 'string',
-                'filter' => true,
-                'show' => true,
-                'sort' => true,
-            ],
-            [
-                'name' => 'comment',
-                'header' => 'Комментарий',
                 'type' => 'string',
                 'filter' => true,
                 'show' => true,
