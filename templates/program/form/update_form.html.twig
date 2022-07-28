@@ -8,6 +8,16 @@
 
         <input type="hidden" name="id" value="{{ data.id|default(false) }}">
 
+        <div class="form-group mb-3 row flex-nowrap align-items-center">
+            <label for="cb-activity" class="form-label col-3 col-form-label">Программа активна</label>
+            <div class="form-check form-switch mb-0 ms-2">
+                <input id="cb-activity" class="form-check-input" name="active" type="checkbox" value="1"
+                {% if data.active == true %}
+                        checked
+                {% endif %}
+                >
+            </div>
+        </div>
         <div class="card">
 
             <ul class="nav nav-tabs" data-bs-toggle="tabs">
