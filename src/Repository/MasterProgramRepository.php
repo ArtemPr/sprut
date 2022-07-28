@@ -101,11 +101,12 @@ class MasterProgramRepository extends ServiceEntityRepository
         $first_result = (int)$page * (int)$on_page;
 
         $qb = $this->createQueryBuilder('pr')
-            ->addSelect(['pt', 'fs', 'fsc', 'ps'])
+            ->addSelect(['pt', 'fs', 'fsc', 'ps', 'tc'])
             ->leftJoin('pr.program_type', 'pt')
             ->leftJoin('pr.federal_standart', 'fs')
             ->leftJoin('pr.federal_standart_competencies', 'fsc')
             ->leftJoin('pr.prof_standarts', 'ps')
+            ->leftJoin('pr.training_centre', 'tc')
         ;
 
         if (!empty($type)) {
