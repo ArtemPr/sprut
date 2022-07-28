@@ -133,15 +133,15 @@ class LiteraController extends BaseController implements BaseInterface
                 'sort' => true,
             ],
             [
-                'name' => 'comment',
-                'header' => 'Комментарий',
+                'name' => 'doc_name',
+                'header' => 'Название документа',
                 'type' => 'string',
                 'filter' => true,
                 'show' => true,
                 'sort' => true,
             ],
             [
-                'name' => 'result_date',
+                'name' => 'date_update',
                 'header' => 'Проверено',
                 'type' => 'string',
                 'filter' => true,

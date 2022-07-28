@@ -5,7 +5,7 @@
 
 namespace App\Controller\Administrator;
 
-use App\Entity\DocumentTemplates;
+use App\Entity\DocumentsVariables;
 use App\Service\AuthService;
 use App\Service\CSVHelper;
 use App\Service\LinkService;
@@ -14,13 +14,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class DocumentsController extends AbstractController
+class DocumentsVariablesController extends AbstractController
 {
     use LinkService;
     use AuthService;
     use CSVHelper;
-
-    private $request;
 
     public function __construct(private ManagerRegistry $managerRegistry)
     {
@@ -34,7 +32,7 @@ class DocumentsController extends AbstractController
             return $auth;
         }
 
-        $tpl = $this->request->get('ajax') ? 'administrator/document_templates/table.html.twig' : 'administrator/document_templates/index.html.twig';
+        $tpl = $this->request->get('ajax') ? 'administrator/document_variables/table.html.twig' : 'administrator/document_variables/index.html.twig';
         $result = $this->get();
         $result['auth'] = $auth;
 
@@ -51,11 +49,11 @@ class DocumentsController extends AbstractController
         $search = $this->request->get('search') ?? null;
 
         if (false === $full) {
-            $result = $this->managerRegistry->getRepository(DocumentTemplates::class)->getList($page, $on_page, $sort, $search);
-            $count = $this->managerRegistry->getRepository(DocumentTemplates::class)->getListAll($page, $on_page, $sort, $search);
+            $result = $this->managerRegistry->getRepository(DocumentsVariables::class)->getList($page, $on_page, $sort, $search);
+            $count = $this->managerRegistry->getRepository(DocumentsVariables::class)->getListAll($page, $on_page, $sort, $search);
         } else {
-            $result = $this->managerRegistry->getRepository(DocumentTemplates::class)->getList(0, 9999999999, $sort, $search);
-            $count = $this->managerRegistry->getRepository(DocumentTemplates::class)->getListAll(0, 9999999999, $sort, $search);
+            $result = $this->managerRegistry->getRepository(DocumentsVariables::class)->getList(0, 9999999999, $sort, $search);
+            $count = $this->managerRegistry->getRepository(DocumentsVariables::class)->getListAll(0, 9999999999, $sort, $search);
         }
 
         $page = $page ?? 1;
@@ -63,7 +61,7 @@ class DocumentsController extends AbstractController
         return [
             'data' => $result,
             'search' => strip_tags($search) ?? '',
-            'controller' => 'document_templates',
+            'controller' => 'document_variables',
             'pager' => [
                 'count_all_position' => $count,
                 'current_page' => $page,
@@ -113,10 +111,10 @@ class DocumentsController extends AbstractController
 
     public function getDocumentTemplatesForm($id): Response
     {
-        $data_out = $this->managerRegistry->getRepository(DocumentTemplates::class)->get($id);
+        $data_out = $this->managerRegistry->getRepository(DocumentsVariables::class)->get($id);
 
         return $this->render(
-            'administrator/document_templates/form/update.html.twig',
+            'administrator/document_variables/form/update.html.twig',
             [
                 'data' => $data_out[0] ?? null,
             ]
@@ -128,7 +126,7 @@ class DocumentsController extends AbstractController
         return [
             [
                 'name' => 'active',
-                'header' => '',
+                'header' => 'Статус',
                 'type' => 'bool',
                 'filter' => false,
                 'show' => true,
@@ -143,32 +141,24 @@ class DocumentsController extends AbstractController
                 'sort' => true,
             ],
             [
-                'name' => 'template_name',
-                'header' => 'Название шаблона',
+                'name' => 'variable_value',
+                'header' => 'Значение переменной',
                 'type' => 'string',
                 'filter' => true,
                 'show' => true,
                 'sort' => true,
             ],
             [
-                'name' => 'link',
-                'header' => '',
-                'type' => 'string',
-                'filter' => false,
-                'show' => true,
-                'sort' => false,
-            ],
-            [
-                'name' => 'file_name',
-                'header' => 'Название файла',
+                'name' => 'name',
+                'header' => 'Название переменной',
                 'type' => 'string',
                 'filter' => true,
                 'show' => true,
                 'sort' => true,
             ],
             [
-                'name' => 'file_size',
-                'header' => 'Размер файла',
+                'name' => 'linked_field',
+                'header' => 'Привязанное поле',
                 'type' => 'string',
                 'filter' => true,
                 'show' => true,
@@ -183,25 +173,9 @@ class DocumentsController extends AbstractController
                 'sort' => true,
             ],
             [
-                'name' => 'date_create',
-                'header' => 'Дата загрузки',
-                'type' => 'date',
-                'filter' => true,
-                'show' => true,
-                'sort' => true,
-            ],
-            [
-                'name' => 'author',
-                'header' => 'Разместил',
+                'name' => 'usage',
+                'header' => 'Использование',
                 'type' => 'string',
-                'filter' => true,
-                'show' => true,
-                'sort' => true,
-            ],
-            [
-                'name' => 'date_change',
-                'header' => 'Дата изменения',
-                'type' => 'date',
                 'filter' => true,
                 'show' => true,
                 'sort' => true,

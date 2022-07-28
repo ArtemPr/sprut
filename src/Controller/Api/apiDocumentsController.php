@@ -28,7 +28,8 @@ class apiDocumentsController extends AbstractController
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
         $data = $request->request->all();
 
-        $fs = $this->managerRegistry->getRepository(DocumentTemplates::class)->findOneBy(['template_name' => trim($data['dt-name'])]);
+        $fs = $this->managerRegistry->getRepository(DocumentTemplates::class)
+            ->findOneBy(['template_name' => trim($data['dt-name']), 'delete' => 'true']);
         if (!empty($fs)) {
             return $this->json(['result' => 'error']);
         }

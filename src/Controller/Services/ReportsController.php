@@ -91,6 +91,35 @@ class ReportsController extends BaseController implements BaseInterface
                 'show' => true,
                 'sort' => true,
             ]
+
+            ,
+            [
+                'name' => 'length_week',
+                'header' => 'Продолжительность (нед.)',
+                'type' => 'int',
+                'filter' => true,
+                'show' => true,
+                'sort' => true,
+            ]
+            ,
+            [
+                'name' => 'length_hour',
+                'header' => 'Продолжительность (час.)',
+                'type' => 'int',
+                'filter' => true,
+                'show' => true,
+                'sort' => true,
+            ]
+            ,
+            [
+                'name' => 'length_week_short',
+                'header' => 'Ускоренное обучение (нед.)',
+                'type' => 'int',
+                'filter' => true,
+                'show' => true,
+                'sort' => true,
+            ]
+
         ];
     }
 }

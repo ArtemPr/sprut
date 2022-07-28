@@ -1,0 +1,41 @@
+.antiplagiat-item {
+  position: relative;
+  padding-left: 25px;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 5px;
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+&--green{
+  &:before {
+    background-color: rgb(47, 179, 68);
+  }
+}
+  &--red{
+    &:before {
+      background-color: rgb(214, 57, 57);
+    }
+  }
+  &--yellow{
+    &:before {
+      background-color: rgb(245, 159, 0);
+    }
+  }
+  &--orange{
+    &:before {
+      background-color: rgb(247, 103, 7);
+    }
+  }
+  &--blue{
+    &:before {
+      background-color: rgb(66, 153, 225);
+    }
+  }
+}

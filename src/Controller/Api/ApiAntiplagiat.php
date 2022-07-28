@@ -112,6 +112,7 @@ class ApiAntiplagiat extends AbstractController
 
         if (empty($fileUploadedPath)) {
             // Вернуть тут ошибку, если файл не загрузился!
+            return $this->json(['result' => 'error', 'error' => 'Файл не загружен!']);
         }
 
         // документ загружен к нам в хранилище

@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}СПРУТ 1.0{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+{% block body %}
+    {{ include('block/header.html.twig') }}
+
+    <div class="page page-layout">
+        <aside class="aside-panel navbar navbar-vertical navbar-expand-lg navbar-light">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbar-menu">
+                    {% include 'administrator/block/nav_documents.html.twig' %}
+                </div>
+                <button id="hide-btn" class="hide-btn" title="Скрыть панель">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <polyline points="15 6 9 12 15 18" />
+                    </svg>
+                </button>
+            </div>
+        </aside>
+        <div class="page-wrapper">
+            <div class="container-fluid">
+                {% include 'block/header_list.html.twig' with {'header': 'Переменные', 'onpage_link': path('document_variables')} %}
+            </div>
+            {% set controller = 'document_variables' %}
+            <div class="page-body">
+                <div class="container-fluid">
+                    <div class="row row-deck row-cards">
+                        <div class="col-12">
+                            <div class="card">
+                                {% include 'block/search_panel.html.twig' with {
+                                    'close_delete': false,
+                                    'close_edit': false,
+                                    'close_create': false,
+                                    'path': path('document_variables'),
+                                    'controller': controller|default(false),
+                                    'add_csv': path('document_variables') ~ '_csv' ~ csv_link|default(false),
+                                    'table' : table|default(false)
+                                } %}
+                                <div class="ajax-table">
+                                    {{ include('administrator/document_variables/table.html.twig') }}
+                                </div>
+                                <div class="table-comments--documents">
+                                    <p>Информация по переменным</p>
+                                    <ul>
+                                        <li>значение (AL_RRRR - метка в файле) переменной</li>
+                                        <li>название переменной</li>
+                                        <li>привязанное поле</li>
+                                        <li>комментарий</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div id="userEditingOverlay" class="offcanvas-backdrop fade"></div>
+
+                            <div id="{{ controller|default(false) }}ViewPanel" data-action="view" class="user-form-panel offcanvas offcanvas-end modal-middle" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                                <img src="{{ absolute_url('/assets/images/loading--big.gif') }}" style="position: absolute; top: 10%; left: 50%; margin-left: -75px;">
+                            </div>
+
+                            <div id="{{ controller|default(false) }}CreationPanel" data-action="add" class="user-form-panel offcanvas offcanvas-end modal-middle" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                                {% include '/administrator/document_variables/form/add.html.twig'  %}
+                            </div>
+                            <div id="{{ controller|default(false) }}EditingPanel" data-action="edit" class="user-form-panel offcanvas offcanvas-end modal-middle" tabindex="-1" aria-labelledby="offcanvasEndLabel">
+                                <img src="{{ absolute_url('/assets/images/loading--big.gif') }}" style="position: absolute; top: 10%; left: 50%; margin-left: -75px;">
+                                {% include '/administrator/document_variables/form/update.html.twig'  %}
+                            </div>
+
+                            {% include 'modal/delete.html.twig' with {'controller': controller}  %}
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

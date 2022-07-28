@@ -2,36 +2,30 @@
 
 namespace App\Repository;
 
-use App\Entity\Litera;
+use App\Entity\DocumentsVariables;
 use App\Service\QueryHelper;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Litera>
+ * @extends ServiceEntityRepository<DocumentsVariables>
  *
- * @method Litera|null find($id, $lockMode = null, $lockVersion = null)
- * @method Litera|null findOneBy(array $criteria, array $orderBy = null)
- * @method Litera[]    findAll()
- * @method Litera[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method DocumentsVariables|null find($id, $lockMode = null, $lockVersion = null)
+ * @method DocumentsVariables|null findOneBy(array $criteria, array $orderBy = null)
+ * @method DocumentsVariables[]    findAll()
+ * @method DocumentsVariables[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class LiteraRepository extends ServiceEntityRepository
+class DocumentVariablesRepository extends ServiceEntityRepository
 {
     use QueryHelper;
 
-    public const CHECK_STATUS_NEW = 1;
-    public const CHECK_STATUS_NONE = 2;
-    public const CHECK_STATUS_INPROGRESS = 3;
-    public const CHECK_STATUS_READY = 4;
-    public const CHECK_STATUS_FAILED = 5;
-
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Litera::class);
+        parent::__construct($registry, DocumentsVariables::class);
     }
 
-    public function add(Litera $entity, bool $flush = false): void
+    public function add(DocumentsVariables $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -40,7 +34,7 @@ class LiteraRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Litera $entity, bool $flush = false): void
+    public function remove(DocumentsVariables $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -51,42 +45,38 @@ class LiteraRepository extends ServiceEntityRepository
 
     public function getList(int|null $page = 0, int|null $on_page = 25, string|null $sort = null, string|null $search = null)
     {
+        $order = $this->setSort($sort, 'dv');
+
         $page = (empty($page) || 1 === $page || 0 === $page) ? 0 : $page - 1;
         $first_result = (int) $page * (int) $on_page;
+        $search = !empty($search) ? strtolower($search) : null;
 
-        $order = $this->setSort($sort, 'litera');
-
-        $qb = $this->createQueryBuilder('litera')
-            ->leftJoin('litera.discipline', 'discipline')->addSelect('discipline')
-            ->leftJoin('litera.author', 'user')->addSelect('user')
+        $qb = $this->createQueryBuilder('dv')
             ->orderBy($order[0], $order[1])
-        ;
+            ->setFirstResult($first_result)
+            ->setMaxResults($on_page);
 
-        // комментарий
         if (!empty($search)) {
-            $qb->andWhere("LOWER(litera.comment) LIKE :search ESCAPE '!'")
+            $qb->andWhere("LOWER(dt.template_name) LIKE :search ESCAPE '!'")
                 ->setParameter('search', $this->makeLikeParam(mb_strtolower($search)));
         }
 
-        $result = $qb->getQuery()
-            ->setFirstResult($first_result)
-            ->setMaxResults($on_page)
-            ->getResult(Query::HYDRATE_ARRAY);
+        $query = $qb->getQuery();
+        $result = $query->execute(
+            hydrationMode: Query::HYDRATE_ARRAY
+        );
 
         return $result;
     }
 
     public function getListAll(int|null $page = 0, int|null $on_page = 25, string|null $sort = null, string|null $search = null)
     {
-        $qb = $this->createQueryBuilder('litera');
+        $qb = $this->createQueryBuilder('dv');
 
-        $qb->select('COUNT(litera.id)')
-            ->leftJoin('litera.discipline', 'discipline')
-            ->leftJoin('litera.author', 'user')
-        ;
+        $qb->select('COUNT(dv.id)');
 
         if (!empty($search)) {
-            $qb->andWhere("LOWER(litera.comment) LIKE :search ESCAPE '!'")
+            $qb->andWhere("LOWER(dt.template_name) LIKE :search ESCAPE '!'")
                 ->setParameter('search', $this->makeLikeParam(mb_strtolower($search)));
         }
 
@@ -100,14 +90,14 @@ class LiteraRepository extends ServiceEntityRepository
 
     public function get($id)
     {
-        $qb = $this->createQueryBuilder('litera')
-            ->leftJoin('litera.discipline', 'discipline')->addSelect('discipline')
-            ->leftJoin('litera.author', 'user')->addSelect('user')
-            ->where('litera.id = :id')->setParameter('id', $id)
-        ;
+        $qb = $this->createQueryBuilder('dv');
 
-        return $qb->getQuery()
-            ->getResult(Query::HYDRATE_ARRAY);
+        $query = $qb->getQuery();
+        $result = $query->execute(
+            hydrationMode: Query::HYDRATE_ARRAY
+        );
+
+        return $result;
     }
 
     private function setSort($sort, $prefix)
@@ -125,7 +115,7 @@ class LiteraRepository extends ServiceEntityRepository
                 $order = $sort;
             }
         } else {
-            $order = $prefix.'.id DESC';
+            $order = $prefix.'.name DESC';
         }
 
         return explode(' ', $order);

@@ -101,11 +101,12 @@ class MasterProgramRepository extends ServiceEntityRepository
         $first_result = (int)$page * (int)$on_page;
 
         $qb = $this->createQueryBuilder('pr')
-            ->addSelect(['pt', 'fs', 'fsc', 'ps'])
+            ->addSelect(['pt', 'fs', 'fsc', 'ps', 'tc'])
             ->leftJoin('pr.program_type', 'pt')
             ->leftJoin('pr.federal_standart', 'fs')
             ->leftJoin('pr.federal_standart_competencies', 'fsc')
             ->leftJoin('pr.prof_standarts', 'ps')
+            ->leftJoin('pr.training_centre', 'tc')
         ;
 
         if (!empty($type)) {
@@ -156,10 +157,12 @@ class MasterProgramRepository extends ServiceEntityRepository
         $entityManager = $this->getEntityManager();
 
         $result = $entityManager->createQuery(
-            'SELECT program, type, fgos
+            'SELECT program, type, fgos, employer, jobs
                 FROM App\Entity\MasterProgram program
                 LEFT JOIN program.program_type type
                 LEFT JOIN program.federal_standart fgos
+                LEFT JOIN program.employer_requirements employer
+                LEFT JOIN program.potential_jobs jobs
                 WHERE program.id = :id'
         )->setParameter('id', $id)
             ->getResult(Query::HYDRATE_ARRAY);
