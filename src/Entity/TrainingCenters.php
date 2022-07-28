@@ -44,7 +44,7 @@ class TrainingCenters
     #[ORM\Column(type: 'boolean', nullable: true)]
     private $delete;
 
-    #[ORM\ManyToMany(targetEntity: MasterProgram::class)]
+    #[ORM\ManyToMany(targetEntity: MasterProgram::class, inversedBy: 'training_centre')]
     private $program;
 
     public function __construct()

@@ -53,7 +53,7 @@ class MasterProgram
     #[ORM\ManyToMany(targetEntity: PotentialJobs::class, inversedBy: 'masterPrograms')]
     private Collection $potential_jobs;
 
-    #[ORM\ManyToMany(targetEntity: TrainingCenters::class)]
+    #[ORM\ManyToMany(targetEntity: TrainingCenters::class, mappedBy: 'program')]
     private $training_centre;
 
     public function __construct()
