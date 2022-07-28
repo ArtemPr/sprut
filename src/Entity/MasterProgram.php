@@ -53,11 +53,15 @@ class MasterProgram
     #[ORM\ManyToMany(targetEntity: PotentialJobs::class, inversedBy: 'masterPrograms')]
     private Collection $potential_jobs;
 
+    #[ORM\ManyToMany(targetEntity: TrainingCenters::class, mappedBy: 'program')]
+    private $training_centre;
+
     public function __construct()
     {
         $this->federal_standart = new ArrayCollection();
         $this->employer_requirements = new ArrayCollection();
         $this->potential_jobs = new ArrayCollection();
+        $this->training_centre = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -285,6 +289,31 @@ class MasterProgram
     public function removePotentialJob(PotentialJobs $potentialJob): self
     {
         $this->potential_jobs->removeElement($potentialJob);
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getTrainingCentre(): ArrayCollection
+    {
+        return $this->training_centre;
+    }
+
+
+    public function addTrainingCentre(TrainingCenters $training_centre): self
+    {
+        if (!$this->training_centre->contains($training_centre)) {
+            $this->program[] = $training_centre;
+        }
+
+        return $this;
+    }
+
+    public function removeTrainingCentre(TrainingCenters $training_centre): self
+    {
+        $this->program->removeElement($training_centre);
 
         return $this;
     }
