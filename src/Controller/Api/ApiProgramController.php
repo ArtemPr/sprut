@@ -85,7 +85,10 @@ class ApiProgramController extends AbstractController
     {
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
         $data = $request->request->all();
-
+        echo '<pre>';
+        var_dump($data);
+        echo '</pre>';
+        die();
         $type = !empty($data['type']) ? $this->doctrine->getRepository(ProgramType::class)->find($data['type']) : null;
         $fgos = !empty($data['fgos']) ? $this->doctrine->getRepository(FederalStandart::class)->find($data['fgos']) : null;
         $employer = !empty($data['employer']) ? $this->doctrine->getRepository(EmployerRequirements::class)->find($data['employer']) : null;

@@ -253,6 +253,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     customDualSelect(userDualBoxAdd, hiddenSelectAdd)
 
+    const employerDualBoxAdd = document.querySelector('.dual-listbox--employer-add');
+    let hiddenSelectEmployer = document.querySelector('#employer-select-hidden--add');
+    customDualSelect(employerDualBoxAdd, hiddenSelectEmployer)
+    const potentialDualBoxAdd = document.querySelector('.dual-listbox--potential-add');
+    let hiddenSelectPotential = document.querySelector('#potential-select-hidden--add');
+    customDualSelect(potentialDualBoxAdd, hiddenSelectPotential)
+
     let userDualBoxUpdate = null
     let hiddenSelectUpdate = null
 

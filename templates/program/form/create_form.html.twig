@@ -82,13 +82,13 @@
                             <div class="dual-controls-wrap mb-4">
                                 <div class="dual-controls-label mb-3"><b>Выберите требования работодателя</b></div>
                                 <div class="dual-controls-box col-12">
-                                    <div class="dual-listbox dual-listbox--user-add">
+                                    <div class="dual-listbox dual-listbox--employer-add">
                                         <ul class="dual-controls-select dual-controls-select_create dual-listbox__available">
                                             {% if employer_requirements|default(false) %}
                                                 {% for er in employer_requirements %}
                                                     {% if data.employer_requirements|default(false) and (er.id in data.employer_requirements) %}
                                                         <li class="dual-listbox__item dual-listbox__item--selected"
-                                                            tit le="{{ er.requirement_name }}" value="{{ er.id }}">
+                                                            title="{{ er.requirement_name }}" value="{{ er.id }}">
                                                             {{ er.requirement_name }}
                                                         </li>
                                                     {% else %}
@@ -100,7 +100,7 @@
                                                 {% endfor %}
                                             {% endif %}
                                         </ul>
-                                        <select hidden name="employer[]" id="user-select-hidden--add" multiple>
+                                        <select hidden name="employer[]" id="employer-select-hidden--add" multiple>
                                             {% if employer_requirements|default(false) %}
                                                 {% for er in employer_requirements %}
                                                     {% if data.employer_requirements|default(false) and (er.id in data.employer_requirements) %}
@@ -137,7 +137,7 @@
                             <div class="dual-controls-wrap mb-4">
                                 <div class="dual-controls-label mb-3"><b>Выберите потенциальные места работы</b></div>
                                 <div class="dual-controls-box col-12">
-                                    <div class="dual-listbox dual-listbox--user-add">
+                                    <div class="dual-listbox dual-listbox--potential-add">
                                         <ul class="dual-controls-select dual-controls-select_create dual-listbox__available">
                                             {% if potential_jobs|default(false) %}
                                                 {% for pj in potential_jobs %}
@@ -155,7 +155,7 @@
                                                 {% endfor %}
                                             {% endif %}
                                         </ul>
-                                        <select hidden name="employer[]" id="user-select-hidden--add" multiple>
+                                        <select hidden name="potential[]" id="potential-select-hidden--add" multiple>
                                             {% if potential_jobs|default(false) %}
                                                 {% for pj in potential_jobs %}
                                                     {% if data.potential_jobs|default(false) and (pj.id in data.potential_jobs) %}
