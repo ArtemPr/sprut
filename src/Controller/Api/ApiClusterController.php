@@ -15,7 +15,8 @@ class ApiClusterController extends AbstractController
     use LoggerService;
 
     public function __construct(
-        private ManagerRegistry $managerRegistry
+        private ManagerRegistry $managerRegistry,
+        private readonly ManagerRegistry $doctrine
     ) {
     }
 

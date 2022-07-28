@@ -21,6 +21,12 @@ class Kaferda
     #[ORM\ManyToOne(targetEntity: TrainingCenters::class)]
     private $training_centre;
 
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private $parent_id;
+
+    #[ORM\ManyToOne(targetEntity: ProductLine::class)]
+    private $product_line;
+
     #[ORM\Column(type: 'boolean', nullable: true)]
     private $delete;
 
