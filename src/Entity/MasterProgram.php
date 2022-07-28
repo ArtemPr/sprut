@@ -17,6 +17,9 @@ class MasterProgram
     #[ORM\Column(type: 'integer')]
     private $id;
 
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    private $active;
+
     #[ORM\Column(type: 'text')]
     private $name;
 
@@ -75,6 +78,22 @@ class MasterProgram
     public function setId($id): void
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getActive()
+    {
+        return $this->active;
+    }
+
+    /**
+     * @param mixed $active
+     */
+    public function setActive($active): void
+    {
+        $this->active = $active;
     }
 
     public function getName(): ?string
