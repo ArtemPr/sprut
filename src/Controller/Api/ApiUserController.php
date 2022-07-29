@@ -21,6 +21,7 @@ use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/api', name: 'api')]
@@ -165,10 +166,10 @@ class ApiUserController extends AbstractController
             );
 
             $this->mailService->sendMail(
-                from: 'developer1@gaps.edu.ru',
+                from: 'sender@i-spo.ru',
                 to: $data['email'],
                 subject: 'Создание аккаунта в системе СПРУТ',
-                message: $message,
+                message: $message
             );
 
             return $this->json(['result' => 'success', 'id' => $lastId]);
