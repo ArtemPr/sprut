@@ -29,45 +29,57 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
                     if (ckeditorItem !== null) {
                         clearInterval(interval_update);
-                            ClassicEditor
-                                .create(ckeditorItem, {
-                                    toolbar: {
-                                        items: [
-                                            'heading', '|',
-                                            'fontfamily', 'fontsize', '|',
-                                            'alignment', '|',
-                                            'fontColor', 'fontBackgroundColor', '|',
-                                            'bold', 'italic', 'strikethrough', 'underline', 'subscript', 'superscript', '|',
-                                            'link', '|',
-                                            'outdent', 'indent', '|',
-                                            'bulletedList', 'numberedList', '|',
-                                            'code', '|',
-                                            'insertTable', '|',
-                                            'blockQuote', '|',
-                                            'undo', 'redo'
-                                        ],
-                                        shouldNotGroupWhenFull: true
-                                    },
-                                })
-                                .then(editor => {
-                                    window.editor = editor;
-                                })
-                                .catch(err => {
-                                    console.error(err.stack);
-                                });
+                        ClassicEditor
+                            .create(ckeditorItem, {
+                                toolbar: {
+                                    items: [
+                                        'heading', '|',
+                                        'fontfamily', 'fontsize', '|',
+                                        'alignment', '|',
+                                        'fontColor', 'fontBackgroundColor', '|',
+                                        'bold', 'italic', 'strikethrough', 'underline', 'subscript', 'superscript', '|',
+                                        'link', '|',
+                                        'outdent', 'indent', '|',
+                                        'bulletedList', 'numberedList', '|',
+                                        'code', '|',
+                                        'insertTable', '|',
+                                        'blockQuote', '|',
+                                        'undo', 'redo'
+                                    ],
+                                    shouldNotGroupWhenFull: true
+                                },
+                            })
+                            .then(editor => {
+                                window.editor = editor;
+                            })
+                            .catch(err => {
+                                console.error(err.stack);
+                            });
 
                     }
-                },500)
+                }, 500)
             }
             getProductionData();
         })
     }
 
     let authorRow = document.querySelector('.author-text-row');
-    if(authorRow) {
-        authorRow.oncontextmenu = (function(e){
+    if (authorRow) {
+        authorRow.oncontextmenu = (function (e) {
             e.preventDefault();
             authorRow.click();
+        })
+
+        let closeAuthorMenuBtn = document.querySelector('#author-menu-close');
+        let offcanvasAuthorLabel = document.querySelector('#offcanvasAuthorLabel');
+        let authorBtns = document.querySelectorAll('.author-btn');
+        authorBtns.forEach(authorBtn => {
+            authorBtn.addEventListener('click', function () {
+                offcanvasAuthorLabel.textContent = this.textContent;
+                setTimeout(function () {
+                    closeAuthorMenuBtn.click();
+                }, 200)
+            })
         })
     }
 })
