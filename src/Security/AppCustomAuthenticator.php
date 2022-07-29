@@ -3,6 +3,7 @@
 namespace App\Security;
 
 use App\Entity\Loger;
+use App\Service\LoggerService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,24 +21,18 @@ use Symfony\Component\Security\Http\Util\TargetPathTrait;
 class AppCustomAuthenticator extends AbstractLoginFormAuthenticator
 {
     use TargetPathTrait;
+    use LoggerService;
 
     public const LOGIN_ROUTE = 'app_login';
+    private $user;
 
-    /**
-     * @param UrlGeneratorInterface $urlGenerator
-     * @param ManagerRegistry $managerRegistry
-     */
     public function __construct(
         private UrlGeneratorInterface $urlGenerator,
-        private ManagerRegistry $managerRegistry
-    )
-    {
+        private ManagerRegistry $managerRegistry,
+        private readonly ManagerRegistry $doctrine
+    ) {
     }
 
-    /**
-     * @param Request $request
-     * @return Passport
-     */
     public function authenticate(Request $request): Passport
     {
         $email = $request->request->get('email', '');
@@ -53,38 +48,30 @@ class AppCustomAuthenticator extends AbstractLoginFormAuthenticator
         );
     }
 
-    /**
-     * @param Request $request
-     * @param TokenInterface $token
-     * @param string $firewallName
-     * @return Response|null
-     */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
+        $this->user = $token->getUser();
+        $this->logAction('login', 'Пользователи', null);
+
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
-        } else {
-            $loger = new Loger();
-            $loger->setTime(new \DateTime());
-            $loger->setAction('login');
-            $loger->setUserLoger($token->getUser());
-            $loger->setIp($request->server->get('REMOTE_ADDR'));
-            $loger->setChapter('Пользователи');
-            $entityManager = $this->managerRegistry->getManager();
-            $entityManager->persist($loger);
-            $entityManager->flush();
         }
-
 
         return new RedirectResponse($this->urlGenerator->generate('main'));
     }
 
-    /**
-     * @param Request $request
-     * @return string
-     */
     protected function getLoginUrl(Request $request): string
     {
         return $this->urlGenerator->generate(self::LOGIN_ROUTE);
+    }
+
+    /**
+     * Additional function for LoggerService.
+     *
+     * @return mixed
+     */
+    private function getUser()
+    {
+        return $this->user;
     }
 }

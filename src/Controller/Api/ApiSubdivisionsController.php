@@ -8,6 +8,7 @@ namespace App\Controller\Api;
 use App\Entity\Loger;
 use App\Entity\Subdivisions;
 use App\Service\ApiService;
+use App\Service\LoggerService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,6 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
 class ApiSubdivisionsController extends AbstractController
 {
     use ApiService;
+    use LoggerService;
 
     public function __construct(private ManagerRegistry $managerRegistry, private readonly ManagerRegistry $doctrine)
     {
@@ -37,16 +39,7 @@ class ApiSubdivisionsController extends AbstractController
         $entityManager->flush();
         $lastId = $subdivisions->getId();
 
-        $loger = new Loger();
-        $loger->setTime(new \DateTime());
-        $loger->setAction('add_subdivisions');
-        $loger->setUserLoger($this->getUser());
-        $loger->setIp($request->server->get('REMOTE_ADDR'));
-        $loger->setChapter('Подразделения');
-        $loger->setComment('Добавлено подразделение '.$lastId.' '.$data['subdivisions_name']);
-        $entityManager = $this->doctrine->getManager();
-        $entityManager->persist($loger);
-        $entityManager->flush();
+        $this->logAction('add_subdivisions', 'Подразделения', 'Добавлено подразделение '.$lastId.' '.$data['subdivisions_name']);
 
         return $this->json(['result' => 'success', 'id' => $lastId]);
     }
@@ -62,16 +55,7 @@ class ApiSubdivisionsController extends AbstractController
         $entityManager->persist($subdivisions);
         $entityManager->flush();
 
-        $loger = new Loger();
-        $loger->setTime(new \DateTime());
-        $loger->setAction('update_subdivisions');
-        $loger->setUserLoger($this->getUser());
-        $loger->setIp($request->server->get('REMOTE_ADDR'));
-        $loger->setChapter('Подразделения');
-        $loger->setComment('Обновлено подразделение '.$data['id'].' '.$data['subdivisions_name']);
-        $entityManager = $this->doctrine->getManager();
-        $entityManager->persist($loger);
-        $entityManager->flush();
+        $this->logAction('update_subdivisions', 'Подразделения', 'Обновлено подразделение '.$data['id'].' '.$data['subdivisions_name']);
 
         return $this->json(['result' => 'success', 'id' => $data['id']]);
     }
@@ -88,16 +72,7 @@ class ApiSubdivisionsController extends AbstractController
         $entityManager->flush();
 
         $data = $this->doctrine->getRepository(Subdivisions::class)->find((int) $id);
-        $loger = new Loger();
-        $loger->setTime(new \DateTime());
-        $loger->setAction('delete_subdivisions');
-        $loger->setUserLoger($this->getUser());
-        $loger->setIp($request->server->get('REMOTE_ADDR'));
-        $loger->setChapter('Подразделения');
-        $loger->setComment('Удалено подразделение '.$data->getId().' '.$data->getSubdivisionsName());
-        $entityManager = $this->doctrine->getManager();
-        $entityManager->persist($loger);
-        $entityManager->flush();
+        $this->logAction('delete_subdivisions', 'Подразделения', 'Удалено подразделение '.$data->getId().' '.$data->getSubdivisionsName());
 
         return $this->json(['result' => 'success', 'id' => $id]);
     }
