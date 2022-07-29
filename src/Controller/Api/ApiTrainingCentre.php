@@ -10,6 +10,7 @@ use App\Entity\Loger;
 use App\Entity\TrainingCenters;
 use App\Repository\TrainingCentersRepository;
 use App\Service\ApiService;
+use App\Service\LoggerService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,6 +21,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ApiTrainingCentre extends AbstractController
 {
     use ApiService;
+    use LoggerService;
 
     public function __construct(
         private readonly TrainingCentersRepository $trainingCentersRepository,
@@ -92,16 +94,7 @@ class ApiTrainingCentre extends AbstractController
         $entityManager->flush();
         $lastId = $tc->getId();
 
-        $loger = new Loger();
-        $loger->setTime(new \DateTime());
-        $loger->setAction('add_tc');
-        $loger->setUserLoger($this->getUser());
-        $loger->setIp($request->server->get('REMOTE_ADDR'));
-        $loger->setChapter('Учебные центры');
-        $loger->setComment($lastId . ' ' . $data['name']);
-        $entityManager = $this->doctrine->getManager();
-        $entityManager->persist($loger);
-        $entityManager->flush();
+        $this->logAction('add_tc', 'Учебные центры', $lastId . ' ' . $data['name']);
 
         return $this->json(['result' => 'success', 'id'=>$lastId]);
     }
@@ -122,16 +115,7 @@ class ApiTrainingCentre extends AbstractController
         $entityManager->persist($tc);
         $entityManager->flush();
 
-        $loger = new Loger();
-        $loger->setTime(new \DateTime());
-        $loger->setAction('update_tc');
-        $loger->setUserLoger($this->getUser());
-        $loger->setIp($request->server->get('REMOTE_ADDR'));
-        $loger->setChapter('Учебные центры');
-        $loger->setComment($data['id'] . ' ' . $data['name']);
-        $entityManager = $this->doctrine->getManager();
-        $entityManager->persist($loger);
-        $entityManager->flush();
+        $this->logAction('update_tc', 'Учебные центры', $data['id'] . ' ' . $data['name']);
 
         return $this->json(['result' => 'success', 'id'=>$data['id']]);
     }
@@ -149,16 +133,7 @@ class ApiTrainingCentre extends AbstractController
 
         $data = $this->doctrine->getRepository(Kaferda::class)->find((int)$id);
 
-        $loger = new Loger();
-        $loger->setTime(new \DateTime());
-        $loger->setAction('delete_tc');
-        $loger->setUserLoger($this->getUser());
-        $loger->setIp($request->server->get('REMOTE_ADDR'));
-        $loger->setChapter('Учебные центры');
-        $loger->setComment($id . ' ' . $data->getName());
-        $entityManager = $this->doctrine->getManager();
-        $entityManager->persist($loger);
-        $entityManager->flush();
+        $this->logAction('delete_tc', 'Учебные центры', $id . ' ' . $data->getName());
 
         return $this->json(['result' => 'success', 'id'=>$id]);
 

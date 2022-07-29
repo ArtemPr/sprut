@@ -8,6 +8,7 @@ namespace App\Controller\Api;
 use App\Entity\Loger;
 use App\Entity\Roles;
 use App\Service\ApiService;
+use App\Service\LoggerService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
@@ -15,6 +16,7 @@ use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 class ApiRole extends \Symfony\Bundle\FrameworkBundle\Controller\AbstractController
 {
     use ApiService;
+    use LoggerService;
 
     public function __construct(
         private readonly ManagerRegistry $doctrine
@@ -47,16 +49,7 @@ class ApiRole extends \Symfony\Bundle\FrameworkBundle\Controller\AbstractControl
         $entityManager->flush();
         $lastId = $tc->getId();
 
-        $loger = new Loger();
-        $loger->setTime(new \DateTime());
-        $loger->setAction('add_role');
-        $loger->setUserLoger($this->getUser());
-        $loger->setIp($request->server->get('REMOTE_ADDR'));
-        $loger->setChapter('Роли');
-        $loger->setComment($lastId . ' ' . $data['name']);
-        $entityManager = $this->doctrine->getManager();
-        $entityManager->persist($loger);
-        $entityManager->flush();
+        $this->logAction('add_role', 'Роли', $lastId . ' ' . $data['name']);
 
         return $this->json(['result' => 'success', 'id'=>$lastId]);
     }
@@ -89,16 +82,7 @@ class ApiRole extends \Symfony\Bundle\FrameworkBundle\Controller\AbstractControl
         $entityManager->flush();
         $lastId = $tc->getId();
 
-        $loger = new Loger();
-        $loger->setTime(new \DateTime());
-        $loger->setAction('update_role');
-        $loger->setUserLoger($this->getUser());
-        $loger->setIp($request->server->get('REMOTE_ADDR'));
-        $loger->setChapter('Роли');
-        $loger->setComment($lastId . ' ' . $data['name']);
-        $entityManager = $this->doctrine->getManager();
-        $entityManager->persist($loger);
-        $entityManager->flush();
+        $this->logAction('update_role', 'Роли', $lastId . ' ' . $data['name']);
 
         return $this->json(['result' => 'success', 'id'=>$lastId]);
     }
@@ -116,16 +100,7 @@ class ApiRole extends \Symfony\Bundle\FrameworkBundle\Controller\AbstractControl
 
         $data = $this->doctrine->getRepository(Roles::class)->find((int)$id);
 
-        $loger = new Loger();
-        $loger->setTime(new \DateTime());
-        $loger->setAction('delete_role');
-        $loger->setUserLoger($this->getUser());
-        $loger->setIp($request->server->get('REMOTE_ADDR'));
-        $loger->setChapter('Роли');
-        $loger->setComment($id . ' ' . $data->getName());
-        $entityManager = $this->doctrine->getManager();
-        $entityManager->persist($loger);
-        $entityManager->flush();
+        $this->logAction('delete_role', 'Роли', $id . ' ' . $data->getName());
 
         return $this->json(['result' => 'success', 'id'=>$id]);
     }

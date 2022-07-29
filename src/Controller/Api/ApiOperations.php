@@ -8,6 +8,7 @@ namespace App\Controller\Api;
 use App\Entity\Loger;
 use App\Entity\Operations;
 use App\Service\ApiService;
+use App\Service\LoggerService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,6 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 class ApiOperations extends AbstractController
 {
     use ApiService;
+    use LoggerService;
 
     public function __construct(
         private readonly ManagerRegistry $doctrine
@@ -32,16 +34,7 @@ class ApiOperations extends AbstractController
         $entityManager->persist($tc);
         $entityManager->flush();
 
-        $loger = new Loger();
-        $loger->setTime(new \DateTime());
-        $loger->setAction('update_operations');
-        $loger->setUserLoger($this->getUser());
-        $loger->setIp($request->server->get('REMOTE_ADDR'));
-        $loger->setChapter('Операции');
-        $loger->setComment($data['id'] . ' ' . $data['name']);
-        $entityManager = $this->doctrine->getManager();
-        $entityManager->persist($loger);
-        $entityManager->flush();
+        $this->logAction('update_operations', 'Операции', $data['id'] . ' ' . $data['name']);
 
         return $this->json(['result' => 'success', 'id'=>$data['id']]);
     }
