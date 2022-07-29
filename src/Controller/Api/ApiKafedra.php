@@ -50,6 +50,8 @@ class ApiKafedra extends AbstractController
             $productLine = $this->doctrine->getRepository(ProductLine::class)->find($data['product_line']);
         }
 
+        $parent = $this->doctrine->getRepository(Kaferda::class)->find((int) $data['parent_id']);
+
         $kafedra = new Kaferda();
         $kafedra->setId((int) $data['id']);
         $kafedra->setName(trim($data['name']));
@@ -57,7 +59,7 @@ class ApiKafedra extends AbstractController
         $kafedra->setDirector($dir);
         $kafedra->setDelete(false);
         $kafedra->setProductLine($productLine);
-        $kafedra->setParentId($data['parent_id']);
+        $kafedra->setParent($parent);
         $entityManager = $this->doctrine->getManager();
         $entityManager->persist($kafedra);
         $entityManager->flush();
@@ -74,7 +76,7 @@ class ApiKafedra extends AbstractController
         $data = $request->request->all();
 
         if (!empty($data['training_centre'])) {
-            $tc = $this->doctrine->getRepository(TrainingCenters::class)->find($data['training_centre']);
+            $tc = $this->doctrine->getRepository(TrainingCenters::class)->find((int) $data['training_centre']);
         } else {
             $tc = null;
         }
@@ -90,13 +92,15 @@ class ApiKafedra extends AbstractController
             $productLine = $this->doctrine->getRepository(ProductLine::class)->find($data['product_line']);
         }
 
+        $parent = $this->doctrine->getRepository(Kaferda::class)->find((int) $data['parent_id']);
+
         $kafedra = $this->doctrine->getRepository(Kaferda::class)->find((int) $data['id']);
         $kafedra->setName(trim($data['name']));
         $kafedra->setTrainingCentre($tc);
         $kafedra->setDirector($dir);
         $kafedra->setDelete(false);
         $kafedra->setProductLine($productLine);
-        $kafedra->setParentId($data['parent_id']);
+        $kafedra->setParent($parent);
         $entityManager = $this->doctrine->getManager();
         $entityManager->persist($kafedra);
         $entityManager->flush();

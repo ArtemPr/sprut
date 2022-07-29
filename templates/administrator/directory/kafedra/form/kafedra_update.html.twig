@@ -57,7 +57,7 @@
                     <select class="form-select" name="parent_id">
                         <option selected>Выберите направление из списка</option>
                         {% for pd in parent_directions %}
-                            <option value="{{ pd.id }}" {% if data.parent_id|default(false) and data.parent_id == pd.id %}selected{% endif %}>{{ pd.name }}</option>
+                            <option value="{{ pd.id }}" {% if data.parent|default(false) and data.parent.id == pd.id %}selected{% endif %}>{{ pd.name }}</option>
                         {% endfor %}
                     </select>
                 </div>
