@@ -532,3 +532,8 @@ body {
 	padding-top: 0;
 	padding-bottom: 0;
 }
+
+.archive_program {
+  color: #999999;
+  text-decoration: line-through;
+}

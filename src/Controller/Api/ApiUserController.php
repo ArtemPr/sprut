@@ -15,7 +15,6 @@ use App\Entity\Loger;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Service\ApiService;
-use App\Service\LoggerService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,7 +29,8 @@ class ApiUserController extends AbstractController
 
     public function __construct(
         private UserRepository $userRepository,
-        private ManagerRegistry $doctrine
+        private ManagerRegistry $doctrine,
+        private MailService $mailService
     ) {
     }
 
@@ -101,8 +101,12 @@ class ApiUserController extends AbstractController
 
             $user->setCreatedAt(new \DateTime());
 
-            if (!in_array('ROLE_USER', $data['roles'])) {
+            if (empty($data['roles'])) {
                 $data['roles'][] = 'ROLE_USER';
+            } else {
+                if (!in_array('ROLE_USER', $data['roles'])) {
+                    $data['roles'][] = 'ROLE_USER';
+                }
             }
             $user->setRoles($data['roles']);
 
@@ -130,9 +134,28 @@ class ApiUserController extends AbstractController
 
             $this->logAction('add_user', 'Пользователи', 'Добавлен пользователь ' . $lastId . ' ' . $data['username']);
 
+            $message = $this->renderView('mail/new_user.html.twig',
+                [
+                    'email' => $data['email'],
+                    'password' => $data['password']
+                ]
+            );
+
+            $this->mailService->sendMail(
+                from: 'sender@i-spo.ru',
+                to: $data['email'],
+                subject: 'Создание аккаунта в системе СПРУТ',
+                message: $message
+            );
+
             return $this->json(['result' => 'success', 'id' => $lastId]);
         } else {
-            return $this->json(['result' => 'error']);
+            return $this->json(
+                [
+                    'result' => 'error',
+                    'massege' => 'password resolve'
+                ]
+            );
         }
     }
 

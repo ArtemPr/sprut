@@ -14,4 +14,9 @@
             <span class="nav-link-title">Реестр прав</span>
         </a>
     </li>
+    <li class="nav-item {% if controller|default(false) and controller == 'banners' %}active{% endif %}">
+        <a class="nav-link" href="{{ path('service_banners') }}">
+            <span class="nav-link-title">Баннеры</span>
+        </a>
+    </li>
 </ul>
