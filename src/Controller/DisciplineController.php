@@ -135,11 +135,25 @@ class DisciplineController extends BaseController implements BaseInterface
         return $this->processCSV($data, 'discipline.csv');
     }
 
+    #[Route('/discipline_production/{id}', name: 'discipline_editor')]
+    public function getProduction($id): Response
+    {
+       $production = $this->managerRegistry->getRepository(Discipline::class)->get($id);
+        $types = [
+            ['value' => '0', 'label' => 'нет типа'],
+            ['value' => '1', 'label' => 'Профессиональная переподготовка'],
+            ['value' => '2', 'label' => 'Профессиональное обучение'],
+        ];
+//        var_dump($production);
+        return $this->render('discipline/discipline-editor.html.twig',
+            ['production' => $production[0], 'types' => $types]);
+    }
+
     public function getDisciplineForm($id)
     {
         $data = $this->managerRegistry->getRepository(Discipline::class)->get($id);
         $antiplagiats = $this->managerRegistry->getRepository(Antiplagiat::class)->getItemsByDiscipline($id);
-    //    dd($antiplagiats);
+        //    dd($antiplagiats);
         $antiplagiat_status = [
             ['value' => '0', 'class_name' => 'red'],
             ['value' => '1', 'class_name' => 'yellow'],

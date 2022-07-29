@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     async function getFormData(container, controller, select_id = null) {
 
         let url = location.protocol + '//' + location.host + '/form/' + controller + '/' + select_id;
-
+        console.log(url);
         let data = await fetch(url).then((result) => result.text());
 
         let box = document.querySelector('#' + container);

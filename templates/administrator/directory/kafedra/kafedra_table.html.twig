@@ -63,6 +63,14 @@
                                 <td>
                                     {{ dat['director']['email']|default(false) }}
                                 </td>
+                            {% elseif tbl.name == 'product_line.name' %}
+                                <td>
+                                    {{ dat['product_line']['name']|default(false) }}
+                                </td>
+                            {% elseif tbl.name == 'parent.name' %}
+                                <td>
+                                    {{ dat['parent']['name']|default(false) }}
+                                </td>
                             {% else %}
                                 {% if tbl.type == 'bool' %}
                                     <td><span class="badge {% if dat[tbl.name]|default(false) %} bg-success {% else %} bg-danger {% endif %} "></span></td>

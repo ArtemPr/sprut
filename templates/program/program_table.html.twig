@@ -7,25 +7,34 @@
                     {% if tbl.3 == true %}
                         {% if loop.first == 1 %}
                             <th>
-                                {% if tbl.0 != '' %}
-                                    <a
-                                        class="sort-icon is-{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}desc{% elseif sort.current_sort|default(false) and sort.current_sort == (tbl.0~'__up') %}asc{% elseif sort.current_sort|default(false) == false %}asc{% else %}both{% endif %}"
-                                       href="{{ path('program') ~ sort.sort_link ~ tbl.0 }}{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}__up{% endif %}"
-                                    ></a>
-                                {% endif %}
-                                {% if  tbl.1  == 'ID' %}
-                                    <p class="th-name id-name">{{ tbl.1|raw }}</p>
-                                {% else %}
-                                    <p class="th-name">{{ tbl.1|raw }}</p>
-                                {% endif %}
+                                <div class="th-name">
+                                    <div class="sort-name-wrap">
+                                        <span class="name-text">{{ tbl.1|raw }}</span>
+                                    </div>
+                                    <div class="filter-sort-wrap">
+                                        {% if tbl.0 != '' %}
+                                            <a
+                                                class="sort-icon is-{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}desc{% elseif sort.current_sort|default(false) and sort.current_sort == (tbl.0~'__up') %}asc{% elseif sort.current_sort|default(false) == false %}asc{% else %}both{% endif %}"
+                                                href="{{ path('program') ~ sort.sort_link ~ tbl.0 }}{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}__up{% endif %}"
+                                            ></a>
+                                        {% endif %}
+                                    </div>
+                                </div>
                             </th>
                         {% else %}
                             <th>
-                                {% if tbl.0 != '' %}
-                                <a class="sort-icon is-{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}desc{% elseif sort.current_sort|default(false) and sort.current_sort == (tbl.0~'__up') %}asc{% else %}both{% endif %}"
-                                   href="{{ path('program') ~ sort.sort_link ~ tbl.0 }}{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}__up{% endif %}"></a>
-                                {% endif %}
-                                    <p class="th-name"> {{ tbl.1|raw }}</p>
+                                <div class="th-name">
+                                    <div class="sort-name-wrap">
+                                        <span class="name-text">{{ tbl.1|raw }}</span>
+                                    </div>
+
+                                    {% if tbl.0 != '' %}
+                                        <div class="filter-sort-wrap">
+                                            <a class="sort-icon is-{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}desc{% elseif sort.current_sort|default(false) and sort.current_sort == (tbl.0~'__up') %}asc{% else %}both{% endif %}"
+                                            href="{{ path('program') ~ sort.sort_link ~ tbl.0 }}{% if sort.current_sort|default(false) and sort.current_sort == tbl.0 %}__up{% endif %}"></a>
+                                        </div>
+                                    {% endif %}
+                                </div>
                             </th>
                         {% endif %}
                     {% endif %}
@@ -42,21 +51,24 @@
                         <span class="badge bg-red" title="Новая программа" data-bs-toggle="tooltip"></span>
                     {% elseif program.status|default(false) and program.status == 'work' %}
                         <span class="badge bg-warning" title="в работе" data-bs-toggle="tooltip"></span>
+                    {% elseif program.status|default(false) and program.status == 'check' %}
+                        <span class="badge bg-orange" title="на проверке" data-bs-toggle="tooltip"></span>
                     {% elseif program.status|default(false) and program.status == 'done' %}
                         <span class="badge bg-green" title="готова" data-bs-toggle="tooltip"></span>
                     {% else %}
+                        <span class="badge" title="не определен" data-bs-toggle="tooltip"></span>
                     {% endif %}
                 </td>
                 <td>
-                    {{ program.id }}
+                    {{ program.global_id }}
                 </td>
-                <td>
+                {# <td>
                     {% if program.history == true %}
                         да
                     {% else %}
                         нет
                     {% endif %}
-                </td>
+                </td> #}
                 <td style="text-align: center">
                     {{ program.program_type.short_name_type|default(false) }}
                 </td>
@@ -64,8 +76,8 @@
                     {{ program.name | raw }}
                 </td>
                 <td>{{ program.length_week|default(false) }}</td>
-                <td>{{ program.length_hour|default(false) }}</td>
                 <td>{{ program.length_week_short|default(false) }}</td>
+                <td>{{ program.length_hour|default(false) }}</td>
 
                 <td>
                     {% if program.federal_standart|default(false) %}
