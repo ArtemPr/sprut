@@ -28,7 +28,7 @@ class ProgramController extends BaseController implements BaseInterface
     {
         $page = $this->get_data['page'] ?? null;
         $on_page = $this->get_data['on_page'] ?? 25;
-        $sort = $this->get_data['sort'] ?? 'id__up';
+        $sort = $this->get_data['sort'] ?? null;
         $select_type = $this->get_data['type'] ?? null;
         $search = $this->get_data['search'] ?? null;
 
@@ -116,17 +116,6 @@ class ProgramController extends BaseController implements BaseInterface
                 $program_name = !empty($val['name'])
                     ? str_replace(';', '";"', html_entity_decode($val['name']))
                     : '-';
-
-                $length_hour = !empty($val['length_hour'])
-                    ? str_replace(';', '";"', html_entity_decode($val['length_hour']))
-                    : '-';
-                $length_week = !empty($val['length_week'])
-                    ? str_replace(';', '";"', html_entity_decode($val['length_week']))
-                    : '-';
-                $length_week_short = !empty($val['length_week_short'])
-                    ? str_replace(';', '";"', html_entity_decode($val['length_week_short']))
-                    : '-';
-
                 $fgos = !empty($val['federal_standart']) && !empty($val['federal_standart'][0])
                     ? html_entity_decode($val['federal_standart'][0]['short_name'])
                     : '-';
@@ -134,24 +123,13 @@ class ProgramController extends BaseController implements BaseInterface
                     ? html_entity_decode($val['prof_standarts'][0]['short_name'])
                     : '-';
 
-                $tc = "";
-                if (!empty($val['training_centre'])) {
-                    foreach ($val['training_centre'] as $vals) {
-                        $tc .= '(' . $val['id'] . '-' . $vals['id'] . ') ' . $vals['name']."\n";
-                    }
-                }
-
                 $data[] = [
                     $val['id'],
-                    !empty($val['history']) ? 'Да' : 'Нет',
+                    $val['history'] ? 'Да' : 'Нет',
                     $program_type, // Тип
                     $program_name, // Название
-                    $length_hour,
-                    $length_week,
-                    $length_week_short,
                     $fgos, // ФГОС
                     $ps, // ПС
-                    $tc
                 ];
             }
         }
@@ -162,6 +140,16 @@ class ProgramController extends BaseController implements BaseInterface
     public function getProgramForm($id)
     {
         $data = $this->managerRegistry->getRepository(MasterProgram::class)->get($id);
+        $empmas = [];
+        $ptjmas = [];
+        foreach ($data['employer_requirements'] as $employer_requirement) {
+            $empmas[] = $employer_requirement['id'];
+        }
+        foreach ($data['potential_jobs'] as $potential_job) {
+            $ptjmas[] = $potential_job['id'];
+        }
+        $data['employer_requirements'] = $empmas;
+        $data['potential_jobs'] = $ptjmas;
 
         $fgos = $this->managerRegistry->getRepository(FederalStandart::class)->findAll();
 
@@ -188,15 +176,15 @@ class ProgramController extends BaseController implements BaseInterface
         return [
             ['', '', 'bool', true],
             ['id', 'ID', 'string', true],
-            //['history', 'Ист. данные', 'string', true],
+            ['history', 'Ист. данные', 'string', true],
             ['pt.id', 'Тип', 'string', true],
             ['name', 'Название', 'string', true],
             ['length_week', 'Продолжительность (нед.)', 'string', true],
-            ['length_week_short', 'Ускоренное обучение (нед.)', 'string', true],
             ['length_hour', 'Продолжительность (час.)', 'string', true],
+            ['length_week_short', 'Ускоренное обучение (нед.)', 'string', true],
+//            ['name', 'Продолжительность в неделях', 'string', true],
             ['fs.id', 'ФГОС', 'string', true],
             ['ps.id', 'ПС', 'string', true],
-            ['tc.id', 'Учебные центры', 'string', true],
         ];
     }
 }

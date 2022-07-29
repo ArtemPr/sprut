@@ -32,6 +32,9 @@ class Literature
     #[ORM\Column(type: 'text', nullable: true)]
     private $link;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $delete = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -131,6 +134,18 @@ class Literature
     public function setLink(?string $link): self
     {
         $this->link = $link;
+
+        return $this;
+    }
+
+    public function isDelete(): ?bool
+    {
+        return $this->delete;
+    }
+
+    public function setDelete(?bool $delete): self
+    {
+        $this->delete = $delete;
 
         return $this;
     }

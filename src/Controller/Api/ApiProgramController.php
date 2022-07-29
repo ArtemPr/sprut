@@ -7,12 +7,12 @@ namespace App\Controller\Api;
 
 use App\Entity\EmployerRequirements;
 use App\Entity\FederalStandart;
-use App\Entity\Loger;
 use App\Entity\MasterProgram;
 use App\Entity\PotentialJobs;
 use App\Entity\ProgramType;
 use App\Repository\MasterProgramRepository;
 use App\Service\ApiService;
+use App\Service\LoggerService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,6 +21,7 @@ use Symfony\Component\HttpFoundation\Response;
 class ApiProgramController extends AbstractController
 {
     use ApiService;
+    use LoggerService;
 
     public function __construct(
         private MasterProgramRepository $master_programm,
@@ -40,7 +41,7 @@ class ApiProgramController extends AbstractController
         ]);
     }
 
-    public function getProgramsList(): Response
+    public function getProgramsList() : Response
     {
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
 
@@ -74,23 +75,19 @@ class ApiProgramController extends AbstractController
         return $this->json($out ?? []);
     }
 
-    public function getProgram(int $id): Response
+    public function getProgram(int $id) : Response
     {
         $out = $this->master_programm->getProgram($id);
 
         return $this->json($out ?? []);
     }
 
-    public function add(): Response
+    public function add() : Response
     {
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
         $data = $request->request->all();
-
         $type = !empty($data['type']) ? $this->doctrine->getRepository(ProgramType::class)->find($data['type']) : null;
         $fgos = !empty($data['fgos']) ? $this->doctrine->getRepository(FederalStandart::class)->find($data['fgos']) : null;
-        $employer = !empty($data['employer']) ? $this->doctrine->getRepository(EmployerRequirements::class)->find($data['employer']) : null;
-        $potential = !empty($data['potential']) ? $this->doctrine->getRepository(PotentialJobs::class)->find($data['potential']) : null;
-
         $program = new MasterProgram();
         $program->setName(trim($data['name']));
         $program->setActive(!empty($data['active']) ? true : false);
@@ -98,8 +95,18 @@ class ApiProgramController extends AbstractController
         $program->setProgramType($type);
 
         $program->addFederalStandart($fgos);
-        $program->addEmployerRequirement($employer);
-        $program->addPotentialJob($potential);
+        if (!empty($data['employer'])) {
+            foreach ($data['employer'] as $emp) {
+                $employer = $this->doctrine->getRepository(EmployerRequirements::class)->find($emp);
+                $program->addEmployerRequirement($employer);
+            }
+        }
+        if (!empty($data['potential'])) {
+            foreach ($data['potential'] as $pot) {
+                $potential = $this->doctrine->getRepository(PotentialJobs::class)->find($pot);
+                $program->addPotentialJob($potential);
+            }
+        }
 
         $program->setLengthHour(0);
         $program->setLengthWeekShort(0);
@@ -108,22 +115,12 @@ class ApiProgramController extends AbstractController
         $entityManager->persist($program);
         $entityManager->flush();
         $lastId = $program->getId();
-
-        $loger = new Loger();
-        $loger->setTime(new \DateTime());
-        $loger->setAction('add_program');
-        $loger->setUserLoger($this->getUser());
-        $loger->setIp($request->server->get('REMOTE_ADDR'));
-        $loger->setChapter('Программы');
-        $loger->setComment('Создание программы '.$lastId.' '.$data['name']);
-        $entityManager = $this->doctrine->getManager();
-        $entityManager->persist($loger);
-        $entityManager->flush();
+        $this->logAction('add_program', 'Программы', 'Создание программы '.$lastId.' '.$data['name']);
 
         return $this->json(['result' => 'success', 'id' => $lastId]);
     }
 
-    public function update(): Response
+    public function update() : Response
     {
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
         $data = $request->request->all();
@@ -138,7 +135,24 @@ class ApiProgramController extends AbstractController
         $program->setStatus($data['status'] ?? 'new');
 
         // $program->addFederalStandart($fgos);
-
+        if (!empty($data['employer'])) {
+            foreach ($program->getEmployerRequirements() as $employerRequirement) {
+                $program->removeEmployerRequirement($employerRequirement);
+            }
+            foreach ($data['employer'] as $emp) {
+                $employer = $this->doctrine->getRepository(EmployerRequirements::class)->find($emp);
+                $program->addEmployerRequirement($employer);
+            }
+        }
+        if (!empty($data['potential'])) {
+            foreach ($program->getPotentialJobs() as $potentialJob) {
+                $program->removePotentialJob($potentialJob);
+            }
+            foreach ($data['potential'] as $pot) {
+                $potential = $this->doctrine->getRepository(PotentialJobs::class)->find($pot);
+                $program->addPotentialJob($potential);
+            }
+        }
         $program->setLengthHour(0);
         $program->setLengthWeekShort(0);
         $program->setLengthWeek(0);
@@ -146,16 +160,7 @@ class ApiProgramController extends AbstractController
         $entityManager->persist($program);
         $entityManager->flush();
 
-        $loger = new Loger();
-        $loger->setTime(new \DateTime());
-        $loger->setAction('update_program');
-        $loger->setUserLoger($this->getUser());
-        $loger->setIp($request->server->get('REMOTE_ADDR'));
-        $loger->setChapter('Программы');
-        $loger->setComment($data['id'].' '.$data['name']);
-        $entityManager = $this->doctrine->getManager();
-        $entityManager->persist($loger);
-        $entityManager->flush();
+        $this->logAction('update_program', 'Программы', $data['id'].' '.$data['name']);
 
         return $this->json(['result' => 'success', 'id' => $data['id']]);
     }

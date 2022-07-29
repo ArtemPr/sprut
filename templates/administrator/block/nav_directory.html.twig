@@ -21,6 +21,56 @@
             <span class="nav-link-title">Профессиональные стандарты</span>
         </a>
     </li>
+
+    <li class="nav-item {% if controller|default(false) and controller in ['administrator_directory_cluster', 'administrator_directory_product_line', 'kafedra'] %}{% endif %} dropdown">
+        <a class="nav-link dropdown-toggle show" href="#navbar-layout" data-bs-toggle="dropdown" data-bs-auto-close="false" role="button" aria-expanded="true">
+        <span class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/layout-2 -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-schema" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M5 2h5v4h-5z"></path>
+                <path d="M15 10h5v4h-5z"></path>
+                <path d="M5 18h5v4h-5z"></path>
+                <path d="M5 10h5v4h-5z"></path>
+                <path d="M10 12h5"></path>
+                <path d="M7.5 6v4"></path>
+                <path d="M7.5 14v4"></path>
+            </svg>
+        </span>
+            <span class="nav-link-title">Кластеры</span>
+        </a>
+        <div class="dropdown-menu show" data-bs-popper="static">
+            <div class="dropdown-menu-columns">
+                <div class="dropdown-menu-column">
+                    <a class="dropdown-item {% if controller|default(false) and controller == 'administrator_directory_cluster' %}active{% endif %}" href="/administrator/directory/cluster" title="Кластеры">
+                        <span class="nav-link-title">Кластеры</span>
+                    </a>
+                    <a class="dropdown-item {% if controller|default(false) and controller == 'administrator_directory_product_line' %}active{% endif %}" href="/administrator/directory/product_line" title="Продуктовые направления">
+                        <!-- svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-sitemap" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <rect x="3" y="15" width="6" height="6" rx="2"></rect>
+                            <rect x="15" y="15" width="6" height="6" rx="2"></rect>
+                            <rect x="9" y="3" width="6" height="6" rx="2"></rect>
+                            <path d="M6 15v-1a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v1"></path>
+                            <line x1="12" y1="9" x2="12" y2="12"></line>
+                        </svg -->
+                        <span class="nav-link-title">Продуктовые<br />направления</span>
+                    </a>
+                    <a class="dropdown-item {% if controller|default(false) and controller == 'kafedra' %}active{% endif %}" href="/administrator/kafedra" title="Направления">
+                        <!-- svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-directions" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M9 5h10l2 2l-2 2h-10a1 1 0 0 1 -1 -1v-2a1 1 0 0 1 1 -1"></path>
+                            <path d="M13 13h-7l-2 2l2 2h7a1 1 0 0 0 1 -1v-2a1 1 0 0 0 -1 -1"></path>
+                            <line x1="12" y1="22" x2="12" y2="17"></line>
+                            <line x1="12" y1="13" x2="12" y2="9"></line>
+                            <line x1="12" y1="5" x2="12" y2="3"></line>
+                        </svg -->
+                        <span class="nav-link-title">Направления</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </li>
+
     <li class="nav-item {% if controller|default(false) and controller == 'tc' %}active{% endif %}">
         <a class="nav-link" href="{{ path('administrator_directory_tc') }}" title="Учебные центры">
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-building" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -37,30 +87,17 @@
             <span class="nav-link-title">Учебные центры</span>
         </a>
     </li>
-    <li class="nav-item {% if controller|default(false) and controller == 'kafedra' %}active{% endif %}">
-        <a class="nav-link" href="{{ path('administrator_kafedra') }}" title="Направления">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-directions" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                <path d="M9 5h10l2 2l-2 2h-10a1 1 0 0 1 -1 -1v-2a1 1 0 0 1 1 -1" />
-                <path d="M13 13h-7l-2 2l2 2h7a1 1 0 0 0 1 -1v-2a1 1 0 0 0 -1 -1" />
-                <line x1="12" y1="22" x2="12" y2="17" />
-                <line x1="12" y1="13" x2="12" y2="9" />
-                <line x1="12" y1="5" x2="12" y2="3" />
-            </svg>
-            <span class="nav-link-title">Направления</span>
-        </a>
-    </li>
+
     <li class="nav-item {% if controller|default(false) and controller == 'administrator_directory_city' %}active{% endif %}">
         <a class="nav-link" href="{{ path('administrator_directory_city') }}" title="Города">
-            <img class="icon icon-tabler icon-tabler-directions" src="https://cdn-icons-png.flaticon.com/512/2451/2451474.png" alt="" style="height: 20px">
-<!--            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-directions" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                <path d="M9 5h10l2 2l-2 2h-10a1 1 0 0 1 -1 -1v-2a1 1 0 0 1 1 -1" />
-                <path d="M13 13h-7l-2 2l2 2h7a1 1 0 0 0 1 -1v-2a1 1 0 0 0 -1 -1" />
-                <line x1="12" y1="22" x2="12" y2="17" />
-                <line x1="12" y1="13" x2="12" y2="9" />
-                <line x1="12" y1="5" x2="12" y2="3" />
-            </svg>-->
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-building-community" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M8 9l5 5v7h-5v-4m0 4h-5v-7l5 -5m1 1v-6a1 1 0 0 1 1 -1h10a1 1 0 0 1 1 1v17h-8"></path>
+                <line x1="13" y1="7" x2="13" y2="7.01"></line>
+                <line x1="17" y1="7" x2="17" y2="7.01"></line>
+                <line x1="17" y1="11" x2="17" y2="11.01"></line>
+                <line x1="17" y1="15" x2="17" y2="15.01"></line>
+            </svg>
             <span class="nav-link-title">Города</span>
         </a>
     </li>
@@ -109,20 +146,9 @@
             <span class="nav-link-title">Подразделения</span>
         </a>
     </li>
-    <li class="nav-item {% if controller|default(false) and controller == 'administrator_directory_cluster' %}active{% endif %}">
-        <a class="nav-link" href="{{ path('administrator_directory_cluster') }}" title="Кластеры">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-database" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                <ellipse cx="12" cy="6" rx="8" ry="3"></ellipse>
-                <path d="M4 6v6a8 3 0 0 0 16 0v-6" />
-                <path d="M4 12v6a8 3 0 0 0 16 0v-6" />
-            </svg>
-            <span class="nav-link-title">Кластеры</span>
-        </a>
-    </li>
 
     <li class="nav-item {% if controller|default(false) and controller == 'administrator_directory_directions' %}active{% endif %}">
-        <a class="nav-link" href="{{ path('administrator_directory_directions') }}" title="Направления">
+        <a class="nav-link" href="{{ path('administrator_directory_directions') }}" title="Направления литературы">
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hierarchy-2" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                 <path d="M10 3h4v4h-4z" />
@@ -131,21 +157,8 @@
                 <path d="M7 17l5 -4l5 4" />
                 <line x1="12" y1="7" x2="12" y2="13" />
             </svg>
-            <span class="nav-link-title">Направления</span>
+            <span class="nav-link-title">Направления литературы</span>
         </a>
     </li>
 
-    <li class="nav-item {% if controller|default(false) and controller == 'administrator_directory_product_line' %}active{% endif %}">
-        <a class="nav-link" href="{{ path('administrator_directory_product_line') }}" title="Продуктовые направления">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-sitemap" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                <rect x="3" y="15" width="6" height="6" rx="2" />
-                <rect x="15" y="15" width="6" height="6" rx="2" />
-                <rect x="9" y="3" width="6" height="6" rx="2" />
-                <path d="M6 15v-1a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v1" />
-                <line x1="12" y1="9" x2="12" y2="12" />
-            </svg>
-            <span class="nav-link-title">Продуктовые направления</span>
-        </a>
-    </li>
 </ul>
