@@ -44,11 +44,12 @@ services:
             $api_address: 'api.antiplagiat.ru:44902'
             $ext_user: 'testapi'
 #            Боевые данные
-#            $login: ''
-#            $password: ''
-#            $company_name: ''
-#            $api_address: ''
-#            $ext_user: ''
+#            $url: 'https://academcity-online.antiplagiat.ru'
+#            $login: 'developer1@gaps.edu.ru'
+#            $password: '4wVQDLeNn'
+#            $company_name: 'academcity-online'
+#            $api_address: 'api.antiplagiat.ru:4959'
+#            $ext_user: 'developer1'
 
     # Сервис Литера5
     App\Service\Litera5API:
