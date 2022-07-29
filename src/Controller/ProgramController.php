@@ -140,6 +140,16 @@ class ProgramController extends BaseController implements BaseInterface
     public function getProgramForm($id)
     {
         $data = $this->managerRegistry->getRepository(MasterProgram::class)->get($id);
+        $empmas = [];
+        $ptjmas = [];
+        foreach ($data['employer_requirements'] as $employer_requirement) {
+            $empmas[] = $employer_requirement['id'];
+        }
+        foreach ($data['potential_jobs'] as $potential_job) {
+            $ptjmas[] = $potential_job['id'];
+        }
+        $data['employer_requirements'] = $empmas;
+        $data['potential_jobs'] = $ptjmas;
 
         $fgos = $this->managerRegistry->getRepository(FederalStandart::class)->findAll();
 

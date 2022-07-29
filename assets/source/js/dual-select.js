@@ -288,16 +288,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 employerSelectUpdate = document.querySelector('#employer-select-hidden--update');
                 potentialDualBoxUpdate = document.querySelector('.dual-listbox--potential-update');
                 potentialSelectUpdate = document.querySelector('#potential-select-hidden--update');
-                if (employerDualBoxUpdate !== null && employerSelectUpdate !== null) {
+                if (employerDualBoxUpdate !== null && employerSelectUpdate !== null && potentialDualBoxUpdate !== null && potentialSelectUpdate !== null) {
                     customDualSelect(employerDualBoxUpdate, employerSelectUpdate)
-                }
-                if (potentialDualBoxUpdate !== null && potentialSelectUpdate !== null) {
                     customDualSelect(potentialDualBoxUpdate, potentialSelectUpdate)
+                    clearInterval(interval_program_update);
                 }
-                setTimeout(function (){
-                    clearInterval(interval_program_update)
-                }, 3000);
-            }, 1000)
+            }, 1500)
         })
     }
 });
