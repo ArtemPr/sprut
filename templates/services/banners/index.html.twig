@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+{% block title %}СПРУТ 1.0{% endblock %}
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}
+{% block body %}
+    {{ include('block/header.html.twig') }}
+    <div class="page page-layout">
+        <aside class="navbar navbar-vertical navbar-expand-lg navbar-light">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbar-menu">
+                    {% include 'administrator/block/nav_services.html.twig' with {'controller': 'banners'} %}
+                </div>
+            </div>
+        </aside>
+        <div class="page-wrapper">
+            <div class="container-fluid">
+                {% include 'block/header_list.html.twig' with {'header': 'Баннеры', 'onpage_link': path('service_banners')} %}
+            </div>
+            {% set controller = 'banners' %}
+            <div class="page-body">
+                <div class="container-fluid">
+                    <div class="row row-deck row-cards">
+                        <div class="col-12">
+                            <div class="card">
+                                {% include 'block/search_panel.html.twig' with {
+                                    'close_delete': true,
+                                    'close_edit': false,
+                                    'close_create': false,
+                                    'controller': controller,
+                                    'path': path('service_banners'),
+                                    'add_csv': path('service_banners') ~ '_csv' ~ csv_link,
+                                    'table': table
+                                } %}
+                                <div class="ajax-table">
+                                    {% include 'services/banners/table.html.twig' %}
+                                </div>
+                            </div>
+                            <div id="{{ controller }}ViewPanel" data-action="view"
+                                 class="user-form-panel offcanvas offcanvas-end modal-large" tabindex="-1"
+                                 aria-labelledby="offcanvasEndLabel">
+                                <img src="{{ absolute_url('/assets/images/loading--big.gif') }}"
+                                     style="position: absolute; top: 35%; left: 50%; margin-left: -75px;">
+                            </div>
+                            <div id="{{ controller }}CreationPanel" data-action="add"
+                                 class="user-form-panel offcanvas offcanvas-end modal-large" tabindex="-1"
+                                 aria-labelledby="offcanvasEndLabel">
+                                {% include 'services/banners/form/add.html.twig' %}
+                            </div>
+                            <div id="{{ controller }}EditingPanel" data-action="edit"
+                                 class="user-form-panel offcanvas offcanvas-end modal-middle" tabindex="-1"
+                                 aria-labelledby="offcanvasEndLabel">
+                                <img src="{{ absolute_url('/assets/images/loading--big.gif') }}"
+                                     style="position: absolute; top: 35%; left: 50%; margin-left: -75px;">
+                            </div>
+                            <div id="userEditingOverlay" class="offcanvas-backdrop fade"></div>
+                            {# <div id="bannersEditingOverlay" class="offcanvas-backdrop fade"></div> #}
+                            {% include 'modal/delete.html.twig' %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
