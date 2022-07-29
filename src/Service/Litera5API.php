@@ -60,7 +60,7 @@ class Litera5API
         ]);
 
         if (201 !== $response->getStatusCode()) {
-            throw new \Exception('Response status code is: '.$response->getStatusCode().'. ');
+            throw new \Exception('Response status code is: '.$response->getStatusCode());
         }
 
         $responseJson = $response->getContent();
