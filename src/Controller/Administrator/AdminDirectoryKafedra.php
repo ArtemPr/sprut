@@ -6,6 +6,7 @@
 namespace App\Controller\Administrator;
 
 use App\Entity\Kaferda;
+use App\Entity\ProductLine;
 use App\Entity\TrainingCenters;
 use App\Entity\User;
 use App\Service\AuthService;
@@ -74,6 +75,22 @@ class AdminDirectoryKafedra extends AbstractController
                 'sort' => true,
                 'filter' => true,
             ],
+            [
+                'name' => 'product_line.name',
+                'header' => 'Продуктовое направление',
+                'type' => 'string',
+                'show' => true,
+                'sort' => true,
+                'filter' => true,
+            ],
+            [
+                'name' => 'parent.name',
+                'header' => 'Родительская кафедра',
+                'type' => 'string',
+                'show' => true,
+                'sort' => true,
+                'filter' => true,
+            ],
         ];
     }
 
@@ -94,6 +111,17 @@ class AdminDirectoryKafedra extends AbstractController
 
         $training_centre = $this->managerRegistry->getRepository(TrainingCenters::class)->getList();
         $user = $this->managerRegistry->getRepository(User::class)->getList();
+        $product_lines = $this->managerRegistry->getRepository(ProductLine::class)->getList();
+        $parent_directions = $this->managerRegistry->getRepository(Kaferda::class)->getList();
+
+        // Собираем название кафедры и учебного центра
+        $parent_directions_new = [];
+        foreach ($parent_directions as $key => $direction) {
+            $parent_directions_new[$key] = [
+                'id' => $direction['id'],
+                'name' => $direction['name'].' ('.$direction['training_centre']['name'].')',
+            ];
+        }
 
         // Сводим ФИО в одно поле
         foreach ($result as $key => $val) {
@@ -109,6 +137,8 @@ class AdminDirectoryKafedra extends AbstractController
             'data' => $result,
             'traning_centre' => $training_centre,
             'user'  => $user,
+            'product_lines' => $product_lines,
+            'parent_directions' => $parent_directions_new,
             'pager' => [
                 'count_all_position' => $count,
                 'current_page' => $page,
@@ -169,6 +199,20 @@ class AdminDirectoryKafedra extends AbstractController
     {
         $training_centre = $this->managerRegistry->getRepository(TrainingCenters::class)->getList();
         $user = $this->managerRegistry->getRepository(User::class)->getList();
+        $product_lines = $this->managerRegistry->getRepository(ProductLine::class)->getList();
+        $parent_directions = $this->managerRegistry->getRepository(Kaferda::class)->getList();
+
+        // Собираем название кафедры и учебного центра
+        $parent_directions_new = [];
+        foreach ($parent_directions as $key => $direction) {
+            if ($id == $direction['id']) {
+                continue;
+            }
+            $parent_directions_new[$key] = [
+                'id' => $direction['id'],
+                'name' => $direction['name'].' ('.$direction['training_centre']['name'].')',
+            ];
+        }
 
         $data_out = $this->managerRegistry->getRepository(Kaferda::class)->get($id);
 
@@ -179,6 +223,8 @@ class AdminDirectoryKafedra extends AbstractController
                 'controller' => 'AdminKafedra',
                 'traning_centre' => $training_centre,
                 'user'  => $user,
+                'product_lines' => $product_lines,
+                'parent_directions' => $parent_directions_new,
             ]
         );
     }

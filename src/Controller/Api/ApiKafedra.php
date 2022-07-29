@@ -7,6 +7,7 @@ namespace App\Controller\Api;
 
 use App\Entity\Kaferda;
 use App\Entity\Loger;
+use App\Entity\ProductLine;
 use App\Entity\TrainingCenters;
 use App\Entity\User;
 use App\Repository\KaferdaRepository;
@@ -42,12 +43,19 @@ class ApiKafedra extends AbstractController
             $dir = null;
         }
 
+        $productLine = null;
+        if (!empty($data['product_line'])) {
+            $productLine = $this->doctrine->getRepository(ProductLine::class)->find($data['product_line']);
+        }
+
         $kafedra = new Kaferda();
         $kafedra->setId((int) $data['id']);
         $kafedra->setName(trim($data['name']));
         $kafedra->setTrainingCentre($tc);
         $kafedra->setDirector($dir);
         $kafedra->setDelete(false);
+        $kafedra->setProductLine($productLine);
+        $kafedra->setParentId($data['parent_id']);
         $entityManager = $this->doctrine->getManager();
         $entityManager->persist($kafedra);
         $entityManager->flush();
@@ -84,11 +92,18 @@ class ApiKafedra extends AbstractController
             $dir = null;
         }
 
+        $productLine = null;
+        if (!empty($data['product_line'])) {
+            $productLine = $this->doctrine->getRepository(ProductLine::class)->find($data['product_line']);
+        }
+
         $kafedra = $this->doctrine->getRepository(Kaferda::class)->find((int) $data['id']);
         $kafedra->setName(trim($data['name']));
         $kafedra->setTrainingCentre($tc);
         $kafedra->setDirector($dir);
         $kafedra->setDelete(false);
+        $kafedra->setProductLine($productLine);
+        $kafedra->setParentId($data['parent_id']);
         $entityManager = $this->doctrine->getManager();
         $entityManager->persist($kafedra);
         $entityManager->flush();

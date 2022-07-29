@@ -28,7 +28,7 @@ class ProgramController extends BaseController implements BaseInterface
     {
         $page = $this->get_data['page'] ?? null;
         $on_page = $this->get_data['on_page'] ?? 25;
-        $sort = $this->get_data['sort'] ?? null;
+        $sort = $this->get_data['sort'] ?? 'id__up';
         $select_type = $this->get_data['type'] ?? null;
         $search = $this->get_data['search'] ?? null;
 
@@ -188,12 +188,12 @@ class ProgramController extends BaseController implements BaseInterface
         return [
             ['', '', 'bool', true],
             ['id', 'ID', 'string', true],
-            ['history', 'Ист. данные', 'string', true],
+            //['history', 'Ист. данные', 'string', true],
             ['pt.id', 'Тип', 'string', true],
             ['name', 'Название', 'string', true],
             ['length_week', 'Продолжительность (нед.)', 'string', true],
-            ['length_hour', 'Продолжительность (час.)', 'string', true],
             ['length_week_short', 'Ускоренное обучение (нед.)', 'string', true],
+            ['length_hour', 'Продолжительность (час.)', 'string', true],
             ['fs.id', 'ФГОС', 'string', true],
             ['ps.id', 'ПС', 'string', true],
             ['tc.id', 'Учебные центры', 'string', true],

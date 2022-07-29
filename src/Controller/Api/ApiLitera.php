@@ -31,6 +31,15 @@ class ApiLitera extends AbstractController
     ) {
     }
 
+    public function processItem(Litera $literaEntity, string $rootDir): bool
+    {
+        $intStatus = LiteraRepository::CHECK_STATUS_NEW;
+
+        //
+
+        return false;
+    }
+
     public function add(): JsonResponse
     {
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);

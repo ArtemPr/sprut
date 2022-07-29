@@ -45,20 +45,22 @@ class KaferdaRepository extends ServiceEntityRepository
 
     public function getList(int|null $page = 0, int|null $on_page = 25, string|null $sort = null, string|null $search = null)
     {
-        $page = (empty($page) || $page === 1 || $page === 0) ? 0 : $page - 1;
-        $first_result = (int)$page * (int)$on_page;
+        $page = (empty($page) || 1 === $page || 0 === $page) ? 0 : $page - 1;
+        $first_result = (int) $page * (int) $on_page;
 
         $order = $this->setSort($sort, 'kf');
 
         $qb = $this->createQueryBuilder('kf')
             ->leftJoin('kf.director', 'director')->addSelect('director')
             ->leftJoin('kf.training_centre', 'training_centre')->addSelect('training_centre')
+            ->leftJoin('kf.product_line', 'product_line')->addSelect('product_line')
+            ->leftJoin('kf.parent', 'parent')->addSelect('parent')
             ->where('kf.delete = :delete')
             ->setParameter('delete', false)
             ->orderBy($order[0], $order[1])
-            ;
+        ;
 
-        if(!empty($search)) {
+        if (!empty($search)) {
             $qb->andWhere("LOWER(kf.name) LIKE :search ESCAPE '!'")
                 ->setParameter('search', $this->makeLikeParam(mb_strtolower($search)));
         }
@@ -80,7 +82,7 @@ class KaferdaRepository extends ServiceEntityRepository
             ->where('kafedra.delete = :delete')
             ->setParameter('delete', false);
 
-        if(!empty($search)) {
+        if (!empty($search)) {
             $qb->andWhere("LOWER(kafedra.name) LIKE :search ESCAPE '!'")
                 ->setParameter('search', $this->makeLikeParam(mb_strtolower($search)));
         }
@@ -90,7 +92,7 @@ class KaferdaRepository extends ServiceEntityRepository
             hydrationMode: Query::HYDRATE_ARRAY
         );
 
-        return $result[0][1] ?? 0 ;
+        return $result[0][1] ?? 0;
     }
 
     public function get($id)
@@ -115,16 +117,16 @@ class KaferdaRepository extends ServiceEntityRepository
             if (strstr($sort, '__up')) {
                 $sort = str_replace('__up', ' DESC', $sort);
             } else {
-                $sort .= " ASC";
+                $sort .= ' ASC';
             }
 
             if (!strstr($sort, '.')) {
-                $order = $prefix . '.' . $sort;
+                $order = $prefix.'.'.$sort;
             } else {
                 $order = $sort;
             }
         } else {
-            $order = $prefix . '.id DESC';
+            $order = $prefix.'.id DESC';
         }
 
         return explode(' ', $order);

@@ -60,13 +60,12 @@ class TeleportController extends AbstractController
             if ($key < $start || $key > $end) {
                 continue;
             }
-            $program = $entityManager->getRepository(MasterProgram::class)->find($val->program_id);
+            $program = $entityManager->getRepository(MasterProgram::class)->findOneBy(['global_id' => $val->program_id]);
 
             $type = $entityManager->getRepository(ProgramType::class)->find($val->type);
 
             if (empty($program)) {
                 $program = new MasterProgram();
-                $program->setId($val->program_id);
             }
 
             if ($val->additional_flag == '1') {
@@ -78,6 +77,7 @@ class TeleportController extends AbstractController
             $archive_flag = (!empty($val->archive_flag) && $val->archive_flag == 1) ?
                 false : true;
 
+            $program->setGlobalId($val->program_id);
             $program->setActive($archive_flag);
             $program->setStatus($val->status);
             $program->setName($val->name);
@@ -613,7 +613,7 @@ class TeleportController extends AbstractController
         foreach ($data_item as $key => $val) {
 
             $tc = $doctrine->getRepository(TrainingCenters::class)->find($val->training_center_id);
-            $product = $doctrine->getRepository(MasterProgram::class)->find($val->program_id);
+            $product = $doctrine->getRepository(MasterProgram::class)->findOneBy(['global_id' => $val->program_id]);
             if (!is_null($tc) && !is_null($product)) {
                 $tc->addProgram($product);
                 $entityManager = $doctrine->getManager();
