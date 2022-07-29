@@ -62,4 +62,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
             getProductionData();
         })
     }
+
+    let authorRow = document.querySelector('.author-text-row');
+    if(authorRow) {
+        authorRow.oncontextmenu = (function(e){
+            e.preventDefault();
+            authorRow.click();
+        })
+    }
 })
