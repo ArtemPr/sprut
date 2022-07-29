@@ -34,8 +34,15 @@ class ApiLitera extends AbstractController
     public function processItem(Litera $literaEntity, string $rootDir): bool
     {
         $intStatus = LiteraRepository::CHECK_STATUS_NEW;
+        $itemContent = file_get_contents($rootDir.$literaEntity->getFile());
 
-        //
+        $checkResult = $this->litera5API->setCheck([
+            'html' => $itemContent ?? '',
+        ]);
+
+        dd([
+            '$checkResult' => $checkResult ?? '-',
+        ]);
 
         return false;
     }

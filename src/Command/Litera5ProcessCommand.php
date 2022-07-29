@@ -5,9 +5,11 @@
 
 namespace App\Command;
 
+use App\Controller\Api\ApiLitera;
 use App\Entity\Litera;
 use App\Repository\LiteraRepository;
 use App\Service\Litera5API;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -25,6 +27,7 @@ class Litera5ProcessCommand extends Command
     public function __construct(
         private LiteraRepository $literaRepository,
         private readonly ManagerRegistry $doctrine,
+        protected ApiLitera $apiLitera,
         protected Litera5API $litera5API,
         protected KernelInterface $appKernel
     ) {
@@ -75,6 +78,13 @@ class Litera5ProcessCommand extends Command
         if (empty($itemRow)) {
             throw new \Exception('[E] Item is not found!');
         }
+
+        $literaResult = $this->apiLitera->processItem($itemRow, $this->projectDir);
+
+        dd([
+            '$itemRow' => $itemRow ?? '-',
+            '$literaResult' => $literaResult ?? '-',
+        ]);
 
         $result = $this->litera5API->setCheck([
             'document' => '', // Идентификатор документа в Литере, если его нет - будет создан новый документ
