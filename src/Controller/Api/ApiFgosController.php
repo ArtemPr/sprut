@@ -8,6 +8,7 @@ namespace App\Controller\Api;
 use App\Entity\FederalStandart;
 use App\Entity\FederalStandartCompetencies;
 use App\Entity\Loger;
+use App\Service\LoggerService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,8 +16,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ApiFgosController extends AbstractController
 {
+    use LoggerService;
+
     public function __construct(
-        private ManagerRegistry $managerRegistry
+        private ManagerRegistry $managerRegistry,
+        private readonly ManagerRegistry $doctrine
     ) {
     }
 
@@ -80,16 +84,7 @@ class ApiFgosController extends AbstractController
             }
         }
 
-        $loger = new Loger();
-        $loger->setTime(new \DateTime());
-        $loger->setAction('update_fgos');
-        $loger->setUserLoger($this->getUser());
-        $loger->setIp($request->server->get('REMOTE_ADDR'));
-        $loger->setChapter('ФГОС');
-        $loger->setComment($data['id'].' '.$data['name']);
-        $entityManager = $this->managerRegistry->getManager();
-        $entityManager->persist($loger);
-        $entityManager->flush();
+        $this->logAction('update_fgos', 'ФГОС', $data['id'].' '.$data['name']);
 
         return $this->json(['result' => 'success', 'id' => $data['id']]);
     }
@@ -133,16 +128,7 @@ class ApiFgosController extends AbstractController
             }
         }
 
-        $loger = new Loger();
-        $loger->setTime(new \DateTime());
-        $loger->setAction('add_fs');
-        $loger->setUserLoger($this->getUser());
-        $loger->setIp($request->server->get('REMOTE_ADDR'));
-        $loger->setChapter('Федеральные страндарты');
-        $loger->setComment('Создание федерального страндарта '.$lastId.' '.$data['name']);
-        $entityManager = $this->managerRegistry->getManager();
-        $entityManager->persist($loger);
-        $entityManager->flush();
+        $this->logAction('add_fs', 'Федеральные страндарты', 'Создание федерального страндарта '.$lastId.' '.$data['name']);
 
         return $this->json(['result' => 'success', 'id' => $lastId]);
     }

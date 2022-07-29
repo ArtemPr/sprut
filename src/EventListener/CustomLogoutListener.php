@@ -5,17 +5,22 @@
 namespace App\EventListener;
 
 use App\Entity\Loger;
+use App\Service\LoggerService;
 use Doctrine\Persistence\ManagerRegistry;
 use JetBrains\PhpStorm\NoReturn;
 use Symfony\Component\Security\Http\Event\LogoutEvent;
 
 class CustomLogoutListener
 {
+    use LoggerService;
     public function __construct(
-        private ManagerRegistry $managerRegistry
+        private ManagerRegistry $managerRegistry,
+        private readonly ManagerRegistry $doctrine
     )
     {
     }
+
+    private $user;
 
     /**
      * @param LogoutEvent $logoutEvent
@@ -25,15 +30,13 @@ class CustomLogoutListener
     public function onSymfonyComponentSecurityHttpEventLogoutEvent(LogoutEvent $logoutEvent): void
     {
         if ($logoutEvent->getToken()) {
-            $loger = new Loger();
-            $loger->setTime(new \DateTime());
-            $loger->setAction('logout');
-            $loger->setUserLoger($logoutEvent->getToken()->getUser());
-            $loger->setIp($logoutEvent->getRequest()->server->get('REMOTE_ADDR'));
-            $loger->setChapter('Пользователи');
-            $entityManager = $this->managerRegistry->getManager();
-            $entityManager->persist($loger);
-            $entityManager->flush();
+            $this->user = $logoutEvent->getToken()->getUser();
+            $this->logAction('logout', 'Пользователи', null);
         }
+    }
+
+    private function getUser()
+    {
+        return $this->user;
     }
 }
