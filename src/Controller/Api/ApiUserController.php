@@ -15,6 +15,8 @@ use App\Entity\Loger;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Service\ApiService;
+use App\Service\LoggerService;
+use App\Service\MailService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
