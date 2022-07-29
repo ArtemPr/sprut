@@ -85,34 +85,108 @@
                                 <option value="3">Высшее</option>
                             </select>
                         </div>
-                        <div class="mb-3">
-                            <div class="form-label fgos-label">Требования работодателя</div>
-                            <select class="form-select" name="employer">
-                                <option disabled {% if data.employer_requirements[0]['id']|default(false) == false %}selected{% endif %}>
-                                    Выберите требование
-                                </option>
-                                {% for er in employer_requirements %}
-                                    <option value="{{ er.id }}"
-                                            {% if data.employer_requirements.id|default(false) and er.id == data.employer_requirements.id %}selected{% endif %}>
-                                        {{ er.requirement_name | raw }}
-                                    </option>
-                                {% endfor %}
-                            </select>
+                        <div class="tab-pane" id="tabs-ex1">
+                            <div class="dual-controls-wrap mb-4">
+                                <div class="dual-controls-label mb-3"><b>Выберите требования работодателя</b></div>
+                                <div class="dual-controls-box col-12">
+                                    <div class="dual-listbox dual-listbox--employer-update">
+                                        <ul class="dual-controls-select dual-controls-select_create dual-listbox__available">
+                                            {% if employer_requirements|default(false) %}
+                                                {% for er in employer_requirements %}
+                                                    {% if data.employer_requirements|default(false) and (er.id in data.employer_requirements) %}
+                                                        <li class="dual-listbox__item dual-listbox__item--selected"
+                                                            title="{{ er.requirement_name }}" value="{{ er.id }}">
+                                                            {{ er.requirement_name }}
+                                                        </li>
+                                                    {% else %}
+                                                        <li class="dual-listbox__item" title="{{ er.requirement_name }}"
+                                                            value="{{ er.id }}">
+                                                            {{ er.requirement_name }}
+                                                        </li>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% endif %}
+                                        </ul>
+                                        <select hidden name="employer[]" id="employer-select-hidden--update" multiple>
+                                            {% if employer_requirements|default(false) %}
+                                                {% for er in employer_requirements %}
+                                                    {% if data.employer_requirements|default(false) and (er.id in data.employer_requirements) %}
+                                                        <option class="dual-listbox__item" title="{{ er.requirement_name }}" value="{{ er.id }}" selected>
+                                                            {{ er.requirement_name }}
+                                                        </option>
+                                                    {% else %}
+                                                        <option class="dual-listbox__item" title="{{ er.requirement_name }}" value="{{ er.id }}">
+                                                            {{ er.requirement_name }}
+                                                        </option>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% endif %}
+                                        </select>
+                                        <div class="dual-listbox__buttons">
+                                            <button type="button" name="add_all" class="dual-listbox__button">&gt;&gt;
+                                            </button>
+                                            <button type="button" name="add_one" class="dual-listbox__button">&gt;
+                                            </button>
+                                            <button type="button" name="remove_one" class="dual-listbox__button">&lt;
+                                            </button>
+                                            <button type="button" name="remove_all" class="dual-listbox__button">&lt;&lt;
+                                            </button>
+                                        </div>
+                                        <ul class="dual-controls-select dual-controls-select_create  dual-listbox__selected"></ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <div class="form-label fgos-label">Потенциальные места работы</div>
-                            <select class="form-select" name="potential">
-                                <option disabled
-                                        {% if data.potential_jobs[0]['id']|default(false) == false %}selected{% endif %}>
-                                    Выберите потенциальное место работы
-                                </option>
-                                {% for pj in potential_jobs %}
-                                    <option value="{{ pj.id }}"
-                                            {% if data.potential_jobs.id|default(false) and pj.id == data.potential_jobs.id %}selected{% endif %}>
-                                        {{ pj.jobs_name | raw }}
-                                    </option>
-                                {% endfor %}
-                            </select>
+                        <div class="tab-pane" id="tabs-ex2">
+                            <div class="dual-controls-wrap mb-4">
+                                <div class="dual-controls-label mb-3"><b>Выберите потенциальные места работы</b></div>
+                                <div class="dual-controls-box col-12">
+                                    <div class="dual-listbox dual-listbox--potential-update">
+                                        <ul class="dual-controls-select dual-controls-select_create dual-listbox__available">
+                                            {% if potential_jobs|default(false) %}
+                                                {% for pj in potential_jobs %}
+                                                    {% if data.potential_jobs|default(false) and (pj.id in data.potential_jobs) %}
+                                                        <li class="dual-listbox__item dual-listbox__item--selected" title="{{ pj.jobs_name }}" value="{{ pj.id }}">
+                                                            {{ pj.jobs_name }}
+                                                        </li>
+                                                    {% else %}
+                                                        <li class="dual-listbox__item" title="{{ pj.jobs_name }}" value="{{ pj.id }}">
+                                                            {{ pj.jobs_name }}
+                                                        </li>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% endif %}
+                                        </ul>
+                                        <select hidden name="potential[]" id="potential-select-hidden--update" multiple>
+                                            {% if potential_jobs|default(false) %}
+                                                {% for pj in potential_jobs %}
+                                                    {% if data.potential_jobs|default(false) and (pj.id in data.potential_jobs) %}
+                                                        <option class="dual-listbox__item" title="{{ pj.jobs_name }}" value="{{ pj.id }}" selected>
+                                                            {{ pj.jobs_name }}
+                                                        </option>
+                                                    {% else %}
+                                                        <option class="dual-listbox__item"
+                                                                title="{{ pj.jobs_name }}" value="{{ pj.id }}">
+                                                            {{ pj.jobs_name }}
+                                                        </option>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% endif %}
+                                        </select>
+                                        <div class="dual-listbox__buttons">
+                                            <button type="button" name="add_all" class="dual-listbox__button">&gt;&gt;
+                                            </button>
+                                            <button type="button" name="add_one" class="dual-listbox__button">&gt;
+                                            </button>
+                                            <button type="button" name="remove_one" class="dual-listbox__button">&lt;
+                                            </button>
+                                            <button type="button" name="remove_all" class="dual-listbox__button">&lt;&lt;
+                                            </button>
+                                        </div>
+                                        <ul class="dual-controls-select dual-controls-select_create  dual-listbox__selected"></ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="mb-3 fgos-education">
                             <label class="form-label">Выберите образование</label>
