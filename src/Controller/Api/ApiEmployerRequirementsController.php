@@ -20,7 +20,7 @@ class ApiEmployerRequirementsController extends AbstractController
     use ApiService;
     use LoggerService;
 
-    public function __construct(private ManagerRegistry $managerRegistry, private readonly ManagerRegistry $doctrine)
+    public function __construct(private readonly ManagerRegistry $doctrine)
     {
     }
 
@@ -28,7 +28,7 @@ class ApiEmployerRequirementsController extends AbstractController
     {
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
         $data = $request->request->all();
-        $name = $this->managerRegistry->getRepository(EmployerRequirements::class)->findOneBy(['requirement_name' => trim($data['requirement_name'])]);
+        $name = $this->doctrine->getRepository(EmployerRequirements::class)->findOneBy(['requirement_name' => trim($data['requirement_name'])]);
         if (!empty($name)) {
             return $this->json(['result' => 'error']);
         }
