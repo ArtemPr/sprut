@@ -15,19 +15,17 @@ use App\Entity\Loger;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Service\ApiService;
-use App\Service\MailService;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/api', name: 'api')]
 class ApiUserController extends AbstractController
 {
     use ApiService;
+    use LoggerService;
 
     public function __construct(
         private UserRepository $userRepository,
@@ -82,17 +80,6 @@ class ApiUserController extends AbstractController
 
         if (!empty($data['password']) && !empty($data['password2']) && $data['password'] === $data['password2']) {
 
-            $find_user = $this->doctrine->getRepository(User::class)->findOneBy(['email' => $data['email']]);
-
-            if (!empty($find_user)) {
-                return $this->json(
-                    [
-                        'result' => 'error',
-                        'massege' => 'duplicate email address'
-                    ]
-                );
-            }
-
             $user = new User();
             $user->setUsername($data['username'] ? trim($data['username']) : '');
             $user->setPatronymic($data['patronymic'] ? trim($data['patronymic']) : '');
@@ -121,7 +108,6 @@ class ApiUserController extends AbstractController
                     $data['roles'][] = 'ROLE_USER';
                 }
             }
-
             $user->setRoles($data['roles']);
 
             $user->setDelete(false);
@@ -146,17 +132,7 @@ class ApiUserController extends AbstractController
             $entityManager->flush();
             $lastId = $user->getId();
 
-
-            $loger = new Loger();
-            $loger->setTime(new \DateTime());
-            $loger->setAction('add_user');
-            $loger->setUserLoger($this->getUser());
-            $loger->setIp($request->server->get('REMOTE_ADDR'));
-            $loger->setChapter('Пользователи');
-            $loger->setComment('Добавлен пользователь ' . $lastId . ' ' . $data['username']);
-            $entityManager = $this->doctrine->getManager();
-            $entityManager->persist($loger);
-            $entityManager->flush();
+            $this->logAction('add_user', 'Пользователи', 'Добавлен пользователь ' . $lastId . ' ' . $data['username']);
 
             $message = $this->renderView('mail/new_user.html.twig',
                 [
@@ -240,17 +216,7 @@ class ApiUserController extends AbstractController
         $entityManager->persist($user);
         $entityManager->flush();
 
-
-        $loger = new Loger();
-        $loger->setTime(new \DateTime());
-        $loger->setAction('update_user');
-        $loger->setUserLoger($this->getUser());
-        $loger->setIp($request->server->get('REMOTE_ADDR'));
-        $loger->setChapter('Пользователи');
-        $loger->setComment('Обновлены данные пользователя ' . $data['id'] . ' ' . $data['username']);
-        $entityManager = $this->doctrine->getManager();
-        $entityManager->persist($loger);
-        $entityManager->flush();
+        $this->logAction('update_user', 'Пользователи', 'Обновлены данные пользователя ' . $data['id'] . ' ' . $data['username']);
 
         return $this->json(['result' => 'success', 'id' => $data['id']]);
     }
@@ -275,16 +241,7 @@ class ApiUserController extends AbstractController
 
         $data = $this->doctrine->getRepository(User::class)->find((int)$id);
 
-        $loger = new Loger();
-        $loger->setTime(new \DateTime());
-        $loger->setAction('delete_user');
-        $loger->setUserLoger($this->getUser());
-        $loger->setIp($request->server->get('REMOTE_ADDR'));
-        $loger->setChapter('Пользователи');
-        $loger->setComment($id . ' ' . $data->getUsername());
-        $entityManager = $this->doctrine->getManager();
-        $entityManager->persist($loger);
-        $entityManager->flush();
+        $this->logAction('delete_user', 'Пользователи', $id . ' ' . $data->getUsername());
 
         return $this->json(['result' => 'success', 'id'=>$id]);
     }

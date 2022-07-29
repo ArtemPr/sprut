@@ -8,12 +8,15 @@ namespace App\Controller\Api;
 use App\Entity\Loger;
 use App\Entity\ProfStandarts;
 use App\Service\ApiService;
+use App\Service\LoggerService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 
 class ApiPS extends AbstractController
-{use ApiService;
+{
+    use ApiService;
+    use LoggerService;
 
     public function __construct(
         private readonly ManagerRegistry $doctrine
@@ -33,17 +36,7 @@ class ApiPS extends AbstractController
         $entityManager->flush();
         $lastId = $tc->getId();
 
-
-        $loger = new Loger();
-        $loger->setTime(new \DateTime());
-        $loger->setAction('add_ps');
-        $loger->setUserLoger($this->getUser());
-        $loger->setIp($request->server->get('REMOTE_ADDR'));
-        $loger->setChapter('Профессиональные стандарты');
-        $loger->setComment($lastId . ' ' . $data['name']);
-        $entityManager = $this->doctrine->getManager();
-        $entityManager->persist($loger);
-        $entityManager->flush();
+        $this->logAction('add_ps', 'Профессиональные стандарты', $lastId . ' ' . $data['name']);
 
         return $this->json(['result' => 'success', 'id'=>$lastId]);
     }
@@ -60,17 +53,7 @@ class ApiPS extends AbstractController
         $entityManager->persist($tc);
         $entityManager->flush();
 
-
-        $loger = new Loger();
-        $loger->setTime(new \DateTime());
-        $loger->setAction('add_update');
-        $loger->setUserLoger($this->getUser());
-        $loger->setIp($request->server->get('REMOTE_ADDR'));
-        $loger->setChapter('Профессиональные стандарты');
-        $loger->setComment($data['id'] . ' ' . $data['name']);
-        $entityManager = $this->doctrine->getManager();
-        $entityManager->persist($loger);
-        $entityManager->flush();
+        $this->logAction('add_update', 'Профессиональные стандарты', $data['id'] . ' ' . $data['name']);
 
         return $this->json(['result' => 'success', 'id'=>$data['id']]);
     }

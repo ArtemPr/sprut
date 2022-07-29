@@ -9,6 +9,7 @@ use App\Entity\EmployerRequirements;
 use App\Entity\Loger;
 use App\Repository\EmployerRequirementsRepository;
 use App\Service\ApiService;
+use App\Service\LoggerService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,6 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 class ApiEmployerRequirementsController extends AbstractController
 {
     use ApiService;
+    use LoggerService;
 
     public function __construct(private ManagerRegistry $managerRegistry, private readonly ManagerRegistry $doctrine)
     {
@@ -39,16 +41,7 @@ class ApiEmployerRequirementsController extends AbstractController
         $entityManager->flush();
         $lastId = $employer_requirements->getId();
 
-        $loger = new Loger();
-        $loger->setTime(new \DateTime());
-        $loger->setAction('add_employer_requirements');
-        $loger->setUserLoger($this->getUser());
-        $loger->setIp($request->server->get('REMOTE_ADDR'));
-        $loger->setChapter('Требования работодателя');
-        $loger->setComment('Добавлено требование работодателя '.$lastId.' '.$data['requirement_name'].' '.$data['comment']);
-        $entityManager = $this->doctrine->getManager();
-        $entityManager->persist($loger);
-        $entityManager->flush();
+        $this->logAction('add_employer_requirements', 'Требования работодателя', 'Добавлено требование работодателя '.$lastId.' '.$data['requirement_name'].' '.$data['comment']);
 
         return $this->json(['result' => 'success', 'id' => $lastId]);
     }
@@ -65,16 +58,7 @@ class ApiEmployerRequirementsController extends AbstractController
         $entityManager->persist($employer_requirements);
         $entityManager->flush();
 
-        $loger = new Loger();
-        $loger->setTime(new \DateTime());
-        $loger->setAction('update_employer_requirements');
-        $loger->setUserLoger($this->getUser());
-        $loger->setIp($request->server->get('REMOTE_ADDR'));
-        $loger->setChapter('Требования работодателя');
-        $loger->setComment('Обновлено требование работодателя '.$data['id'].' '.$data['requirement_name'].' '.$data['comment']);
-        $entityManager = $this->doctrine->getManager();
-        $entityManager->persist($loger);
-        $entityManager->flush();
+        $this->logAction('update_employer_requirements', 'Требования работодателя', 'Обновлено требование работодателя '.$data['id'].' '.$data['requirement_name'].' '.$data['comment']);
 
         return $this->json(['result' => 'success', 'id' => $data['id']]);
     }
@@ -91,16 +75,7 @@ class ApiEmployerRequirementsController extends AbstractController
         $entityManager->flush();
 
         $data = $this->doctrine->getRepository(EmployerRequirements::class)->find((int) $id);
-        $loger = new Loger();
-        $loger->setTime(new \DateTime());
-        $loger->setAction('delete_employer_requirements');
-        $loger->setUserLoger($this->getUser());
-        $loger->setIp($request->server->get('REMOTE_ADDR'));
-        $loger->setChapter('Требования работодателя');
-        $loger->setComment('Удалено требование работодателя '.$data->getId().' '.$data->getRequirementName().' '.$data->getComment());
-        $entityManager = $this->doctrine->getManager();
-        $entityManager->persist($loger);
-        $entityManager->flush();
+        $this->logAction('delete_employer_requirements', 'Требования работодателя', 'Удалено требование работодателя '.$data->getId().' '.$data->getRequirementName().' '.$data->getComment());
 
         return $this->json(['result' => 'success', 'id' => $id]);
     }

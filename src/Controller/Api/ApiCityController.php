@@ -7,6 +7,7 @@ namespace App\Controller\Api;
 
 use App\Entity\City;
 use App\Entity\Loger;
+use App\Service\LoggerService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,6 +15,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ApiCityController extends AbstractController
 {
+    use LoggerService;
+
     public function __construct(private ManagerRegistry $managerRegistry, private readonly ManagerRegistry $doctrine)
     {
     }
@@ -35,16 +38,7 @@ class ApiCityController extends AbstractController
         $entityManager->flush();
         $lastId = $city->getId();
 
-        $logger = new Loger();
-        $logger->setTime(new \DateTime());
-        $logger->setAction('add_city');
-        $logger->setUserLoger($this->getUser());
-        $logger->setIp($request->server->get('REMOTE_ADDR'));
-        $logger->setChapter('Города');
-        $logger->setComment('Добавление города '.$lastId.' '.$data['name']);
-        $entityManager = $this->doctrine->getManager();
-        $entityManager->persist($logger);
-        $entityManager->flush();
+        $this->logAction('add_city', 'Города', 'Добавление города '.$lastId.' '.$data['name']);
 
         return $this->json(['result' => 'success', 'id' => $lastId]);
     }
@@ -56,16 +50,7 @@ class ApiCityController extends AbstractController
         $fs = $this->managerRegistry->getRepository(City::class)->find((int) $data['id']);
         $fs->setName(trim($data['name']));
 
-        $logger = new Loger();
-        $logger->setTime(new \DateTime());
-        $logger->setAction('update_city');
-        $logger->setUserLoger($this->getUser());
-        $logger->setIp($request->server->get('REMOTE_ADDR'));
-        $logger->setChapter('Города');
-        $logger->setComment($data['id'].' '.$data['name']);
-        $entityManager = $this->doctrine->getManager();
-        $entityManager->persist($logger);
-        $entityManager->flush();
+        $this->logAction('update_city', 'Города', $data['id'].' '.$data['name']);
 
         return $this->json(['result' => 'success', 'id' => $data['id']]);
     }
