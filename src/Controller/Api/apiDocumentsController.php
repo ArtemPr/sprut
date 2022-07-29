@@ -19,7 +19,7 @@ class apiDocumentsController extends AbstractController
     use UploadedFilesService;
     use LoggerService;
 
-    public function __construct(private ManagerRegistry $managerRegistry, private readonly ManagerRegistry $doctrine)
+    public function __construct(private readonly ManagerRegistry $doctrine)
     {
     }
 
@@ -28,7 +28,7 @@ class apiDocumentsController extends AbstractController
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
         $data = $request->request->all();
 
-        $fs = $this->managerRegistry->getRepository(DocumentTemplates::class)
+        $fs = $this->doctrine->getRepository(DocumentTemplates::class)
             ->findOneBy(['template_name' => trim($data['dt-name']), 'delete' => 'true']);
         if (!empty($fs)) {
             return $this->json(['result' => 'error']);
@@ -64,7 +64,7 @@ class apiDocumentsController extends AbstractController
     {
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
         $data = $request->request->all();
-        $fs = $this->managerRegistry->getRepository(DocumentTemplates::class)->find((int) $data['id']);
+        $fs = $this->doctrine->getRepository(DocumentTemplates::class)->find((int) $data['id']);
         $fs->setActive($data['active']);
         $fs->setTemplateName(trim($data['dt-name']));
         $fs->setComment(trim($data['dt-comment']));

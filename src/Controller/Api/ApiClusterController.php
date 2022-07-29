@@ -15,7 +15,6 @@ class ApiClusterController extends AbstractController
     use LoggerService;
 
     public function __construct(
-        private ManagerRegistry $managerRegistry,
         private readonly ManagerRegistry $doctrine
     ) {
     }
@@ -25,10 +24,10 @@ class ApiClusterController extends AbstractController
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
         $data = $request->request->all();
 
-        $cluster = $this->managerRegistry->getRepository(Cluster::class)->find((int) $data['id']);
+        $cluster = $this->doctrine->getRepository(Cluster::class)->find((int) $data['id']);
         $cluster->setName(trim($data['name']));
 
-        $entityManager = $this->managerRegistry->getManager();
+        $entityManager = $this->doctrine->getManager();
         $entityManager->persist($cluster);
         $entityManager->flush();
 
@@ -45,7 +44,7 @@ class ApiClusterController extends AbstractController
         $cluster = new Cluster();
         $cluster->setName($data['name']);
 
-        $entityManager = $this->managerRegistry->getManager();
+        $entityManager = $this->doctrine->getManager();
         $entityManager->persist($cluster);
         $entityManager->flush();
         $lastId = $cluster->getId();

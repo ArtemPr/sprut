@@ -18,7 +18,7 @@ class ApiProgramTypeController extends AbstractController
 {
     use LoggerService;
 
-    public function __construct(private ManagerRegistry $managerRegistry, private readonly ManagerRegistry $doctrine)
+    public function __construct(private readonly ManagerRegistry $doctrine)
     {
     }
 
@@ -26,7 +26,7 @@ class ApiProgramTypeController extends AbstractController
     {
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
         $data = $request->request->all();
-        $name = $this->managerRegistry->getRepository(ProgramType::class)->findOneBy(['name_type' => trim($data['name_type'])]);
+        $name = $this->doctrine->getRepository(ProgramType::class)->findOneBy(['name_type' => trim($data['name_type'])]);
         if (!empty($name)) {
             return $this->json(['result' => 'error']);
         }

@@ -15,7 +15,6 @@ class ApiProductLineController extends AbstractController
     use LoggerService;
 
     public function __construct(
-        private ManagerRegistry $managerRegistry,
         private readonly ManagerRegistry $doctrine
     ) {
     }
@@ -25,13 +24,13 @@ class ApiProductLineController extends AbstractController
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
         $data = $request->request->all();
 
-        $cluster = $this->managerRegistry->getRepository(Cluster::class)->find((int) $data['cluster']);
+        $cluster = $this->doctrine->getRepository(Cluster::class)->find((int) $data['cluster']);
 
-        $productLine = $this->managerRegistry->getRepository(ProductLine::class)->find((int) $data['id']);
+        $productLine = $this->doctrine->getRepository(ProductLine::class)->find((int) $data['id']);
         $productLine->setName(trim($data['name']));
         $productLine->setCluster($cluster);
 
-        $entityManager = $this->managerRegistry->getManager();
+        $entityManager = $this->doctrine->getManager();
         $entityManager->persist($productLine);
         $entityManager->flush();
 
@@ -45,13 +44,13 @@ class ApiProductLineController extends AbstractController
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
         $data = $request->request->all();
 
-        $cluster = $this->managerRegistry->getRepository(Cluster::class)->find($data['cluster']);
+        $cluster = $this->doctrine->getRepository(Cluster::class)->find($data['cluster']);
 
         $product_line = new ProductLine();
         $product_line->setName(trim($data['name']));
         $product_line->setCluster($cluster);
 
-        $entityManager = $this->managerRegistry->getManager();
+        $entityManager = $this->doctrine->getManager();
         $entityManager->persist($product_line);
         $entityManager->flush();
         $lastId = $product_line->getId();
