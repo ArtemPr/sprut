@@ -48,7 +48,7 @@ services:
             $login: 'developer1@gaps.edu.ru'
             $password: '4wVQDLeNn'
             $company_name: 'academcity-online'
-            $api_address: 'api.antiplagiat.ru:44902'
+            $api_address: 'academcity-online.antiplagiat.ru:44902'
             $ext_user: 'developer1'
 
     # Сервис Литера5
