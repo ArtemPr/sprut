@@ -8,6 +8,7 @@ namespace App\Controller\Api;
 use App\Entity\Loger;
 use App\Entity\ProgramType;
 use App\Repository\ProgramTypeRepository;
+use App\Service\LoggerService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,6 +16,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ApiProgramTypeController extends AbstractController
 {
+    use LoggerService;
+
     public function __construct(private ManagerRegistry $managerRegistry, private readonly ManagerRegistry $doctrine)
     {
     }
@@ -35,16 +38,7 @@ class ApiProgramTypeController extends AbstractController
         $entityManager->flush();
         $lastId = $program_type->getId();
 
-        $loger = new Loger();
-        $loger->setTime(new \DateTime());
-        $loger->setAction('add_program_type');
-        $loger->setUserLoger($this->getUser());
-        $loger->setIp($request->server->get('REMOTE_ADDR'));
-        $loger->setChapter('Тип программы');
-        $loger->setComment('Обновление типов программ '.$lastId.' '.$data['name_type'].' '.$data['short_name_type']);
-        $entityManager = $this->doctrine->getManager();
-        $entityManager->persist($loger);
-        $entityManager->flush();
+        $this->logAction('add_program_type', 'Тип программы', 'Обновление типов программ '.$lastId.' '.$data['name_type'].' '.$data['short_name_type']);
 
         return $this->json(['result' => 'success', 'id' => $lastId]);
     }
@@ -60,16 +54,7 @@ class ApiProgramTypeController extends AbstractController
         $entityManager->persist($program_type);
         $entityManager->flush();
 
-        $loger = new Loger();
-        $loger->setTime(new \DateTime());
-        $loger->setAction('update_program_type');
-        $loger->setUserLoger($this->getUser());
-        $loger->setIp($request->server->get('REMOTE_ADDR'));
-        $loger->setChapter('Тип программы');
-        $loger->setComment($data['id'].' '.$data['name_type'].' '.$data['short_name_type']);
-        $entityManager = $this->doctrine->getManager();
-        $entityManager->persist($loger);
-        $entityManager->flush();
+        $this->logAction('update_program_type', 'Тип программы', $data['id'].' '.$data['name_type'].' '.$data['short_name_type']);
 
         return $this->json(['result' => 'success', 'id' => $data['id']]);
     }

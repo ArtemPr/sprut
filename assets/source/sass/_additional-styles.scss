@@ -1,6 +1,7 @@
 // правки для перебивания таблера и основных стилей, мелкие изменения
 
-.ajax-table--program {
+.ajax-table--program,
+.ajax-table--discipline {
   .users-table-wrap {
     max-height: calc(100vh - 530px);
     min-height: 275px;
@@ -254,7 +255,7 @@
 }
 
 .ck-editor__editable {
-  min-height: 50vh;
+  min-height: 30vh;
 }
 
 .spinner-save {
@@ -266,5 +267,23 @@
 }
 
 .spinner-save img {
-  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%)
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%)
+}
+
+.tab-table {
+  min-height: 150px;
+}
+
+#authorTextModal {
+  .btn:hover {
+    border-color: #1e293b !important;
+  }
+  .modal-body {
+   // display: flex; flex-direction: column; align-items: center;
+
+
+  }
 }

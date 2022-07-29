@@ -59,7 +59,7 @@
                                             selected
                                         {% endif %}
                                     >
-                                        {{ discipline.name | replace({'&amp;': '&'}) | replace({'&ndash;': '-'}) | escape('html') }}
+                                        {{ discipline.name | replace({'&amp;amp;': '&', '&amp;': '&'}) | replace({'&ndash;': '-', '&amp;mdash;': '-', '&quot;': '"', '&laquo;': '«', '&raquo;': '»'}) | raw }}
                                         {% if discipline.comment %}
                                             ({{ discipline.comment | raw }})
                                         {% endif %}

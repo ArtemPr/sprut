@@ -5,7 +5,9 @@
 
 namespace App\Controller\Api;
 
+use App\Entity\Loger;
 use App\Entity\PotentialJobs;
+use App\Repository\PotentialJobsRepository;
 use App\Service\ApiService;
 use App\Service\LoggerService;
 use Doctrine\Persistence\ManagerRegistry;
@@ -38,8 +40,8 @@ class ApiPotentialJobsController extends AbstractController
         $entityManager->persist($potential_jobs);
         $entityManager->flush();
         $lastId = $potential_jobs->getId();
-        $this->logAction('add_potential_jobs', 'Потенциальное место работы',
-            'Добавление потенциального места работы '.$lastId.' '.$data['jobs_name'].' '.$data['comment']);
+
+        $this->logAction('add_potential_jobs', 'Потенциальное место работы', 'Добавление потенциального места работы '.$lastId.' '.$data['jobs_name'].' '.$data['comment']);
 
         return $this->json(['result' => 'success', 'id' => $lastId]);
     }
@@ -55,8 +57,8 @@ class ApiPotentialJobsController extends AbstractController
         $entityManager = $this->doctrine->getManager();
         $entityManager->persist($potential_jobs);
         $entityManager->flush();
-        $this->logAction('update_potential_jobs', 'Потенциальное место работы',
-            'Обновление потенциального места работы '.$data['id'].' '.$data['jobs_name'].' '.$data['comment']);
+
+        $this->logAction('update_potential_jobs', 'Потенциальное место работы', 'Обновление потенциального места работы '.$data['id'].' '.$data['jobs_name'].' '.$data['comment']);
 
         return $this->json(['result' => 'success', 'id' => $data['id']]);
     }
@@ -65,14 +67,15 @@ class ApiPotentialJobsController extends AbstractController
     {
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
         $data_comment = $request->request->all();
+
         $potential_jobs = $this->doctrine->getRepository(PotentialJobs::class)->find((int) $id);
         $potential_jobs->setDelete(true);
         $entityManager = $this->doctrine->getManager();
         $entityManager->persist($potential_jobs);
         $entityManager->flush();
+
         $data = $this->doctrine->getRepository(PotentialJobs::class)->find((int) $id);
-        $this->logAction('delete_potential_jobs', 'Потенциальное место работы',
-            'Удалено потенциального места работы '.$data_comment['id'].' '.$data_comment['jobs_name'].' '.$data_comment['comment']);
+        $this->logAction('delete_potential_jobs', 'Потенциальное место работы', 'Удалено потенциального места работы '.$data_comment['id'].' '.$data_comment['jobs_name'].' '.$data_comment['comment']);
 
         return $this->json(['result' => 'success', 'id' => $id]);
     }

@@ -6,6 +6,8 @@
 namespace App\Controller\Api;
 
 use App\Entity\EmployerRequirements;
+use App\Entity\Loger;
+use App\Repository\EmployerRequirementsRepository;
 use App\Service\ApiService;
 use App\Service\LoggerService;
 use Doctrine\Persistence\ManagerRegistry;
@@ -22,7 +24,7 @@ class ApiEmployerRequirementsController extends AbstractController
     {
     }
 
-    public function add() : Response
+    public function add(): Response
     {
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
         $data = $request->request->all();
@@ -38,8 +40,8 @@ class ApiEmployerRequirementsController extends AbstractController
         $entityManager->persist($employer_requirements);
         $entityManager->flush();
         $lastId = $employer_requirements->getId();
-        $this->logAction('add_employer_requirements', 'Требования работодателя',
-            'Добавлено требование работодателя '.$lastId.' '.$data['requirement_name'].' '.$data['comment']);
+
+        $this->logAction('add_employer_requirements', 'Требования работодателя', 'Добавлено требование работодателя '.$lastId.' '.$data['requirement_name'].' '.$data['comment']);
 
         return $this->json(['result' => 'success', 'id' => $lastId]);
     }
@@ -55,8 +57,8 @@ class ApiEmployerRequirementsController extends AbstractController
         $entityManager = $this->doctrine->getManager();
         $entityManager->persist($employer_requirements);
         $entityManager->flush();
-        $this->logAction('update_employer_requirements', 'Требования работодателя',
-            'Обновлено требование работодателя '.$data['id'].' '.$data['requirement_name'].' '.$data['comment']);
+
+        $this->logAction('update_employer_requirements', 'Требования работодателя', 'Обновлено требование работодателя '.$data['id'].' '.$data['requirement_name'].' '.$data['comment']);
 
         return $this->json(['result' => 'success', 'id' => $data['id']]);
     }
@@ -65,14 +67,15 @@ class ApiEmployerRequirementsController extends AbstractController
     {
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
         $data = $request->request->all();
+
         $employer_requirements = $this->doctrine->getRepository(EmployerRequirements::class)->find((int) $id);
         $employer_requirements->setDelete(true);
         $entityManager = $this->doctrine->getManager();
         $entityManager->persist($employer_requirements);
         $entityManager->flush();
+
         $data = $this->doctrine->getRepository(EmployerRequirements::class)->find((int) $id);
-        $this->logAction('delete_employer_requirements', 'Требования работодателя',
-            'Удалено требование работодателя '.$data->getId().' '.$data->getRequirementName().' '.$data->getComment());
+        $this->logAction('delete_employer_requirements', 'Требования работодателя', 'Удалено требование работодателя '.$data->getId().' '.$data->getRequirementName().' '.$data->getComment());
 
         return $this->json(['result' => 'success', 'id' => $id]);
     }

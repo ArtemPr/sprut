@@ -41,13 +41,18 @@ class AntiplagiatAPI
             $this->api_address,
             $this->company_name
         );
-        $this->client = new \SoapClient($wdsl, [
-            'trace' => 1,
-            'login' => $this->login,
-            'password' => $this->password,
-            'soap_version' => \SOAP_1_1,
-            'features' => \SOAP_SINGLE_ELEMENT_ARRAYS,
-        ]);
+
+        try {
+            $this->client = new \SoapClient($wdsl, [
+                'trace' => 1,
+                'login' => $this->login,
+                'password' => $this->password,
+                'soap_version' => \SOAP_1_1,
+                'features' => \SOAP_SINGLE_ELEMENT_ARRAYS,
+            ]);
+        } catch (\SoapFault $exception) {
+            throw new \Exception('[ ] Antiplagiat connection error: '.$exception->getMessage());
+        }
 
         libxml_disable_entity_loader($xmlEntityLoader);
 

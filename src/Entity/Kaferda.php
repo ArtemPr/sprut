@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\KaferdaRepository;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Integer;
 
 #[ORM\Entity(repositoryClass: KaferdaRepository::class)]
 class Kaferda
@@ -20,6 +21,12 @@ class Kaferda
 
     #[ORM\ManyToOne(targetEntity: TrainingCenters::class)]
     private $training_centre;
+
+    #[ORM\ManyToOne(targetEntity: self::class)]
+    private $parent;
+
+    #[ORM\ManyToOne(targetEntity: ProductLine::class)]
+    private $product_line;
 
     #[ORM\Column(type: 'boolean', nullable: true)]
     private $delete;
@@ -83,5 +90,29 @@ class Kaferda
         $this->delete = $delete;
 
         return $this;
+    }
+
+    public function setProductLine(?ProductLine $productLine): self
+    {
+        $this->product_line = $productLine;
+
+        return $this;
+    }
+
+    public function getProductLine(): ?ProductLine
+    {
+        return $this->product_line;
+    }
+
+    public function setParentId($parentId): self
+    {
+        $this->parent_id = $parentId;
+
+        return $this;
+    }
+
+    public function getParentId(): int
+    {
+        return $this->parent_id;
     }
 }

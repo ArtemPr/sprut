@@ -16,6 +16,7 @@ use App\Controller\Administrator\AdminDirectoryEmployerRequirements;
 use App\Controller\Administrator\AdminDirectoryFGOS;
 use App\Controller\Administrator\AdminDirectoryKafedra;
 use App\Controller\Administrator\AdminDirectoryPotentialJobs;
+use App\Controller\Administrator\AdminDirectoryProductLine;
 use App\Controller\Administrator\AdminDirectoryProgramType;
 use App\Controller\Administrator\AdminDirectorySubdivisions;
 use App\Controller\Administrator\AdminDirectoryTrainingCentre;
@@ -123,7 +124,7 @@ class FormController extends AbstractController
         return $adminDirectorySubdivisions->getSubdivisionsForm($id);
     }
 
-    #[Route('/cluster_edit/{id}', name: 'form_edit')]
+    #[Route('/cluster_edit/{id}', name: 'cluster_edit')]
     public function getClusterForm($id, AdminDirectoryCluster $adminDirectoryCluster): Response
     {
         return $adminDirectoryCluster->getClusterForm($id);
@@ -139,5 +140,11 @@ class FormController extends AbstractController
     public function getDocumentVariablesForm($id, DocumentsVariablesController $DocumentsVariablesController): Response
     {
         return $DocumentsVariablesController->getDocumentTemplatesForm($id);
+    }
+
+    #[Route('/product_line_edit/{id}', name: 'product_line_edit')]
+    public function getProductLineForm($id, AdminDirectoryProductLine $adminDirectoryProductLine): Response
+    {
+        return $adminDirectoryProductLine->getProductLineForm($id);
     }
 }

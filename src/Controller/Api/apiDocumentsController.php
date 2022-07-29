@@ -55,16 +55,7 @@ class apiDocumentsController extends AbstractController
         $entityManager->flush();
         $lastId = $DocumentTemplates->getId();
 
-        $logger = new Loger();
-        $logger->setTime(new \DateTime());
-        $logger->setAction('add_document_templates');
-        $logger->setUserLoger($this->getUser());
-        $logger->setIp($request->server->get('REMOTE_ADDR'));
-        $logger->setChapter('Шаблоны документов');
-        $logger->setComment('Добавление шаблона документа  '.$lastId.' '.$data['dt-name']);
-        $entityManager = $this->doctrine->getManager();
-        $entityManager->persist($logger);
-        $entityManager->flush();
+        $this->logAction('add_document_templates', 'Шаблоны документов', 'Добавление шаблона документа  '.$lastId.' '.$data['dt-name']);
 
         return $this->json(['result' => 'success', 'id' => $lastId]);
     }
@@ -79,16 +70,7 @@ class apiDocumentsController extends AbstractController
         $fs->setComment(trim($data['dt-comment']));
         $fs->setDateChange(new \DateTime());
 
-        $logger = new Loger();
-        $logger->setTime(new \DateTime());
-        $logger->setAction('update_document_templates');
-        $logger->setUserLoger($this->getUser());
-        $logger->setIp($request->server->get('REMOTE_ADDR'));
-        $logger->setChapter('Шаблоны документов');
-        $logger->setComment($data['id'].' '.$data['dt-name']);
-        $entityManager = $this->doctrine->getManager();
-        $entityManager->persist($logger);
-        $entityManager->flush();
+        $this->logAction('update_document_templates', 'Шаблоны документов', $data['id'].' '.$data['dt-name']);
 
         return $this->json(['result' => 'success', 'id' => $data['id']]);
     }
@@ -106,16 +88,7 @@ class apiDocumentsController extends AbstractController
 
         $data = $this->doctrine->getRepository(DocumentTemplates::class)->find($id);
 
-        $loger = new Loger();
-        $loger->setTime(new \DateTime());
-        $loger->setAction('delete_document_templates');
-        $loger->setUserLoger($this->getUser());
-        $loger->setIp($request->server->get('REMOTE_ADDR'));
-        $loger->setChapter('Шаблоны документов');
-        $loger->setComment($id.' '.$data->getTemplateName());
-        $entityManager = $this->doctrine->getManager();
-        $entityManager->persist($loger);
-        $entityManager->flush();
+        $this->logAction('delete_document_templates', 'Шаблоны документов', $id.' '.$data->getTemplateName());
 
         return $this->json(['result' => 'success', 'id' => $id]);
     }

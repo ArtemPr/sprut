@@ -15,6 +15,8 @@ use App\Entity\Loger;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Service\ApiService;
+use App\Service\LoggerService;
+use App\Service\MailService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,10 +27,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class ApiUserController extends AbstractController
 {
     use ApiService;
+    use LoggerService;
 
     public function __construct(
         private UserRepository $userRepository,
-        private ManagerRegistry $doctrine
+        private ManagerRegistry $doctrine,
+        private MailService $mailService
     ) {
     }
 
@@ -99,8 +103,12 @@ class ApiUserController extends AbstractController
 
             $user->setCreatedAt(new \DateTime());
 
-            if (!in_array('ROLE_USER', $data['roles'])) {
+            if (empty($data['roles'])) {
                 $data['roles'][] = 'ROLE_USER';
+            } else {
+                if (!in_array('ROLE_USER', $data['roles'])) {
+                    $data['roles'][] = 'ROLE_USER';
+                }
             }
             $user->setRoles($data['roles']);
 
@@ -126,21 +134,30 @@ class ApiUserController extends AbstractController
             $entityManager->flush();
             $lastId = $user->getId();
 
+            $this->logAction('add_user', 'Пользователи', 'Добавлен пользователь ' . $lastId . ' ' . $data['username']);
 
-            $loger = new Loger();
-            $loger->setTime(new \DateTime());
-            $loger->setAction('add_user');
-            $loger->setUserLoger($this->getUser());
-            $loger->setIp($request->server->get('REMOTE_ADDR'));
-            $loger->setChapter('Пользователи');
-            $loger->setComment('Добавлен пользователь ' . $lastId . ' ' . $data['username']);
-            $entityManager = $this->doctrine->getManager();
-            $entityManager->persist($loger);
-            $entityManager->flush();
+            $message = $this->renderView('mail/new_user.html.twig',
+                [
+                    'email' => $data['email'],
+                    'password' => $data['password']
+                ]
+            );
+
+            $this->mailService->sendMail(
+                from: 'sender@i-spo.ru',
+                to: $data['email'],
+                subject: 'Создание аккаунта в системе СПРУТ',
+                message: $message
+            );
 
             return $this->json(['result' => 'success', 'id' => $lastId]);
         } else {
-            return $this->json(['result' => 'error']);
+            return $this->json(
+                [
+                    'result' => 'error',
+                    'massege' => 'password resolve'
+                ]
+            );
         }
     }
 
@@ -201,17 +218,7 @@ class ApiUserController extends AbstractController
         $entityManager->persist($user);
         $entityManager->flush();
 
-
-        $loger = new Loger();
-        $loger->setTime(new \DateTime());
-        $loger->setAction('update_user');
-        $loger->setUserLoger($this->getUser());
-        $loger->setIp($request->server->get('REMOTE_ADDR'));
-        $loger->setChapter('Пользователи');
-        $loger->setComment('Обновлены данные пользователя ' . $data['id'] . ' ' . $data['username']);
-        $entityManager = $this->doctrine->getManager();
-        $entityManager->persist($loger);
-        $entityManager->flush();
+        $this->logAction('update_user', 'Пользователи', 'Обновлены данные пользователя ' . $data['id'] . ' ' . $data['username']);
 
         return $this->json(['result' => 'success', 'id' => $data['id']]);
     }
@@ -236,16 +243,7 @@ class ApiUserController extends AbstractController
 
         $data = $this->doctrine->getRepository(User::class)->find((int)$id);
 
-        $loger = new Loger();
-        $loger->setTime(new \DateTime());
-        $loger->setAction('delete_user');
-        $loger->setUserLoger($this->getUser());
-        $loger->setIp($request->server->get('REMOTE_ADDR'));
-        $loger->setChapter('Пользователи');
-        $loger->setComment($id . ' ' . $data->getUsername());
-        $entityManager = $this->doctrine->getManager();
-        $entityManager->persist($loger);
-        $entityManager->flush();
+        $this->logAction('delete_user', 'Пользователи', $id . ' ' . $data->getUsername());
 
         return $this->json(['result' => 'success', 'id'=>$id]);
     }

@@ -81,6 +81,22 @@ class LiteraController extends BaseController implements BaseInterface
     {
     }
 
+    #[Route('/form/litera_edit/{id}', name: 'litera_edit')]
+    public function getItemForm($id)
+    {
+        $disciplines = $this->managerRegistry->getRepository(Discipline::class)->getList(0, 9999999999, 'name');
+        $data_out = $this->managerRegistry->getRepository(Litera::class)->get($id);
+
+        return $this->render(
+            'services/litera/form/update_form.html.twig',
+            [
+                'data' => $data_out[0] ?? null,
+                'controller' => 'Litera',
+                'disciplines' => $disciplines,
+            ]
+        );
+    }
+
     private function setTable(): array
     {
         return [

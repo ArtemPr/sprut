@@ -44,6 +44,30 @@
                 </div>
             </div>
 
+            <div class="form-group mb-3 row">
+                <label class="form-label col-3 col-form-label">Продуктовое направление</label>
+                <div class="col">
+                    <select class="form-select" name="product_line">
+                        <option disabled selected>Выберите направление из списка</option>
+                        {% for pl in product_lines %}
+                            <option value="{{ pl.id }}">{{ pl.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group mb-3 row">
+                <label class="form-label col-3 col-form-label">Родительское направление</label>
+                <div class="col">
+                    <select class="form-select" name="parent_id">
+                        <option selected>Выберите направление из списка</option>
+                        {% for pd in parent_directions %}
+                            <option value="{{ pd.id }}">{{ pd.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
             <div class="d-flex mb-4">
                 <button data-form-id="kafedra_add-create" data-action="send-form" type="submit"
                         class="btn btn-primary ms-auto"

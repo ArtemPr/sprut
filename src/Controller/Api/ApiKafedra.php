@@ -7,10 +7,12 @@ namespace App\Controller\Api;
 
 use App\Entity\Kaferda;
 use App\Entity\Loger;
+use App\Entity\ProductLine;
 use App\Entity\TrainingCenters;
 use App\Entity\User;
 use App\Repository\KaferdaRepository;
 use App\Service\ApiService;
+use App\Service\LoggerService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,6 +20,7 @@ use Symfony\Component\HttpFoundation\Request;
 class ApiKafedra extends AbstractController
 {
     use ApiService;
+    use LoggerService;
 
     public function __construct(
         private readonly KaferdaRepository $kaferdaRepository,
@@ -42,27 +45,25 @@ class ApiKafedra extends AbstractController
             $dir = null;
         }
 
+        $productLine = null;
+        if (!empty($data['product_line'])) {
+            $productLine = $this->doctrine->getRepository(ProductLine::class)->find($data['product_line']);
+        }
+
         $kafedra = new Kaferda();
         $kafedra->setId((int) $data['id']);
         $kafedra->setName(trim($data['name']));
         $kafedra->setTrainingCentre($tc);
         $kafedra->setDirector($dir);
         $kafedra->setDelete(false);
+        $kafedra->setProductLine($productLine);
+        $kafedra->setParentId($data['parent_id']);
         $entityManager = $this->doctrine->getManager();
         $entityManager->persist($kafedra);
         $entityManager->flush();
         $lastId = $kafedra->getId();
 
-        $loger = new Loger();
-        $loger->setTime(new \DateTime());
-        $loger->setAction('add_kafedra');
-        $loger->setUserLoger($this->getUser());
-        $loger->setIp($request->server->get('REMOTE_ADDR'));
-        $loger->setChapter('Кафедры');
-        $loger->setComment('Обновление кафедры ' . $lastId . ' ' . $data['name']);
-        $entityManager = $this->doctrine->getManager();
-        $entityManager->persist($loger);
-        $entityManager->flush();
+        $this->logAction('add_kafedra', 'Кафедры', 'Обновление кафедры ' . $lastId . ' ' . $data['name']);
 
         return $this->json(['result' => 'success', 'id' => $lastId]);
     }
@@ -84,25 +85,23 @@ class ApiKafedra extends AbstractController
             $dir = null;
         }
 
+        $productLine = null;
+        if (!empty($data['product_line'])) {
+            $productLine = $this->doctrine->getRepository(ProductLine::class)->find($data['product_line']);
+        }
+
         $kafedra = $this->doctrine->getRepository(Kaferda::class)->find((int) $data['id']);
         $kafedra->setName(trim($data['name']));
         $kafedra->setTrainingCentre($tc);
         $kafedra->setDirector($dir);
         $kafedra->setDelete(false);
+        $kafedra->setProductLine($productLine);
+        $kafedra->setParentId($data['parent_id']);
         $entityManager = $this->doctrine->getManager();
         $entityManager->persist($kafedra);
         $entityManager->flush();
 
-        $loger = new Loger();
-        $loger->setTime(new \DateTime());
-        $loger->setAction('update_kafedra');
-        $loger->setUserLoger($this->getUser());
-        $loger->setIp($request->server->get('REMOTE_ADDR'));
-        $loger->setChapter('Кафедры');
-        $loger->setComment($data['id'] . ' ' . $data['name']);
-        $entityManager = $this->doctrine->getManager();
-        $entityManager->persist($loger);
-        $entityManager->flush();
+        $this->logAction('update_kafedra', 'Кафедры', $data['id'] . ' ' . $data['name']);
 
         return $this->json(['result' => 'success', 'id' => $data['id']]);
     }
@@ -120,16 +119,7 @@ class ApiKafedra extends AbstractController
 
         $data = $this->doctrine->getRepository(Kaferda::class)->find((int)$id);
 
-        $loger = new Loger();
-        $loger->setTime(new \DateTime());
-        $loger->setAction('delete_kafedra');
-        $loger->setUserLoger($this->getUser());
-        $loger->setIp($request->server->get('REMOTE_ADDR'));
-        $loger->setChapter('Кафедры');
-        $loger->setComment($id . ' ' . $data->getName());
-        $entityManager = $this->doctrine->getManager();
-        $entityManager->persist($loger);
-        $entityManager->flush();
+        $this->logAction('delete_kafedra', 'Кафедры', $id . ' ' . $data->getName());
 
         return $this->json(['result' => 'success', 'id' => $id]);
     }
