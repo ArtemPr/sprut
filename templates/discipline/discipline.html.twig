@@ -13,7 +13,7 @@
             {% set controller = 'discipline' %}
             <div class="page-body">
                 <div class="container-fluid">
-                    <div class="row row-deck row-cards">
+                    <div class="row row-deck row-cards mb-3">
                         <div class="col-12">
                             <div class="card">
                                 {% include 'block/search_panel.html.twig' with {
@@ -25,7 +25,7 @@
                                     'add_csv': path('discipline') ~ '_csv' ~ csv_link,
                                     'table' : table
                                 } %}
-                                <div class="ajax-table">
+                                <div class="ajax-table ajax-table--discipline">
                                     {{ include('discipline/discipline_table.html.twig') }}
                                 </div>
                             </div>
@@ -42,6 +42,147 @@
                             {% include 'modal/delete.html.twig' with {'controller': 'discipline'} %}
                         </div>
                     </div>
+
+                    <div class="row row-deck row-cards">
+                        <div class="col-12">
+                            <div class="card">
+                            <ul class="nav nav-tabs" data-bs-toggle="tabs" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <a href="#discipline-tab-1" class="nav-link active" data-bs-toggle="tab"
+                                       aria-selected="true" role="tab"><b>Этапы</b></a>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <a href="#discipline-tab-2" class="nav-link" data-bs-toggle="tab"
+                                       aria-selected="true" role="tab"><b>Tab 2</b></a>
+                                </li>
+                            </ul>
+
+                                <div class="card-body p-0">
+                                    <div class="tab-content">
+                                        <div class="tab-pane show active" id="discipline-tab-1" role="tabpanel">
+                                            <div class="">
+                                                <div class="users-table-wrap table-responsive tab-table">
+                                                    <table
+                                                        class="users-table editable-table table card-table table-vcenter text-nowrap datatable">
+                                                        <thead>
+                                                        <tr>
+                                                            <th></th>
+                                                            <th>Название</th>
+                                                            <th>Исполнитель</th>
+                                                            <th>Описание</th>
+                                                            <th>Комментарий</th>
+                                                            <td class="hidden-cell">
+                                                                <input class="selected-checkbox" type="checkbox" name="#">
+                                                            </td>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr class="editable-table-row">
+                                                            <td>
+                                                                <span class="badge bg-success" title="утвержден" data-bs-toggle="tooltip"></span>
+                                                            </td>
+                                                            <td>
+                                                                Авторский текст
+                                                            </td>
+                                                            <td>
+                                                                Иванов И.И.
+                                                            </td>
+                                                            <td>
+                                                                Редактирование дисциплины
+                                                            </td>
+                                                            <td>
+                                                                Lorem ipsum dolorem
+                                                            </td>
+                                                            <td class="hidden-cell">
+                                                                <input class="selected-checkbox" type="checkbox" name="#">
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="editable-table-row production-row"
+                                                            data-bs-toggle="offcanvas" href="#disciplineEditor" aria-controls="disciplineEditor"
+                                                        >
+                                                            <td>
+                                                                <span class="badge bg-success" title="утвержден" data-bs-toggle="tooltip"></span>
+                                                            </td>
+                                                            <td>
+                                                                Производство
+                                                            </td>
+                                                            <td>
+                                                                Иванов И.И.
+                                                            </td>
+                                                            <td>
+                                                                Редактирование дисциплины
+                                                            </td>
+                                                            <td>
+                                                                Lorem ipsum
+                                                            </td>
+                                                            <td class="hidden-cell">
+                                                                <input class="selected-checkbox" type="checkbox" name="#">
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="editable-table-row">
+                                                            <td>
+                                                                <span class="badge bg-success" title="утвержден" data-bs-toggle="tooltip"></span>
+                                                            </td>
+                                                            <td>
+                                                                Антиплагиат (привязка ранее проверенных)
+                                                            </td>
+                                                            <td>
+                                                                Иванов И.И.
+                                                            </td>
+                                                            <td>
+                                                                Редактирование дисциплины
+                                                            </td>
+                                                            <td>
+                                                                Lorem ipsum
+                                                            </td>
+                                                            <td class="hidden-cell">
+                                                                <input class="selected-checkbox" type="checkbox" name="#">
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="editable-table-row">
+                                                            <td>
+                                                                <span class="badge bg-success" title="утвержден" data-bs-toggle="tooltip"></span>
+                                                            </td>
+                                                            <td>
+                                                                Антиплагиат
+                                                            </td>
+                                                            <td>
+                                                                Иванов И.И.
+                                                            </td>
+                                                            <td>
+                                                                Редактирование дисциплины
+                                                            </td>
+                                                            <td>
+                                                                Lorem ipsum
+                                                            </td>
+                                                            <td class="hidden-cell">
+                                                                <input class="selected-checkbox" type="checkbox" name="#">
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+{#                                                {% include 'discipline/discipline-editor.html.twig' %}#}
+                                                <div class="offcanvas offcanvas-end modal-large discipline-editor" tabindex="-1" id="disciplineEditor"
+                                                     aria-labelledby="disciplineEditorLabel">
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="discipline-tab-2" role="tabpanel">
+                                            <div class="p-3">
+                                                Раздел находится в разработке tab 2
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
                 </div>
             </div>
         </div>

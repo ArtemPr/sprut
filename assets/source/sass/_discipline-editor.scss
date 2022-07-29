@@ -1,0 +1,22 @@
+/*!
+ * Created AptPr <prudishew@yandex.ru> 2022.
+ */
+
+.discipline-editor {
+  &__icons {
+    display: flex;
+    align-items: center;
+
+    .btn, .btn:hover {
+      background-color: transparent !important;
+      border: none;
+      padding: 0.5rem;
+    }
+  }
+
+
+
+  &__columns {
+    display: flex;
+  }
+}

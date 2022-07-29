@@ -93,6 +93,8 @@ class ApiProgramController extends AbstractController
 
         $program = new MasterProgram();
         $program->setName(trim($data['name']));
+        $program->setActive(!empty($data['active']) ? true : false);
+        $program->setStatus('new');
         $program->setProgramType($type);
 
         $program->addFederalStandart($fgos);
@@ -131,7 +133,9 @@ class ApiProgramController extends AbstractController
 
         $program = $this->doctrine->getRepository(MasterProgram::class)->find($data['id']);
         $program->setName(trim($data['name']));
+        $program->setActive(!empty($data['active']) ? true : false);
         $program->setProgramType($type);
+        $program->setStatus($data['status'] ?? 'new');
 
         // $program->addFederalStandart($fgos);
 
