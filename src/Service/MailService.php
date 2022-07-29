@@ -5,40 +5,30 @@
 
 namespace App\Service;
 
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
 
 class MailService
 {
-    public function __construct(
-        private MailerInterface $mailer
-    )
+    public function __construct(private MailerInterface $mailer)
     {
-        $this->templatedEmail = new TemplatedEmail();
     }
-
 
     public function sendMail(
         string $from,
         string $to,
         string $subject,
-        string $message,
-        ?string $bcc = null
+        string $message
     )
     {
         $email = (new Email())
-            ->from(Address::create($from))
-                ->to(Address::create($to))
+            ->from(new Address($from))
+                ->to(new Address($to))
                 ->subject($subject)
+                ->text($message)
                 ->html($message);
-            if (!empty($bcc)) {
-                $email->bcc(Address::create($bcc));
-            }
-
 
         $this->mailer->send($email);
-
     }
 }
