@@ -19,7 +19,6 @@ class ApiFgosController extends AbstractController
     use LoggerService;
 
     public function __construct(
-        private ManagerRegistry $managerRegistry,
         private readonly ManagerRegistry $doctrine
     ) {
     }
@@ -29,7 +28,7 @@ class ApiFgosController extends AbstractController
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
         $data = $request->request->all();
 
-        $fs = $this->managerRegistry->getRepository(FederalStandart::class)->find((int) $data['id']);
+        $fs = $this->doctrine->getRepository(FederalStandart::class)->find((int) $data['id']);
         $fs->setName(trim($data['name']));
         $fs->setShortName(trim($data['short_name']));
         $fs->setActive(!empty($data['active']) ? true : false);
@@ -42,17 +41,17 @@ class ApiFgosController extends AbstractController
             $data_create = mktime(1, 0, 0, $data_create[1], $data_create[2], $data_create[0]);
             $fs->setDateCreate(new \DateTime(date('r', $data_create)));
         }
-        $entityManager = $this->managerRegistry->getManager();
+        $entityManager = $this->doctrine->getManager();
         $entityManager->persist($fs);
         $entityManager->flush();
 
-        $fs = $this->managerRegistry->getRepository(FederalStandart::class)->find((int) $data['id']);
+        $fs = $this->doctrine->getRepository(FederalStandart::class)->find((int) $data['id']);
 
         if (!empty($data['comp_delete'])) {
             foreach ($data['comp_delete'] as $v) {
-                $qd = $this->managerRegistry->getRepository(FederalStandartCompetencies::class)->find($v);
+                $qd = $this->doctrine->getRepository(FederalStandartCompetencies::class)->find($v);
                 $qd->setDelete(true);
-                $entityManager = $this->managerRegistry->getManager();
+                $entityManager = $this->doctrine->getManager();
                 $entityManager->persist($fs);
                 $entityManager->flush();
             }
@@ -62,7 +61,7 @@ class ApiFgosController extends AbstractController
             foreach ($data['comp_name'] as $k => $v) {
                 $comp_name = $data['comp_name'][$k];
                 $comp_code = $data['comp_code'][$k];
-                $qb = $this->managerRegistry->getRepository(FederalStandartCompetencies::class)->find($k);
+                $qb = $this->doctrine->getRepository(FederalStandartCompetencies::class)->find($k);
                 $qb->setName($comp_name)->setCode($comp_code);
                 $entityManager->persist($qb);
                 $entityManager->flush();
@@ -107,14 +106,14 @@ class ApiFgosController extends AbstractController
         $federal_s->setPrNum($data['pr_num']);
         $federal_s->setOldName(null);
 
-        $entityManager = $this->managerRegistry->getManager();
+        $entityManager = $this->doctrine->getManager();
         $entityManager->persist($federal_s);
         $entityManager->flush();
         $lastId = $federal_s->getId();
 
         if (!empty($data['comp_name_new'])) {
 
-            $fs = $this->managerRegistry->getRepository(FederalStandart::class)->find((int) $lastId);
+            $fs = $this->doctrine->getRepository(FederalStandart::class)->find((int) $lastId);
             foreach ($data['comp_name_new'] as $k => $v) {
                 $comp_name = $data['comp_name_new'][$k];
                 $comp_code = $data['comp_code_new'][$k];

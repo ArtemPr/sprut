@@ -19,7 +19,7 @@ class ApiDocumentVariablesController extends AbstractController
     use UploadedFilesService;
     use LoggerService;
 
-    public function __construct(private ManagerRegistry $managerRegistry, private readonly ManagerRegistry $doctrine)
+    public function __construct(private readonly ManagerRegistry $doctrine)
     {
     }
 
@@ -28,7 +28,7 @@ class ApiDocumentVariablesController extends AbstractController
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
         $data = $request->request->all();
 
-        $fs = $this->managerRegistry->getRepository(DocumentsVariables::class)
+        $fs = $this->doctrine->getRepository(DocumentsVariables::class)
             ->findOneBy(['name' => trim($data['name'])]);
         if (!empty($fs)) {
             return $this->json(['result' => 'error']);
@@ -55,7 +55,7 @@ class ApiDocumentVariablesController extends AbstractController
     {
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
         $data = $request->request->all();
-        $fs = $this->managerRegistry->getRepository(DocumentsVariables::class)->find((int) $data['id']);
+        $fs = $this->doctrine->getRepository(DocumentsVariables::class)->find((int) $data['id']);
         $fs->setVariableValue(trim($data['variable_value']));
         $fs->setName($data['name']);
         $fs->setLinkedField($data['linked_field']);

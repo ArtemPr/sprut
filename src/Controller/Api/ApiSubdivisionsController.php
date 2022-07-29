@@ -19,7 +19,7 @@ class ApiSubdivisionsController extends AbstractController
     use ApiService;
     use LoggerService;
 
-    public function __construct(private ManagerRegistry $managerRegistry, private readonly ManagerRegistry $doctrine)
+    public function __construct(private readonly ManagerRegistry $doctrine)
     {
     }
 
@@ -27,7 +27,7 @@ class ApiSubdivisionsController extends AbstractController
     {
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
         $data = $request->request->all();
-        $name = $this->managerRegistry->getRepository(Subdivisions::class)->findOneBy(['subdivisions_name' => trim($data['subdivisions_name'])]);
+        $name = $this->doctrine->getRepository(Subdivisions::class)->findOneBy(['subdivisions_name' => trim($data['subdivisions_name'])]);
         if (!empty($name)) {
             return $this->json(['result' => 'error']);
         }

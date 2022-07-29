@@ -17,7 +17,7 @@ class ApiDirectionsController extends \Symfony\Bundle\FrameworkBundle\Controller
     use LoggerService;
     use ApiService;
 
-    public function __construct(private ManagerRegistry $managerRegistry, private readonly ManagerRegistry $doctrine)
+    public function __construct(private readonly ManagerRegistry $doctrine)
     {
     }
 
@@ -25,7 +25,7 @@ class ApiDirectionsController extends \Symfony\Bundle\FrameworkBundle\Controller
     {
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
         $data = $request->request->all();
-        $name = $this->managerRegistry->getRepository(Directions::class)->findOneBy(['direction_name' => trim($data['direction_name'])]);
+        $name = $this->doctrine->getRepository(Directions::class)->findOneBy(['direction_name' => trim($data['direction_name'])]);
         if (!empty($name)) {
             return $this->json(['result' => 'error']);
         }

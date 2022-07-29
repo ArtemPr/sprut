@@ -253,10 +253,22 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     customDualSelect(userDualBoxAdd, hiddenSelectAdd)
 
+    const employerDualBoxAdd = document.querySelector('.dual-listbox--employer-add');
+    let hiddenSelectEmployer = document.querySelector('#employer-select-hidden--add');
+    customDualSelect(employerDualBoxAdd, hiddenSelectEmployer)
+    const potentialDualBoxAdd = document.querySelector('.dual-listbox--potential-add');
+    let hiddenSelectPotential = document.querySelector('#potential-select-hidden--add');
+    customDualSelect(potentialDualBoxAdd, hiddenSelectPotential)
+
     let userDualBoxUpdate = null
     let hiddenSelectUpdate = null
+    let employerDualBoxUpdate = null
+    let employerSelectUpdate = null
+    let potentialDualBoxUpdate = null
+    let potentialSelectUpdate = null
 
     const editTriggerBtn = document.querySelector('[href="#AdminUserEditingPanel"]');
+    const programTriggerBtn = document.querySelector('[href="#programEditingPanel"]');
     if (editTriggerBtn) {
         editTriggerBtn.addEventListener('click', function () {
             let interval_update = setInterval(function () {
@@ -265,6 +277,21 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 if (userDualBoxUpdate !== null && hiddenSelectUpdate !== null) {
                     customDualSelect(userDualBoxUpdate, hiddenSelectUpdate)
                     clearInterval(interval_update);
+                }
+            }, 1500)
+        })
+    }
+    if (programTriggerBtn) {
+        programTriggerBtn.addEventListener('click', function () {
+            let interval_program_update = setInterval(function () {
+                employerDualBoxUpdate = document.querySelector('.dual-listbox--employer-update');
+                employerSelectUpdate = document.querySelector('#employer-select-hidden--update');
+                potentialDualBoxUpdate = document.querySelector('.dual-listbox--potential-update');
+                potentialSelectUpdate = document.querySelector('#potential-select-hidden--update');
+                if (employerDualBoxUpdate !== null && employerSelectUpdate !== null && potentialDualBoxUpdate !== null && potentialSelectUpdate !== null) {
+                    customDualSelect(employerDualBoxUpdate, employerSelectUpdate)
+                    customDualSelect(potentialDualBoxUpdate, potentialSelectUpdate)
+                    clearInterval(interval_program_update);
                 }
             }, 1500)
         })
