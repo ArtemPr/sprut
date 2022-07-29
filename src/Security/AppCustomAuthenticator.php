@@ -28,7 +28,6 @@ class AppCustomAuthenticator extends AbstractLoginFormAuthenticator
 
     public function __construct(
         private UrlGeneratorInterface $urlGenerator,
-        private ManagerRegistry $managerRegistry,
         private readonly ManagerRegistry $doctrine
     ) {
     }

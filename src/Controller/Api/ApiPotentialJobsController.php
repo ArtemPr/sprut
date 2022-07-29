@@ -20,7 +20,7 @@ class ApiPotentialJobsController extends AbstractController
     use ApiService;
     use LoggerService;
 
-    public function __construct(private ManagerRegistry $managerRegistry, private readonly ManagerRegistry $doctrine)
+    public function __construct(private readonly ManagerRegistry $doctrine)
     {
     }
 
@@ -28,7 +28,7 @@ class ApiPotentialJobsController extends AbstractController
     {
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
         $data = $request->request->all();
-        $name = $this->managerRegistry->getRepository(PotentialJobs::class)->findOneBy(['jobs_name' => trim($data['jobs_name'])]);
+        $name = $this->doctrine->getRepository(PotentialJobs::class)->findOneBy(['jobs_name' => trim($data['jobs_name'])]);
         if (!empty($name)) {
             return $this->json(['result' => 'error']);
         }

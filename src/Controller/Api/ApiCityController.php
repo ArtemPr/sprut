@@ -17,7 +17,7 @@ class ApiCityController extends AbstractController
 {
     use LoggerService;
 
-    public function __construct(private ManagerRegistry $managerRegistry, private readonly ManagerRegistry $doctrine)
+    public function __construct(private readonly ManagerRegistry $doctrine)
     {
     }
 
@@ -26,7 +26,7 @@ class ApiCityController extends AbstractController
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
         $data = $request->request->all();
 
-        $fs = $this->managerRegistry->getRepository(City::class)->findOneBy(['name' => trim($data['name'])]);
+        $fs = $this->doctrine->getRepository(City::class)->findOneBy(['name' => trim($data['name'])]);
         if (!empty($fs)) {
             return $this->json(['result' => 'error']);
         }
@@ -47,7 +47,7 @@ class ApiCityController extends AbstractController
     {
         $request = new Request($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
         $data = $request->request->all();
-        $fs = $this->managerRegistry->getRepository(City::class)->find((int) $data['id']);
+        $fs = $this->doctrine->getRepository(City::class)->find((int) $data['id']);
         $fs->setName(trim($data['name']));
 
         $this->logAction('update_city', 'Города', $data['id'].' '.$data['name']);
