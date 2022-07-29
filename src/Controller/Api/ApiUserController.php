@@ -15,7 +15,9 @@ use App\Entity\Loger;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Service\ApiService;
+use App\Service\MailService;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,7 +30,8 @@ class ApiUserController extends AbstractController
 
     public function __construct(
         private UserRepository $userRepository,
-        private ManagerRegistry $doctrine
+        private ManagerRegistry $doctrine,
+        private MailService $mailService
     ) {
     }
 
@@ -78,6 +81,17 @@ class ApiUserController extends AbstractController
 
         if (!empty($data['password']) && !empty($data['password2']) && $data['password'] === $data['password2']) {
 
+            $find_user = $this->doctrine->getRepository(User::class)->findOneBy(['email' => $data['email']]);
+
+            if (!empty($find_user)) {
+                return $this->json(
+                    [
+                        'result' => 'error',
+                        'massege' => 'duplicate email address'
+                    ]
+                );
+            }
+
             $user = new User();
             $user->setUsername($data['username'] ? trim($data['username']) : '');
             $user->setPatronymic($data['patronymic'] ? trim($data['patronymic']) : '');
@@ -99,9 +113,14 @@ class ApiUserController extends AbstractController
 
             $user->setCreatedAt(new \DateTime());
 
-            if (!in_array('ROLE_USER', $data['roles'])) {
+            if (empty($data['roles'])) {
                 $data['roles'][] = 'ROLE_USER';
+            } else {
+                if (!in_array('ROLE_USER', $data['roles'])) {
+                    $data['roles'][] = 'ROLE_USER';
+                }
             }
+
             $user->setRoles($data['roles']);
 
             $user->setDelete(false);
@@ -138,9 +157,28 @@ class ApiUserController extends AbstractController
             $entityManager->persist($loger);
             $entityManager->flush();
 
+            $message = $this->renderView('mail/new_user.html.twig',
+                [
+                    'email' => $data['email'],
+                    'password' => $data['password']
+                ]
+            );
+
+            $this->mailService->sendMail(
+                from: 'developer1@gaps.edu.ru',
+                to: $data['email'],
+                subject: 'Создание аккаунта в системе СПРУТ',
+                message: $message,
+            );
+
             return $this->json(['result' => 'success', 'id' => $lastId]);
         } else {
-            return $this->json(['result' => 'error']);
+            return $this->json(
+                [
+                    'result' => 'error',
+                    'massege' => 'password resolve'
+                ]
+            );
         }
     }
 
