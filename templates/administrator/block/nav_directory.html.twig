@@ -22,7 +22,7 @@
         </a>
     </li>
 
-    <li class="nav-item {% if controller|default(false) and controller in [] %}{% endif %} dropdown">
+    <li class="nav-item {% if controller|default(false) and controller in ['administrator_directory_cluster', 'administrator_directory_product_line', 'kafedra'] %}{% endif %} dropdown">
         <a class="nav-link dropdown-toggle show" href="#navbar-layout" data-bs-toggle="dropdown" data-bs-auto-close="false" role="button" aria-expanded="true">
         <span class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/layout-2 -->
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-schema" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -39,7 +39,6 @@
             <span class="nav-link-title">Кластеры</span>
         </a>
         <div class="dropdown-menu show" data-bs-popper="static">
-            <pre>controller: {{ controller }}</pre>
             <div class="dropdown-menu-columns">
                 <div class="dropdown-menu-column">
                     <a class="dropdown-item {% if controller|default(false) and controller == 'administrator_directory_cluster' %}active{% endif %}" href="/administrator/directory/cluster" title="Кластеры">
