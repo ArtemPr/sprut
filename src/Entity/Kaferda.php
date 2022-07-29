@@ -104,15 +104,15 @@ class Kaferda
         return $this->product_line;
     }
 
-    public function setParentId($parentId): self
+    public function setParent($parent): self
     {
-        $this->parent_id = $parentId;
+        $this->parent = $parent;
 
         return $this;
     }
 
-    public function getParentId(): int
+    public function getParent(): int
     {
-        return $this->parent_id;
+        return $this->parent;
     }
 }

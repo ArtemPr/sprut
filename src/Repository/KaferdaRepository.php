@@ -100,10 +100,12 @@ class KaferdaRepository extends ServiceEntityRepository
         $entityManager = $this->getEntityManager();
 
         $result = $entityManager->createQuery(
-            'SELECT kafedra, director, training_centre
+            'SELECT kafedra, director, training_centre, product_line, parent
                 FROM App\Entity\Kaferda kafedra
                 LEFT JOIN kafedra.director director
                 LEFT JOIN kafedra.training_centre training_centre
+                LEFT JOIN kafedra.product_line product_line
+                LEFT JOIN kafedra.parent parent
                 WHERE kafedra.id = :id'
         )->setParameter('id', $id)
             ->getResult(Query::HYDRATE_ARRAY);
